@@ -1,7 +1,8 @@
 package frc.robot.Teleop;
 
-public class TeleopControl implements Teleop {
-    
+import frc.robot.Subsystem.Subsystem;
+
+public class Teleop implements Subsystem{
 
     @Override
     public void start() {
@@ -14,4 +15,7 @@ public class TeleopControl implements Teleop {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
+    
+
+   
 }
