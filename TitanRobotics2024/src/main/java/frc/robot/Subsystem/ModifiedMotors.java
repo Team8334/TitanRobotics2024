@@ -4,15 +4,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ModifiedMotors implements Subsystem {
-
-
-    @Override
-    public void start() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'start'");
-    }
-
+public class ModifiedMotors implements Subsystem 
+{
     @Override
     public void update() {
         // TODO Auto-generated method stub
