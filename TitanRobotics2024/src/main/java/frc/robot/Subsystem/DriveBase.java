@@ -10,10 +10,8 @@ public class DriveBase implements Subsystem {
     throw new UnsupportedOperationException("Unimplemented method 'start'");
   }
 
-  public double frontLeft;
-  public double frontRight;
-  public double backLeft;
-  public double backRight;
+  private double leftPower;
+  private double rightPower;
 
   private ModifiedMotors motorRearLeft;
   private ModifiedMotors motorFrontRight;
@@ -30,19 +28,19 @@ public class DriveBase implements Subsystem {
   }
 
   public DriveBase() {
-    this.motorFrontLeft = new ModifiedMotors(PortMap.FRONTLEFT.portNumber);
-    this.motorRearLeft = new ModifiedMotors(PortMap.REARLEFT.portNumber);
-    this.motorFrontRight = new ModifiedMotors(PortMap.FRONTRIGHT.portNumber);
-    this.motorRearRight = new ModifiedMotors(PortMap.REARRIGHT.portNumber);
-    
+    this.motorFrontLeft  =  new ModifiedMotors(PortMap.FRONTLEFT.portNumber);
+    this.motorRearLeft   =  new ModifiedMotors(PortMap.REARLEFT.portNumber);
+    this.motorFrontRight =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber);
+    this.motorRearRight  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber);
+
   }
 
   public void setRightSideMotors(double power) {
-    // set the right side motors to "power"
+    this.rightPower = power;
   }
 
   public void setLeftSideMotors(double power) {
-    // set the left side motors to "power"
+    this.leftPower = power;
   }
 
   /**
@@ -50,20 +48,19 @@ public class DriveBase implements Subsystem {
    * in tank)
    */
   public void drive(double forward, double turn) {
-    this.frontLeft = (-forward + (0.35 * turn));//invert using negetive for left side motors
-    this.frontRight = (forward + (0.35 * turn));
-    this.backLeft = (-forward + (0.35 * turn));//invert using negetive for left side motors
-    this.backRight = (forward + (0.35 * turn));
+    this.leftPower = (forward - (0.35 * turn));// invert using negetive for left side motors
+    this.rightPower = (forward + (0.35 * turn));
+  
     // put code here that drives the bot using the inputs "forward" and "turn"
   }
 
   @Override
   /* Updates the state the motors are in */
   public void update() {
-    this.motorFrontLeft.set(frontLeft); // 0 is a placeholder
-    this.motorRearLeft.set(backLeft);
-    this.motorFrontRight.set(frontRight);
-    this.motorRearRight.set(backRight);
+    this.motorFrontLeft.set(-leftPower); // 0 is a placeholder
+    this.motorRearLeft.set(-leftPower);
+    this.motorFrontRight.set(rightPower);
+    this.motorRearRight.set(rightPower);
     // this.driveSave.frontleft
   }
 }
