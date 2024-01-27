@@ -1,0 +1,2 @@
+autonomous is now being split into actions and
+missions (see respective files for more information)

@@ -1,0 +1,24 @@
+Example:
+    Example action:
+        Description: Description of action
+        Inputs: Inputs required for action
+        Outputs: Outputs if action returns values
+Current Actions:
+
+ParallelAction:
+    Description: runs several actions in the same cycle
+    Inputs:
+        takes a list of actions or an array of actions
+    Outputs:
+        isFinished will return true if all actions are finished
+
+SeriesAction:
+    Description: runs several actions one after another
+    Inputs:
+        takes a list of actions or an array of actions; actions must be in order from first executed to last executed
+    Outputs:
+        isFinished will return true when all the actions have finished
+
+Explanation: Actions are individual task
+    for the robot to complet. These tasks are 
+    not missions (see missions for more informations).

@@ -1,0 +1,12 @@
+Example:
+    Example missions:
+        Description: Description of missions
+        Inputs: Inputs required for missions
+        Outputs: Outputs if missions returns values
+Current Missions:
+
+Explanation: Missions are a set of actions (see actions 
+for more details) run in a sequence mission are what are
+supposed to be called by autonomous.
+
+routine: is were the actions are run.
