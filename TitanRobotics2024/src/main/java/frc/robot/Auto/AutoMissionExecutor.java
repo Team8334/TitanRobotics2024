@@ -21,11 +21,13 @@ public class AutoMissionExecutor {
         });
     }
 
-    public void start() {
-        if (mThread != null) {
-            mThread.start();
+    public void start() 
+        {
+            if (mThread != null) 
+                {
+                    mThread.start();
+                }
         }
-    }
 
     public boolean isStarted() {
         return mAutoMission != null && mAutoMission.isActive() && mThread != null && mThread.isAlive();
