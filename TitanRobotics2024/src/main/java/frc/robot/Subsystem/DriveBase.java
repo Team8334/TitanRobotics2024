@@ -34,6 +34,7 @@ public class DriveBase implements Subsystem {
     this.motorRearLeft = new ModifiedMotors(PortMap.REARLEFT.portNumber);
     this.motorFrontRight = new ModifiedMotors(PortMap.FRONTRIGHT.portNumber);
     this.motorRearRight = new ModifiedMotors(PortMap.REARRIGHT.portNumber);
+    
   }
 
   public void setRightSideMotors(double power) {
@@ -49,10 +50,10 @@ public class DriveBase implements Subsystem {
    * in tank)
    */
   public void drive(double forward, double turn) {
-    this.frontLeft = (-forward + (0.35 * turn));
-    this.frontRight = (-forward + (0.35 * turn));
-    this.backLeft = (-forward + (0.35 * turn));
-    this.backRight = (-forward + (0.35 * turn));
+    this.frontLeft = (-forward + (0.35 * turn));//invert using negetive for left side motors
+    this.frontRight = (forward + (0.35 * turn));
+    this.backLeft = (-forward + (0.35 * turn));//invert using negetive for left side motors
+    this.backRight = (forward + (0.35 * turn));
     // put code here that drives the bot using the inputs "forward" and "turn"
   }
 
@@ -60,9 +61,9 @@ public class DriveBase implements Subsystem {
   /* Updates the state the motors are in */
   public void update() {
     this.motorFrontLeft.set(frontLeft); // 0 is a placeholder
-    this.motorRearLeft.set(0);
-    this.motorFrontRight.set(0);
-    this.motorRearRight.set(0);
+    this.motorRearLeft.set(backLeft);
+    this.motorFrontRight.set(frontRight);
+    this.motorRearRight.set(backRight);
     // this.driveSave.frontleft
   }
 }
