@@ -30,6 +30,16 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static Teleop teleop;
 
+  private static ButtonMap buttonMap;
+  private static PortMap portMap;
+
+  private static Control control;
+  private static DriveBase driveBase;
+  private static DriverController driverController;
+  private static Limelight limelight;
+  private static ModifiedMotors modifiedMotors;
+  private static OperatorController operatorController;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
