@@ -1,7 +1,7 @@
-package frc.Auto.Actions;
-//import frc.robot.Auto.Actions.Actions;
+package frc.robot.Auto.Actions;
+
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Subsystems.DriveBase;
+import frc.robot.Subsystem.DriveBase;
 
 public class DriveForTimeAction implements Actions
 {   
@@ -30,7 +30,7 @@ public class DriveForTimeAction implements Actions
      */
     @Override
     public void update(){
-    mDrive.driveArcade(this.speed, 0);
+    mDrive.drive(this.speed, 0);
     }
 
     /**
@@ -54,7 +54,7 @@ public class DriveForTimeAction implements Actions
      */
     @Override
     public void done(){
-        mDrive.driveArcade(0, 0);
+        mDrive.drive(0, 0);
     }
 
 }

@@ -1,8 +1,8 @@
-package frc.Auto.Missions;
+package frc.robot.Auto.Missions;
 
-import frc.Auto.AutoModeEndedException;
-import frc.Auto.Actions.DriveForTimeAction;
-import frc.Auto.Actions.ParallelAction;
+import frc.robot.Auto.AutoModeEndedException;
+import frc.robot.Auto.Actions.DriveForTimeAction;
+import frc.robot.Auto.Actions.ParallelAction;
 
 public class ExampleMission extends MissionBase {
     @Override

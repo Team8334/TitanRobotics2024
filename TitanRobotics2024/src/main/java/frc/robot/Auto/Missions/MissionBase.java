@@ -1,6 +1,6 @@
-package frc.Auto.Missions;
-import frc.Auto.AutoModeEndedException;
-import frc.Auto.Actions.Actions;
+package frc.robot.Auto.Missions;
+import frc.robot.Auto.AutoModeEndedException;
+import frc.robot.Auto.Actions.Actions;
 import edu.wpi.first.wpilibj.DriverStation;
 
 public abstract class MissionBase {

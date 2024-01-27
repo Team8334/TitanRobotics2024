@@ -1,6 +1,6 @@
-package frc.Auto;
+package frc.robot.Auto;
 
-import frc.Auto.Missions.MissionBase;
+import frc.robot.Auto.Missions.MissionBase;
 
 /**
  * This class selects, runs, and (if necessary) stops a specified autonomous Mission.

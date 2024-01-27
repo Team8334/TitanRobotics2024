@@ -1,4 +1,4 @@
-package frc.Auto;
+package frc.robot.Auto;
 
 /**
  * Exception thrown when an auto mode ends unexpectedly
