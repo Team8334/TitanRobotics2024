@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ModifiedMotors implements Subsystem {
 
-
     @Override
     public void start() {
         // TODO Auto-generated method stub
@@ -18,20 +17,16 @@ public class ModifiedMotors implements Subsystem {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
-    
-     private int portNumber;
+
+    private int portNumber;
     private final MotorController motor;
-    
-    public ModifiedMotors(int portNumber) 
-    {
+
+    public ModifiedMotors(int portNumber) {
         this.portNumber = portNumber;
         MotorController motorTemporarily;
-        try 
-        {
+        try {
             motorTemporarily = new PWMVictorSPX(portNumber);
-        }
-        catch (Exception motorNotIdenitfied) 
-        {
+        } catch (Exception motorNotIdenitfied) {
             motorTemporarily = null;
             SmartDashboard.putNumber("Error: Port Not Activated", this.portNumber);
         }
