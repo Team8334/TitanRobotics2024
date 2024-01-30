@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 import frc.robot.ExternalLibraries.LimelightHelpers;
@@ -68,16 +69,22 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
-  public void robotInit() 
-  {
-      m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-      m_chooser.addOption("My Auto", kCustomAuto);
-      SmartDashboard.putData("Auto choices", m_chooser);
-      
-      //post to smart dashboard periodically
-      SmartDashboard.putNumber("LimelightX", x);
-      SmartDashboard.putNumber("LimelightY", y);
-      SmartDashboard.putNumber("LimelightArea", area);
+  public void robotInit() {
+    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+    m_chooser.addOption("My Auto", kCustomAuto);
+    SmartDashboard.putData("Auto choices", m_chooser);
+
+    //post to smart dashboard periodically
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightArea", area);
+
+    control = Control.getInstance();
+    driveBase = DriveBase.getInstance();
+    driverController = DriverController.getInstance();
+    limelight = Limelight.getInstance();
+    modifiedMotors = ModifiedMotors.getInstance();
+    operatorController = OperatorController.getInstance();
   }
 
   /**
@@ -92,6 +99,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    control.update();
+    driveBase.update();
+    driverController.update();
+    limelight.update();
+    modifiedMotors.update();
+    operatorController.update();
   }
 
   /**
