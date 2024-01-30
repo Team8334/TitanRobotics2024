@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 import frc.robot.ExternalLibraries.LimelightHelpers;
+import frc.robot.Subsystem.AprilTagTargeting;
 import frc.robot.Subsystem.Control;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
@@ -17,6 +18,10 @@ import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.ModifiedMotors;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Teleop.Teleop;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 /**
@@ -45,6 +50,17 @@ public class Robot extends TimedRobot {
   private static Limelight limelight;
   private static ModifiedMotors modifiedMotors;
   private static OperatorController operatorController;
+  private static AprilTagTargeting aprilTagTargeting = new AprilTagTargeting();
+
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry tx = table.getEntry("tx");
+  NetworkTableEntry ty = table.getEntry("ty");
+  NetworkTableEntry ta = table.getEntry("ta");
+
+  //read values periodically
+  double x = tx.getDouble(0.0);
+  double y = ty.getDouble(0.0);
+  double area = ta.getDouble(0.0);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -52,10 +68,16 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
-  public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+  public void robotInit() 
+  {
+      m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+      m_chooser.addOption("My Auto", kCustomAuto);
+      SmartDashboard.putData("Auto choices", m_chooser);
+      
+      //post to smart dashboard periodically
+      SmartDashboard.putNumber("LimelightX", x);
+      SmartDashboard.putNumber("LimelightY", y);
+      SmartDashboard.putNumber("LimelightArea", area);
   }
 
   /**
@@ -118,7 +140,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    teleop.update();
+    //teleop.update();
   }
 
   /** This function is called once when the robot is disabled. */

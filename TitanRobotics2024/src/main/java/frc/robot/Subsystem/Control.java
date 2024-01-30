@@ -3,6 +3,7 @@ package frc.robot.Subsystem;
 public class Control implements Subsystem 
 {
     private DriveBase driveBase;
+    private AprilTagTargeting aprilTagTargeting;
     private static Control instance = null;
 
     public static Control getInstance() 
@@ -16,6 +17,7 @@ public class Control implements Subsystem
     public Control()
     {
         driveBase = DriveBase.getInstance();
+        aprilTagTargeting = AprilTagTargeting.getInstance();
     }
 
     public void start() 
@@ -25,7 +27,7 @@ public class Control implements Subsystem
 
     public void update() 
     {
-
+       
     }
 
 }

@@ -15,6 +15,7 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
     }
 
 
+
     String alliance = "red";
 
     boolean TargetingStage = false;
@@ -41,6 +42,11 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
     public double GetId() //finds April Tag ID. This is a variable, not a function.
     {
         return LimelightHelpers.getFiducialID("");
+    }
+
+     public void AprilTagView()
+    {
+        System.out.println(GetId());
     }
 
     public void findAmp() //Looks for the amp and reacts when it is found. Amp April Tag ID is 5 for red, 6 for blue.
