@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
     limelight = Limelight.getInstance();
-    modifiedMotors = ModifiedMotors.getInstance();
+    //modifiedMotors = ModifiedMotors.getInstance();
     operatorController = OperatorController.getInstance();
   }
 
@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
     control.update();
     driveBase.update();
     driverController.update();
-    limelight.update();
+    //limelight.update();
     modifiedMotors.update();
     operatorController.update();
   }

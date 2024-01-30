@@ -1,8 +1,11 @@
 package frc.robot.Subsystem;
 
+import frc.robot.Data.ButtonMap;
+
 public class Control implements Subsystem 
 {
     private DriveBase driveBase;
+    private DriverController driverController;
     private static Control instance = null;
 
     public static Control getInstance() 
@@ -16,6 +19,13 @@ public class Control implements Subsystem
     public Control()
     {
         driveBase = DriveBase.getInstance();
+    }
+
+    public void TeleopControl()
+    {
+        double forward = driverController.getStick(ButtonMap.XboxLEFTSTICKY);
+        double turn = driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
+        driveBase.drive(forward, turn);
     }
 
     public void start() 

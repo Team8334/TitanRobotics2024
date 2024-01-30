@@ -4,11 +4,6 @@ import frc.robot.Data.PortMap;
 
 public class DriveBase implements Subsystem {
 
-  @Override
-  public void start() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'start'");
-  }
 
   private double leftPower;
   private double rightPower;
