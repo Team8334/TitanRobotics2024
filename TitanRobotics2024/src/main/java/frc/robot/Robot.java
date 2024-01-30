@@ -12,7 +12,6 @@ import frc.robot.Data.PortMap;
 import frc.robot.Subsystem.Control;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
-import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.ModifiedMotors;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Teleop.Teleop;
@@ -36,7 +35,6 @@ public class Robot extends TimedRobot {
   private static Control control;
   private static DriveBase driveBase;
   private static DriverController driverController;
-  private static Limelight limelight;
   private static ModifiedMotors modifiedMotors;
   private static OperatorController operatorController;
 
