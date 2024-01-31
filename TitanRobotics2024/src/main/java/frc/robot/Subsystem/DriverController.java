@@ -3,11 +3,12 @@ package frc.robot.Subsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
+import frc.robot.Data.PortMap;
 
 public class DriverController implements Subsystem 
 {
+    private XboxController xboxController; 
     private static DriverController instance = null;
-      private XboxController xboxController; 
 
     public static DriverController getInstance() 
     {
@@ -19,7 +20,7 @@ public class DriverController implements Subsystem
 
     public DriverController()
     {
-        
+        this.xboxController = new XboxController(PortMap.XBOX_DRIVER_CONTROLLER.portNumber);       
     }
 
     public double getStick(ButtonMap stickAxis) 
@@ -55,7 +56,7 @@ public class DriverController implements Subsystem
     public void update() 
     {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        // throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
 }
