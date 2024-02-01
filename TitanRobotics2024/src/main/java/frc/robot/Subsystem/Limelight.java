@@ -11,5 +11,6 @@ public class Limelight
         }
         return instance;
     }
+    public void update(){}
 
 }

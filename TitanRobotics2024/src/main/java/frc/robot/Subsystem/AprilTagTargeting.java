@@ -41,7 +41,7 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
  
     public double GetId() //finds April Tag ID. This is a variable, not a function.
     {
-        return LimelightHelpers.getFiducialID("");
+        return LimelightHelpers.getFiducialID("limelight");
     }
 
      public void AprilTagView()

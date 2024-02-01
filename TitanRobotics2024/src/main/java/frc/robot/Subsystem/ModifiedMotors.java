@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ModifiedMotors implements Subsystem 
 {
+    private static ModifiedMotors instance = null;
+
+ 
     @Override
     public void update() {
         // TODO Auto-generated method stub
@@ -30,6 +33,16 @@ public class ModifiedMotors implements Subsystem
         }
         motor = motorTemporarily;
     }
+
+       public static ModifiedMotors getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new ModifiedMotors(-1);
+        }
+        return instance;
+    }
+
 
     public void set(double speed) {
         if (this.motor != null) {
