@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -73,7 +74,7 @@ public class Robot extends TimedRobot {
     NetworkTableEntry ta = table.getEntry("ta");
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
     //limelight:12v/2a, switch:5v/500ma
-    
+
     //read values periodically
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);
@@ -161,6 +162,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     aprilTagTargeting.AprilTagView();
+    System.out.println(aprilTagTargeting.viewPose());
     //teleop.update();
   }
 

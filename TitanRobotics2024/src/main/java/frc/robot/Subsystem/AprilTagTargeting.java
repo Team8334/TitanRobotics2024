@@ -1,6 +1,8 @@
 package frc.robot.Subsystem;
 
 import frc.robot.ExternalLibraries.LimelightHelpers;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Pose2d;
 
 public class AprilTagTargeting implements Subsystem //This class contains functions for finding and locking onto elements of the field using their April Tags.
 {
@@ -41,7 +43,11 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
  
     public double GetId() //finds April Tag ID. This is a variable, not a function.
     {
-        return LimelightHelpers.getFiducialID("limelight");
+        return LimelightHelpers.getFiducialID("");
+    }
+    public double[] viewPose()
+    {
+        return LimelightHelpers.getBotPose(alliance);
     }
 
      public void AprilTagView()
