@@ -23,10 +23,10 @@ public class DriveBase implements Subsystem {
   }
 
   public DriveBase() {
-    this.motorFrontLeft  =  new ModifiedMotors(PortMap.FRONTLEFT.portNumber);
-    this.motorRearLeft   =  new ModifiedMotors(PortMap.REARLEFT.portNumber);
-    this.motorFrontRight =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber);
-    this.motorRearRight  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber);
+    this.motorFrontLeft  =  new ModifiedMotors(PortMap.FRONTLEFT.portNumber, "CANVictorSPX");
+    this.motorRearLeft   =  new ModifiedMotors(PortMap.REARLEFT.portNumber, "CANVictorSPX");
+    this.motorFrontRight =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, "CANVictorSPX");
+    this.motorRearRight  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber, "CANVictorSPX");
 
   }
 
@@ -52,10 +52,10 @@ public class DriveBase implements Subsystem {
   @Override
   /* Updates the state the motors are in */
   public void update() {
-    this.motorFrontLeft.set(-leftPower); // 0 is a placeholder
-    this.motorRearLeft.set(-leftPower);
-    this.motorFrontRight.set(rightPower);
-    this.motorRearRight.set(rightPower);
+    this.motorFrontLeft.set(leftPower); // 0 is a placeholder
+    this.motorRearLeft.set(leftPower);
+    this.motorFrontRight.set(-rightPower);
+    this.motorRearRight.set(-rightPower);
     // this.driveSave.frontleft
   }
 }

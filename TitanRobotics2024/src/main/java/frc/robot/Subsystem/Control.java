@@ -5,7 +5,7 @@ import frc.robot.Data.ButtonMap;
 public class Control implements Subsystem 
 {
     private DriveBase driveBase;
-    private DriverController driverController;
+    private static DriverController driverController = null;
     private static Control instance = null;
 
     public static Control getInstance() 
@@ -18,15 +18,15 @@ public class Control implements Subsystem
 
     public Control()
     {
-        this.driveBase = DriveBase.getInstance();
-        this.driverController = DriverController.getInstance();
+        driveBase = DriveBase.getInstance();
+        driverController = DriverController.getInstance();
     }
 
     public void TeleopControl()
     {
-       // double forward = this.driverController.getStick(ButtonMap.XboxLEFTSTICKY);
-        //double turn = this.driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
-        this.driveBase.drive(1, 0);
+        double forward = driverController.getStick(ButtonMap.XboxLEFTSTICKY);
+        double turn = driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
+        driveBase.drive(0.5, 0);
     }
 
     public void start() 
