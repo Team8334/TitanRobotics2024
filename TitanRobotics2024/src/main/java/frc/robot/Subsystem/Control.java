@@ -26,7 +26,7 @@ public class Control implements Subsystem
     {
         double forward = driverController.getStick(ButtonMap.XboxLEFTSTICKY);
         double turn = driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
-        driveBase.drive(0.5, 0);
+        driveBase.drive(forward, turn);
     }
 
     public void start() 
