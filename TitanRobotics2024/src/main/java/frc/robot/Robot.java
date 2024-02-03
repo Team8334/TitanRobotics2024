@@ -57,7 +57,6 @@ public class Robot extends TimedRobot {
     control = Control.getInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
-    //modifiedMotors = ModifiedMotors.getInstance();
     operatorController = OperatorController.getInstance();
   }
 
@@ -76,7 +75,6 @@ public class Robot extends TimedRobot {
     control.update();
     driveBase.update();
     driverController.update();
-    //limelight.update();
     operatorController.update();
   }
 
@@ -100,7 +98,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
   }
 
@@ -126,7 +123,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    control.TeleopControl();
+    control.teleopControl();
   }
 
   /** This function is called once when the robot is disabled. */

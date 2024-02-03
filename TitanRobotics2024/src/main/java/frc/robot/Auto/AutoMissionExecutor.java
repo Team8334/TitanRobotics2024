@@ -3,7 +3,8 @@ package frc.robot.Auto;
 import frc.robot.Auto.Missions.MissionBase;
 
 /**
- * This class selects, runs, and (if necessary) stops a specified autonomous Mission.
+ * This class selects, runs, and (if necessary) stops a specified autonomous
+ * Mission.
  */
 public class AutoMissionExecutor {
     private MissionBase mAutoMission = null;
@@ -11,9 +12,9 @@ public class AutoMissionExecutor {
 
     public void setAutoMission(MissionBase new_auto_Mission) {
         mAutoMission = new_auto_Mission;
-        mThread = new Thread( new Runnable(){
+        mThread = new Thread(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 if (mAutoMission != null) {
                     mAutoMission.run();
                 }
@@ -21,13 +22,11 @@ public class AutoMissionExecutor {
         });
     }
 
-    public void start() 
-        {
-            if (mThread != null) 
-                {
-                    mThread.start();
-                }
+    public void start() {
+        if (mThread != null) {
+            mThread.start();
         }
+    }
 
     public boolean isStarted() {
         return mAutoMission != null && mAutoMission.isActive() && mThread != null && mThread.isAlive();

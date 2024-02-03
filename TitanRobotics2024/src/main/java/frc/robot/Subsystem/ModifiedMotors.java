@@ -7,12 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ModifiedMotors implements Subsystem {
 
-    // @Override
-    // public void start() {
-    // // TODO Auto-generated method stub
-    // throw new UnsupportedOperationException("Unimplemented method 'start'");
-    // }
-
     @Override
     public void update() {
         // TODO Auto-generated method stub
@@ -22,6 +16,14 @@ public class ModifiedMotors implements Subsystem {
     private int portNumber;
     private final MotorController motor;
 
+    /**
+     * Constructor for ModifiedMotors class.
+     * Initializes the motor based on the specified motor type and port number.
+     * 
+     * @param portNumber the port number of the motor
+     * @param motorType  the type of the motor (e.g., "PWMVictorSPX" or "CANVictorSPX")
+     */
+    
     public ModifiedMotors(int portNumber, String motorType) {
         this.portNumber = portNumber;
         MotorController motorTemporarily = null;
@@ -37,7 +39,7 @@ public class ModifiedMotors implements Subsystem {
         }
         motor = motorTemporarily;
     }
-  
+
     private MotorController initializePWMVictorSPX(int portNumber) {
         try {
             return new PWMVictorSPX(portNumber);
@@ -46,7 +48,7 @@ public class ModifiedMotors implements Subsystem {
             return null;
         }
     }
-  
+
     private MotorController initializeCANVictorSPX(int portNumber) {
         try {
             return new WPI_VictorSPX(portNumber);

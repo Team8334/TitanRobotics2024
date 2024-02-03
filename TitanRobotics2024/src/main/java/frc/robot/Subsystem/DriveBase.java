@@ -8,10 +8,10 @@ public class DriveBase implements Subsystem {
   private double leftPower;
   private double rightPower;
 
-  private ModifiedMotors motorRearLeft;
-  private ModifiedMotors motorFrontRight;
-  private ModifiedMotors motorRearRight;
-  private ModifiedMotors motorFrontLeft;
+  private ModifiedMotors rearLeftMotor;
+  private ModifiedMotors frontRightMotor;
+  private ModifiedMotors rearRightMotor;
+  private ModifiedMotors frontLeftMotor;
 
   private static DriveBase instance = null;
 
@@ -23,18 +23,18 @@ public class DriveBase implements Subsystem {
   }
 
   public DriveBase() {
-    this.motorFrontLeft  =  new ModifiedMotors(PortMap.FRONTLEFT.portNumber, "CANVictorSPX");
-    this.motorRearLeft   =  new ModifiedMotors(PortMap.REARLEFT.portNumber, "CANVictorSPX");
-    this.motorFrontRight =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, "CANVictorSPX");
-    this.motorRearRight  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber, "CANVictorSPX");
+    this.frontLeftMotor  =  new ModifiedMotors(PortMap.FRONTLEFT.portNumber, "CANVictorSPX");
+    this.rearLeftMotor   =  new ModifiedMotors(PortMap.REARLEFT.portNumber, "CANVictorSPX");
+    this.frontRightMotor =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, "CANVictorSPX");
+    this.rearRightMotor  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber, "CANVictorSPX");
 
   }
 
-  public void setRightSideMotors(double power) {
+  public void setRighMotorsPower(double power) {
     this.rightPower = power;
   }
 
-  public void setLeftSideMotors(double power) {
+  public void setLeftMotorsPower(double power) {
     this.leftPower = power;
   }
 
@@ -46,9 +46,9 @@ public class DriveBase implements Subsystem {
   @Override
   /* Updates the state the motors are in */
   public void update() {
-    this.motorFrontLeft.set(leftPower); 
-    this.motorRearLeft.set(leftPower);
-    this.motorFrontRight.set(-rightPower);
-    this.motorRearRight.set(-rightPower);
+    this.frontLeftMotor.set(leftPower); 
+    this.rearLeftMotor.set(leftPower);
+    this.frontRightMotor.set(-rightPower);
+    this.rearRightMotor.set(-rightPower);
   }
 }

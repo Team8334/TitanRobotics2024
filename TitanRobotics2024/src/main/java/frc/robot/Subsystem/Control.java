@@ -22,7 +22,7 @@ public class Control implements Subsystem
         driverController = DriverController.getInstance();
     }
 
-    public void TeleopControl()
+    public void teleopControl()
     {
         double forward = driverController.getStick(ButtonMap.XboxLEFTSTICKY);
         double turn = driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
