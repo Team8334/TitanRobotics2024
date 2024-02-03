@@ -45,15 +45,6 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
     {
         return LimelightHelpers.getFiducialID("");
     }
-    public double[] viewPose()
-    {
-        return LimelightHelpers.getBotPose(alliance);
-    }
-
-     public void AprilTagView()
-    {
-        System.out.println(GetId());
-    }
 
     public void findAmp() //Looks for the amp and reacts when it is found. Amp April Tag ID is 5 for red, 6 for blue.
     {

@@ -19,7 +19,6 @@ import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.ModifiedMotors;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Teleop.Teleop;
-import frc.robot.Subsystem.AprilTagTargeting;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -54,6 +53,10 @@ public class Robot extends TimedRobot {
   private static OperatorController operatorController;
   private static AprilTagTargeting aprilTagTargeting;
 
+  NetworkTableEntry tx;
+  NetworkTableEntry ty;
+  NetworkTableEntry ta;
+
   
 
   /**
@@ -69,21 +72,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
-    NetworkTableEntry ta = table.getEntry("ta");
+    tx = table.getEntry("tx");
+    ty = table.getEntry("ty");
+    ta = table.getEntry("ta");
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
     //limelight:12v/2a, switch:5v/500ma
-
-    //read values periodically
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
-
-    //post to smart dashboard periodically
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area);
 
     /*control = Control.getInstance();
     driveBase = DriveBase.getInstance();
@@ -92,6 +85,7 @@ public class Robot extends TimedRobot {
     modifiedMotors = ModifiedMotors.getInstance();
     operatorController = OperatorController.getInstance();*/
     aprilTagTargeting = AprilTagTargeting.getInstance();
+    limelightHelpers = new LimelightHelpers();
   }
 
   /**
@@ -113,6 +107,16 @@ public class Robot extends TimedRobot {
     modifiedMotors.update();
     operatorController.update();*/
     aprilTagTargeting.update();
+
+    //read values periodically
+    double x = tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
+    double area = ta.getDouble(0.0);
+
+    //post to smart dashboard periodically
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightArea", area);
   }
 
   /**
@@ -161,8 +165,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    aprilTagTargeting.AprilTagView();
-    System.out.println(aprilTagTargeting.viewPose());
+    System.out.println(LimelightHelpers.getFiducialID(""));
+    System.out.println(LimelightHelpers.getBotPose2d(""));
     //teleop.update();
   }
 
