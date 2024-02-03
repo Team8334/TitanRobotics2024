@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,11 +20,6 @@ import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.ModifiedMotors;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Teleop.Teleop;
-
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -53,10 +49,6 @@ public class Robot extends TimedRobot {
   private static OperatorController operatorController;
   private static AprilTagTargeting aprilTagTargeting;
 
-  NetworkTableEntry tx;
-  NetworkTableEntry ty;
-  NetworkTableEntry ta;
-
   
 
   /**
@@ -71,19 +63,15 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    tx = table.getEntry("tx");
-    ty = table.getEntry("ty");
-    ta = table.getEntry("ta");
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
+    
     //limelight:12v/2a, switch:5v/500ma
 
-    /*control = Control.getInstance();
-    driveBase = DriveBase.getInstance();
-    driverController = DriverController.getInstance();
+    //control = Control.getInstance();
+    //driveBase = DriveBase.getInstance();
+    //driverController = DriverController.getInstance();
     limelight = Limelight.getInstance();
-    modifiedMotors = ModifiedMotors.getInstance();
-    operatorController = OperatorController.getInstance();*/
+    //modifiedMotors = ModifiedMotors.getInstance();
+    //operatorController = OperatorController.getInstance();*/
     aprilTagTargeting = AprilTagTargeting.getInstance();
     limelightHelpers = new LimelightHelpers();
   }
@@ -100,23 +88,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    /*control.update();
-    driveBase.update();
-    driverController.update();
+    //control.update();
+    //driveBase.update();
+    //driverController.update();
     limelight.update();
-    modifiedMotors.update();
-    operatorController.update();*/
+    //modifiedMotors.update();
+    //operatorController.update();*/
     aprilTagTargeting.update();
-
-    //read values periodically
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
-
-    //post to smart dashboard periodically
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area);
+    
+    System.out.println(LimelightHelpers.getFiducialID(""));
+    System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
   }
 
   /**
@@ -165,8 +146,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    System.out.println(LimelightHelpers.getFiducialID(""));
-    System.out.println(LimelightHelpers.getBotPose2d(""));
     //teleop.update();
   }
 

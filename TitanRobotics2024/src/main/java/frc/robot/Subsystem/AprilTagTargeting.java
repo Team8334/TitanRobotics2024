@@ -16,8 +16,6 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
         return instance;
     }
 
-
-
     String alliance = "red";
 
     boolean TargetingStage = false;
