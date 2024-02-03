@@ -24,30 +24,36 @@ public class ModifiedMotors implements Subsystem {
 
     public ModifiedMotors(int portNumber, String motorType) {
         this.portNumber = portNumber;
-        MotorController motorTemporarily;
+        MotorController motorTemporarily = null;
         switch (motorType) {
             case "PWMVictorSPX":
-                try {
-                    motorTemporarily = new PWMVictorSPX(portNumber);
-                } catch (Exception motorNotIdenitfied) {
-                    motorTemporarily = null;
-                    System.err.println("Error: Port Not Activated" + this.portNumber);
-                }
-
+                motorTemporarily = initializePWMVictorSPX(portNumber);
                 break;
             case "CANVictorSPX":
-                try {
-                    motorTemporarily = new WPI_VictorSPX(portNumber);
-                } catch (Exception motorNotIdenitfied) {
-                    motorTemporarily = null;
-                    System.err.println("Error: CANID Not Activated" + this.portNumber);
-                }
+                motorTemporarily = initializeCANVictorSPX(portNumber);
                 break;
             default:
-            System.err.println("Error: motors not activated");
-            motorTemporarily = null;
+                System.err.println("Error: motors not activated");
         }
         motor = motorTemporarily;
+    }
+  
+    private MotorController initializePWMVictorSPX(int portNumber) {
+        try {
+            return new PWMVictorSPX(portNumber);
+        } catch (Exception e) {
+            System.err.println("Error: Port Not Activated " + portNumber);
+            return null;
+        }
+    }
+  
+    private MotorController initializeCANVictorSPX(int portNumber) {
+        try {
+            return new WPI_VictorSPX(portNumber);
+        } catch (Exception e) {
+            System.err.println("Error: CANID Not Activated " + portNumber);
+            return null;
+        }
     }
 
     public void set(double speed) {
