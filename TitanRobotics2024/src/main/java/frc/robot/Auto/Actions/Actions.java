@@ -1,6 +1,7 @@
 package frc.robot.Auto.Actions;
 
-public interface Actions {
+public interface Actions 
+{
     /**
      * Run code once when the action is started, for setup
      */

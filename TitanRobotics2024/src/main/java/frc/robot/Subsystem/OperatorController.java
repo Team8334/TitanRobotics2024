@@ -6,7 +6,8 @@ public class OperatorController implements Subsystem
 
     public static OperatorController getInstance() 
     {
-        if (instance == null) {
+        if (instance == null) 
+        {
             instance = new OperatorController();
         }
         return instance;
@@ -18,17 +19,9 @@ public class OperatorController implements Subsystem
     }
 
     @Override
-    public void start() 
-    {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'start'");
-    }
-
-    @Override
     public void update() 
     {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
 }
