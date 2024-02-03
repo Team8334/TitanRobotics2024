@@ -8,17 +8,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.Data.ButtonMap;
-import frc.robot.Data.PortMap;
-import frc.robot.ExternalLibraries.LimelightHelpers;
-import frc.robot.Subsystem.AprilTagTargeting;
-import frc.robot.Subsystem.Control;
-import frc.robot.Subsystem.DriveBase;
-import frc.robot.Subsystem.DriverController;
-import frc.robot.Subsystem.Limelight;
-import frc.robot.Subsystem.ModifiedMotors;
-import frc.robot.Subsystem.OperatorController;
 import frc.robot.Teleop.Teleop;
 
 /**
@@ -36,20 +25,6 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static Teleop teleop;
-
-  private static ButtonMap buttonMap;
-  private static PortMap portMap;
-
-  private static LimelightHelpers limelightHelpers;
-  private static Control control;
-  private static DriveBase driveBase;
-  private static DriverController driverController;
-  private static Limelight limelight;
-  private static ModifiedMotors modifiedMotors;
-  private static OperatorController operatorController;
-  private static AprilTagTargeting aprilTagTargeting;
-
-  
 
   /**
    * This function is run when the robot is first started up and should be used
