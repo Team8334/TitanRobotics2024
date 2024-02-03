@@ -10,11 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
-import frc.robot.ExternalLibraries.LimelightHelpers;
 import frc.robot.Subsystem.Control;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
-import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Teleop.Teleop;
 
@@ -38,11 +36,9 @@ public class Robot extends TimedRobot {
   private static ButtonMap buttonMap;
   private static PortMap portMap;
 
-  private static LimelightHelpers limelightHelpers;
   private static Control control;
   private static DriveBase driveBase;
   private static DriverController driverController;
-  private static Limelight limelight;
   private static OperatorController operatorController;
 
   /**
@@ -61,7 +57,6 @@ public class Robot extends TimedRobot {
     control = Control.getInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
-    limelight = Limelight.getInstance();
     //modifiedMotors = ModifiedMotors.getInstance();
     operatorController = OperatorController.getInstance();
   }

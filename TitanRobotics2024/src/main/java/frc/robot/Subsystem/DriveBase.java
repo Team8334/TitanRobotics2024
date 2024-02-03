@@ -38,24 +38,17 @@ public class DriveBase implements Subsystem {
     this.leftPower = power;
   }
 
-  /**
-   * Control Type: Left Stick controls speed; Right Stick controls direction (Used
-   * in tank)
-   */
   public void drive(double forward, double turn) {
-    this.leftPower = (forward - (0.35 * turn));// invert using negetive for left side motors
+    this.leftPower = (forward - (0.35 * turn));
     this.rightPower = (forward + (0.35 * turn));
-  
-    // put code here that drives the bot using the inputs "forward" and "turn"
   }
 
   @Override
   /* Updates the state the motors are in */
   public void update() {
-    this.motorFrontLeft.set(leftPower); // 0 is a placeholder
+    this.motorFrontLeft.set(leftPower); 
     this.motorRearLeft.set(leftPower);
     this.motorFrontRight.set(-rightPower);
     this.motorRearRight.set(-rightPower);
-    // this.driveSave.frontleft
   }
 }
