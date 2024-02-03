@@ -9,9 +9,8 @@ public enum PortMap {
     REARRIGHT(2),
     FRONTLEFT(0),
     REARLEFT(1),
-    ARMPIVOTMOTOR(4),
-    armCANID(21), 
-    clawCANID(6); 
+    CLIMBMOTORLEFT(0),
+    CLIMBMOTORRIGHT(0);
 
 
     public int portNumber;
