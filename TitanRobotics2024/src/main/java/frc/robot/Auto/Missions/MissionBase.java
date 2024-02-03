@@ -3,7 +3,8 @@ import frc.robot.Auto.AutoModeEndedException;
 import frc.robot.Auto.Actions.Actions;
 import edu.wpi.first.wpilibj.DriverStation;
 
-public abstract class MissionBase {
+public abstract class MissionBase 
+{
 
 
 /**
@@ -18,16 +19,19 @@ public abstract class MissionBase {
 
     protected abstract void routine() throws AutoModeEndedException;
 
-    public void setStartPose() {
+    public void setStartPose() 
+    {
         //Drive.getInstance().setHeading(mStartPose.getRotation()); //if one day track position
     }
 
-    public void run() {
+    public void run() 
+    {
         mActive = true;
 
         try {
             routine();
-        } catch (AutoModeEndedException e) {
+        } catch (AutoModeEndedException e) 
+        {
             DriverStation.reportError("AUTO MODE DONE!!!! ENDED EARLY!!!!", false);
             return;
         }
@@ -35,20 +39,25 @@ public abstract class MissionBase {
         done();
     }
 
-    public void done() {
+    public void done() 
+    {
         System.out.println("Auto mode done");
     }
 
-    public void stop() {
+    public void stop() 
+    {
         mActive = false;
     }
 
-    public boolean isActive() {
+    public boolean isActive() 
+    {
         return mActive;
     }
 
-    public boolean isActiveWithThrow() throws AutoModeEndedException {
-        if (!isActive()) {
+    public boolean isActiveWithThrow() throws AutoModeEndedException 
+    {
+        if (!isActive()) 
+        {
             throw new AutoModeEndedException();
         }
 
@@ -62,25 +71,31 @@ public abstract class MissionBase {
         runAction(new NoopAction());
     }*/
 
-    public void interrupt() {
+    public void interrupt() 
+    {
         System.out.println("** Auto mode interrrupted!");
         mIsInterrupted = true;
     }
 
-    public void resume() {
+    public void resume() 
+    {
         System.out.println("** Auto mode resumed!");
         mIsInterrupted = false;
     }
 
-    public void runAction(Actions action) throws AutoModeEndedException {
+    public void runAction(Actions action) throws AutoModeEndedException 
+    {
         isActiveWithThrow();
         long waitTime = (long) (mUpdateRate * 1000.0);
 
         // WaitForNumBannerSensorsAction for interrupt state to clear
-        while (isActiveWithThrow() && mIsInterrupted) {
-            try {
+        while (isActiveWithThrow() && mIsInterrupted) 
+        {
+            try 
+            {
                 Thread.sleep(waitTime);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e) 
+            {
                 e.printStackTrace();
             }
         }
@@ -88,12 +103,15 @@ public abstract class MissionBase {
         action.start();
 
         // Run action, stop action on interrupt, non active mode, or done
-        while (isActiveWithThrow() && !action.isFinished() && !mIsInterrupted) {
+        while (isActiveWithThrow() && !action.isFinished() && !mIsInterrupted) 
+        {
             action.update();
 
-            try {
+            try 
+            {
                 Thread.sleep(waitTime);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e) 
+            {
                 e.printStackTrace();
             }
         }
@@ -102,7 +120,8 @@ public abstract class MissionBase {
 
     }
 
-    public boolean getIsInterrupted() {
+    public boolean getIsInterrupted() 
+    {
         return mIsInterrupted;
     }
 }

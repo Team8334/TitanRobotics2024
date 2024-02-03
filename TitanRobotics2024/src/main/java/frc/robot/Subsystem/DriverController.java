@@ -5,25 +5,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 
-public class DriverController implements Subsystem {
+public class DriverController implements Subsystem 
+{
     private XboxController xboxController;
     private static DriverController instance = null;
 
-    public static DriverController getInstance() {
-        if (instance == null) {
+    public static DriverController getInstance() 
+    {
+        if (instance == null) 
+        {
             instance = new DriverController();
         }
         return instance;
     }
 
-    public DriverController() {
+    public DriverController() 
+    {
         this.xboxController = new XboxController(PortMap.XBOX_DRIVER_CONTROLLER.portNumber);
     }
 
-    public double getStick(ButtonMap stickAxis) {
-        if (this.xboxController != null) {
-            try {
-                switch (stickAxis) {
+    public double getStick(ButtonMap stickAxis) 
+    {
+        if (this.xboxController != null) 
+        {
+            try 
+            {
+                switch (stickAxis) 
+                {
                     case XboxLEFTSTICKX:
                         return xboxController.getRawAxis(0);
                     case XboxLEFTSTICKY:
@@ -35,17 +43,20 @@ public class DriverController implements Subsystem {
                     default:
                         return 0;
                 }
-            } catch (Exception AxisNotFound) {
+            } catch (Exception AxisNotFound) 
+            {
                 SmartDashboard.putString("ControllerError", "AxisNotFound");
                 return 0;
             }
-        } else {
+        } else 
+        {
             return 0;
         }
     }
 
     @Override
-    public void update() {
+    public void update() 
+    {
         // TODO Auto-generated method stub
     }
 

@@ -2,7 +2,8 @@ package frc.robot.Subsystem;
 
 import frc.robot.Data.PortMap;
 
-public class DriveBase implements Subsystem {
+public class DriveBase implements Subsystem 
+{
 
 
   private double leftPower;
@@ -15,14 +16,17 @@ public class DriveBase implements Subsystem {
 
   private static DriveBase instance = null;
 
-  public static DriveBase getInstance() {
-    if (instance == null) {
+  public static DriveBase getInstance() 
+  {
+    if (instance == null) 
+    {
       instance = new DriveBase();
     }
     return instance;
   }
 
-  public DriveBase() {
+  public DriveBase() 
+  {
     this.frontLeftMotor  =  new ModifiedMotors(PortMap.FRONTLEFT.portNumber, "CANVictorSPX");
     this.rearLeftMotor   =  new ModifiedMotors(PortMap.REARLEFT.portNumber, "CANVictorSPX");
     this.frontRightMotor =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, "CANVictorSPX");
@@ -30,22 +34,26 @@ public class DriveBase implements Subsystem {
 
   }
 
-  public void setRighMotorsPower(double power) {
+  public void setRighMotorsPower(double power) 
+  {
     this.rightPower = power;
   }
 
-  public void setLeftMotorsPower(double power) {
+  public void setLeftMotorsPower(double power) 
+  {
     this.leftPower = power;
   }
 
-  public void drive(double forward, double turn) {
+  public void drive(double forward, double turn) 
+  {
     this.leftPower = (forward - (0.35 * turn));
     this.rightPower = (forward + (0.35 * turn));
   }
 
   @Override
   /* Updates the state the motors are in */
-  public void update() {
+  public void update() 
+  {
     this.frontLeftMotor.set(leftPower); 
     this.rearLeftMotor.set(leftPower);
     this.frontRightMotor.set(-rightPower);

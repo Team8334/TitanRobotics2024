@@ -6,7 +6,8 @@ public class Teleop implements Subsystem
 {
 
     @Override
-    public void update() {
+    public void update() 
+    {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }

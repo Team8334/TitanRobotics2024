@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ModifiedMotors implements Subsystem {
+public class ModifiedMotors implements Subsystem 
+{
 
     @Override
-    public void update() {
+    public void update() 
+    {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
@@ -24,10 +26,12 @@ public class ModifiedMotors implements Subsystem {
      * @param motorType  the type of the motor (e.g., "PWMVictorSPX" or "CANVictorSPX")
      */
     
-    public ModifiedMotors(int portNumber, String motorType) {
+    public ModifiedMotors(int portNumber, String motorType) 
+    {
         this.portNumber = portNumber;
         MotorController motorTemporarily = null;
-        switch (motorType) {
+        switch (motorType) 
+        {
             case "PWMVictorSPX":
                 motorTemporarily = initializePWMVictorSPX(portNumber);
                 break;
@@ -40,28 +44,37 @@ public class ModifiedMotors implements Subsystem {
         motor = motorTemporarily;
     }
 
-    private MotorController initializePWMVictorSPX(int portNumber) {
-        try {
+    private MotorController initializePWMVictorSPX(int portNumber) 
+    {
+        try 
+        {
             return new PWMVictorSPX(portNumber);
-        } catch (Exception e) {
+        } catch (Exception e) 
+        {
             System.err.println("Error: Port Not Activated " + portNumber);
             return null;
         }
     }
 
-    private MotorController initializeCANVictorSPX(int portNumber) {
-        try {
+    private MotorController initializeCANVictorSPX(int portNumber) 
+    {
+        try 
+        {
             return new WPI_VictorSPX(portNumber);
-        } catch (Exception e) {
+        } catch (Exception e) 
+        {
             System.err.println("Error: CANID Not Activated " + portNumber);
             return null;
         }
     }
 
-    public void set(double speed) {
-        if (this.motor != null) {
+    public void set(double speed) 
+    {
+        if (this.motor != null) 
+        {
             this.motor.set(speed);
-        } else {
+        } else 
+        {
             SmartDashboard.putNumber("Error: Motor Not Set", this.portNumber);
         }
     }
