@@ -8,6 +8,12 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Data.ButtonMap;
+import frc.robot.Data.PortMap;
+import frc.robot.Subsystem.Control;
+import frc.robot.Subsystem.DriveBase;
+import frc.robot.Subsystem.DriverController;
+import frc.robot.Subsystem.OperatorController;
 import frc.robot.Teleop.Teleop;
 import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.AprilTagTargeting;
@@ -22,7 +28,8 @@ import frc.robot.ExternalLibraries.LimelightHelpers;
  * build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -30,6 +37,13 @@ public class Robot extends TimedRobot {
   private static Teleop teleop;
   private static AprilTagTargeting aprilTagTargeting;
   private static Limelight limelight;
+  private static ButtonMap buttonMap;
+  private static PortMap portMap;
+
+  private static Control control;
+  private static DriveBase driveBase;
+  private static DriverController driverController;
+  private static OperatorController operatorController;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -38,6 +52,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
 
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
@@ -97,16 +112,18 @@ public class Robot extends TimedRobot {
    * chooser code above as well.
    */
   @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
     m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {
-    switch (m_autoSelected) {
+  public void autonomousPeriodic() 
+  {
+    switch (m_autoSelected) 
+    {
       case kCustomAuto:
         // Put custom auto code here
         break;
@@ -119,42 +136,51 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {
+  public void teleopInit() 
+  {
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    control.teleopControl();
     //teleop.update();
+
   }
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {
+  public void disabledInit() 
+  {
   }
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {
+  public void disabledPeriodic() 
+  {
   }
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {
+  public void testInit() 
+  {
   }
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
+  public void testPeriodic() 
+  {
   }
 
   /** This function is called once when the robot is first started up. */
   @Override
-  public void simulationInit() {
+  public void simulationInit() 
+  {
   }
 
   /** This function is called periodically whilst in simulation. */
   @Override
-  public void simulationPeriodic() {
+  public void simulationPeriodic() 
+  {
   }
 }

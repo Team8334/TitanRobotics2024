@@ -1,53 +1,80 @@
 package frc.robot.Subsystem;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ModifiedMotors implements Subsystem 
 {
-    private static ModifiedMotors instance = null;
 
- 
     @Override
-    public void update() {
+    public void update() 
+    {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
-    
-     private int portNumber;
+
+    private int portNumber;
     private final MotorController motor;
+
+    /**
+     * Constructor for ModifiedMotors class.
+     * Initializes the motor based on the specified motor type and port number.
+     * 
+     * @param portNumber the port number of the motor
+     * @param motorType  the type of the motor (e.g., "PWMVictorSPX" or "CANVictorSPX")
+     */
     
-    public ModifiedMotors(int portNumber) 
+    public ModifiedMotors(int portNumber, String motorType) 
     {
         this.portNumber = portNumber;
-        MotorController motorTemporarily;
-        try 
+        MotorController motorTemporarily = null;
+        switch (motorType) 
         {
-            motorTemporarily = new PWMVictorSPX(portNumber);
-        }
-        catch (Exception motorNotIdenitfied) 
-        {
-            motorTemporarily = null;
-            SmartDashboard.putNumber("Error: Port Not Activated", this.portNumber);
+            case "PWMVictorSPX":
+                motorTemporarily = initializePWMVictorSPX(portNumber);
+                break;
+            case "CANVictorSPX":
+                motorTemporarily = initializeCANVictorSPX(portNumber);
+                break;
+            default:
+                System.err.println("Error: motors not activated");
         }
         motor = motorTemporarily;
     }
 
-       public static ModifiedMotors getInstance()
+    private MotorController initializePWMVictorSPX(int portNumber) 
     {
-        if (instance == null)
+        try 
         {
-            instance = new ModifiedMotors(-1);
+            return new PWMVictorSPX(portNumber);
+        } catch (Exception e) 
+        {
+            System.err.println("Error: Port Not Activated " + portNumber);
+            return null;
         }
-        return instance;
     }
 
+    private MotorController initializeCANVictorSPX(int portNumber) 
+    {
+        try 
+        {
+            return new WPI_VictorSPX(portNumber);
+        } catch (Exception e) 
+        {
+            System.err.println("Error: CANID Not Activated " + portNumber);
+            return null;
+        }
+    }
 
-    public void set(double speed) {
-        if (this.motor != null) {
+    public void set(double speed) 
+    {
+        if (this.motor != null) 
+        {
             this.motor.set(speed);
-        } else {
+        } else 
+        {
             SmartDashboard.putNumber("Error: Motor Not Set", this.portNumber);
         }
     }
