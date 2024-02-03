@@ -2,12 +2,13 @@ package frc.robot.Data;
 
 public enum PortMap {
     
-    GAMEPADXBOX(0), //find this number in driverstation
+    XBOX_DRIVER_CONTROLLER(0), //find this number in driverstation
     GAMEPADFLIGHT(1), //find this number in driverstation
-    FRONTRIGHT(1), 
-    REARRIGHT(0),
-    FRONTLEFT(3),
-    REARLEFT(2),
+
+    FRONTRIGHT(3), 
+    REARRIGHT(2),
+    FRONTLEFT(0),
+    REARLEFT(1),
     ARMPIVOTMOTOR(4),
     armCANID(21), 
     clawCANID(6); 

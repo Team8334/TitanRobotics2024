@@ -14,14 +14,17 @@ public class DriveForTimeAction implements Actions
      */
     public DriveForTimeAction(double seconds, double speed)
     {
+        mDrive = DriveBase.getInstance();
         this.seconds = seconds;
         this.speed = speed;
+        
     }
 
     @Override
     public void start(){
         timer = new Timer();
         timer.start();
+        System.out.println("start drive for time");
     }
 
     /**
@@ -30,7 +33,7 @@ public class DriveForTimeAction implements Actions
      */
     @Override
     public void update(){
-    mDrive.drive(this.speed, 0);
+        mDrive.drive(this.speed, 0);
     }
 
     /**
