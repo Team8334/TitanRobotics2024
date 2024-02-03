@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Teleop.Teleop;
+import frc.robot.Subsystem.Limelight;
+import frc.robot.Subsystem.AprilTagTargeting;
+import frc.robot.ExternalLibraries.LimelightHelpers;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,6 +28,8 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static Teleop teleop;
+  private static AprilTagTargeting aprilTagTargeting;
+  private static Limelight limelight;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -48,7 +53,6 @@ public class Robot extends TimedRobot {
     //modifiedMotors = ModifiedMotors.getInstance();
     //operatorController = OperatorController.getInstance();*/
     aprilTagTargeting = AprilTagTargeting.getInstance();
-    limelightHelpers = new LimelightHelpers();
   }
 
   /**
