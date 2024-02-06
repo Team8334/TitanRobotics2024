@@ -4,20 +4,26 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
+import java.util.Optional;
+
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
+import frc.robot.ExternalLibraries.LimelightHelpers;
 import frc.robot.Subsystem.Control;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
-import frc.robot.Subsystem.OperatorController;
-import frc.robot.Teleop.Teleop;
 import frc.robot.Subsystem.Limelight;
+import frc.robot.Subsystem.OperatorController;
+import frc.robot.Auto.AutoMissionExecutor;
+import frc.robot.Auto.AutoMissionChooser;
+import frc.robot.Auto.Missions.MissionBase;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Teleop.Teleop;
 import frc.robot.Subsystem.AprilTagTargeting;
-import frc.robot.ExternalLibraries.LimelightHelpers;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +36,9 @@ import frc.robot.ExternalLibraries.LimelightHelpers;
  */
 public class Robot extends TimedRobot 
 {
+  private AutoMissionExecutor autoModeExecutor = new AutoMissionExecutor();
+  private AutoMissionChooser autoModeChooser = new AutoMissionChooser();
+
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -37,6 +46,8 @@ public class Robot extends TimedRobot
   private static Teleop teleop;
   private static AprilTagTargeting aprilTagTargeting;
   private static Limelight limelight;
+   private static LimelightHelpers limelightHelpers;
+  
   private static ButtonMap buttonMap;
   private static PortMap portMap;
 
@@ -61,13 +72,14 @@ public class Robot extends TimedRobot
     
     //limelight:12v/2a, switch:5v/500ma
 
-    //control = Control.getInstance();
-    //driveBase = DriveBase.getInstance();
-    //driverController = DriverController.getInstance();
+    control = Control.getInstance();
+    driveBase = DriveBase.getInstance();
+    driverController = DriverController.getInstance();
     limelight = Limelight.getInstance();
     //modifiedMotors = ModifiedMotors.getInstance();
-    //operatorController = OperatorController.getInstance();*/
+    operatorController = OperatorController.getInstance();
     aprilTagTargeting = AprilTagTargeting.getInstance();
+    autoModeChooser.updateModeCreator();
   }
 
   /**
@@ -82,13 +94,14 @@ public class Robot extends TimedRobot
    */
   @Override
   public void robotPeriodic() {
-    //control.update();
-    //driveBase.update();
-    //driverController.update();
+    control.update();
+    driveBase.update();
+    driverController.update();
     limelight.update();
     //modifiedMotors.update();
-    //operatorController.update();*/
+    operatorController.update();
     aprilTagTargeting.update();
+    autoModeChooser.outputToSmartDashboard();
     
     System.out.println(LimelightHelpers.getFiducialID(""));
     System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
@@ -112,26 +125,17 @@ public class Robot extends TimedRobot
    * chooser code above as well.
    */
   @Override
-  public void autonomousInit() 
-  {
-    m_autoSelected = m_chooser.getSelected();
-    System.out.println("Auto selected: " + m_autoSelected);
+  public void autonomousInit() {
+    if (autoModeChooser.getAutoMode().isPresent()) {
+      autoModeChooser.getAutoMode().get().setStartPose();
+    }
+    autoModeExecutor.start();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() 
   {
-    switch (m_autoSelected) 
-    {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
   }
 
   /** This function is called once when teleop is enabled. */
@@ -150,14 +154,25 @@ public class Robot extends TimedRobot
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() 
-  {
+  public void disabledInit() {
+    // Reset all auto mode state.
+    if (autoModeExecutor != null) {
+      autoModeExecutor.stop();
+    }
+    autoModeChooser.reset();
+    autoModeChooser.updateModeCreator();
   }
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() 
-  {
+  public void disabledPeriodic() {
+    autoModeChooser.outputToSmartDashboard();
+    autoModeChooser.updateModeCreator();
+    Optional<MissionBase> autoMode = autoModeChooser.getAutoMode();
+    if (autoMode.isPresent() && autoMode.get() != autoModeExecutor.getAutoMission()) {
+      System.out.println("Set auto mode to: " + autoMode.get().getClass().toString());
+      autoModeExecutor.setAutoMission(autoMode.get());
+    }
   }
 
   /** This function is called once when test mode is enabled. */

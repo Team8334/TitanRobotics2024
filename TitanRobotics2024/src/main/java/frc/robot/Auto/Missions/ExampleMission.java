@@ -11,6 +11,5 @@ public class ExampleMission extends MissionBase
     {
         // TODO Auto-generated method stub
         runAction(new DriveForTimeAction(5, 1));// may be milliseconds
-        runAction(new ParallelAction(new DriveForTimeAction(5, 1), new DriveForTimeAction(5, 1)));
     }
 }
