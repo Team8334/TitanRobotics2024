@@ -17,6 +17,13 @@ public class Limelight
     NetworkTableEntry tl;
     NetworkTableEntry cl;
 
+    double x;
+    double y;
+    double area;
+    double z;
+    double l; 
+    double cL;
+
     public Limelight()
     {
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -37,15 +44,20 @@ public class Limelight
         return instance;
     }
 
+    public double getTX()
+    {
+        return x;
+    }
+
     public void update()
     {
         //read values periodically
-        double x = tx.getDouble(0.0);
-        double y = ty.getDouble(0.0);
-        double area = ta.getDouble(0.0);
-        double z = tz.getDouble(0.0);
-        double l = tl.getDouble(0.0);
-        double cL = cl.getDouble(0.0);
+        x = tx.getDouble(0.0);
+        y = ty.getDouble(0.0);
+        area = ta.getDouble(0.0);
+        z = tz.getDouble(0.0);
+        l = tl.getDouble(0.0);
+        cL = cl.getDouble(0.0);
 
         //post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", x);
