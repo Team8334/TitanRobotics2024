@@ -14,7 +14,7 @@ import frc.robot.ExternalLibraries.LimelightHelpers;
 import frc.robot.Subsystem.Control;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
-import frc.robot.Subsystem.Limelight;
+//import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
@@ -23,7 +23,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Teleop.Teleop;
-import frc.robot.Subsystem.AprilTagTargeting;
+//import frc.robot.Subsystem.AprilTagTargeting;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,8 +41,8 @@ public class Robot extends TimedRobot
 
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static Teleop teleop;
-  private static AprilTagTargeting aprilTagTargeting;
-  private static Limelight limelight;
+ // private static AprilTagTargeting aprilTagTargeting;
+ // private static Limelight limelight;
    private static LimelightHelpers limelightHelpers;
   
   private static ButtonMap buttonMap;
@@ -65,10 +65,9 @@ public class Robot extends TimedRobot
     control = Control.getInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
-    limelight = Limelight.getInstance();
-    //modifiedMotors = ModifiedMotors.getInstance();
+    //limelight = Limelight.getInstance();
     operatorController = OperatorController.getInstance();
-    aprilTagTargeting = AprilTagTargeting.getInstance();
+    //aprilTagTargeting = AprilTagTargeting.getInstance();
     autoModeChooser.updateModeCreator();
    
   }
@@ -88,10 +87,10 @@ public class Robot extends TimedRobot
     control.update();
     driveBase.update();
     driverController.update();
-    limelight.update();
+    //limelight.update();
     //modifiedMotors.update();
     operatorController.update();
-    aprilTagTargeting.update();
+    //aprilTagTargeting.update();
     autoModeChooser.outputToSmartDashboard();
     
     System.out.println(LimelightHelpers.getFiducialID(""));
