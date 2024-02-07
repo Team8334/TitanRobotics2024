@@ -18,6 +18,7 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
     }
 
     private PIDController aprilTagXPID = new PIDController(1, 0, 0);
+    private PIDController aprilTagAPID = new PIDController(1, 0, 0);
 
     String alliance = "red";
 
@@ -51,9 +52,14 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
         return LimelightHelpers.getFiducialID("");
     }
 
-    public void runAprilTagXPID() //
+    public void runAprilTagXPID() 
     {
-        driveBase.drive(0, (aprilTagXPID.calculate(limelight.getTX(), 0))/25);
+        driveBase.drive(0, (aprilTagXPID.calculate(limelight.x, 0))/25);
+    }
+
+    public void runAprilTagAPID()
+    {
+        driveBase.drive(0, (aprilTagAPID.calculate(limelight.area, 0))); //zero is a placeholder
     }
 
     public boolean findAmp() //Looks for the amp and reacts when it is found. Amp April Tag ID is 5 for red, 6 for blue.

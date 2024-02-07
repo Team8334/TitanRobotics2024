@@ -44,11 +44,6 @@ public class Limelight
         return instance;
     }
 
-    public double getTX()
-    {
-        return x;
-    }
-
     public void update()
     {
         //read values periodically
