@@ -1,8 +1,9 @@
 package frc.robot.Subsystem;
 
 import frc.robot.ExternalLibraries.LimelightHelpers;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.controller.PIDController;
+import frc.robot.Subsystem.Limelight;
+import frc.robot.Subsystem.DriveBase;
 
 public class AprilTagTargeting implements Subsystem //This class contains functions for finding and locking onto elements of the field using their April Tags.
 {
@@ -16,6 +17,7 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
         return instance;
     }
 
+    private PIDController aprilTagXPID = new PIDController(1, 0, 0);
 
     String alliance = "red";
 
@@ -35,9 +37,13 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
     boolean EnemySpeakerFound = false;
     boolean EnemySpeakerLocked = false;
 
+    Limelight limelight;
+    DriveBase driveBase;
+
     public AprilTagTargeting()
     {
-       
+       limelight = Limelight.getInstance();
+       driveBase = DriveBase.getInstance();
     }
  
     public double GetId() //finds April Tag ID. This is a variable, not a function.
@@ -45,30 +51,41 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
         return LimelightHelpers.getFiducialID("");
     }
 
-    public void findAmp() //Looks for the amp and reacts when it is found. Amp April Tag ID is 5 for red, 6 for blue.
+    public void runAprilTagXPID() //
+    {
+        driveBase.drive(0, (aprilTagXPID.calculate(limelight.getTX(), 0))/25);
+    }
+
+    public boolean findAmp() //Looks for the amp and reacts when it is found. Amp April Tag ID is 5 for red, 6 for blue.
     {
         if(TargetingAmp && alliance == "red" && GetId() == 5)
         {
-            AmpFound = true;
+            return true;
         }
 
         if(TargetingAmp && alliance == "blue" && GetId() == 6)
         {
-            AmpFound = true;
+            return true;
         }
+
         else
         {
-            AmpFound = false;
+            return false;
         }
     }
     
-    public void findStage() //Looks for the stage and reacts when it is found. IDs are 11,12,13 for red, 14,15,16 for blue.
+    public boolean findStage() //Looks for the stage and reacts when it is found. IDs are 11,12,13 for red, 14,15,16 for blue.
     {
         if(TargetingStage && alliance == "red")
         {
             if(GetId() == 11 || GetId() == 12 || GetId() ==13)
             {
-                StageFound = true;
+                return true;
+            }
+
+            else
+            {
+                return false;
             }
         }
 
@@ -76,23 +93,33 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
         {
             if(GetId() == 14 || GetId() == 15 || GetId() ==16)
             {
-                StageFound = true;
+                return true;
+            }
+
+            else
+            {
+                return false;
             }
         }
 
         else
         {
-            StageFound = false;
+            return false;
         }
     }
 
-    public void findSource() //Looks for the source and reacts when it is found. IDs are 9,10 for red, 1,2 for blue. Keep in mind that these are opposite the field from the other targetable items.
+    public boolean findSource() //Looks for the source and reacts when it is found. IDs are 9,10 for red, 1,2 for blue. Keep in mind that these are opposite the field from the other targetable items.
     {
         if(TargetingSource && alliance == "red")
         {
             if(GetId() == 10 || GetId() == 9)
             {
-                SourceFound = true;
+                return true;
+            }
+
+            else
+            {
+                return false;
             }
         }
 
@@ -100,13 +127,18 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
         {
             if(GetId() == 1 || GetId() == 2)
             {
-                SourceFound = true;
+                return true;
+            }
+
+            else
+            {
+                return false;
             }
         }
 
         else
         {
-            SourceFound = false;
+            return false;
         }
     }
 

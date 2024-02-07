@@ -24,6 +24,11 @@ public class DriverController implements Subsystem
         this.xboxController = new XboxController(PortMap.XBOX_DRIVER_CONTROLLER.portNumber);
     }
 
+    public boolean xButtonPressed()
+    {
+        return this.xboxController.getXButton();
+    }
+
     public double getStick(ButtonMap stickAxis) 
     {
         if (this.xboxController != null) 

@@ -58,12 +58,9 @@ public class Robot extends TimedRobot
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    
-    //limelight:12v/2a, switch:5v/500ma
-
-    //control = Control.getInstance();
-    //driveBase = DriveBase.getInstance();
-    //driverController = DriverController.getInstance();
+    control = Control.getInstance();
+    driveBase = DriveBase.getInstance();
+    driverController = DriverController.getInstance();
     limelight = Limelight.getInstance();
     //modifiedMotors = ModifiedMotors.getInstance();
     //operatorController = OperatorController.getInstance();*/
@@ -82,16 +79,16 @@ public class Robot extends TimedRobot
    */
   @Override
   public void robotPeriodic() {
-    //control.update();
-    //driveBase.update();
-    //driverController.update();
+    control.update();
+    driveBase.update();
+    driverController.update();
     limelight.update();
     //modifiedMotors.update();
     //operatorController.update();*/
     aprilTagTargeting.update();
     
     System.out.println(LimelightHelpers.getFiducialID(""));
-    System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
+   // System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
   }
 
   /**
@@ -144,7 +141,6 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() {
     control.teleopControl();
-    //teleop.update();
 
   }
 
