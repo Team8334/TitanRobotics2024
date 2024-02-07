@@ -39,9 +39,6 @@ public class Robot extends TimedRobot
   private AutoMissionExecutor autoModeExecutor = new AutoMissionExecutor();
   private AutoMissionChooser autoModeChooser = new AutoMissionChooser();
 
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static Teleop teleop;
   private static AprilTagTargeting aprilTagTargeting;
@@ -63,13 +60,6 @@ public class Robot extends TimedRobot
    */
   @Override
   public void robotInit() {
-
-
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-
-    
     //limelight:12v/2a, switch:5v/500ma
 
     control = Control.getInstance();
@@ -80,6 +70,7 @@ public class Robot extends TimedRobot
     operatorController = OperatorController.getInstance();
     aprilTagTargeting = AprilTagTargeting.getInstance();
     autoModeChooser.updateModeCreator();
+   
   }
 
   /**

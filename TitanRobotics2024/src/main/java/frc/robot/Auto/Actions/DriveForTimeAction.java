@@ -15,6 +15,7 @@ public class DriveForTimeAction implements Actions
      */
     public DriveForTimeAction(double seconds, double speed) 
     {
+        mDrive = DriveBase.getInstance();
         this.seconds = seconds;
         this.speed = speed;
     }
