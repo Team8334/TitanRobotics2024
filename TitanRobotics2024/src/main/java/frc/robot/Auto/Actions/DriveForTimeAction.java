@@ -15,6 +15,7 @@ public class DriveForTimeAction implements Actions
      */
     public DriveForTimeAction(double seconds, double speed) 
     {
+        mDrive = DriveBase.getInstance();
         this.seconds = seconds;
         this.speed = speed;
     }
@@ -50,7 +51,8 @@ public class DriveForTimeAction implements Actions
         if (timer.get() >= seconds) 
         {
             return true;
-        } else 
+        } 
+        else 
         {
             return false;
         }

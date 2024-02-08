@@ -19,6 +19,14 @@ SeriesAction:
     Outputs:
         isFinished will return true when all the actions have finished
 
+DriveForTimeAction:
+    Description: Drives the robot forward/backward (dependent on whether speed is positive or negative) at the input speed for the input time (in seconds)
+    Inputs:
+        seconds
+        speed
+    Outputs:
+        isFinished will return true when the timer reaches a time greater than or equal to the time input (seconds) 
+
 Explanation: Actions are individual task
-    for the robot to complet. These tasks are 
+    for the robot to complete. These tasks are 
     not missions (see missions for more informations).

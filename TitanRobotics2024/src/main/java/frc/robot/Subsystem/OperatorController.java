@@ -15,7 +15,6 @@ public class OperatorController implements Subsystem
 
     public OperatorController()
     {
-        
     }
 
     @Override

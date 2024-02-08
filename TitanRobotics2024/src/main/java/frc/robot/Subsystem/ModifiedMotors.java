@@ -49,7 +49,8 @@ public class ModifiedMotors implements Subsystem
         try 
         {
             return new PWMVictorSPX(portNumber);
-        } catch (Exception e) 
+        } 
+        catch (Exception e) 
         {
             System.err.println("Error: Port Not Activated " + portNumber);
             return null;
@@ -61,7 +62,8 @@ public class ModifiedMotors implements Subsystem
         try 
         {
             return new WPI_VictorSPX(portNumber);
-        } catch (Exception e) 
+        } 
+        catch (Exception e) 
         {
             System.err.println("Error: CANID Not Activated " + portNumber);
             return null;
@@ -73,7 +75,8 @@ public class ModifiedMotors implements Subsystem
         if (this.motor != null) 
         {
             this.motor.set(speed);
-        } else 
+        } 
+        else 
         {
             SmartDashboard.putNumber("Error: Motor Not Set", this.portNumber);
         }

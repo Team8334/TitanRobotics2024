@@ -43,12 +43,14 @@ public class DriverController implements Subsystem
                     default:
                         return 0;
                 }
-            } catch (Exception AxisNotFound) 
+            } 
+            catch (Exception AxisNotFound) 
             {
                 SmartDashboard.putString("ControllerError", "AxisNotFound");
                 return 0;
             }
-        } else 
+        } 
+        else 
         {
             return 0;
         }

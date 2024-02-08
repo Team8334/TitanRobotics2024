@@ -40,12 +40,17 @@ public class SeriesAction implements Actions
     @Override
     public boolean isFinished()
     {
-        if (actionsToExecute.get(currentActionIndex).isFinished()) {
+        if (actionsToExecute.get(currentActionIndex).isFinished()) 
+        {
             actionsToExecute.get(currentActionIndex).done();
             currentActionIndex++;
             //currentActionIndex will be incremented at this point
             //therefore if the current action is the last one, it will be equal to the the array list size instead of said size minus one
-            if (currentActionIndex == actionsToExecute.size()) { return true; }
+            if (currentActionIndex == actionsToExecute.size()) 
+            { 
+                return true; 
+            }
+            
             actionsToExecute.get(currentActionIndex).start();
         }
         return false;
