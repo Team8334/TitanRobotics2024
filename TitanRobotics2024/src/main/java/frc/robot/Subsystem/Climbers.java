@@ -1,7 +1,6 @@
 package frc.robot.Subsystem;
 
 import frc.robot.Data.PortMap;
-import frc.robot.Data.ButtonMap;
 
 public class Climbers {
     private double rightPower;
@@ -10,6 +9,7 @@ public class Climbers {
     private ModifiedMotors climberMotorRight;
 
     private static Climbers instance = null;
+    private String climberState = "retracted";
 
 
     public static Climbers getInstance() {
@@ -19,7 +19,8 @@ public class Climbers {
         return instance;
     }
 
-    public Climbers() {
+    public Climbers() 
+    {
         this.climberMotorLeft = new ModifiedMotors(PortMap.CLIMBMOTORLEFT.portNumber, "CANVictorSPX");
         this.climberMotorRight = new ModifiedMotors(PortMap.CLIMBMOTORRIGHT.portNumber, "CANVictorSPX");
     }
@@ -41,4 +42,21 @@ public class Climbers {
         this.climberMotorLeft.set(leftPower); // 0 is a placeholder
         this.climberMotorRight.set(rightPower);
       }
+
+    public void retracting()
+    {
+      climberState = "retracting";
+    }
+    public void retracted()
+    {
+      climberState = "retracted";
+    }
+    public void extended()
+    {
+      climberState = "extended";
+    }
+    public void extending()
+    {
+      climberState = "extending";
+    }
 }
