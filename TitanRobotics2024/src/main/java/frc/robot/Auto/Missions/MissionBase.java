@@ -5,11 +5,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 public abstract class MissionBase 
 {
-
-
+    
 /**
- * An abstract class that is the basis of the robot's autonomous routines. This is implemented in auto missions (which are
- * routines that do actions).
+ * An abstract class that is the basis of the robot's autonomous routines. This is implemented in auto missions (which are routines that do actions).
  */
 
     protected final double mUpdateRate = 1.0 / 50.0;
@@ -28,9 +26,11 @@ public abstract class MissionBase
     {
         mActive = true;
 
-        try {
+        try 
+        {
             routine();
-        } catch (AutoMissionEndedException e) 
+        } 
+        catch (AutoMissionEndedException e) 
         {
             DriverStation.reportError("AUTO MISSION DONE!!!! ENDED EARLY!!!!", false);
             return;
@@ -64,13 +64,6 @@ public abstract class MissionBase
         return isActive();
     }
 
-    /*public void waitForDriverConfirm() throws AutoMissionEndedException {
-        if (!mIsInterrupted) {
-            interrupt();
-        }
-        runAction(new NoopAction());
-    }*/
-
     public void interrupt() 
     {
         System.out.println("** Auto mission interrrupted!");
@@ -94,7 +87,8 @@ public abstract class MissionBase
             try 
             {
                 Thread.sleep(waitTime);
-            } catch (InterruptedException e) 
+            } 
+            catch (InterruptedException e) 
             {
                 e.printStackTrace();
             }
@@ -110,7 +104,8 @@ public abstract class MissionBase
             try 
             {
                 Thread.sleep(waitTime);
-            } catch (InterruptedException e) 
+            } 
+            catch (InterruptedException e) 
             {
                 e.printStackTrace();
             }

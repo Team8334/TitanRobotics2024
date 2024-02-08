@@ -21,7 +21,6 @@ import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Auto.Missions.MissionBase;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Teleop.Teleop;
 //import frc.robot.Subsystem.AprilTagTargeting;
 
@@ -59,9 +58,8 @@ public class Robot extends TimedRobot
    * initialization code.
    */
   @Override
-  public void robotInit() {
-    //limelight:12v/2a, switch:5v/500ma
-
+  public void robotInit() 
+  {
     control = Control.getInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
@@ -74,16 +72,13 @@ public class Robot extends TimedRobot
 
   /**
    * This function is called every 20 ms, no matter the mission. Use this for items
-   * like diagnostics
-   * that you want ran during disabled, autonomous, teleoperated and test.
-   *
+   * like diagnostics that you want ran during disabled, autonomous, teleoperated and test.
    * <p>
-   * This runs after the mission specific periodic functions, but before LiveWindow
-   * and
-   * SmartDashboard integrated updating.
+   * This runs after the mission specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic() 
+  {
     control.update();
     driveBase.update();
     driverController.update();
@@ -97,26 +92,11 @@ public class Robot extends TimedRobot
     System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
   }
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different
-   * autonomous missions using the dashboard. The sendable chooser code works with
-   * the Java
-   * SmartDashboard. If you prefer the LabVIEW Dashboard, remove all of the
-   * chooser code and
-   * uncomment the getString line to get the auto name from the text box below the
-   * Gyro
-   *
-   * <p>
-   * You can add additional auto missions by adding additional comparisons to the
-   * switch structure
-   * below with additional strings. If using the SendableChooser make sure to add
-   * them to the
-   * chooser code above as well.
-   */
   @Override
-  public void autonomousInit() {
-    if (autoMissionChooser.getAutoMission().isPresent()) {
+  public void autonomousInit() 
+  {
+    if (autoMissionChooser.getAutoMission().isPresent()) 
+    {
       autoMissionChooser.getAutoMission().get().setStartPose();
     }
     autoMissionExecutor.start();
@@ -136,17 +116,18 @@ public class Robot extends TimedRobot
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() 
+  {
     control.teleopControl();
-    //teleop.update();
-
   }
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {
-    // Reset all auto mission state.
-    if (autoMissionExecutor != null) {
+  public void disabledInit() 
+  {
+    // Reset all auto mission states.
+    if (autoMissionExecutor != null) 
+    {
       autoMissionExecutor.stop();
     }
     autoMissionChooser.reset();
@@ -155,11 +136,13 @@ public class Robot extends TimedRobot
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {
+  public void disabledPeriodic() 
+  {
     autoMissionChooser.outputToSmartDashboard();
     autoMissionChooser.updateMissionCreator();
     Optional<MissionBase> autoMission = autoMissionChooser.getAutoMission();
-    if (autoMission.isPresent() && autoMission.get() != autoMissionExecutor.getAutoMission()) {
+    if (autoMission.isPresent() && autoMission.get() != autoMissionExecutor.getAutoMission()) 
+    {
       System.out.println("Set auto mission to: " + autoMission.get().getClass().toString());
       autoMissionExecutor.setAutoMission(autoMission.get());
     }

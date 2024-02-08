@@ -51,7 +51,8 @@ public class DriveForTimeAction implements Actions
         if (timer.get() >= seconds) 
         {
             return true;
-        } else 
+        } 
+        else 
         {
             return false;
         }
