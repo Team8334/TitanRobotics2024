@@ -1,10 +1,12 @@
-import frc.robot.Subsystem.Subsystem;
+package frc.robot.Subsystem;
+
+
 import edu.wpi.first.wpilibj.Encoder;  //this import like to get mad if the class name is "Encoder". I don't know why, but just know that.
-import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+
 
 public class ModifiedEncoders implements Subsystem {
 
-    private final Encoder encoder;
+    private Encoder encoder;
     private int channelA;
     private int channelB;
 
@@ -50,6 +52,7 @@ public class ModifiedEncoders implements Subsystem {
         try 
         {
             encoder = new Encoder(channelA, channelB);
+            return encoder;
         
         } catch (Exception e) 
         {
@@ -67,13 +70,15 @@ public class ModifiedEncoders implements Subsystem {
 
     public double getDistance(){
 
-        return encoder.getRaw();
+        return encoder.getDistance();
     }
 
     @Override
     public void update() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
+                
+     
     }
 
 
