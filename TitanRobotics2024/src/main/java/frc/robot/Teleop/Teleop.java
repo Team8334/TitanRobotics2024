@@ -11,7 +11,4 @@ public class Teleop implements Subsystem
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
-    
-
-   
 }

@@ -3,8 +3,7 @@ package frc.robot.Auto;
 import frc.robot.Auto.Missions.MissionBase;
 
 /**
- * This class selects, runs, and (if necessary) stops a specified autonomous
- * Mission.
+ * This class selects, runs, and (if necessary) stops a specified autonomous Mission.
  */
 public class AutoMissionExecutor 
 {
