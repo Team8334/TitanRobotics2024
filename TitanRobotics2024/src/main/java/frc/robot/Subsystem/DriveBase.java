@@ -4,8 +4,6 @@ import frc.robot.Data.PortMap;
 
 public class DriveBase implements Subsystem 
 {
-
-
   private double leftPower;
   private double rightPower;
 
@@ -47,6 +45,12 @@ public class DriveBase implements Subsystem
   {
     this.leftPower = (forward - (0.35 * turn));
     this.rightPower = (forward + (0.35 * turn));
+  }
+
+  @Override
+  public void start()
+  {
+    
   }
 
   @Override

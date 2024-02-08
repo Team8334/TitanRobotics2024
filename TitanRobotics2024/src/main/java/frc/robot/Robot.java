@@ -12,6 +12,8 @@ import frc.robot.Data.PortMap;
 import frc.robot.Subsystem.Control;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
+import frc.robot.Subsystem.Intake;
+import frc.robot.Subsystem.ModifiedMotors;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Teleop.Teleop;
 
@@ -31,7 +33,6 @@ public class Robot extends TimedRobot
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private static Teleop teleop;
 
   private static ButtonMap buttonMap;
   private static PortMap portMap;
@@ -39,7 +40,11 @@ public class Robot extends TimedRobot
   private static Control control;
   private static DriveBase driveBase;
   private static DriverController driverController;
+  private static Intake intake;
+  private static ModifiedMotors modifiedMotors;
   private static OperatorController operatorController;
+
+  private static Teleop teleop;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -58,6 +63,7 @@ public class Robot extends TimedRobot
     control = Control.getInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
+    intake = Intake.getInstance();
     operatorController = OperatorController.getInstance();
   }
 
@@ -77,6 +83,8 @@ public class Robot extends TimedRobot
     control.update();
     driveBase.update();
     driverController.update();
+    intake.update();
+    modifiedMotors.update();
     operatorController.update();
   }
 

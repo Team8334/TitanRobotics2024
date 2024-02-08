@@ -8,6 +8,7 @@ import frc.robot.Data.PortMap;
 public class DriverController implements Subsystem 
 {
     private XboxController xboxController;
+
     private static DriverController instance = null;
 
     public static DriverController getInstance() 
@@ -21,7 +22,7 @@ public class DriverController implements Subsystem
 
     public DriverController() 
     {
-        this.xboxController = new XboxController(PortMap.XBOX_DRIVER_CONTROLLER.portNumber);
+        this.xboxController = new XboxController(PortMap.XBOXDRIVERCONTROLLER.portNumber);
     }
 
     public double getStick(ButtonMap stickAxis) 
@@ -43,21 +44,27 @@ public class DriverController implements Subsystem
                     default:
                         return 0;
                 }
-            } catch (Exception AxisNotFound) 
+            } 
+            catch (Exception AxisNotFound) 
             {
                 SmartDashboard.putString("ControllerError", "AxisNotFound");
                 return 0;
             }
-        } else 
+        } 
+        else 
         {
             return 0;
         }
     }
 
     @Override
+    public void start() 
+    {
+        // TODO Auto-generated method stub
+    }
+    @Override
     public void update() 
     {
         // TODO Auto-generated method stub
     }
-
 }
