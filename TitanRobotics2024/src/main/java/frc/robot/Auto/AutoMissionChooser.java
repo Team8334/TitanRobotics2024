@@ -7,43 +7,43 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoMissionChooser {
-      enum DesiredMode {
+      enum DesiredMission {
         doNothing,
         leaveCommunityRight,
         exampleMission
     }
 
-    private DesiredMode cachedDesiredMode = DesiredMode.doNothing;
+    private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
 
-    private final SendableChooser<DesiredMode> modeChooser;
+    private final SendableChooser<DesiredMission> missionChooser;
 
-    private Optional<MissionBase> autoMode = Optional.empty();
+    private Optional<MissionBase> autoMission = Optional.empty();
 
     public AutoMissionChooser() {
-        modeChooser = new SendableChooser<>();
-        modeChooser.setDefaultOption("Do Nothing", DesiredMode.doNothing);
-        modeChooser.addOption("Leave Community on right side", DesiredMode.leaveCommunityRight);
-        modeChooser.addOption("Example Mission", DesiredMode.exampleMission);
+        missionChooser = new SendableChooser<>();
+        missionChooser.setDefaultOption("Do Nothing", DesiredMission.doNothing);
+        missionChooser.addOption("Leave Community on right side", DesiredMission.leaveCommunityRight);
+        missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
         // add more here as needed
-        SmartDashboard.putData("Auto mode", modeChooser);
+        SmartDashboard.putData("Auto Mission", missionChooser);
     }
 
-    public void updateModeCreator() {
-        DesiredMode desiredMode = modeChooser.getSelected();
+    public void updateMissionCreator() {
+        DesiredMission desiredMission = missionChooser.getSelected();
 
-        if (desiredMode == null) {
-            desiredMode = DesiredMode.doNothing;
+        if (desiredMission == null) {
+            desiredMission = DesiredMission.doNothing;
         }
 
-        if (cachedDesiredMode != desiredMode) {
-            System.out.println("Auto selection changed, updating creator: desiredMode->" + desiredMode.name());
-            autoMode = getAutoModeForParams(desiredMode);
+        if (cachedDesiredMission != desiredMission) {
+            System.out.println("Auto selection changed, updating creator: desiredMission->" + desiredMission.name());
+            autoMission = getAutoMissionForParams(desiredMission);
         }
-        cachedDesiredMode = desiredMode;
+        cachedDesiredMission = desiredMission;
     }
 
-     private Optional<MissionBase> getAutoModeForParams(DesiredMode mode) {
-        switch (mode) {
+     private Optional<MissionBase> getAutoMissionForParams(DesiredMission mission) {
+        switch (mission) {
             case doNothing:
                 return Optional.of(new DoNothingMission());
             case leaveCommunityRight:
@@ -54,19 +54,19 @@ public class AutoMissionChooser {
                 break;
         }
 
-        System.err.println("No valid auto mode found for  " + mode);
+        System.err.println("No valid auto mission found for  " + mission);
         return Optional.empty();
     }
     public void reset() {
-        autoMode = Optional.empty();
-        cachedDesiredMode = DesiredMode.doNothing;
+        autoMission = Optional.empty();
+        cachedDesiredMission = DesiredMission.doNothing;
     }
     
     public void outputToSmartDashboard() {
-        SmartDashboard.putString("AutoModeSelected", cachedDesiredMode.name());
+        SmartDashboard.putString("AutoMissionSelected", cachedDesiredMission.name());
     }
 
-    public Optional<MissionBase> getAutoMode() {
-        return autoMode;
+    public Optional<MissionBase> getAutoMission() {
+        return autoMission;
     }
 }

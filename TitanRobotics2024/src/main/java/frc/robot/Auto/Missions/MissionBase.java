@@ -1,5 +1,5 @@
 package frc.robot.Auto.Missions;
-import frc.robot.Auto.AutoModeEndedException;
+import frc.robot.Auto.AutoMissionEndedException;
 import frc.robot.Auto.Actions.Actions;
 import edu.wpi.first.wpilibj.DriverStation;
 
@@ -8,7 +8,7 @@ public abstract class MissionBase
 
 
 /**
- * An abstract class that is the basis of the robot's autonomous routines. This is implemented in auto modes (which are
+ * An abstract class that is the basis of the robot's autonomous routines. This is implemented in auto missions (which are
  * routines that do actions).
  */
 
@@ -17,7 +17,7 @@ public abstract class MissionBase
     protected boolean mIsInterrupted = false;
 
 
-    protected abstract void routine() throws AutoModeEndedException;
+    protected abstract void routine() throws AutoMissionEndedException;
 
     public void setStartPose() 
     {
@@ -30,9 +30,9 @@ public abstract class MissionBase
 
         try {
             routine();
-        } catch (AutoModeEndedException e) 
+        } catch (AutoMissionEndedException e) 
         {
-            DriverStation.reportError("AUTO MODE DONE!!!! ENDED EARLY!!!!", false);
+            DriverStation.reportError("AUTO MISSION DONE!!!! ENDED EARLY!!!!", false);
             return;
         }
 
@@ -41,7 +41,7 @@ public abstract class MissionBase
 
     public void done() 
     {
-        System.out.println("Auto mode done");
+        System.out.println("Auto mission done");
     }
 
     public void stop() 
@@ -54,17 +54,17 @@ public abstract class MissionBase
         return mActive;
     }
 
-    public boolean isActiveWithThrow() throws AutoModeEndedException 
+    public boolean isActiveWithThrow() throws AutoMissionEndedException 
     {
         if (!isActive()) 
         {
-            throw new AutoModeEndedException();
+            throw new AutoMissionEndedException();
         }
 
         return isActive();
     }
 
-    /*public void waitForDriverConfirm() throws AutoModeEndedException {
+    /*public void waitForDriverConfirm() throws AutoMissionEndedException {
         if (!mIsInterrupted) {
             interrupt();
         }
@@ -73,17 +73,17 @@ public abstract class MissionBase
 
     public void interrupt() 
     {
-        System.out.println("** Auto mode interrrupted!");
+        System.out.println("** Auto mission interrrupted!");
         mIsInterrupted = true;
     }
 
     public void resume() 
     {
-        System.out.println("** Auto mode resumed!");
+        System.out.println("** Auto mission resumed!");
         mIsInterrupted = false;
     }
 
-    public void runAction(Actions action) throws AutoModeEndedException 
+    public void runAction(Actions action) throws AutoMissionEndedException 
     {
         isActiveWithThrow();
         long waitTime = (long) (mUpdateRate * 1000.0);
@@ -102,7 +102,7 @@ public abstract class MissionBase
 
         action.start();
 
-        // Run action, stop action on interrupt, non active mode, or done
+        // Run action, stop action on interrupt, non active mission, or done
         while (isActiveWithThrow() && !action.isFinished() && !mIsInterrupted) 
         {
             action.update();
