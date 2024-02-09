@@ -18,6 +18,12 @@ public class OperatorController implements Subsystem
     }
 
     @Override
+    public void start()
+    {
+        
+    }
+
+    @Override
     public void update() 
     {
         // TODO Auto-generated method stub

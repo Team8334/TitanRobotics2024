@@ -131,5 +131,7 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
             EnemySpeakerFound = false;
         }
     }
+
+    public void start(){}
     public void update(){}
 }
