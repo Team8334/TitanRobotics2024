@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
-import frc.robot.ExternalLibraries.LimelightHelpers;
+//import frc.robot.ExternalLibraries.LimelightHelpers;
 import frc.robot.Subsystem.Control;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
@@ -42,7 +42,7 @@ public class Robot extends TimedRobot
   private static Teleop teleop;
  // private static AprilTagTargeting aprilTagTargeting;
  // private static Limelight limelight;
-   private static LimelightHelpers limelightHelpers;
+   //private static LimelightHelpers limelightHelpers;
   
   private static ButtonMap buttonMap;
   private static PortMap portMap;
@@ -88,8 +88,8 @@ public class Robot extends TimedRobot
     //aprilTagTargeting.update();
     autoMissionChooser.outputToSmartDashboard();
     
-    System.out.println(LimelightHelpers.getFiducialID(""));
-    System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
+    //System.out.println(LimelightHelpers.getFiducialID(""));
+    //System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
   }
 
   @Override
