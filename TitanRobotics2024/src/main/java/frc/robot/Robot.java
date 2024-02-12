@@ -42,7 +42,7 @@ public class Robot extends TimedRobot
   private static Teleop teleop;
  // private static AprilTagTargeting aprilTagTargeting;
  // private static Limelight limelight;
-   private static LimelightHelpers limelightHelpers;
+ // private static LimelightHelpers limelightHelpers;
   
   private static ButtonMap buttonMap;
   private static PortMap portMap;
@@ -87,9 +87,9 @@ public class Robot extends TimedRobot
     operatorController.update();
     //aprilTagTargeting.update();
     autoMissionChooser.outputToSmartDashboard();
-    
-    System.out.println(LimelightHelpers.getFiducialID(""));
-    System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
+   
+    //System.out.println(LimelightHelpers.getFiducialID(""));
+    //System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
   }
 
   @Override
