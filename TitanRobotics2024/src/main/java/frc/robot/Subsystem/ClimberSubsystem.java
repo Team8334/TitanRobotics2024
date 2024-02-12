@@ -9,6 +9,8 @@ public class ClimberSubsystem implements Subsystem {
     private static final double CLIMB_POWER = 0.5;
     private static final double TOP_DISTANCE = 40.0;
     private static final double BOTTOM_DISTANCE = 0.0;
+    private static final double TOP_HOLD_THRESHOLD = 0;
+    private static final double BOTTOM_HOLD_THRESHOLD = 0;
 
     // PID controllers for position and velocity
     private PIDController positionPID = new PIDController(0.01, 0.0, 0.0);
@@ -17,9 +19,11 @@ public class ClimberSubsystem implements Subsystem {
     // Current climber state and related variables
     private String climberState = null;
     private double rotationTarget;
-    private double currentPosition = 0.0;
+    private double holdPosition = 0.0;
     private double climberVelocity = 0.0;
     private double climberPower = 0.0;
+    private double currentDistance = 0.0;
+    private double currentVelocity = 0.0;
 
     // Singleton instances for left and right climbers
     private static ClimberSubsystem leftInstance = null;
@@ -32,7 +36,7 @@ public class ClimberSubsystem implements Subsystem {
     // Other properties and methods...
 
     // Private constructor for initializing motors and encoders
-    private ClimberSubsystem(ModifiedMotors motor, Encoder encoder) {
+    private ClimberSubsystem(ModifiedMotors motor, ModifiedEncoders encoder) {
         this.motor = motor;
         this.encoder = encoder;
 
@@ -61,15 +65,9 @@ public class ClimberSubsystem implements Subsystem {
         this.climberState = "MANUAL";
     }
 
-    // Set the climber state
-    public void setClimberState(String state) {
-        this.climberState = state;
-    }
-
     // Stop the climber
     public void stop() {
         this.climberState = "STOPPED";
-        currentPosition = 0.0; // TODO: Add relevant comment
     }
 
     // Set climber state to top
@@ -82,33 +80,55 @@ public class ClimberSubsystem implements Subsystem {
         this.climberState = "BOTTOM";
     }
 
-    // Process the current climber state
-    public void processState() {
+    // Set climber state to hold
+    public void hold() {
+        this.climberState = "HOLD";
+        this.holdPosition = currentDistance;
+    }
+
+    private void processState() {
         switch (climberState) {
+            case "MANUAL":
+                if (!((climberVelocity > 0.0 && atTop()) || (climberVelocity < 0.0 && atBottom()))) {
+                    climberVelocity = 0.0;
+                }
+                climberPower = velocityPID.calculate(currentVelocity, climberVelocity);
+                break;
             case "TOP":
                 rotationTarget = TOP_DISTANCE;
                 break;
             case "BOTTOM":
                 rotationTarget = BOTTOM_DISTANCE;
                 break;
-            case "STOPPED":
-                rotationTarget = currentPosition;
+            case "HOLD":
+                rotationTarget = holdPosition;
                 break;
-            case "MANUAL":
-                velocityPID.setSetpoint(climberVelocity);
-                climberPower = velocityPID.calculate(); // Calculate climber power based on velocity
+            case "STOPPED":
+                climberPower = 0.0;
                 break;
             default:
                 break;
         }
-        if (!climberState.equals("MANUAL")) {
-            positionPID.setSetpoint(rotationTarget);
-            climberPower = positionPID.calculate(); // Calculate climber power based on position
+        if (!climberState.equals("MANUAL") && !climberState.equals("STOPPED")) {
+            climberPower = positionPID.calculate(currentDistance, rotationTarget);
         }
+    }
+
+    public String getClimberState() {
+        return climberState;
+    }
+    
+    private boolean atTop() {
+        return (currentDistance - TOP_DISTANCE) <= TOP_HOLD_THRESHOLD;
+    }
+    private boolean atBottom() {
+        return (currentDistance - BOTTOM_DISTANCE) <= BOTTOM_HOLD_THRESHOLD;
     }
 
     // Update the climber based on the processed state
     public void update() {
+        currentDistance = encoder.getDistance();
+        currentVelocity = encoder.getVelocity();
         processState();
         motor.set(climberPower);
     }
