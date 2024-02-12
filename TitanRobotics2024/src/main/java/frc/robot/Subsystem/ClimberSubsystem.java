@@ -2,6 +2,7 @@ package frc.robot.Subsystem;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ClimberSubsystem implements Subsystem {
     // Constants for power and distance
@@ -86,33 +87,41 @@ public class ClimberSubsystem implements Subsystem {
         this.holdPosition = currentDistance;
     }
 
-private void processState() {
-    switch (climberState) {
-        case "MANUAL":
-            if (!((climberVelocity > 0.0 && atTop()) || (climberVelocity < 0.0 && atBottom()))) {
-                climberVelocity = 0.0;
-            }
-            climberPower = velocityPID.calculate(currentVelocity, climberVelocity);
-            break;
-        case "TOP":
-            rotationTarget = TOP_DISTANCE;
-            break;
-        case "BOTTOM":
-            rotationTarget = BOTTOM_DISTANCE;
-            break;
-        case "HOLD":
-            rotationTarget = holdPosition;
-            break;
-        case "STOPPED":
-            climberPower = 0.0;
-            break;
-        default:
-            break;
+
+    private void processState() {
+        switch (climberState) {
+            case "MANUAL":
+                if (!((climberVelocity > 0.0 && atTop()) || (climberVelocity < 0.0 && atBottom()))) {
+                    climberVelocity = 0.0;
+                }
+                climberPower = velocityPID.calculate(currentVelocity, climberVelocity);
+                break;
+            case "TOP":
+                rotationTarget = TOP_DISTANCE;
+                break;
+            case "BOTTOM":
+                rotationTarget = BOTTOM_DISTANCE;
+                break;
+            case "HOLD":
+                rotationTarget = holdPosition;
+                break;
+            case "STOPPED":
+                climberPower = 0.0;
+                break;
+            default:
+                break;
+        }
+        if (!climberState.equals("MANUAL") && !climberState.equals("STOPPED")) {
+            climberPower = positionPID.calculate(currentDistance, rotationTarget);
+        }
     }
-    if (!climberState.equals("MANUAL") && !climberState.equals("STOPPED")) {
-        climberPower = positionPID.calculate(currentDistance, rotationTarget);
+
+    public void log() {
+        SmartDashboard.putNumber("Climber Position", currentDistance);
+        SmartDashboard.putNumber("Climber Velocity", currentVelocity);
+        SmartDashboard.putNumber("Climber Power", climberPower);
+        SmartDashboard.putString("Climber State", climberState);
     }
-}
 
     public String getClimberState() {
         return climberState;
@@ -128,7 +137,7 @@ private void processState() {
     // Update the climber based on the processed state
     public void update() {
         currentDistance = encoder.getDistance();
-        currentVelocity = encoder.getVelocity();
+        currentVelocity = encoder.getRate();
         processState();
         motor.set(climberPower);
     }
