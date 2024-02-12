@@ -7,10 +7,13 @@ public class Control implements Subsystem
     private DriveBase driveBase;
     private static DriverController driverController = null;
     private static Control instance = null;
+    private double forward;
+    private double turn;
 
     public static Control getInstance() 
     {
-        if (instance == null) {
+        if (instance == null) 
+        {
             instance = new Control();
         }
         return instance;
@@ -22,10 +25,10 @@ public class Control implements Subsystem
         driverController = DriverController.getInstance();
     }
 
-    public void TeleopControl()
+    public void teleopControl()
     {
-        double forward = driverController.getStick(ButtonMap.XboxLEFTSTICKY);
-        double turn = driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
+        forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
+        turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX) * (Math.abs(driverController.getStick(ButtonMap.XboxRIGHTSTICKX)));
         driveBase.drive(forward, turn);
     }
 

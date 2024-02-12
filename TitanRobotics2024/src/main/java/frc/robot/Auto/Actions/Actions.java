@@ -1,13 +1,14 @@
 package frc.robot.Auto.Actions;
 
-public interface Actions {
+public interface Actions 
+{
     /**
      * Run code once when the action is started, for setup
      */
     void start();
 
     /**
-     * Called by runAction in AutoModeBase iteratively until isFinished returns true. Iterative logic lives in this
+     * Called by runAction in AutoMissionBase iteratively until isFinished returns true. Iterative logic lives in this
      * method
      */
     void update();

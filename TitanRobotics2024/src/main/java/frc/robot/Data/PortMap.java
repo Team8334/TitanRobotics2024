@@ -1,6 +1,7 @@
 package frc.robot.Data;
 
-public enum PortMap {
+public enum PortMap 
+{
     
     XBOX_DRIVER_CONTROLLER(0), //find this number in driverstation
     GAMEPADFLIGHT(1), //find this number in driverstation

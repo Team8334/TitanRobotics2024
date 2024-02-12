@@ -7,56 +7,59 @@ import frc.robot.Data.PortMap;
 
 public class DriverController implements Subsystem 
 {
-    private XboxController xboxController; 
+    private XboxController xboxController;
     private static DriverController instance = null;
 
     public static DriverController getInstance() 
     {
-        if (instance == null) {
+        if (instance == null) 
+        {
             instance = new DriverController();
         }
         return instance;
     }
 
-    public DriverController()
+    public DriverController() 
     {
-        this.xboxController = new XboxController(PortMap.XBOX_DRIVER_CONTROLLER.portNumber);       
+        this.xboxController = new XboxController(PortMap.XBOX_DRIVER_CONTROLLER.portNumber);
     }
 
     public double getStick(ButtonMap stickAxis) 
-    {  if (this.xboxController != null)
-        {   try {
-            switch(stickAxis)
-            {
-                case XboxLEFTSTICKX:
-                    return xboxController.getRawAxis(0);
-                case XboxLEFTSTICKY:
-                    return xboxController.getRawAxis(1);
-                case XboxRIGHTSTICKX:
-                    return xboxController.getRawAxis(4); 
-                case XboxRIGHTSTICKY:
-                    return xboxController.getRawAxis(5); 
-                default:
-                    return 0;
-            }
-        }  
-        catch (Exception AxisNotFound) 
+    {
+        if (this.xboxController != null) 
         {
-            SmartDashboard.putString("ControllerError", "AxisNotFound");
-            return 0;
-        }
+            try 
+            {
+                switch (stickAxis) 
+                {
+                    case XboxLEFTSTICKX:
+                        return xboxController.getRawAxis(0);
+                    case XboxLEFTSTICKY:
+                        return xboxController.getRawAxis(1);
+                    case XboxRIGHTSTICKX:
+                        return xboxController.getRawAxis(4);
+                    case XboxRIGHTSTICKY:
+                        return xboxController.getRawAxis(5);
+                    default:
+                        return 0;
+                }
+            } 
+            catch (Exception AxisNotFound) 
+            {
+                SmartDashboard.putString("ControllerError", "AxisNotFound");
+                return 0;
+            }
         } 
         else 
         {
-        return 0;
-        }     
+            return 0;
+        }
     }
 
     @Override
     public void update() 
     {
         // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
 }
