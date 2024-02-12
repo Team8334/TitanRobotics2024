@@ -86,33 +86,33 @@ public class ClimberSubsystem implements Subsystem {
         this.holdPosition = currentDistance;
     }
 
-    private void processState() {
-        switch (climberState) {
-            case "MANUAL":
-                if (!((climberVelocity > 0.0 && atTop()) || (climberVelocity < 0.0 && atBottom()))) {
-                    climberVelocity = 0.0;
-                }
-                climberPower = velocityPID.calculate(currentVelocity, climberVelocity);
-                break;
-            case "TOP":
-                rotationTarget = TOP_DISTANCE;
-                break;
-            case "BOTTOM":
-                rotationTarget = BOTTOM_DISTANCE;
-                break;
-            case "HOLD":
-                rotationTarget = holdPosition;
-                break;
-            case "STOPPED":
-                climberPower = 0.0;
-                break;
-            default:
-                break;
-        }
-        if (!climberState.equals("MANUAL") && !climberState.equals("STOPPED")) {
-            climberPower = positionPID.calculate(currentDistance, rotationTarget);
-        }
+private void processState() {
+    switch (climberState) {
+        case "MANUAL":
+            if (!((climberVelocity > 0.0 && atTop()) || (climberVelocity < 0.0 && atBottom()))) {
+                climberVelocity = 0.0;
+            }
+            climberPower = velocityPID.calculate(currentVelocity, climberVelocity);
+            break;
+        case "TOP":
+            rotationTarget = TOP_DISTANCE;
+            break;
+        case "BOTTOM":
+            rotationTarget = BOTTOM_DISTANCE;
+            break;
+        case "HOLD":
+            rotationTarget = holdPosition;
+            break;
+        case "STOPPED":
+            climberPower = 0.0;
+            break;
+        default:
+            break;
     }
+    if (!climberState.equals("MANUAL") && !climberState.equals("STOPPED")) {
+        climberPower = positionPID.calculate(currentDistance, rotationTarget);
+    }
+}
 
     public String getClimberState() {
         return climberState;
