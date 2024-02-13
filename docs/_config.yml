@@ -1,8 +1,0 @@
-title: Documentation Demo
-description: Demo for web documentation
-theme: just-the-docs
-
-url: https://thebuilder6.github.io/DocumentationDemo
-
-aux_links: # remove if you don't want this link to appear on your pages
-  Template Repository: https://github.com/thebuilder6/DocumentationDemo
