@@ -3,60 +3,63 @@ package frc.robot.Subsystem;
 import frc.robot.Data.PortMap;
 
 public class Climbers {
-    private double rightPower;
-    private double leftPower;
-    private ModifiedMotors climberMotorLeft;
-    private ModifiedMotors climberMotorRight;
-
-    private static Climbers instance = null;
+    private double power;
+    private ModifiedMotors motor;
     private String climberState = "retracted";
-
-
-    public static Climbers getInstance() {
-        if (instance == null) {
-            instance = new Climbers();
-        }
-        return instance;
-    }
-
-    public Climbers() 
-    {
-        this.climberMotorLeft = new ModifiedMotors(PortMap.CLIMBMOTORLEFT.portNumber, "CANVictorSPX");
-        this.climberMotorRight = new ModifiedMotors(PortMap.CLIMBMOTORRIGHT.portNumber, "CANVictorSPX");
-    }
-    public void setRightSideMotor(double power) 
-    {
-        this.rightPower = power;
-    }
     
-      public void setLeftSideMotor(double power) 
+    private static Climbers instanceLeft = null;
+    private static Climbers instanceRight = null;
+    private PIDController PID;
+    public static Climbers getInstanceLeft() {
+      if (instanceLeft == null)
       {
-        this.leftPower = power;
+        instanceLeft = new Climbers(new ModifiedMotors(PortMap.CLIMBMOTORLEFT.portNumber, "CANVictorSPX"));
       }
-      public void retract(double retract) {
-        //add retraction code here
-        this.leftPower = (retract );
-        this.rightPower = (retract ); //need to test for negative or positive motors
-      }    
-      public void update() {
-        this.climberMotorLeft.set(leftPower); // 0 is a placeholder
-        this.climberMotorRight.set(rightPower);
+        return instanceLeft;
+    }
+    public static Climbers getInstanceRight()
+    {
+      if (instanceRight == null)
+      {
+        instanceRight = new Climbers( new ModifiedMotors(PortMap.CLIMBMOTORRIGHT.portNumber, "CANVictorSPX"));
       }
+        return instanceRight;
+    }
 
-    public void retracting()
+    public Climbers(ModifiedMotors motor, Encoder encoder) 
     {
-      climberState = "retracting";
+      this.motor = motor
+      this.encoder = encoder
+      this.PID = new PIDController
     }
-    public void retracted()
+    public void top()
     {
-      climberState = "retracted";
+      climberState = "TOP"
     }
-    public void extended()
+    public void bottom()
     {
-      climberState = "extended";
+      climberState = "BOTTOM"
     }
-    public void extending()
+    public void manual()
     {
-      climberState = "extending";
+      climberState = "MANUAL"
     }
+    private void processedState()
+    {
+      switch (climberState){
+        case "TOP":
+          break;
+        case "BOTTOM":
+          break;
+        case "HOLD":
+          break;
+        case "MANUAL":
+          break;
+        default:
+          break;
+      }
+    }      
+  public void update() {
+        motor.set(power); // 0 is a placeholder
+      }
 }
