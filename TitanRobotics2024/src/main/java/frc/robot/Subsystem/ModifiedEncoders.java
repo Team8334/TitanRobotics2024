@@ -6,6 +6,13 @@ import edu.wpi.first.wpilibj.Encoder;  //this import like to get mad if the clas
 
 public class ModifiedEncoders implements Subsystem {
 
+    enum output{
+
+        getRate,
+        getDistance
+
+    }
+
     private Encoder encoder;
     private int channelA;
     private int channelB;
