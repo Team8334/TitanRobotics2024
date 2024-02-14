@@ -3,6 +3,7 @@ package frc.robot.Subsystem;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
 
 public class Gyro implements Subsystem
@@ -39,6 +40,12 @@ public class Gyro implements Subsystem
         }
         
         ahrs.reset();
+    }
+
+    public void log()
+    {
+        SmartDashboard.putNumber("GyroYaw", ahrs.getYaw());
+        SmartDashboard.putNumber("GyroAngle", ahrs.getAngle());
     }
 
     public double getRollDegrees()

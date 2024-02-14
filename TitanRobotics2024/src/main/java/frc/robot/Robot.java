@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 
+import frc.robot.Subsystem.SmartDashboardSubsystem;
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 //import frc.robot.ExternalLibraries.LimelightHelpers;
@@ -21,6 +22,7 @@ import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Auto.Missions.MissionBase;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Teleop.Teleop;
 //import frc.robot.Subsystem.AprilTagTargeting;
 
@@ -51,6 +53,7 @@ public class Robot extends TimedRobot
   private static DriveBase driveBase;
   private static DriverController driverController;
   private static OperatorController operatorController;
+  private static SmartDashboardSubsystem smartDashboardSubsystem;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -67,6 +70,7 @@ public class Robot extends TimedRobot
     operatorController = OperatorController.getInstance();
     //aprilTagTargeting = AprilTagTargeting.getInstance();
     autoMissionChooser.updateMissionCreator();
+    smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
    
   }
 
@@ -87,6 +91,7 @@ public class Robot extends TimedRobot
     operatorController.update();
     //aprilTagTargeting.update();
     autoMissionChooser.outputToSmartDashboard();
+    smartDashboardSubsystem.update();
     
     //System.out.println(LimelightHelpers.getFiducialID(""));
     //System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));

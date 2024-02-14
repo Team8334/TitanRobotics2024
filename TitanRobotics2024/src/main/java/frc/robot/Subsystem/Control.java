@@ -28,7 +28,7 @@ public class Control implements Subsystem
     public void teleopControl()
     {
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
-        turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX) * (Math.abs(driverController.getStick(ButtonMap.XboxRIGHTSTICKX)));
+        turn = 0.35 * -driverController.getStick(ButtonMap.XboxRIGHTSTICKX) * (Math.abs(driverController.getStick(ButtonMap.XboxRIGHTSTICKX)));
         driveBase.drive(forward, turn);
     }
 

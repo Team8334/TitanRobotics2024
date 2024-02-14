@@ -45,8 +45,8 @@ public class DriveBase implements Subsystem
 
   public void drive(double forward, double turn) 
   {
-    this.leftPower = (forward - (0.35 * turn));
-    this.rightPower = (forward + (0.35 * turn));
+    this.leftPower = (forward - (turn));
+    this.rightPower = (forward + (turn));
   }
 
   @Override

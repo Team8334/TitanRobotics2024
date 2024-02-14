@@ -18,7 +18,7 @@ public class TurnDegreesAction implements Actions
     private Gyro gyro;
 
     private PIDController PID;
-    private double kp = 0.01;
+    private double kp = 0.125;
     private double ki = 0.0;
     private double kd = 0.0;
 
@@ -29,7 +29,7 @@ public class TurnDegreesAction implements Actions
 
         desiredDegrees = degrees;
         PID = new PIDController(kp, ki, kd);
-        //PID.enableContinuousInput(0, 360);
+        PID.enableContinuousInput(-180, 180);
         
 
     }
@@ -37,20 +37,20 @@ public class TurnDegreesAction implements Actions
     @Override
     public void start()
     {
-        gyro.reset();
-
-        currentDegrees = gyro.getYawDegrees();
+        currentDegrees = gyro.getAngleDegrees();
         targetDegrees = (currentDegrees + desiredDegrees);
         PID.setSetpoint(targetDegrees);
         PID.setTolerance(toleranceDegrees);
+        System.out.println(targetDegrees);
     }
 
     @Override
     public void update()
     {
-        turn = PID.calculate(gyro.getYawDegrees());
-        driveBase.drive(0, -turn);
-        System.out.println(gyro.getYawDegrees());
+        turn = PID.calculate(gyro.getAngleDegrees()) / 180;
+        driveBase.drive(0, turn);
+        System.out.println(gyro.getAngleDegrees());
+        System.out.println(turn);
     }
 
     @Override
