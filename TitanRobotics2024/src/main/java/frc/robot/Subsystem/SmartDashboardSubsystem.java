@@ -6,6 +6,7 @@ public class SmartDashboardSubsystem implements Subsystem
     private static SmartDashboardSubsystem instance = null;
     Gyro gyro;
     DriveBase driveBase;
+    AprilTagTargeting aprilTagTargeting;
 
     public static SmartDashboardSubsystem getInstance() 
     {
@@ -20,6 +21,7 @@ public class SmartDashboardSubsystem implements Subsystem
     {
        gyro = Gyro.getInstance();
        driveBase = DriveBase.getInstance();
+       aprilTagTargeting = AprilTagTargeting.getInstance();
     }
 
     public void outputLogs()
@@ -32,5 +34,6 @@ public class SmartDashboardSubsystem implements Subsystem
     {
         gyro.log();
         driveBase.log();
+        aprilTagTargeting.log();
     }
 }

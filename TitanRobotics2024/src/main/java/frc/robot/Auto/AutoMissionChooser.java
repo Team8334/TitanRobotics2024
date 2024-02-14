@@ -12,7 +12,8 @@ public class AutoMissionChooser
     {
         doNothing,
         leaveCommunityRight,
-        exampleMission
+        exampleMission,
+        oneNoteMission
     }
 
     private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
@@ -28,6 +29,7 @@ public class AutoMissionChooser
         missionChooser.setDefaultOption("Do Nothing", DesiredMission.doNothing);
         missionChooser.addOption("Leave Community on right side", DesiredMission.leaveCommunityRight);
         missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
+        missionChooser.addOption("Score 1 note in amp", DesiredMission.oneNoteMission);
         // add more here as needed
 
         SmartDashboard.putData("Auto Mission", missionChooser);
@@ -61,6 +63,8 @@ public class AutoMissionChooser
                 return Optional.of(new LeaveCommunityRightMission());
             case exampleMission:
                 return Optional.of(new ExampleMission());
+            case oneNoteMission:
+                return Optional.of(new OneNoteMission());
             default:
                 System.err.println("No valid autonomous mission found for" + mission);
                 return Optional.empty();
