@@ -1,13 +1,24 @@
 package frc.robot.Subsystem;
 
+
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
+import frc.robot.Subsystem.ModifiedEncoders;
 
 public class DriveBase implements Subsystem 
 {
   private double kp = 0.0;
   private double ki = 0.0;
   private double kd = 0.0;
+
+  private ModifiedEncoders leftEncoder;
+  private ModifiedEncoders rightEncoder;
+  private double leftEncoderRate;
+  private double rightEncoderRate;
+  private double rightEncoderDistance;
+  private double leftEncoderDistance;
+
 
   private double leftPower;
   private double rightPower;
@@ -37,8 +48,11 @@ public class DriveBase implements Subsystem
     this.rearRightMotor  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber, "CANVictorSPX");
 
     PID = new PIDController(kp, ki, kd);
-  }
+    
+    this.leftEncoder = new ModifiedEncoders(PortMap.LEFTENCODER_A.portNumber,PortMap.LEFTENCODER_B.portNumber, "E4TEncoder");
+    this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber,PortMap.RIGHTENCODER_B.portNumber, "E4TEncoder");
 
+  }
   public void setRightMotorsPower(double power) 
   {
     this.rightPower = power;
@@ -60,6 +74,14 @@ public class DriveBase implements Subsystem
     
   }
 
+  public void log(){
+    SmartDashboard.putNumber("leftEncoderRate",leftEncoderRate);
+    SmartDashboard.putNumber("rightEncoderRate",rightEncoderRate);
+    SmartDashboard.putNumber("leftEncoderDistance",leftEncoderDistance);
+    SmartDashboard.putNumber("rightEncoderDistance",rightEncoderDistance);
+
+  }
+
   @Override
   /* Updates the state the motors are in */
   public void update() 
@@ -68,5 +90,10 @@ public class DriveBase implements Subsystem
     this.rearLeftMotor.set(leftPower);
     this.frontRightMotor.set(-rightPower);
     this.rearRightMotor.set(-rightPower);
+    leftEncoderRate = this.leftEncoder.getRate();
+    rightEncoderRate = this.rightEncoder.getRate();
+    leftEncoderDistance = this.leftEncoder.getDistance();
+    rightEncoderDistance = this.rightEncoder.getDistance();
+  
   }
 }

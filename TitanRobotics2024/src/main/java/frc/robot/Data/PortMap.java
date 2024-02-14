@@ -12,8 +12,11 @@ public enum PortMap
     REARLEFT(1),
     ARMPIVOTMOTOR(4),
     armCANID(21), 
-    clawCANID(6); 
-
+    clawCANID(6),
+    LEFTENCODER_A(3),
+    LEFTENCODER_B(4),
+    RIGHTENCODER_A(2),
+    RIGHTENCODER_B(1);
 
     public int portNumber;
     private PortMap(int portValue) //constructor
