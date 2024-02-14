@@ -12,6 +12,9 @@ public class DriveBase implements Subsystem
   private ModifiedEncoders rightEncoder;
   private double leftEncoderRate;
   private double rightEncoderRate;
+  private double rightEncoderDistance;
+  private double leftEncoderDistance;
+
 
   private double leftPower;
   private double rightPower;
@@ -61,6 +64,8 @@ public class DriveBase implements Subsystem
   public void log(){
     SmartDashboard.putNumber("leftEncoderRate",leftEncoderRate);
     SmartDashboard.putNumber("rightEncoderRate",rightEncoderRate);
+    SmartDashboard.putNumber("leftEncoderDistance",leftEncoderDistance);
+    SmartDashboard.putNumber("rightEncoderDistance",rightEncoderDistance);
 
   }
 
@@ -73,7 +78,9 @@ public class DriveBase implements Subsystem
     this.frontRightMotor.set(-rightPower);
     this.rearRightMotor.set(-rightPower);
     leftEncoderRate = this.leftEncoder.getRate();
-    rightEncoderRate = rightEncoder.getRate();
+    rightEncoderRate = this.rightEncoder.getRate();
+    leftEncoderDistance = this.leftEncoder.getDistance();
+    rightEncoderDistance = this.rightEncoder.getDistance();
   
   }
 }

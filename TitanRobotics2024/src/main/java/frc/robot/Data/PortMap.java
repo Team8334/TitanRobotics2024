@@ -15,8 +15,8 @@ public enum PortMap
     clawCANID(6),
     LEFTENCODER_A(3),
     LEFTENCODER_B(4),
-    RIGHTENCODER_A(1),
-    RIGHTENCODER_B(2);
+    RIGHTENCODER_A(2),
+    RIGHTENCODER_B(1);
 
     public int portNumber;
     private PortMap(int portValue) //constructor

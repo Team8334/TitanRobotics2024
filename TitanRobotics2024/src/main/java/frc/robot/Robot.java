@@ -10,8 +10,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
-import frc.robot.ExternalLibraries.LimelightHelpers;
+//import frc.robot.ExternalLibraries.LimelightHelpers;
 import frc.robot.Subsystem.Control;
+import frc.robot.Subsystem.SmartDasboardSub;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
 //import frc.robot.Subsystem.Limelight;
@@ -42,7 +43,7 @@ public class Robot extends TimedRobot
   private static Teleop teleop;
  // private static AprilTagTargeting aprilTagTargeting;
  // private static Limelight limelight;
-   private static LimelightHelpers limelightHelpers;
+   //private static LimelightHelpers limelightHelpers;
   
   private static ButtonMap buttonMap;
   private static PortMap portMap;
@@ -51,6 +52,7 @@ public class Robot extends TimedRobot
   private static DriveBase driveBase;
   private static DriverController driverController;
   private static OperatorController operatorController;
+  private static SmartDasboardSub smartDashboardSubsystem;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -67,6 +69,8 @@ public class Robot extends TimedRobot
     operatorController = OperatorController.getInstance();
     //aprilTagTargeting = AprilTagTargeting.getInstance();
     autoMissionChooser.updateMissionCreator();
+    smartDashboardSubsystem = SmartDasboardSub.getInstance();
+    smartDashboardSubsystem.update();
    
   }
 
@@ -87,9 +91,11 @@ public class Robot extends TimedRobot
     operatorController.update();
     //aprilTagTargeting.update();
     autoMissionChooser.outputToSmartDashboard();
+    smartDashboardSubsystem.update();
+
     
-    System.out.println(LimelightHelpers.getFiducialID(""));
-    System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
+    //System.out.println(LimelightHelpers.getFiducialID(""));
+    //System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
   }
 
   @Override
