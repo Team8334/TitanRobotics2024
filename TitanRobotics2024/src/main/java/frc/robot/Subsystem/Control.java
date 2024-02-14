@@ -1,6 +1,7 @@
 package frc.robot.Subsystem;
 
 import frc.robot.Data.ButtonMap;
+import frc.robot.Data.PortMap;
 import frc.robot.Subsystem.AprilTagTargeting;
 
 public class Control implements Subsystem 
@@ -29,16 +30,16 @@ public class Control implements Subsystem
     {
         double forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY);
         double turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
-        driveBase.drive(forward, turn);
-        if(driverController.xButtonPressed())
+
+        if(driverController.getButton(ButtonMap.XboxX) && aprilTagTargeting.target.equals("ALL"))
         {
-            System.out.println("Pressed");
-        }
-        if(driverController.xButtonPressed() && aprilTagTargeting.findAmp())
-        {
-            aprilTagTargeting.runAprilTagXPID();
+            aprilTagTargeting.setAlliance("blue");
             System.out.println("Running PID");
+            turn = aprilTagTargeting.runAprilTagXPID();
+            forward = aprilTagTargeting.runAprilTagAPID();
         }
+
+        driveBase.drive(forward, turn);
     }
 
     public void start() 

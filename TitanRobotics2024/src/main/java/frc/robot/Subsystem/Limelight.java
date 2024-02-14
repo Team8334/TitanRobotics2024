@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.ExternalLibraries.LimelightHelpers;
 
 public class Limelight 
 {
@@ -24,7 +25,18 @@ public class Limelight
     double l; 
     double cL;
 
-    public Limelight()
+    private String limelightState = "TRACKING";
+    
+
+    public static Limelight getInstance() 
+    {
+        if (instance == null) {
+            instance = new Limelight();
+        }
+        return instance;
+    }
+
+        public Limelight()
     {
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
         tx = table.getEntry("tx");
@@ -35,14 +47,61 @@ public class Limelight
         cl = table.getEntry("cl");
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
     }
+    
 
-    public static Limelight getInstance() 
-    {
-        if (instance == null) {
-            instance = new Limelight();
+    private void processState(){
+        switch (limelightState) {
+            case "NOT_TRACKING":
+                
+                break;
+            
+            case "TRACKING":
+                
+                break;
+
+            default:
+                break;
         }
-        return instance;
+
     }
+
+
+    public String getLimelightState()
+    {
+        return limelightState;
+    }
+
+    public void setLedMode(int mode)
+    {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
+    }
+
+    public void setPipeline(int pipeline)
+    {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+    }
+
+    public void setCamMode(int mode)
+    {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(mode);
+    }
+
+    public int getId() //finds April Tag ID. This is a variable, not a function.
+    {
+        return (int) LimelightHelpers.getFiducialID("");
+    }
+
+
+    public void log(){
+        //post to smart dashboard periodically
+        SmartDashboard.putNumber("LimelightX", x);
+        SmartDashboard.putNumber("LimelightY", y);
+        SmartDashboard.putNumber("LimelightArea", area);
+        SmartDashboard.putNumber("LimelightZ", z);
+        SmartDashboard.putNumber("LimelightTargetingLatency", l);
+        SmartDashboard.putNumber("LimelightCameraLatency", cL);
+    }
+
 
     public void update()
     {
@@ -53,14 +112,6 @@ public class Limelight
         z = tz.getDouble(0.0);
         l = tl.getDouble(0.0);
         cL = cl.getDouble(0.0);
-
-        //post to smart dashboard periodically
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("LimelightArea", area);
-        SmartDashboard.putNumber("LimelightZ", z);
-        SmartDashboard.putNumber("LimelightTargetingLatency", l);
-        SmartDashboard.putNumber("LimelightCameraLatency", cL);
     }
 
 }
