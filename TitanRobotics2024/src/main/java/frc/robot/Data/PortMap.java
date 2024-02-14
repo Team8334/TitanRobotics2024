@@ -3,8 +3,7 @@ package frc.robot.Data;
 public enum PortMap 
 {
     
-    XBOX_DRIVER_CONTROLLER(0), //find this number in driverstation
-    GAMEPADFLIGHT(1), //find this number in driverstation
+    XBOX_DRIVER_CONTROLLER(1), //find this number in driverstation
 
     FRONTRIGHT(3), 
     REARRIGHT(2),
@@ -17,6 +16,8 @@ public enum PortMap
     LEFTENCODER_B(4),
     RIGHTENCODER_A(2),
     RIGHTENCODER_B(1);
+    REARLEFT(1);
+
 
     public int portNumber;
     private PortMap(int portValue) //constructor

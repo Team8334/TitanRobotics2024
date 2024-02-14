@@ -77,7 +77,14 @@ public class Robot extends TimedRobot
 
     smartDashboardSubsystem.update();
 
-   
+
+    control = Control.getInstance();
+    driveBase = DriveBase.getInstance();
+    driverController = DriverController.getInstance();
+    limelight = Limelight.getInstance();
+    //modifiedMotors = ModifiedMotors.getInstance();
+    //operatorController = OperatorController.getInstance();*/
+    aprilTagTargeting = AprilTagTargeting.getInstance();
   }
 
   /**
@@ -87,18 +94,19 @@ public class Robot extends TimedRobot
    * This runs after the mission specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() 
-  {
+  public void robotPeriodic() {
     control.update();
     driveBase.update();
     driverController.update();
-    //limelight.update();
+    limelight.update();
     //modifiedMotors.update();
-    operatorController.update();
-    //aprilTagTargeting.update();
+    operatorController.update();*/
+    aprilTagTargeting.update();
     autoMissionChooser.outputToSmartDashboard();
     smartDashboardSubsystem.update();
-
+    
+    System.out.println(LimelightHelpers.getFiducialID(""));
+   // System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
   }
 
   @Override

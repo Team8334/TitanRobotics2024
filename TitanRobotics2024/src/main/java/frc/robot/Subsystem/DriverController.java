@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 
-public class DriverController implements Subsystem 
+public class DriverController extends XboxController implements Subsystem 
 {
     private XboxController xboxController;
     private static DriverController instance = null;
@@ -21,7 +21,8 @@ public class DriverController implements Subsystem
 
     public DriverController() 
     {
-        this.xboxController = new XboxController(PortMap.XBOX_DRIVER_CONTROLLER.portNumber);
+        super(PortMap.XBOX_DRIVER_CONTROLLER.portNumber);
+        this.xboxController = this;
     }
 
     public double getStick(ButtonMap stickAxis) 
@@ -55,6 +56,49 @@ public class DriverController implements Subsystem
             return 0;
         }
     }
+    public boolean getButton(ButtonMap button) 
+    {
+        if (this.xboxController != null) 
+        {
+            try 
+            {
+                switch (button) 
+                {
+                    case XboxA:
+                        return xboxController.getAButton();
+                    case XboxB:
+                        return xboxController.getBButton();
+                    case XboxX:
+                        return xboxController.getXButton();
+                    case XboxY:
+                        return xboxController.getYButton();
+                    case XboxBACK:
+                        return xboxController.getBackButton();
+                    case XboxSTART:
+                        return xboxController.getStartButton();
+                    case XboxLB:
+                        return xboxController.getLeftBumper();
+                    case XboxRB:
+                        return xboxController.getRightBumper();
+                    case XboxLSTICK:
+                        return xboxController.getLeftStickButton();
+                    case XboxRSTICK:
+                        return xboxController.getRightStickButton();
+                    default:
+                        return false;
+                }
+            } 
+            catch (Exception ButtonNotFound) 
+            {
+                SmartDashboard.putString("ControllerError", "ButtonNotFound");
+                return false;
+            }
+        } 
+        else 
+        {
+            return false;
+        }
+    }             
 
     @Override
     public void update() 
