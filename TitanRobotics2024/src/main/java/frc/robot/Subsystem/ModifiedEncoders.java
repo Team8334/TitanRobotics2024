@@ -16,6 +16,7 @@ public class ModifiedEncoders implements Subsystem {
     private Encoder encoder;
     private int channelA;
     private int channelB;
+    private double ratio = 0.0;
 
     
     public ModifiedEncoders(int channelA, int channelB, String encodertype){
@@ -51,8 +52,16 @@ public class ModifiedEncoders implements Subsystem {
                 System.err.println("Error: encoders not activated");
         }
         encoder = temporaryEncoder;
+    }
 
+    public void setRatio(double ratio)
+    {
+        this.ratio = ratio;
+    }
 
+    public void invert()
+    {
+        this.ratio = -ratio;
     }
 
     private Encoder initializeE4T(int channelA, int channelB){
@@ -72,7 +81,7 @@ public class ModifiedEncoders implements Subsystem {
 
     public double getRate(){
 
-        return encoder.getRate();
+        return encoder.getRate() * ratio;
     }
 
     public double getDistance(){
