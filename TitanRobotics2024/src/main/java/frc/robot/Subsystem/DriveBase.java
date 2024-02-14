@@ -1,10 +1,13 @@
 package frc.robot.Subsystem;
 
+import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Data.PortMap;
 
 public class DriveBase implements Subsystem 
 {
-
+  private double kp = 0.0;
+  private double ki = 0.0;
+  private double kd = 0.0;
 
   private double leftPower;
   private double rightPower;
@@ -13,6 +16,7 @@ public class DriveBase implements Subsystem
   private ModifiedMotors frontRightMotor;
   private ModifiedMotors rearRightMotor;
   private ModifiedMotors frontLeftMotor;
+  private PIDController PID;
 
   private static DriveBase instance = null;
 
@@ -31,6 +35,8 @@ public class DriveBase implements Subsystem
     this.rearLeftMotor   =  new ModifiedMotors(PortMap.REARLEFT.portNumber, "CANVictorSPX");
     this.frontRightMotor =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, "CANVictorSPX");
     this.rearRightMotor  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber, "CANVictorSPX");
+
+    PID = new PIDController(kp, ki, kd);
   }
 
   public void setRightMotorsPower(double power) 
@@ -47,6 +53,11 @@ public class DriveBase implements Subsystem
   {
     this.leftPower = (forward - (turn));
     this.rightPower = (forward + (turn));
+  }
+
+  public void turnWithPID()
+  {
+    
   }
 
   @Override

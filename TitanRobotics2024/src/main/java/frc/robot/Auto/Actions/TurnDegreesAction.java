@@ -18,7 +18,11 @@ public class TurnDegreesAction implements Actions
     private Gyro gyro;
 
     private PIDController PID;
+<<<<<<< Updated upstream
     private double kp = 0.125;
+=======
+    private double kp = 0.2;
+>>>>>>> Stashed changes
     private double ki = 0.0;
     private double kd = 0.0;
 
