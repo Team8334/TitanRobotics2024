@@ -16,7 +16,6 @@ public enum PortMap
     LEFTENCODER_B(4),
     RIGHTENCODER_A(2),
     RIGHTENCODER_B(1);
-    REARLEFT(1);
 
 
     public int portNumber;
