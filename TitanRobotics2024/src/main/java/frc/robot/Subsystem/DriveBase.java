@@ -40,7 +40,7 @@ public class DriveBase implements Subsystem
     this.rearRightMotor  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber, "CANVictorSPX");
     
     this.leftEncoder = new ModifiedEncoders(PortMap.LEFTENCODER_A.portNumber,PortMap.LEFTENCODER_B.portNumber, "E4TEncoder");
-    this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber,PortMap.RIGHTENCODER_B.portNumber, "E4TEncoder");9
+    this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber,PortMap.RIGHTENCODER_B.portNumber, "E4TEncoder");
   }
   public void setRightMotorsPower(double power) 
   {
@@ -58,7 +58,7 @@ public class DriveBase implements Subsystem
     this.rightPower = (forward + (0.35 * turn));
   }
 
-  public void Log(){
+  public void log(){
     SmartDashboard.putNumber("leftEncoderRate",leftEncoderRate);
     SmartDashboard.putNumber("rightEncoderRate",rightEncoderRate);
 

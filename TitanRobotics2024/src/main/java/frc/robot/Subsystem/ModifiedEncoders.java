@@ -80,6 +80,7 @@ public class ModifiedEncoders implements Subsystem {
         return encoder.getDistance();
     }
 
+
     @Override
     public void update() {
         // TODO Auto-generated method stub
