@@ -19,7 +19,8 @@ public class ModifiedEncoders implements Subsystem {
     private double ratio = 0.0;
 
     
-    public ModifiedEncoders(int channelA, int channelB, String encodertype){
+    public ModifiedEncoders(int channelA, int channelB, String encodertype)
+    {
 
         Encoder temporaryEncoder = null;
         switch (encodertype) 
@@ -28,7 +29,11 @@ public class ModifiedEncoders implements Subsystem {
             
                 temporaryEncoder = initializeE4T(channelA, channelB);
                 break;
-           
+            
+            case "QuadratureEncoder":
+                temporaryEncoder = new Encoder(channelA, channelB);
+                break;
+                
             default:
                 System.err.println("Error: encoders not activated");
         }
@@ -77,6 +82,7 @@ public class ModifiedEncoders implements Subsystem {
         
 
     }
+
 
     public double getRate(){
 

@@ -3,6 +3,7 @@ package frc.robot.Subsystem;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
+import frc.robot.Subsystem.ModifiedEncoders;
 
 public class ClimberSubsystem implements Subsystem {
     // Constants for power and distance
@@ -48,7 +49,8 @@ public class ClimberSubsystem implements Subsystem {
     // Get instance for left climber
     public static ClimberSubsystem getLeftInstance() {
         if (leftInstance == null) {
-            leftInstance = new ClimberSubsystem(new ModifiedMotors(PortMap.CLIMBERMOTORLEFT.portNumber, "CANSparkMax"), null, "Left Climber");
+            leftInstance = new ClimberSubsystem(new ModifiedMotors(PortMap.CLIMBERMOTORLEFT.portNumber, "CANSparkMax"),
+             new ModifiedEncoders(PortMap.CLIMBERLEFTENCODER_A.portNumber, PortMap.CLIMBERLEFTENCODER_B.portNumber, "QuadratureEncoder"), "Left Climber");
         }
         return leftInstance;
     }
@@ -56,7 +58,8 @@ public class ClimberSubsystem implements Subsystem {
     // Get instance for right climber
     public static ClimberSubsystem getRightInstance() {
         if (rightInstance == null) {
-            rightInstance = new ClimberSubsystem(null, null, "Right Climber");
+            rightInstance = new ClimberSubsystem(new ModifiedMotors(PortMap.CLIMBERMOTORRIGHT.portNumber, "CANSparkMax"),
+             new ModifiedEncoders(PortMap.CLIMBERRIGHTENCODER_A.portNumber, PortMap.CLIMBERRIGHTENCODER_B.portNumber, "QuadratureEncoder"), "Right Climber");
 
         }
         return rightInstance;
