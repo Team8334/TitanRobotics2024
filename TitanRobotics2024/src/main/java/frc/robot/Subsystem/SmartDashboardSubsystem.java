@@ -1,5 +1,8 @@
 package frc.robot.Subsystem;
 
+import java.util.ArrayList;
+import java.util.List;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SmartDashboardSubsystem implements Subsystem
 {
@@ -7,6 +10,7 @@ public class SmartDashboardSubsystem implements Subsystem
     Gyro gyro;
     DriveBase driveBase;
     AprilTagTargeting aprilTagTargeting;
+    List<String> errorLog = new ArrayList<>();
 
     public static SmartDashboardSubsystem getInstance() 
     {
@@ -24,9 +28,12 @@ public class SmartDashboardSubsystem implements Subsystem
        aprilTagTargeting = AprilTagTargeting.getInstance();
     }
 
-    public void outputLogs()
+    public void error(String error) 
     {
-
+        //if error is not in errorLog
+        if (!errorLog.contains(error)){
+            errorLog.add(error);
+        }
     }
 
     @Override

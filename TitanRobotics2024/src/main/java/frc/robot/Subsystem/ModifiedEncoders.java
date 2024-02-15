@@ -34,7 +34,6 @@ public class ModifiedEncoders implements Subsystem {
         }
         encoder = temporaryEncoder;
 
-
     }
 
     public ModifiedEncoders(int portNumber, String encodertype){

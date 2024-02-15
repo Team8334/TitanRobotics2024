@@ -80,9 +80,9 @@ public class DriverController extends XboxController implements Subsystem
                         return xboxController.getLeftBumper();
                     case XboxRB:
                         return xboxController.getRightBumper();
-                    case XboxLSTICK:
+                    case XboxLEFTSTICKBUTTON:
                         return xboxController.getLeftStickButton();
-                    case XboxRSTICK:
+                    case XboxRIGHTSTICKBUTTON:
                         return xboxController.getRightStickButton();
                     default:
                         return false;

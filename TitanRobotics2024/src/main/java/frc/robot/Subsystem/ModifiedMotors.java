@@ -1,6 +1,7 @@
 package frc.robot.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -38,6 +39,9 @@ public class ModifiedMotors implements Subsystem
             case "CANVictorSPX":
                 motorTemporarily = initializeCANVictorSPX(portNumber);
                 break;
+            case "CANSparkMax":
+                motorTemporarily = initializeCANSparkMax(portNumber);
+                break;
             default:
                 System.err.println("Error: motors not activated");
         }
@@ -62,6 +66,19 @@ public class ModifiedMotors implements Subsystem
         try 
         {
             return new WPI_VictorSPX(portNumber);
+        } 
+        catch (Exception e) 
+        {
+            System.err.println("Error: CANID Not Activated " + portNumber);
+            return null;
+        }
+    }
+
+    private MotorController initializeCANSparkMax(int portNumber) 
+    {
+        try 
+        {
+            return new CANSparkMax(portNumber, CANSparkMax.MotorType.kBrushless);
         } 
         catch (Exception e) 
         {

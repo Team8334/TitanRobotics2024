@@ -1,8 +1,11 @@
 package frc.robot.Subsystem;
 
 import frc.robot.Data.ButtonMap;
+import frc.robot.Subsystem.OperatorController;
 import frc.robot.Data.PortMap;
 import frc.robot.Subsystem.AprilTagTargeting;
+import frc.robot.Subsystem.ClimberControl;
+import frc.robot.Subsystem.ClimberSubsystem;
 
 public class Control implements Subsystem 
 {
@@ -12,6 +15,8 @@ public class Control implements Subsystem
     private double forward;
     private double turn;
     private AprilTagTargeting aprilTagTargeting = null;
+    private ClimberControl climberControl;
+    private OperatorController operatorController;
 
     public static Control getInstance() 
     {
@@ -27,6 +32,8 @@ public class Control implements Subsystem
         driveBase = DriveBase.getInstance();
         driverController = DriverController.getInstance();
         aprilTagTargeting = AprilTagTargeting.getInstance();
+        climberControl = ClimberControl.getInstance();
+        operatorController = OperatorController.getInstance();
     }
 
     public void teleopControl()
@@ -44,6 +51,23 @@ public class Control implements Subsystem
         }
 
         driveBase.drive(forward, turn);
+
+        if(operatorController.getButton(ButtonMap.XboxY))
+        {
+            climberControl.top();
+        }
+
+        if(operatorController.getButton(ButtonMap.XboxX))
+        {
+            climberControl.bottom();
+        }
+
+        if(operatorController.getButton(ButtonMap.XboxB))
+        {
+            climberControl.stop();
+        }
+
+        climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
     }
 
     public void start() 

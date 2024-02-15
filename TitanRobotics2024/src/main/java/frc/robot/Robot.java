@@ -20,8 +20,12 @@ import frc.robot.Subsystem.DriverController;
 //import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Subsystem.AprilTagTargeting;
+import frc.robot.Subsystem.ClimberControl;
+import frc.robot.Subsystem.ClimberSubsystem;
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
+import frc.robot.Subsystem.ClimberControl;
+import frc.robot.Subsystem.ClimberSubsystem;
 import frc.robot.Auto.Missions.MissionBase;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -61,6 +65,10 @@ public class Robot extends TimedRobot
 
   private static SmartDashboardSubsystem smartDashboardSubsystem;
 
+  private static ClimberSubsystem climberLeft;
+  private static ClimberSubsystem climberRight;
+  private static ClimberControl climberControl;
+
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -87,6 +95,9 @@ public class Robot extends TimedRobot
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
     limelight = Limelight.getInstance();
+    climberControl = ClimberControl.getInstance();
+    climberLeft = ClimberSubsystem.getLeftInstance();
+    climberRight = ClimberSubsystem.getRightInstance();
     //modifiedMotors = ModifiedMotors.getInstance();
     //operatorController = OperatorController.getInstance();*/
     aprilTagTargeting = AprilTagTargeting.getInstance();
@@ -109,6 +120,9 @@ public class Robot extends TimedRobot
     aprilTagTargeting.update();
     autoMissionChooser.outputToSmartDashboard();
     smartDashboardSubsystem.update();
+    climberControl.update();
+    climberLeft.update();
+    climberRight.update();
     
     System.out.println(LimelightHelpers.getFiducialID(""));
    // System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
