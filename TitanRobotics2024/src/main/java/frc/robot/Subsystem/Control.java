@@ -31,12 +31,29 @@ public class Control implements Subsystem
         double forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY);
         double turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
-        if(driverController.getButton(ButtonMap.XboxX) && aprilTagTargeting.target.equals("ALL"))
+        aprilTagTargeting.setAlliance("blue"); //Change depending on alliance for upcoming match. 
+                                                        //Failure to change this will cause you to target the
+                                                        //wrong AprilTags when using lock on buttons.
+
+        if(driverController.getButton(ButtonMap.XboxX))
         {
-            aprilTagTargeting.setAlliance("blue");
-            System.out.println("Running PID");
-            turn = aprilTagTargeting.runAprilTagXPID();
-            forward = aprilTagTargeting.runAprilTagAPID();
+            aprilTagTargeting.setTarget("Amp");
+            turn = aprilTagTargeting.lockOn();
+            System.out.println("Locking on to Amp");
+        }
+        
+        if(driverController.getButton(ButtonMap.XboxA))
+        {
+            aprilTagTargeting.setTarget("Source");
+            turn = aprilTagTargeting.lockOn();
+            System.out.println("Locking on to Source");
+        }
+
+        if(driverController.getButton(ButtonMap.XboxB))
+        {
+            aprilTagTargeting.setTarget("Stage");
+            turn = aprilTagTargeting.lockOn();
+            System.out.println("Locking on to Stage");
         }
 
         driveBase.drive(forward, turn);

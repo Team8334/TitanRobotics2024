@@ -32,7 +32,6 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
         this.alliance = alliance;
     }
 
-
     public AprilTagTargeting() {
         limelight = Limelight.getInstance();
     }
@@ -41,17 +40,16 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
         this.target = target;
     }
 
-
-
-    public double runAprilTagXPID() {
+    public double lockOn() {
         if (target.equals("ALL") || target.equals(findTagName())) {
             return(aprilTagXPID.calculate(limelight.x, 0) / 25);
         }
         else {
             return 0;
         }
-        
     }
+
+   
     /**
      * Runs the AprilTag Area PID control and returns the result.
      *

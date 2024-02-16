@@ -22,9 +22,9 @@ public enum ButtonMap
     XboxLEFTSTICKX(-5),
     XboxLEFTSTICKY(-6),
     XboxRIGHTSTICKX(-7),
-    XboxRIGHTSTICKY(-8),
+    XboxRIGHTSTICKY(-8);
 
-    //Flight Stick Button Map
+    /*Flight Stick Button Map. Commented out due to not using at the moment.
     FlightBUTTON1(1),
     FlightBUTTON2(2),
     FlightBUTTON3(3),
@@ -38,6 +38,7 @@ public enum ButtonMap
     FlightSTICKY(-2),
     FlightSTICKZ(-3),
     FlightSLIDER(-4);
+    */
 
     public int value;
     private ButtonMap(int buttonValue)
