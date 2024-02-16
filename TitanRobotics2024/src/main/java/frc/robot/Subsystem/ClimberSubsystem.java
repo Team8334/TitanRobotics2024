@@ -36,7 +36,6 @@ public class ClimberSubsystem implements Subsystem {
     private ModifiedEncoders encoder;
     private SmartDashboardSubsystem smartDashboardSubsystem;
     // Other properties and methods...
-
     // Private constructor for initializing motors and encoders
     private ClimberSubsystem(ModifiedMotors motor, ModifiedEncoders encoder, String name) 
     {
@@ -164,7 +163,9 @@ public class ClimberSubsystem implements Subsystem {
             currentVelocity = encoder.getRate();
             processState();
             motor.set(climberPower);
-        } else {
+        } 
+        else 
+        {
             smartDashboardSubsystem.error("Climber not initialized");
         }
     }

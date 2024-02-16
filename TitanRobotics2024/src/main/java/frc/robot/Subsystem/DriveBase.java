@@ -12,7 +12,7 @@ public class DriveBase implements Subsystem
   private double lki = 0.0;
   private double lkd = 0.0;
 
-   private double rkp = 0.0;
+  private double rkp = 0.0;
   private double rki = 0.0;
   private double rkd = 0.0;
 
@@ -87,6 +87,16 @@ public class DriveBase implements Subsystem
   public void setRightVelocity(double velocity)
   {
     this.rightPower = leftPID.calculate(leftEncoderRate, velocity); //rate in centimeters per second
+  }
+
+  public double getLeftEncoderDistance()
+  {
+    return leftEncoderDistance;       
+  }
+
+  public double getRightEncoderDistance()
+  {
+    return rightEncoderDistance;       
   }
 
   public void log(){

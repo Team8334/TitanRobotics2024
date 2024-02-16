@@ -10,6 +10,9 @@ public class SmartDashboardSubsystem implements Subsystem
     Gyro gyro;
     DriveBase driveBase;
     AprilTagTargeting aprilTagTargeting;
+    private PositionEstimation positionEstimation;
+    //ClimberSubsystem climberLeftSubsystem = ClimberSubsystem.getLeftInstance();
+    //ClimberSubsystem climberRightSubsystem = ClimberSubsystem.getRightInstance();
     List<String> errorLog = new ArrayList<>();
 
     public static SmartDashboardSubsystem getInstance() 
@@ -26,6 +29,7 @@ public class SmartDashboardSubsystem implements Subsystem
        gyro = Gyro.getInstance();
        driveBase = DriveBase.getInstance();
        aprilTagTargeting = AprilTagTargeting.getInstance();
+       positionEstimation = PositionEstimation.getInstance();
     }
 
     public void error(String error) 
@@ -41,6 +45,10 @@ public class SmartDashboardSubsystem implements Subsystem
     {
         gyro.log();
         driveBase.log();
+        //climberLeftSubsystem.log();
+        //climberRightSubsystem.log();
         aprilTagTargeting.log();
+        positionEstimation.log();
+        SmartDashboard.putString("Errors", errorLog.toString());
     }
 }

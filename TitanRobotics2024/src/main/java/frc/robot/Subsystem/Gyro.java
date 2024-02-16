@@ -2,6 +2,7 @@ package frc.robot.Subsystem;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
@@ -69,6 +70,10 @@ public class Gyro implements Subsystem
     public double getAngleDegrees()
     {
         return ahrs.getAngle();
+    }
+
+     public Rotation2d getRotation2d() {
+        return ahrs.getRotation2d();
     }
 
     public void reset()

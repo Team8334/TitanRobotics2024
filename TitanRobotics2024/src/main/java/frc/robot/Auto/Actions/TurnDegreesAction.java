@@ -41,16 +41,18 @@ public class TurnDegreesAction implements Actions
         targetDegrees = (currentDegrees + desiredDegrees);
         PID.setSetpoint(targetDegrees);
         PID.setTolerance(toleranceDegrees);
-        System.out.println(targetDegrees);
+       // System.out.println(targetDegrees);
     }
+
+ 
 
     @Override
     public void update()
     {
         turn = PID.calculate(gyro.getAngleDegrees()) / 180;
         driveBase.drive(0, turn);
-        System.out.println(gyro.getAngleDegrees());
-        System.out.println(turn);
+        //System.out.println(gyro.getAngleDegrees());
+        //System.out.println(turn);
     }
 
     @Override

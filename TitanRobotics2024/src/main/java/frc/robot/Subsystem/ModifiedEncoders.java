@@ -16,7 +16,7 @@ public class ModifiedEncoders implements Subsystem {
     private Encoder encoder;
     private int channelA;
     private int channelB;
-    private double ratio = 0.0;
+    private double ratio = 1.0;
 
     
     public ModifiedEncoders(int channelA, int channelB, String encodertype)
@@ -86,7 +86,7 @@ public class ModifiedEncoders implements Subsystem {
 
     public double getRate(){
 
-        return encoder.getRate() * ratio;
+        return encoder.getRate();// * ratio;
     }
 
     public double getDistance(){

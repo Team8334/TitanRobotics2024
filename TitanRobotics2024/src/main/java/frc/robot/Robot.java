@@ -13,11 +13,11 @@ import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 import frc.robot.ExternalLibraries.LimelightHelpers;
 import frc.robot.Subsystem.Limelight;
-//import frc.robot.ExternalLibraries.LimelightHelpers;
+
 import frc.robot.Subsystem.Control;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
-//import frc.robot.Subsystem.Limelight;
+
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Subsystem.AprilTagTargeting;
 import frc.robot.Subsystem.ClimberControl;
@@ -30,6 +30,7 @@ import frc.robot.Auto.Missions.MissionBase;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Subsystem.PositionEstimation;
 import frc.robot.Teleop.Teleop;
 //import frc.robot.Subsystem.AprilTagTargeting;
 
@@ -49,8 +50,8 @@ public class Robot extends TimedRobot
 
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private static Teleop teleop;
- // private static AprilTagTargeting aprilTagTargeting;
- // private static Limelight limelight;
+ 
+ 
    //private static LimelightHelpers limelightHelpers;
   
   private static ButtonMap buttonMap;
@@ -64,6 +65,7 @@ public class Robot extends TimedRobot
   private static AprilTagTargeting aprilTagTargeting;
 
   private static SmartDashboardSubsystem smartDashboardSubsystem;
+  private static PositionEstimation positionEstimation;
 
   private static ClimberSubsystem climberLeft;
   private static ClimberSubsystem climberRight;
@@ -101,6 +103,7 @@ public class Robot extends TimedRobot
     //modifiedMotors = ModifiedMotors.getInstance();
     //operatorController = OperatorController.getInstance();*/
     aprilTagTargeting = AprilTagTargeting.getInstance();
+    positionEstimation = PositionEstimation.getInstance();
   }
 
   /**
@@ -111,6 +114,7 @@ public class Robot extends TimedRobot
    */
   @Override
   public void robotPeriodic() {
+    positionEstimation.update();
     control.update();
     driveBase.update();
     driverController.update();
