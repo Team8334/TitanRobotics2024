@@ -70,6 +70,12 @@ public class Control implements Subsystem
         climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
     }
 
+    public void RampButtonPressed()
+    {
+        if(RAMP.getButton(ButtonMap.XboxX));
+        if 	(RAMP.getRightBumperPressed(ButtonMap.Xbox));
+    }
+
     public void start() 
     {
 
