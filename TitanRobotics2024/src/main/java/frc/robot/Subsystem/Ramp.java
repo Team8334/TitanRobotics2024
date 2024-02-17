@@ -1,31 +1,31 @@
 package frc.robot.Subsystem;
 
+import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 
-
-
-public class RAMP                   
+public class Ramp                   
 {
-    public double power;
-    public rampMotorLeft;
-    public rampMotorRight;
-    public rampMotorLeftpower;
-    public rampMotorRightpower
-    public void Ramp()
+    private double ramppower;
+    public ModifiedMotors rampMotorLeft;
+    public ModifiedMotors rampMotorRight;
+    public double rampMotorLeftpower;
+    public double rampMotorRightpower;
+  
+    public void setRampMotors()
     {
     this.rampMotorLeft =  new ModifiedMotors(PortMap.RAMPMOTORLEFT.portNumber, "CANSparkMax");
     this.rampMotorRight   =  new ModifiedMotors(PortMap.RAMPMOTORRIGHT.portNumber, "CANSparkMax");
     }
     
-    public void setLeftMotorsPower(double power) 
-  {
-    this.rampMotorLeftpower = power;
-    this.rampMotorRightpower = power;
-  }
+    public void setRampMotorsPower(double power) 
+    {
+    this.rampMotorLeftpower = ramppower;
+    this.rampMotorRightpower = ramppower;
+    }
 
-  public void drive(double forward, double turn) 
+  public void ramp(double rampforward) 
   {
-    this.rampMotorLeftpower = (forward + (turn));
-    this.rampMotorRightpower = (forward - (turn));
+    this.rampMotorLeftpower = (+ rampforward);
+    this.rampMotorRightpower = (- rampforward);
   }
 }

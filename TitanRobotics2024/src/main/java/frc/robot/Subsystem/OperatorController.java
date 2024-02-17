@@ -41,10 +41,8 @@ public class OperatorController extends XboxController implements Subsystem
                         return xboxController.getRawAxis(4);
                     case XboxRIGHTSTICKY:
                         return xboxController.getRawAxis(5);
-                    case XboxRIGHTBumper:
-                        return xboxController.getRawAxis(-4);
-                    case XboxLEFTBumper:
-                        return xboxController.getRawAxis(-3);
+                    case XboxRIGHTTrigger:
+                        return xboxController.getRawAxis(3);
                     default:
                         return 0;
                 }

@@ -21,7 +21,6 @@ import frc.robot.Subsystem.DriverController;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Subsystem.AprilTagTargeting;
 import frc.robot.Subsystem.ClimberControl;
-import frc.robot.Subsystem.ClimberSubsystem;
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Subsystem.ClimberControl;

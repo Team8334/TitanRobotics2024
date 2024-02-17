@@ -6,6 +6,7 @@ import frc.robot.Data.PortMap;
 import frc.robot.Subsystem.AprilTagTargeting;
 import frc.robot.Subsystem.ClimberControl;
 import frc.robot.Subsystem.ClimberSubsystem;
+import edu.wpi.first.wpilibj.XboxController;
 
 public class Control implements Subsystem 
 {
@@ -17,6 +18,7 @@ public class Control implements Subsystem
     private AprilTagTargeting aprilTagTargeting = null;
     private ClimberControl climberControl;
     private OperatorController operatorController;
+    private double rampspeed;
 
     public static Control getInstance() 
     {
@@ -68,12 +70,15 @@ public class Control implements Subsystem
         }
 
         climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
+        RampButtonPressed();
     }
 
     public void RampButtonPressed()
     {
-        if(RAMP.getButton(ButtonMap.XboxX));
-        if 	(RAMP.getRightBumperPressed(ButtonMap.Xbox));
+        rampspeed = operatorController.getStick(ButtonMap.XboxRIGHTTrigger);
+        {
+            System.out.println("ramp speed: " + rampspeed);
+        }
     }
 
     public void start() 
