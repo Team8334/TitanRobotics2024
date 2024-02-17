@@ -7,12 +7,8 @@ import frc.robot.Subsystem.ModifiedEncoders;
 
 public class Intake implements Subsystem 
 {
-
   private double Intake_Up_Position = 0.0; //set these later
   private double Intake_Bottom_Position = 0.0; //set these later
-
-  private PIDController positionPID = new PIDController(0.01, 0.0, 0.0);
-  private PIDController velocityPID = new PIDController(0.01, 0.0, 0.0);
 
   private String IntakeState = "up";
   private double rotationtarget;
@@ -21,25 +17,33 @@ public class Intake implements Subsystem
   private double currentDistance;
 
   private ModifiedEncoders encoder;
-  private ModifiedMotors motor;
+  private ModifiedMotors pivotMotor;
+  private ModifiedMotors rollerMotor;
+  private PIDController positionPID;
+  private double kp;
+  private double ki;
+  private double kd;
 
-  private static Intake instancepivot = null;
-  private static Intake instanceRoller = null;
+  private static Intake instance = null;
 
   public static Intake getInstance() 
   {
-    if (instancepivot == null) 
+    if (instance == null) 
     {
-      instancepivot = new Intake(new ModifiedEncoders(000, "E4TEncoder"),new ModifiedMotors(PortMap.INTAKEMOTORPIVOT.portNumber,"CANSparkMax"));
+      instance = new Intake(new ModifiedEncoders(000, "E4TEncoder"),
+        new ModifiedMotors(PortMap.INTAKEMOTORPIVOT.portNumber,"CANSparkMax"), 
+        new ModifiedMotors(PortMap.INTAKEMOTORROLLER.portNumber, "CANSparkMax"));
     }
-    return instancepivot;
+    return instance;
   }
 
-
-  private Intake(ModifiedEncoders encoder,ModifiedMotors motor)
+  private Intake(ModifiedEncoders encoder,ModifiedMotors Pmotor,ModifiedMotors Rmotor)
   {
     this.encoder = encoder;
-    this.motor = motor;
+    this.pivotMotor = Pmotor;
+    this.rollerMotor = Rmotor;
+    positionPID = new PIDController(kp,ki,kd);
+   
   }
 
   public void up()
@@ -62,34 +66,35 @@ public class Intake implements Subsystem
     this.IntakeState = "Intaking";
   }
 
-  public void stopIntaking()
-  {
-    this.IntakeState = "stopIntaking";
-  }
-
   public void reverseIntaking()
   {
     this.IntakeState = "reverseIntake";
   }
 
-
   private void IntakeStateProcess()
   {
     switch(IntakeState)
     {
-      case "up":
+      case "up"://this can be used to hold the note in place before the ramp to amp transfer
         rotationtarget = Intake_Up_Position;
-        break;
-      case "down":
-        rotationtarget = Intake_Bottom_Position;
-        break;
-      case "stop":
-        rotationPower = 0.0;
-        break;
-      case "Intaking":
         intakePower = 0.0;
-      case "reverseIntaking":
-        intakePower = 0.0; 
+        break;
+      case "down"://used if when intake is lowered, but rollers have not been activated
+        rotationtarget = Intake_Bottom_Position;
+        intakePower = 0.0;
+        break;
+      case "stop"://rotation of the intake arm set to zero, no movement
+        rotationPower = 0.0;
+        intakePower = 0.0;
+        break;
+      case "Intaking"://rollers spin to move the note in
+        rotationtarget = Intake_Bottom_Position;
+        intakePower = 1;
+        break;
+      case "reverseIntaking"://rollers spin to push the note out into the ramp
+        rotationtarget = Intake_Up_Position;
+        intakePower = -1; 
+        break;
       default:
         break;
     }
@@ -98,20 +103,12 @@ public class Intake implements Subsystem
       rotationPower = positionPID.calculate(currentDistance, rotationtarget);
     }
 
-    if (IntakeState == "Intaking")
-    {
-      intakePower = 0.0; //change later(with testing)
-    }
-
-    if (IntakeState == "reverseIntaking")
-    {
-      intakePower = 0.0;//change later(with testing)
-    }
   }
 
   public void update() {
     currentDistance = encoder.getDistance();
     IntakeStateProcess();
-    motor.set(rotationPower);
+    pivotMotor.set(rotationPower);
+    rollerMotor.set(intakePower);
   }
 }
