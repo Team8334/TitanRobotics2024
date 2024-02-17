@@ -1,8 +1,8 @@
 package frc.robot.Subsystem;
 
 import frc.robot.Data.ButtonMap;
-import frc.robot.Data.PortMap;
 import frc.robot.Subsystem.AprilTagTargeting;
+import frc.robot.Subsystem.NoteTargeting;
 
 public class Control implements Subsystem 
 {
@@ -10,6 +10,7 @@ public class Control implements Subsystem
     private static DriverController driverController = null;
     private static Control instance = null;
     private AprilTagTargeting aprilTagTargeting = null;
+    private Limelight limelight = null;
 
     public static Control getInstance() 
     {
@@ -24,6 +25,7 @@ public class Control implements Subsystem
         driveBase = DriveBase.getInstance();
         driverController = DriverController.getInstance();
         aprilTagTargeting = AprilTagTargeting.getInstance();
+        limelight = Limelight.getInstance();
     }
 
     public void teleopControl()
@@ -34,26 +36,54 @@ public class Control implements Subsystem
         aprilTagTargeting.setAlliance("blue"); //Change depending on alliance for upcoming match. 
                                                         //Failure to change this will cause you to target the
                                                         //wrong AprilTags when using lock on buttons.
-
-        if(driverController.getButton(ButtonMap.XboxX))
-        {
-            aprilTagTargeting.setTarget("Amp");
-            turn = aprilTagTargeting.lockOn();
-            System.out.println("Locking on to Amp");
-        }
         
-        if(driverController.getButton(ButtonMap.XboxA))
+        if(driverController.getButton(ButtonMap.XboxSTART))
         {
-            aprilTagTargeting.setTarget("Source");
-            turn = aprilTagTargeting.lockOn();
-            System.out.println("Locking on to Source");
+            if(limelight.pipeline == 1)
+            {
+                limelight.setPipeline(2);
+            }
+            else
+            {
+                limelight.setPipeline(1);
+            }
         }
 
-        if(driverController.getButton(ButtonMap.XboxB))
+        if(limelight.pipeline == 1)
         {
-            aprilTagTargeting.setTarget("Stage");
-            turn = aprilTagTargeting.lockOn();
-            System.out.println("Locking on to Stage");
+            if(driverController.getButton(ButtonMap.XboxX))
+            {
+                aprilTagTargeting.setTarget("Amp");
+                turn = aprilTagTargeting.lockOn();
+                System.out.println("Locking on to Amp");
+            }
+            
+            if(driverController.getButton(ButtonMap.XboxA))
+            {
+                aprilTagTargeting.setTarget("Source");
+                turn = aprilTagTargeting.lockOn();
+                System.out.println("Locking on to Source");
+            }
+
+            if(driverController.getButton(ButtonMap.XboxB))
+            {
+                aprilTagTargeting.setTarget("Stage");
+                turn = aprilTagTargeting.lockOn();
+                System.out.println("Locking on to Stage");
+            }
+
+            else
+            {
+                aprilTagTargeting.setTarget("none");
+            }
+        }
+
+        if(limelight.pipeline == 2)
+        {
+            if(driverController.getButton(ButtonMap.XboxY))
+            {
+                System.out.println("working");
+            }
         }
 
         driveBase.drive(forward, turn);
