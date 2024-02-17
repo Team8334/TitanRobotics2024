@@ -39,17 +39,17 @@ public class Control implements Subsystem
         
         if(driverController.getButton(ButtonMap.XboxSTART))
         {
-            if(limelight.pipeline == 1)
-            {
-                limelight.setPipeline(2);
-            }
-            else
+            if(limelight.pipeline == 0)
             {
                 limelight.setPipeline(1);
             }
+            else
+            {
+                limelight.setPipeline(0);
+            }
         }
 
-        if(limelight.pipeline == 1)
+        if(limelight.pipeline == 0)
         {
             if(driverController.getButton(ButtonMap.XboxX))
             {
@@ -78,7 +78,7 @@ public class Control implements Subsystem
             }
         }
 
-        if(limelight.pipeline == 2)
+        if(limelight.pipeline == 1)
         {
             if(driverController.getButton(ButtonMap.XboxY))
             {

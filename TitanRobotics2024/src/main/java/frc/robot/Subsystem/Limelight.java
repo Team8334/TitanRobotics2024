@@ -27,7 +27,7 @@ public class Limelight
     double cL;
     double c;
 
-    int pipeline;
+    int pipeline = 0;
 
     private String limelightState = "TRACKING";
     
