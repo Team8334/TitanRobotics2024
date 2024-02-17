@@ -11,6 +11,7 @@ public class Control implements Subsystem
     private static Control instance = null;
     private AprilTagTargeting aprilTagTargeting = null;
     private Limelight limelight = null;
+    private NoteTargeting noteTargeting;
 
     public static Control getInstance() 
     {
@@ -26,6 +27,7 @@ public class Control implements Subsystem
         driverController = DriverController.getInstance();
         aprilTagTargeting = AprilTagTargeting.getInstance();
         limelight = Limelight.getInstance();
+        noteTargeting = NoteTargeting.getInstance();
     }
 
     public void teleopControl()
@@ -37,15 +39,18 @@ public class Control implements Subsystem
                                                         //Failure to change this will cause you to target the
                                                         //wrong AprilTags when using lock on buttons.
         
-        if(driverController.getButton(ButtonMap.XboxSTART))
+        if(driverController.debounceSTART())
         {
+            System.out.println("pressed");
             if(limelight.pipeline == 0)
             {
-                limelight.setPipeline(1);
+                    limelight.setPipeline(1);
+                    System.out.println("Switched1");
             }
             else
             {
-                limelight.setPipeline(0);
+                    limelight.setPipeline(0);
+                    System.out.println("Switched0");
             }
         }
 

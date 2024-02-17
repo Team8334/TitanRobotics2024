@@ -17,7 +17,6 @@ public class Limelight
     NetworkTableEntry tz;
     NetworkTableEntry tl;
     NetworkTableEntry cl;
-    NetworkTableEntry tc;
 
     double x;
     double y;
@@ -25,9 +24,8 @@ public class Limelight
     double z;
     double l; 
     double cL;
-    double c;
 
-    int pipeline = 0;
+    int pipeline;
 
     private String limelightState = "TRACKING";
     
@@ -49,7 +47,6 @@ public class Limelight
         tz = table.getEntry("tz");
         tl = table.getEntry("tl");
         cl = table.getEntry("cl");
-        tc =table.getEntry("tc");
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
     }
     
@@ -107,7 +104,6 @@ public class Limelight
         SmartDashboard.putNumber("LimelightZ", z);
         SmartDashboard.putNumber("LimelightTargetingLatency", l);
         SmartDashboard.putNumber("LimelightCameraLatency", cL);
-        SmartDashboard.putNumber("LimelightColor", c);
     }
 
 
@@ -120,7 +116,6 @@ public class Limelight
         z = tz.getDouble(0.0);
         l = tl.getDouble(0.0);
         cL = cl.getDouble(0.0);
-        c = tc.getDouble(0.0);
     }
 
 }

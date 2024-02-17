@@ -8,7 +8,7 @@ package frc.robot.Data;
 
 public enum ButtonMap
 {
-    //Xbox Controllers Button Map
+    //Xbox Controllers Button Map. IMPORTANT: values change depending on controller!
     XboxA(1),
     XboxB(2),
     XboxX(3),
