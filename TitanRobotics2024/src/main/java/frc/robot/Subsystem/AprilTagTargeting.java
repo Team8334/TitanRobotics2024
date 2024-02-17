@@ -19,7 +19,7 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
     }
 
     private PIDController aprilTagXPID = new PIDController(1, 0, 0);
-    private PIDController aprilTagAPID = new PIDController(1, 0, 0);
+    private PIDController aPID = new PIDController(1, 0, 0);
     
     Limelight limelight;
     DriveBase driveBase;
@@ -40,7 +40,7 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
         this.target = target;
     }
 
-    public double lockOn() {
+    public double aprilTaglockOn() {
         if (target.equals("ALL") || target.equals(findTagName())) {
             return(aprilTagXPID.calculate(limelight.x, 0) / 25);
         }
@@ -55,13 +55,9 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
      *
      * @return a turn value for the robot
      */
-    public double runAprilTagAPID() {
-        if (target.equals("ALL") || target.equals(findTagName())) {
-            return(aprilTagAPID.calculate(limelight.area, 25) / 100);
-        }
-        else {
-            return 0;
-        }
+    public double follow() //setting "forward" as this function will cause the robot to follow the target.
+    {
+            return(aPID.calculate(limelight.area, 25) / 100);
     }
 
     public String findTagName() {

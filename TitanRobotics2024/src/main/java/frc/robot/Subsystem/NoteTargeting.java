@@ -7,6 +7,10 @@ public class NoteTargeting implements Subsystem
 {
     private static NoteTargeting instance = null;
 
+    private Limelight limelight;
+
+    private PIDController noteXPID = new PIDController(1, 0, 0);
+
     public static NoteTargeting getInstance() {
         if (instance == null)
         {
@@ -14,11 +18,17 @@ public class NoteTargeting implements Subsystem
         }
         return instance;
     }
-    
-    public boolean findNote()
+
+    public NoteTargeting()
     {
-        return true;
+        limelight = Limelight.getInstance();
     }
+    
+    public double noteLockOn() 
+    {
+        return(noteXPID.calculate(limelight.x, 0) / 25);
+    }
+    
 
 
 

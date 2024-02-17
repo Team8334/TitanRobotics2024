@@ -59,21 +59,21 @@ public class Control implements Subsystem
             if(driverController.getButton(ButtonMap.XboxX))
             {
                 aprilTagTargeting.setTarget("Amp");
-                turn = aprilTagTargeting.lockOn();
+                turn = aprilTagTargeting.aprilTaglockOn();
                 System.out.println("Locking on to Amp");
             }
             
             if(driverController.getButton(ButtonMap.XboxA))
             {
                 aprilTagTargeting.setTarget("Source");
-                turn = aprilTagTargeting.lockOn();
+                turn = aprilTagTargeting.aprilTaglockOn();
                 System.out.println("Locking on to Source");
             }
 
             if(driverController.getButton(ButtonMap.XboxB))
             {
                 aprilTagTargeting.setTarget("Stage");
-                turn = aprilTagTargeting.lockOn();
+                turn = aprilTagTargeting.aprilTaglockOn();
                 System.out.println("Locking on to Stage");
             }
 
@@ -87,7 +87,8 @@ public class Control implements Subsystem
         {
             if(driverController.getButton(ButtonMap.XboxY))
             {
-                System.out.println("working");
+                turn = noteTargeting.noteLockOn();
+                System.out.println("Locking On to Note");
             }
         }
 
