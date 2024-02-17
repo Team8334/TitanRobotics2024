@@ -10,6 +10,9 @@ public class DriverController extends XboxController implements Subsystem
     private XboxController xboxController;
     private static DriverController instance = null;
 
+    boolean startPressed;
+    boolean startReleased;
+
     public static DriverController getInstance() 
     {
         if (instance == null) 
@@ -103,6 +106,24 @@ public class DriverController extends XboxController implements Subsystem
             return false;
         }
     }             
+
+    public boolean debounceSTART()
+    {
+        if(getButton(ButtonMap.XboxSTART) && startReleased)
+        {
+            startReleased = false;
+            return true;
+        }
+        if(!getButton(ButtonMap.XboxSTART))
+        {
+            startReleased = true;
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     @Override
     public void update() 

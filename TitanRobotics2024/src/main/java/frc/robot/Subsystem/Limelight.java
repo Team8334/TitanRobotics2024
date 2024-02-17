@@ -25,6 +25,8 @@ public class Limelight
     double l; 
     double cL;
 
+    int pipeline;
+
     private String limelightState = "TRACKING";
     
 
@@ -36,7 +38,7 @@ public class Limelight
         return instance;
     }
 
-        public Limelight()
+    public Limelight()
     {
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
         tx = table.getEntry("tx");
@@ -49,7 +51,8 @@ public class Limelight
     }
     
 
-    private void processState(){
+    private void processState()
+    {
         switch (limelightState) {
             case "NOT_TRACKING":
                 
@@ -78,6 +81,7 @@ public class Limelight
 
     public void setPipeline(int pipeline)
     {
+        this.pipeline = pipeline;
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
     }
 

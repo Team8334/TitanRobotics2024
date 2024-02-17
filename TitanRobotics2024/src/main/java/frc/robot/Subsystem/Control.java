@@ -8,6 +8,8 @@ import frc.robot.Subsystem.AprilTagTargeting;
 import frc.robot.Subsystem.ClimberControl;
 import frc.robot.Subsystem.ClimberSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Subsystem.AprilTagTargeting;
+import frc.robot.Subsystem.NoteTargeting;
 
 public class Control implements Subsystem 
 {
@@ -21,6 +23,8 @@ public class Control implements Subsystem
     private OperatorController operatorController;
     private Intake intake;
     private double rampspeed;
+    private Limelight limelight = null;
+    private NoteTargeting noteTargeting;
 
     public static Control getInstance() 
     {
@@ -39,6 +43,8 @@ public class Control implements Subsystem
         climberControl = ClimberControl.getInstance();
         operatorController = OperatorController.getInstance();
         intake = Intake.getInstance();
+        limelight = Limelight.getInstance();
+        noteTargeting = NoteTargeting.getInstance();
     }
 
     public void teleopControl()
@@ -47,12 +53,61 @@ public class Control implements Subsystem
         turn = 0.40 * -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
 
-        if(driverController.getButton(ButtonMap.XboxX) && aprilTagTargeting.target.equals("ALL"))
+        aprilTagTargeting.setAlliance("blue"); //Change depending on alliance for upcoming match. 
+                                                        //Failure to change this will cause you to target the
+                                                        //wrong AprilTags when using lock on buttons.
+        
+        if(driverController.debounceSTART())
         {
-            aprilTagTargeting.setAlliance("blue");
-            System.out.println("Running PID");
-            turn = aprilTagTargeting.runAprilTagXPID();
-            forward = aprilTagTargeting.runAprilTagAPID();
+            System.out.println("pressed");
+            if(limelight.pipeline == 0)
+            {
+                    limelight.setPipeline(1);
+                    System.out.println("Switched1");
+            }
+            else
+            {
+                    limelight.setPipeline(0);
+                    System.out.println("Switched0");
+            }
+        }
+
+        if(limelight.pipeline == 0)
+        {
+            if(driverController.getButton(ButtonMap.XboxX))
+            {
+                aprilTagTargeting.setTarget("Amp");
+                turn = aprilTagTargeting.aprilTaglockOn();
+                System.out.println("Locking on to Amp");
+            }
+            
+            if(driverController.getButton(ButtonMap.XboxA))
+            {
+                aprilTagTargeting.setTarget("Source");
+                turn = aprilTagTargeting.aprilTaglockOn();
+                System.out.println("Locking on to Source");
+            }
+
+            if(driverController.getButton(ButtonMap.XboxB))
+            {
+                aprilTagTargeting.setTarget("Stage");
+                turn = aprilTagTargeting.aprilTaglockOn();
+                System.out.println("Locking on to Stage");
+            }
+
+            else
+            {
+                aprilTagTargeting.setTarget("none");
+            }
+        }
+
+        if(limelight.pipeline == 1)
+        {
+            if(driverController.getButton(ButtonMap.XboxY))
+            {
+                turn = noteTargeting.noteLockOn();
+                System.out.println("Locking On to Note");
+            }
         }
 
         driveBase.drive(forward, turn);

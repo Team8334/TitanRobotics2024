@@ -31,6 +31,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystem.PositionEstimation;
 import frc.robot.Teleop.Teleop;
 //import frc.robot.Subsystem.AprilTagTargeting;
+import frc.robot.ExternalLibraries.LimelightHelpers;
+import frc.robot.Subsystem.NoteTargeting;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -59,6 +61,7 @@ public class Robot extends TimedRobot
   private static ClimberSubsystem climberRight;
   private static ClimberControl climberControl;
 
+  private static NoteTargeting noteTargeting;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -90,6 +93,7 @@ public class Robot extends TimedRobot
     climberRight = ClimberSubsystem.getRightInstance();
     aprilTagTargeting = AprilTagTargeting.getInstance();
     positionEstimation = PositionEstimation.getInstance();
+    noteTargeting = noteTargeting.getInstance();
   }
 
   /**
@@ -112,7 +116,7 @@ public class Robot extends TimedRobot
     climberControl.update();
     //climberLeft.update();
     climberRight.update();
-    
+    noteTargeting.update();
   }
 
   @Override
