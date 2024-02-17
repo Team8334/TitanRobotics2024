@@ -10,7 +10,7 @@ public class SmartDashboardSubsystem implements Subsystem
     Gyro gyro;
     DriveBase driveBase;
     AprilTagTargeting aprilTagTargeting;
-    ClimberControl climberControl;
+    //ClimberControl climberControl;
     private PositionEstimation positionEstimation;
     private boolean initializedComponents = false;
     //ClimberSubsystem climberLeftSubsystem = ClimberSubsystem.getLeftInstance();
@@ -44,7 +44,7 @@ public class SmartDashboardSubsystem implements Subsystem
             driveBase = DriveBase.getInstance();
             aprilTagTargeting = AprilTagTargeting.getInstance();
             positionEstimation = PositionEstimation.getInstance();
-            climberControl = ClimberControl.getInstance();
+            //climberControl = ClimberControl.getInstance();
             initializedComponents = true;
         }
     }
@@ -57,14 +57,14 @@ public class SmartDashboardSubsystem implements Subsystem
         }
     }
 
-      public void status(String status) 
+      /*public void status(String status) 
     {
         //if error is not in errorLog
         if (!statusLog.contains(status)){
             statusLog.add(status);
         }
     }
-
+*/
     @Override
     public void update() 
     {
@@ -76,7 +76,7 @@ public class SmartDashboardSubsystem implements Subsystem
         aprilTagTargeting.log();
         positionEstimation.log();
         SmartDashboard.putString("Errors", errorLog.toString());
-        SmartDashboard.putString("Status", statusLog.toString());
+        //SmartDashboard.putString("Status", statusLog.toString());
 
     }
 }

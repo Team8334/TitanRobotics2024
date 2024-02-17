@@ -109,6 +109,6 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
 
     public void update() 
     {
-        smartDashboardSubsystem.status("AprilTagTargeting running");
+       //smartDashboardSubsystem.status("AprilTagTargeting running");
     }
 }
