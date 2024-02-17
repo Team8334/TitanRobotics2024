@@ -7,6 +7,7 @@ import frc.robot.Data.PortMap;
 import frc.robot.Subsystem.AprilTagTargeting;
 import frc.robot.Subsystem.ClimberControl;
 import frc.robot.Subsystem.ClimberSubsystem;
+import edu.wpi.first.wpilibj.XboxController;
 
 public class Control implements Subsystem 
 {
@@ -19,6 +20,7 @@ public class Control implements Subsystem
     private ClimberControl climberControl;
     private OperatorController operatorController;
     private Intake intake;
+    private double rampspeed;
 
     public static Control getInstance() 
     {
@@ -80,6 +82,25 @@ public class Control implements Subsystem
         if(operatorController.getButton(ButtonMap.XboxLB))
         {
             intake.reverseIntaking();
+        }
+        
+        RampForwardButtonPressed();
+
+    }
+
+    public void RampForwardButtonPressed()
+    {
+        rampspeed = operatorController.getStick(ButtonMap.XboxRIGHTTrigger);
+        {
+            System.out.println("ramp speed: " + rampspeed);
+        }
+    }
+    
+    public void RampBackwardButtonPressed()
+    {
+        rampspeed = - operatorController.getStick(ButtonMap.XboxLEFTTrigger);
+        {
+            System.out.println("ramp speed: " + rampspeed);
         }
     }
 

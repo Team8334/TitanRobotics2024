@@ -1,4 +1,5 @@
 package frc.robot.Subsystem;
+import edu.wpi.first.wpilibj.Encoder;
 
 
 import edu.wpi.first.wpilibj.Encoder;  //this import like to get mad if the class name is "Encoder". I don't know why, but just know that.

@@ -13,7 +13,7 @@ public enum ButtonMap
     XboxB(2),
     XboxX(3),
     XboxY(4),
-    XboxLB(5),
+    XboxLB( 5),
     XboxRB(6),
     XboxLEFTBumper(5),
     XboxRIGHTBumper(6),
@@ -25,6 +25,8 @@ public enum ButtonMap
     XboxRIGHTSTICKY(-8),
     XboxLEFTSTICKBUTTON(9),
     XboxRIGHTSTICKBUTTON(10),
+    XboxRIGHTTrigger(3),
+    XboxLEFTTrigger(2),
     
 
     //Flight Stick Button Map
