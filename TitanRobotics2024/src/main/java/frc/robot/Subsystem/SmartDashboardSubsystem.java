@@ -16,6 +16,7 @@ public class SmartDashboardSubsystem implements Subsystem
     //ClimberSubsystem climberLeftSubsystem = ClimberSubsystem.getLeftInstance();
     //ClimberSubsystem climberRightSubsystem = ClimberSubsystem.getRightInstance();
     List<String> errorLog = new ArrayList<>();
+    List<String> statusLog = new ArrayList<>();
 
     public static SmartDashboardSubsystem getInstance() 
     {
@@ -28,8 +29,7 @@ public class SmartDashboardSubsystem implements Subsystem
 
     public SmartDashboardSubsystem()
     {
-      
-       
+        //intentionally left blank- dont worry about it
     }
 
     private void initializeComponents()
@@ -57,9 +57,18 @@ public class SmartDashboardSubsystem implements Subsystem
         }
     }
 
+      public void status(String status) 
+    {
+        //if error is not in errorLog
+        if (!statusLog.contains(status)){
+            statusLog.add(status);
+        }
+    }
+
     @Override
     public void update() 
     {
+        initializeComponents();
         gyro.log();
         driveBase.log();
         //climberLeftSubsystem.log();
@@ -67,5 +76,7 @@ public class SmartDashboardSubsystem implements Subsystem
         aprilTagTargeting.log();
         positionEstimation.log();
         SmartDashboard.putString("Errors", errorLog.toString());
+        SmartDashboard.putString("Status", statusLog.toString());
+
     }
 }

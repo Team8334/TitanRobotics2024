@@ -24,6 +24,8 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
     Limelight limelight;
     DriveBase driveBase;
 
+    SmartDashboardSubsystem smartDashboardSubsystem;
+
     String alliance = "red";
     String target = "ALL";
 
@@ -105,5 +107,8 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
         SmartDashboard.putString("AprilTag Target", findTagName());
     }
 
-    public void update() {}
+    public void update() 
+    {
+        smartDashboardSubsystem.status("AprilTagTargeting running");
+    }
 }
