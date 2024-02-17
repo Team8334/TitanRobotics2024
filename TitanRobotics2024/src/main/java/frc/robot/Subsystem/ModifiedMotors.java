@@ -1,6 +1,8 @@
 package frc.robot.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
@@ -42,6 +44,9 @@ public class ModifiedMotors implements Subsystem
             case "CANSparkMax":
                 motorTemporarily = initializeCANSparkMax(portNumber);
                 break;
+            case "CANTalon":
+                motorTemporarily = initializeCANTalon(portNumber);
+                break;
             default:
                 System.err.println("Error: motors not activated");
         }
@@ -76,14 +81,41 @@ public class ModifiedMotors implements Subsystem
 
     private MotorController initializeCANSparkMax(int portNumber) 
     {
-        try 
+        if (portNumber >= 0){
+            try 
+            {
+                return new CANSparkMax(portNumber, CANSparkMax.MotorType.kBrushless);
+            } 
+            catch (Exception e) 
+            {
+                System.err.println("Error: CANID Not Activated " + portNumber);
+                return null;
+            }
+        }
+        else{
+                System.err.println("Error: CANID Not Activated " + portNumber);
+                return null;
+        }
+    }
+
+    private MotorController initializeCANTalon(int portNumber)
+    {
+        if(portNumber >= 0)
         {
-            return new CANSparkMax(portNumber, CANSparkMax.MotorType.kBrushless);
-        } 
-        catch (Exception e) 
+            try
+            {
+                return new WPI_TalonSRX(portNumber);
+            }
+            catch (Exception e) 
+            {
+                System.err.println("Error: CANID Not Activated " + portNumber);
+                return null;
+            }
+        }
+        else
         {
-            System.err.println("Error: CANID Not Activated " + portNumber);
-            return null;
+                System.err.println("Error: CANID Not Activated " + portNumber);
+                return null;
         }
     }
 

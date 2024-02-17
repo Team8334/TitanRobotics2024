@@ -46,16 +46,7 @@ public class Robot extends TimedRobot
 {
   private AutoMissionExecutor autoMissionExecutor = new AutoMissionExecutor();
   private AutoMissionChooser autoMissionChooser = new AutoMissionChooser();
-
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  private static Teleop teleop;
  
- 
-   //private static LimelightHelpers limelightHelpers;
-  
-  private static ButtonMap buttonMap;
-  private static PortMap portMap;
-
   private static Control control;
   private static DriveBase driveBase;
   private static DriverController driverController;
@@ -66,7 +57,6 @@ public class Robot extends TimedRobot
   private static SmartDashboardSubsystem smartDashboardSubsystem;
   private static PositionEstimation positionEstimation;
 
-  private static ClimberSubsystem climberLeft;
   private static ClimberSubsystem climberRight;
   private static ClimberControl climberControl;
 
@@ -96,11 +86,9 @@ public class Robot extends TimedRobot
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
     limelight = Limelight.getInstance();
-    //climberControl = ClimberControl.getInstance();
+    climberControl = ClimberControl.getInstance();
     //climberLeft = ClimberSubsystem.getLeftInstance();
-    //climberRight = ClimberSubsystem.getRightInstance();
-    //modifiedMotors = ModifiedMotors.getInstance();
-    //operatorController = OperatorController.getInstance();*/
+    climberRight = ClimberSubsystem.getRightInstance();
     aprilTagTargeting = AprilTagTargeting.getInstance();
     positionEstimation = PositionEstimation.getInstance();
   }
@@ -118,17 +106,14 @@ public class Robot extends TimedRobot
     driveBase.update();
     driverController.update();
     limelight.update();
-    //modifiedMotors.update();
     operatorController.update();
     aprilTagTargeting.update();
     autoMissionChooser.outputToSmartDashboard();
     smartDashboardSubsystem.update();
-    //climberControl.update();
+    climberControl.update();
     //climberLeft.update();
-    //climberRight.update();
+    climberRight.update();
     
-    System.out.println(LimelightHelpers.getFiducialID(""));
-   // System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
   }
 
   @Override

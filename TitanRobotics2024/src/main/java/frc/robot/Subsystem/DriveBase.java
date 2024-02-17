@@ -33,7 +33,8 @@ public class DriveBase implements Subsystem
   private ModifiedMotors frontLeftMotor;
   private PIDController leftPID;
   private PIDController rightPID;
-
+  //private String motorType = "CANVictorSPX";
+  private String motorType = "CANTalon";
   private static DriveBase instance = null;
 
   public static DriveBase getInstance() 
@@ -47,10 +48,10 @@ public class DriveBase implements Subsystem
 
   public DriveBase() 
   {
-    this.frontLeftMotor  =  new ModifiedMotors(PortMap.FRONTLEFT.portNumber, "CANVictorSPX");
-    this.rearLeftMotor   =  new ModifiedMotors(PortMap.REARLEFT.portNumber, "CANVictorSPX");
-    this.frontRightMotor =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, "CANVictorSPX");
-    this.rearRightMotor  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber, "CANVictorSPX");
+    this.frontLeftMotor  =  new ModifiedMotors(PortMap.FRONTLEFT.portNumber, motorType);
+    this.rearLeftMotor   =  new ModifiedMotors(PortMap.REARLEFT.portNumber, motorType);
+    this.frontRightMotor =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, motorType);
+    this.rearRightMotor  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber, motorType);
 
     leftPID = new PIDController(lkp, lki, lkd);
     rightPID = new PIDController(rkp, rki, rkd);
