@@ -70,12 +70,20 @@ public class Control implements Subsystem
         }
 
         climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
-        RampButtonPressed();
+        RampForwardButtonPressed();
     }
 
-    public void RampButtonPressed()
+    public void RampForwardButtonPressed()
     {
         rampspeed = operatorController.getStick(ButtonMap.XboxRIGHTTrigger);
+        {
+            System.out.println("ramp speed: " + rampspeed);
+        }
+    }
+    
+    public void RampBackwardButtonPressed()
+    {
+        rampspeed = - operatorController.getStick(ButtonMap.XboxLEFTTrigger);
         {
             System.out.println("ramp speed: " + rampspeed);
         }
