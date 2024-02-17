@@ -120,7 +120,7 @@ public class ModifiedMotors implements Subsystem
     }
 
     public void set(double speed) 
-    {
+{
         if (this.motor != null) 
         {
             this.motor.set(speed);
@@ -129,5 +129,7 @@ public class ModifiedMotors implements Subsystem
         {
             SmartDashboard.putNumber("Error: Motor Not Set", this.portNumber);
         }
-    }
+    
+    
+}
 }

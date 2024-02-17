@@ -17,6 +17,7 @@ public class ClimberSubsystem implements Subsystem {
     private PIDController positionPID = new PIDController(0.01, 0.0, 0.0);
     private PIDController velocityPID = new PIDController(0.01, 0.0, 0.0);
 
+    
     // Current climber state and related variables
     private String climberState = "Stopped";
     private double rotationTarget;
@@ -39,6 +40,7 @@ public class ClimberSubsystem implements Subsystem {
     // Private constructor for initializing motors and encoders
     private ClimberSubsystem(ModifiedMotors motor, ModifiedEncoders encoder, String name) 
     {
+
         this.motor = motor;
         this.encoder = encoder;
         this.name = name;
@@ -98,7 +100,6 @@ public class ClimberSubsystem implements Subsystem {
         this.climberState = "HOLD";
         this.holdPosition = currentDistance;
     }
-
 
     private void processState() 
     {
