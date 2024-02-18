@@ -5,33 +5,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 
-public class OperatorController extends XboxController implements Subsystem 
+public class OperatorController extends XboxController implements Subsystem
 {
+    private OperatorController xboxController;
     private static OperatorController instance = null;
 
-    public static OperatorController getInstance() 
+    public static OperatorController getInstance()
     {
-        if (instance == null) 
+        if (instance == null)
         {
             instance = new OperatorController();
         }
         return instance;
     }
 
-    private OperatorController xboxController;
-
     public OperatorController()
     {
         super(PortMap.XBOX_OPERATOR_CONTROLLER.portNumber);
         this.xboxController = this;
     }
-        public double getStick(ButtonMap stickAxis) 
+
+    public double getStick(ButtonMap stickAxis)
     {
-        if (this.xboxController != null) 
+        if (this.xboxController != null)
         {
-            try 
+            try
             {
-                switch (stickAxis) 
+                switch (stickAxis)
                 {
                     case XboxLEFTSTICKX:
                         return xboxController.getRawAxis(0);
@@ -48,25 +48,26 @@ public class OperatorController extends XboxController implements Subsystem
                     default:
                         return 0;
                 }
-            } 
-            catch (Exception AxisNotFound) 
+            }
+            catch (Exception AxisNotFound)
             {
                 SmartDashboard.putString("ControllerError", "AxisNotFound");
                 return 0;
             }
-        } 
-        else 
+        }
+        else
         {
             return 0;
         }
     }
-    public boolean getButton(ButtonMap button) 
+
+    public boolean getButton(ButtonMap button)
     {
-        if (this.xboxController != null) 
+        if (this.xboxController != null)
         {
-            try 
+            try
             {
-                switch (button) 
+                switch (button)
                 {
                     case XboxA:
                         return xboxController.getAButton();
@@ -91,24 +92,23 @@ public class OperatorController extends XboxController implements Subsystem
                     default:
                         return false;
                 }
-            } 
-            catch (Exception ButtonNotFound) 
+            }
+            catch (Exception ButtonNotFound)
             {
                 SmartDashboard.putString("ControllerError", "ButtonNotFound");
                 return false;
             }
-        } 
-        else 
+        }
+        else
         {
             return false;
         }
     }
 
     @Override
-    public void update() 
+    public void update()
     {
         // TODO Auto-generated method stub
     }
 
 }
-

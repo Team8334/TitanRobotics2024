@@ -1,7 +1,6 @@
 package frc.robot.Subsystem;
 
 import edu.wpi.first.math.controller.PIDController;
-import frc.robot.Subsystem.Limelight;
 
 public class NoteTargeting implements Subsystem
 {
@@ -29,10 +28,6 @@ public class NoteTargeting implements Subsystem
         return(noteXPID.calculate(limelight.x, 0) / 25);
     }
     
-
-
-
-
 
     public void update() {}
 }

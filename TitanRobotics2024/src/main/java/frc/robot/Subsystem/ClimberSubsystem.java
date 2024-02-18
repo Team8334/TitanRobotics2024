@@ -1,9 +1,10 @@
 package frc.robot.Subsystem;
 
+import javax.print.event.PrintEvent;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
-import frc.robot.Subsystem.ModifiedEncoders;
 
 public class ClimberSubsystem implements Subsystem {
     // Constants for power and distance
@@ -167,7 +168,8 @@ public class ClimberSubsystem implements Subsystem {
         } 
         else 
         {
-            smartDashboardSubsystem.error("Climber not initialized");
+            smartDashboardSubsystem.error(name + ": not initialized");
+            System.out.println(name + ": not initialized");
         }
     }
 }

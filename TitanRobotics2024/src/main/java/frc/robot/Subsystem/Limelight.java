@@ -7,7 +7,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.ExternalLibraries.LimelightHelpers;
 
-public class Limelight 
+public class Limelight
 {
     private static Limelight instance = null;
 
@@ -22,17 +22,17 @@ public class Limelight
     double y;
     double area;
     double z;
-    double l; 
+    double l;
     double cL;
 
     int pipeline;
 
     private String limelightState = "TRACKING";
-    
 
-    public static Limelight getInstance() 
+    public static Limelight getInstance()
     {
-        if (instance == null) {
+        if (instance == null)
+        {
             instance = new Limelight();
         }
         return instance;
@@ -49,25 +49,20 @@ public class Limelight
         cl = table.getEntry("cl");
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
     }
-    
 
     private void processState()
     {
-        switch (limelightState) {
+        switch (limelightState)
+        {
             case "NOT_TRACKING":
-                
                 break;
-            
             case "TRACKING":
-                
                 break;
-
             default:
                 break;
         }
 
     }
-
 
     public String getLimelightState()
     {
@@ -92,11 +87,11 @@ public class Limelight
 
     public int getId() //finds April Tag ID. This is a variable, not a function.
     {
-        return (int) LimelightHelpers.getFiducialID("");
+        return (int)LimelightHelpers.getFiducialID("");
     }
 
-
-    public void log(){
+    public void log()
+    {
         //post to smart dashboard periodically
         SmartDashboard.putNumber("LimelightX", x);
         SmartDashboard.putNumber("LimelightY", y);
@@ -105,7 +100,6 @@ public class Limelight
         SmartDashboard.putNumber("LimelightTargetingLatency", l);
         SmartDashboard.putNumber("LimelightCameraLatency", cL);
     }
-
 
     public void update()
     {

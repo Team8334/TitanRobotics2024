@@ -1,15 +1,15 @@
 package frc.robot.Subsystem;
 
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Data.PortMap;
 
 public class Gyro implements Subsystem
 {
     private static Gyro instance = null;
+    AHRS ahrs;
+    SmartDashboardSubsystem smartDashboardSubsystem;
 
     double yAxisRate;
     double xAxisRate;
@@ -18,28 +18,28 @@ public class Gyro implements Subsystem
     double yawAngleDegrees = 0;
     double angleDegrees = 0;
 
-    AHRS ahrs;
-
-    public static Gyro getInstance() 
+    public static Gyro getInstance()
     {
-        if (instance == null) 
+        if (instance == null)
         {
             instance = new Gyro();
         }
         return instance;
     }
 
-    public Gyro() 
+    public Gyro()
     {
-        try 
+        smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
+        try
         {
             ahrs = new AHRS(SPI.Port.kMXP);
         }
         catch (Exception e)
         {
             System.out.println("Could not get ahrs; did you drop metal shavings in the RoboRio again?");
+            smartDashboardSubsystem.error("Could not get ahrs; did you drop metal shavings in the RoboRio again?");
         }
-        
+
         ahrs.reset();
     }
 
@@ -72,18 +72,19 @@ public class Gyro implements Subsystem
         return ahrs.getAngle();
     }
 
-     public Rotation2d getRotation2d() {
+    public Rotation2d getRotation2d()
+    {
         return ahrs.getRotation2d();
     }
 
     public void reset()
     {
-        //ahrs.zeroYaw();-+
-        
+        // ahrs.zeroYaw();-+
+
     }
 
     @Override
-    public void update() 
+    public void update()
     {
         // TODO Auto-generated method stub
     }

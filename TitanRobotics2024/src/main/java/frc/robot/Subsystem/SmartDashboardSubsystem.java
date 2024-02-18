@@ -7,14 +7,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SmartDashboardSubsystem implements Subsystem
 {
     private static SmartDashboardSubsystem instance = null;
+
     Gyro gyro;
     DriveBase driveBase;
     AprilTagTargeting aprilTagTargeting;
-    //ClimberControl climberControl;
+    ClimberControl climberControl;
+
     private PositionEstimation positionEstimation;
     private boolean initializedComponents = false;
-    //ClimberSubsystem climberLeftSubsystem = ClimberSubsystem.getLeftInstance();
-    //ClimberSubsystem climberRightSubsystem = ClimberSubsystem.getRightInstance();
+
     List<String> errorLog = new ArrayList<>();
     List<String> statusLog = new ArrayList<>();
 
@@ -44,7 +45,7 @@ public class SmartDashboardSubsystem implements Subsystem
             driveBase = DriveBase.getInstance();
             aprilTagTargeting = AprilTagTargeting.getInstance();
             positionEstimation = PositionEstimation.getInstance();
-            //climberControl = ClimberControl.getInstance();
+            climberControl = ClimberControl.getInstance();
             initializedComponents = true;
         }
     }
@@ -71,8 +72,7 @@ public class SmartDashboardSubsystem implements Subsystem
         initializeComponents();
         gyro.log();
         driveBase.log();
-        //climberLeftSubsystem.log();
-        //climberRightSubsystem.log();
+        climberControl.log();
         aprilTagTargeting.log();
         positionEstimation.log();
         SmartDashboard.putString("Errors", errorLog.toString());
