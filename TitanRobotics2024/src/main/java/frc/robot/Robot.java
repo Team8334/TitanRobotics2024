@@ -48,15 +48,15 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.updateMissionCreator();
 
-    aprilTagTargeting = AprilTagTargeting.getInstance();
+    //aprilTagTargeting = AprilTagTargeting.getInstance();
     control = Control.getInstance();
-    climberControl = ClimberControl.getInstance();
-    climberLeft = ClimberSubsystem.getLeftInstance();
-    climberRight = ClimberSubsystem.getRightInstance();
+    //climberControl = ClimberControl.getInstance();
+    //climberLeft = ClimberSubsystem.getLeftInstance();
+    //climberRight = ClimberSubsystem.getRightInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
-    limelight = Limelight.getInstance();
-    noteTargeting = NoteTargeting.getInstance();
+    //limelight = Limelight.getInstance();
+    //noteTargeting = NoteTargeting.getInstance();
     operatorController = OperatorController.getInstance();
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
@@ -68,16 +68,16 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.outputToSmartDashboard();
 
-    aprilTagTargeting.update();
+    //aprilTagTargeting.update();
     control.update();
     driveBase.update();
     driverController.update();
-    climberControl.update();
-    climberLeft.update();
-    climberRight.update();
+    //climberControl.update();
+    //climberLeft.update();
+    //climberRight.update();
     positionEstimation.update();
-    limelight.update();
-    noteTargeting.update();
+    //limelight.update();
+    //noteTargeting.update();
     operatorController.update();
     smartDashboardSubsystem.update();
   }
