@@ -53,7 +53,7 @@ public class Targeting implements Subsystem // This class contains functions for
     }
 
     public double follow()  // Setting "forward" in DriveBase.drive in controlas this function will cause the robot to follow the target. 
-                            // USE AT OWN RISK. Feel free to increase the speed divisor value to make it even slower
+                            // USE AT OWN RISK. Feel free to increase the speed divisor value to make it even slower.
     {
         return (aPID.calculate(limelight.area, 25) / 100);
     }
