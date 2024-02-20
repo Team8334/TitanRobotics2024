@@ -17,20 +17,19 @@ import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
 
 import frc.robot.Subsystem.OperatorController;
-import frc.robot.Subsystem.AprilTagTargeting;
+import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.ClimberControl;
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Auto.Missions.MissionBase;
 import frc.robot.Subsystem.PositionEstimation;
-import frc.robot.Subsystem.NoteTargeting;
 
 public class Robot extends TimedRobot
 {
   private AutoMissionExecutor autoMissionExecutor = new AutoMissionExecutor();
   private AutoMissionChooser autoMissionChooser = new AutoMissionChooser();
 
-  private static AprilTagTargeting aprilTagTargeting;
+  private static Targeting targeting;
   private static Control control;
   private static DriveBase driveBase;
   private static DriverController driverController;
@@ -38,7 +37,6 @@ public class Robot extends TimedRobot
   private static ClimberSubsystem climberRight;
   private static ClimberSubsystem climberLeft;
   private static Limelight limelight;
-  private static NoteTargeting noteTargeting;
   private static OperatorController operatorController;
   private static PositionEstimation positionEstimation;
   private static SmartDashboardSubsystem smartDashboardSubsystem;
@@ -48,15 +46,10 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.updateMissionCreator();
 
-    //aprilTagTargeting = AprilTagTargeting.getInstance();
+    targeting = Targeting.getInstance();
     control = Control.getInstance();
-    //climberControl = ClimberControl.getInstance();
-    //climberLeft = ClimberSubsystem.getLeftInstance();
-    //climberRight = ClimberSubsystem.getRightInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
-    //limelight = Limelight.getInstance();
-    //noteTargeting = NoteTargeting.getInstance();
     operatorController = OperatorController.getInstance();
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
@@ -68,16 +61,12 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.outputToSmartDashboard();
 
-    //aprilTagTargeting.update();
+    targeting.update();
     control.update();
     driveBase.update();
     driverController.update();
-    //climberControl.update();
-    //climberLeft.update();
-    //climberRight.update();
     positionEstimation.update();
-    //limelight.update();
-    //noteTargeting.update();
+    limelight.update();
     operatorController.update();
     smartDashboardSubsystem.update();
   }
