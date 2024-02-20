@@ -69,14 +69,24 @@ public class ModifiedEncoders implements Subsystem
 
     public double getRate()
     {
-
+       if(encoder != null) {
         return encoder.getRate();// * ratio;
+       }
+       else{
+        return 0;
+       }
     }
 
     public double getDistance()
     {
-
-        return encoder.getDistance();
+        if(encoder != null) 
+        {
+            return encoder.getDistance();
+        }
+       else
+       {
+            return 0;
+       }
     }
 
     @Override
