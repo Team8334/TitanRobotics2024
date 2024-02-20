@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
 
 public class ClimberSubsystem implements Subsystem {
+    
     // Constants for power and distance
-
     private static final double TOP_DISTANCE = 40.0;
     private static final double BOTTOM_DISTANCE = 0.0;
     private static final double TOP_HOLD_THRESHOLD = 0;
