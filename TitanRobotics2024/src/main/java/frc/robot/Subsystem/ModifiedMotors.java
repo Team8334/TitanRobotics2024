@@ -52,6 +52,29 @@ public class ModifiedMotors implements Subsystem
         }
     }
 
+    public ModifiedMotors(int portNumber, int followerPortNumber, String motorType, boolean inverted)
+    {
+         if (portNumber < 0)
+        {
+            System.err.println("Motor not activated " + portNumber);
+            motor = null;
+            return;
+        }
+        switch (motorType) {
+            case "CANTalonDual":
+                motor = initializeDualCANTalon(portNumber, followerPortNumber, inverted);
+                break;
+            case "CANVictorSPXDual":
+                motor = initializeDualCANVictorSPX(portNumber, followerPortNumber, inverted);
+                break;
+        
+            default:
+                motor = null;
+                break;
+        }
+        
+    }
+
     private MotorController initializePWMVictorSPX(int portNumber)
     {
         try
@@ -91,6 +114,12 @@ public class ModifiedMotors implements Subsystem
         }
     }
 
+    public void invert()
+    {
+        motor.setInverted(true);
+    }
+
+
     private MotorController initializeCANTalon(int portNumber)
     {
         try
@@ -100,6 +129,45 @@ public class ModifiedMotors implements Subsystem
         catch (Exception e)
         {
             System.err.println("Error: CANID Not Activated " + portNumber);
+            return null;
+        }
+    }
+
+    private MotorController initializeDualCANTalon(int portNumber, int followerPortNumber, boolean inverted)
+    {
+        try
+        {
+           WPI_TalonSRX leaderMotor = new WPI_TalonSRX(portNumber);
+           WPI_TalonSRX followerMotor = new WPI_TalonSRX(followerPortNumber);
+           followerMotor.follow(leaderMotor);
+           leaderMotor.setInverted(inverted);
+           followerMotor.setInverted(inverted);
+
+
+           return leaderMotor;
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error: DualTalons Not Activated " + portNumber);
+            return null;
+        }
+    }
+
+    private MotorController initializeDualCANVictorSPX(int portNumber, int followerPortNumber, boolean inverted)
+    {
+         try
+        {
+           WPI_VictorSPX leaderMotor = new WPI_VictorSPX(portNumber);
+           WPI_VictorSPX followerMotor = new WPI_VictorSPX(followerPortNumber);
+          
+           followerMotor.follow(leaderMotor);
+           leaderMotor.setInverted(inverted);
+           followerMotor.setInverted(inverted);
+           return leaderMotor;
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error: DualVictors Not Activated " + portNumber);
             return null;
         }
     }

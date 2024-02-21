@@ -5,7 +5,7 @@ public enum PortMap
     
     XBOX_DRIVER_CONTROLLER(0), //find this number in driverstation
     XBOX_OPERATOR_CONTROLLER(1),
-    CLIMBERMOTORLEFT(4),//4
+    CLIMBERMOTORLEFT(-4),//4
     CLIMBERMOTORRIGHT(-5),//5
     CLIMBERLEFTENCODER_A(8),
     CLIMBERLEFTENCODER_B(9),
