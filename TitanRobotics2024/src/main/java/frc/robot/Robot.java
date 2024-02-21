@@ -53,6 +53,7 @@ public class Robot extends TimedRobot
     operatorController = OperatorController.getInstance();
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
+    limelight = Limelight.getInstance();
 
   }
 

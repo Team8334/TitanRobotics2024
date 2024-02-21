@@ -35,6 +35,7 @@ public class Control implements Subsystem
         driverController = DriverController.getInstance();
         targeting = Targeting.getInstance();
         operatorController = OperatorController.getInstance();
+        limelight = Limelight.getInstance();
     }
 
     public void teleopControl()
@@ -98,6 +99,12 @@ public class Control implements Subsystem
                 System.out.println("Locking On to Note");
             }
         } 
+        
+        if(driverController.getButton(ButtonMap.XboxRIGHTBumper))
+        {
+            forward = targeting.follow();
+            turn = targeting.otherLockOn();
+        }
 
         driveBase.drive(forward, turn);
     }

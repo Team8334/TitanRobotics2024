@@ -21,7 +21,7 @@ public enum PortMap
 
     FRONTRIGHT(3), 
     REARRIGHT(2),
-    FRONTLEFT(0),
+    FRONTLEFT(10),
     REARLEFT(1),
     LEFTENCODER_A(3),
     LEFTENCODER_B(4), //4
