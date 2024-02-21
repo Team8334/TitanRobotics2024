@@ -7,7 +7,8 @@ public class Control implements Subsystem
 
     public static Control getInstance() 
     {
-        if (instance == null) {
+        if (instance == null) 
+        {
             instance = new Control();
         }
         return instance;

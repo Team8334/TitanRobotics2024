@@ -8,7 +8,8 @@ public class AprilTagTargeting implements Subsystem //This class contains functi
 
     public static AprilTagTargeting getInstance() 
     {
-        if (instance == null) {
+        if (instance == null) 
+        {
             instance = new AprilTagTargeting();
         }
         return instance;

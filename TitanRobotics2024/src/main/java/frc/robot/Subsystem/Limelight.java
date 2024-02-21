@@ -6,10 +6,10 @@ public class Limelight
 
     public static Limelight getInstance() 
     {
-        if (instance == null) {
+        if (instance == null) 
+        {
             instance = new Limelight();
         }
         return instance;
     }
-
 }

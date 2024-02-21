@@ -19,7 +19,8 @@ public class DriveForTimeAction implements Actions
     }
 
     @Override
-    public void start(){
+    public void start()
+    {
         timer = new Timer();
         timer.start();
     }
@@ -29,8 +30,9 @@ public class DriveForTimeAction implements Actions
      * method
      */
     @Override
-    public void update(){
-    mDrive.drive(this.speed, 0);
+    public void update()
+    {
+        mDrive.drive(this.speed, 0);
     }
 
     /**
@@ -40,11 +42,14 @@ public class DriveForTimeAction implements Actions
      * @return boolean
      */
     @Override
-    public boolean isFinished(){
-        if (timer.get() >= seconds){
+    public boolean isFinished()
+    {
+        if (timer.get() >= seconds)
+        {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }
@@ -53,7 +58,8 @@ public class DriveForTimeAction implements Actions
      * Run code once when the action finishes, usually for clean up
      */
     @Override
-    public void done(){
+    public void done()
+    {
         mDrive.drive(0, 0);
     }
 
