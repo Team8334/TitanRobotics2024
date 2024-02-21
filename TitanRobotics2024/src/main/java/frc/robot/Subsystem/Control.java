@@ -138,28 +138,18 @@ public class Control implements Subsystem
         {
             intake.reverseIntaking();
         } */
-
-        //RampForwardButtonPressed();
-    }
-
-    /* 
-    public void RampForwardButtonPressed()
-    {
-        rampspeed = operatorController.getStick(ButtonMap.XboxRIGHTTrigger);
-        if (Math.abs(rampspeed) > THRESHOLD)
+        
+         if (Math.abs(rampspeed) > THRESHOLD)
         {
+            rampspeed = operatorController.getStick(ButtonMap.XboxRIGHTTrigger);
             System.out.println("ramp speed: " + rampspeed);
         }
-    }
-    
-    public void RampBackwardButtonPressed()
-    {
-        rampspeed = -operatorController.getStick(ButtonMap.XboxLEFTTrigger);
         if (Math.abs(rampspeed) > THRESHOLD) //TODO: add Threshold here
         {
+            rampspeed = - operatorController.getStick(ButtonMap.XboxLEFTTrigger);
             System.out.println("ramp speed: " + rampspeed);
         }
-    } */
+    }
 
     public void start()
     {
