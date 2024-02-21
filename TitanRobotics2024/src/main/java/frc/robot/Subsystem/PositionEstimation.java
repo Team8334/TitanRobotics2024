@@ -48,6 +48,11 @@ public class PositionEstimation implements Subsystem
         return positionEstimator.getEstimatedPosition().getRotation().getDegrees();
     }
 
+    public void resetPose()
+    {
+        positionEstimator.resetPosition(gyro.getRotation2d(), driveBase.getLeftEncoderDistance(), driveBase.getRightEncoderDistance(), getPose());
+    }
+
     public void log()
     {
         SmartDashboard.putNumber("Pose X", getPose().getX());

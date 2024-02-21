@@ -92,6 +92,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit()
   {
+    positionEstimation.resetPose();
   }
 
   /** This function is called periodically during operator control. */
@@ -99,6 +100,7 @@ public class Robot extends TimedRobot
   public void teleopPeriodic()
   {
     control.teleopControl();
+    System.out.println(positionEstimation.getPose());
   }
 
   /** This function is called once when the robot is disabled. */
