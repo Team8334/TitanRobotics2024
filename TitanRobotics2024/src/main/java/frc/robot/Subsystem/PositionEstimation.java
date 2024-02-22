@@ -53,6 +53,11 @@ public class PositionEstimation implements Subsystem
         return positionEstimator.getEstimatedPosition().getRotation().getDegrees();
     }
 
+    public double getDistance()
+    {
+        return ((driveBase.getLeftEncoderDistance() + driveBase.getRightEncoderDistance())/2);
+    }
+
     public void log()
     {
         SmartDashboard.putNumber("Pose X", getPose().getX());
