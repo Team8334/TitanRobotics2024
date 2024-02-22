@@ -88,7 +88,7 @@ public class Intake implements Subsystem
         intakePower = 0.0;
         break;
       case "Intaking":// rollers spin to move the note in
-        rotationtarget = Intake_Bottom_Position;
+      //rotationtarget = Intake_Bottom_Position;
         intakePower = 1;
         break;
       case "reverseIntaking":// rollers spin to push the note out into the ramp

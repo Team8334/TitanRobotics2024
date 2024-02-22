@@ -128,7 +128,7 @@ public class Control implements Subsystem
         
         climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
         */
-        /* 
+         
         if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))
         {
             intake.intaking();
@@ -137,7 +137,7 @@ public class Control implements Subsystem
         if (operatorController.getButton(ButtonMap.XboxLEFTBumper))
         {
             intake.reverseIntaking();
-        } */
+        }
         
          if (Math.abs(rampspeed) > THRESHOLD)
         {
