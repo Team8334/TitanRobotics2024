@@ -11,11 +11,13 @@ public class ExampleMission extends MissionBase
     @Override
     protected void routine() throws AutoMissionEndedException 
     {
-        runAction(new SeriesAction(new DriveForTimeAction(1.5, 0.5), new TurnDegreesAction(-90)));
+        runAction(new SeriesAction(new DriveForTimeAction(3, 0.5), new TurnDegreesAction(-90, 3)));
 
-        runAction(new SeriesAction(new DriveForTimeAction(1.5, 0.5), new TurnDegreesAction(-90)));
+        runAction(new SeriesAction(new DriveForTimeAction(3, 0.5), new TurnDegreesAction(-90, 3)));
 
-        runAction(new SeriesAction(new DriveForTimeAction(1.5, 0.5), new TurnDegreesAction(-90)));
+        runAction(new SeriesAction(new DriveForTimeAction(3, 0.5), new TurnDegreesAction(-90, 3)));
+
+        runAction(new SeriesAction(new DriveForTimeAction(3, 0.5), new TurnDegreesAction(-90, 3)));
 
       
         //runAction(new DriveForTimeAction(1, 0.5));

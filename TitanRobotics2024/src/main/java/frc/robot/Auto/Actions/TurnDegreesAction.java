@@ -8,18 +8,19 @@ import javax.swing.text.Position;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Subsystem.PositionEstimation;;
 
 
 public class TurnDegreesAction implements Actions 
 {
+    Timer timer;
     private double currentDegrees = 0;
     private double desiredDegrees;
     private double targetDegrees;
     private double turn;
     private double toleranceDegrees = 0.0025;
-    private double rateTolerance = 1;
+    private double endAfterSeconds;
 
     private DriveBase driveBase;
     private Gyro gyro;
@@ -30,12 +31,12 @@ public class TurnDegreesAction implements Actions
     private double ki = 0.011;
     private double kd = 0.002;
 
-    public TurnDegreesAction(double degrees)
+    public TurnDegreesAction(double degrees, double seconds)
     {
         driveBase = DriveBase.getInstance();
         //gyro = Gyro.getInstance();
         position = PositionEstimation.getInstance();
-
+        endAfterSeconds = seconds;
         desiredDegrees = degrees;
         PID = new PIDController(kp, ki, kd);
         PID.enableContinuousInput(-180, 180);
@@ -46,6 +47,8 @@ public class TurnDegreesAction implements Actions
     @Override
     public void start()
     {
+        timer = new Timer();
+        timer.start();
         //currentDegrees = gyro.getAngleDegrees();
         currentDegrees = position.getAngle();
         targetDegrees = (currentDegrees + desiredDegrees);
@@ -71,7 +74,7 @@ public class TurnDegreesAction implements Actions
     @Override
     public boolean isFinished()
     {
-        if (PID.atSetpoint() && ((Math.abs(position.getAngleRate()) <= rateTolerance)))
+        if (timer.get() >= endAfterSeconds)
         {
             System.out.println("ended properly");
             return true;
