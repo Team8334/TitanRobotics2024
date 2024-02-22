@@ -73,7 +73,9 @@ public class TurnDegreesAction implements Actions
     {
         if (PID.atSetpoint() && ((Math.abs(position.getAngleRate()) <= rateTolerance)))
         {
+            System.out.println("ended properly");
             return true;
+            
         }
         else 
         {
