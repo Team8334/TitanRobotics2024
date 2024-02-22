@@ -2,7 +2,6 @@ package frc.robot.Data;
 
 public enum PortMap 
 {
-    
     XBOX_DRIVER_CONTROLLER(0), //find this number in driverstation
     XBOX_OPERATOR_CONTROLLER(1),
 
@@ -15,9 +14,8 @@ public enum PortMap
     
     INTAKEMOTORPIVOT(000),
     INTAKEMOTORROLLER(000),
-    INTAKEPIVOTENCODER_A(000),
-    INTAKEPIVOTENCODER_B(000),
-    INTAKEROLLERENCODER(000),
+    INTAKEPIVOTENCODER_A(5),
+    INTAKEPIVOTENCODER_B(6),
 
     FRONTRIGHT(3), 
     REARRIGHT(2),
@@ -30,8 +28,6 @@ public enum PortMap
 
     RAMPMOTORLEFT(-1),
     RAMPMOTORRIGHT(-1);
-
-
 
     public int portNumber;
     private PortMap(int portValue) //constructor

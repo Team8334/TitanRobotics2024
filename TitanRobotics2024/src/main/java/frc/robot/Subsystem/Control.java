@@ -110,7 +110,6 @@ public class Control implements Subsystem
 
         driveBase.drive(forward, turn);
 
-        /* 
         if (operatorController.getButton(ButtonMap.XboxY))
         {
             climberControl.top();
@@ -127,7 +126,7 @@ public class Control implements Subsystem
         }
         
         climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
-        */
+        
          
         if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))
         {

@@ -75,7 +75,6 @@ public class ModifiedEncoders implements Subsystem
 
     public double getDistance()
     {
-
         return encoder.getDistance();
     }
 

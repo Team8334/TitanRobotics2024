@@ -1,6 +1,7 @@
 package frc.robot.Subsystem;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
 
 public class Intake implements Subsystem
@@ -41,7 +42,6 @@ public class Intake implements Subsystem
     this.pivotMotor = Pmotor;
     this.rollerMotor = Rmotor;
     positionPID = new PIDController(kp, ki, kd);
-
   }
 
   public void up()
@@ -78,8 +78,7 @@ public class Intake implements Subsystem
         rotationtarget = Intake_Up_Position;
         intakePower = 0.0;
         break;
-      case "down":// used if when intake is lowered, but rollers have not been
-                  // activated
+      case "down":// used if when intake is lowered, but rollers have not been activated
         rotationtarget = Intake_Bottom_Position;
         intakePower = 0.0;
         break;
@@ -92,7 +91,7 @@ public class Intake implements Subsystem
         intakePower = 1;
         break;
       case "reverseIntaking":// rollers spin to push the note out into the ramp
-        rotationtarget = Intake_Up_Position;
+        //rotationtarget = Intake_Up_Position;
         intakePower = -1;
         break;
       default:
@@ -102,9 +101,13 @@ public class Intake implements Subsystem
     {
       rotationPower = positionPID.calculate(currentDistance, rotationtarget);
     }
-
   }
-  // TODO: log
+
+  public void log()
+  {
+    SmartDashboard.putNumber("currentDistance",currentDistance);
+    SmartDashboard.putString(IntakeState, IntakeState);
+  }
 
   public void update()
   {
