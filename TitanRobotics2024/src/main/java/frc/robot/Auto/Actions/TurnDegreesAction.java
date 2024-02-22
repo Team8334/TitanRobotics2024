@@ -22,16 +22,6 @@ public class TurnDegreesAction implements Actions
     private double ki = 0.0;
     private double kd = 0.0;
 
-    private static DriveBase instance = null;
-    public static DriveBase getInstance()
-  {
-    if (instance == null)
-    {
-      instance = new DriveBase();
-    }
-    return instance;
-  }
-
     public TurnDegreesAction(double degrees)
     {
         driveBase = DriveBase.getInstance();

@@ -1,37 +1,20 @@
 package frc.robot.Auto.Actions;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Subsystem.DriveBase;
-import frc.robot.Subsystem.Gyro;
-import edu.wpi.first.math.controller.PIDController;
 
 public class TurnTimeAction implements Actions
 {
-    
     Timer timer;
     double seconds;
     double speed;
+    private DriveBase mDrive = null;
 
-    private double currentDegrees = 0;
-    private double desiredDegrees;
-    private double targetDegrees;
-    private double turn;
-    private double toleranceDegrees = 1.0;
-
-   private TurnDegreesAction mDrive = null;
-    private Gyro gyro;
-
-    private PIDController PID;
-    private double kp = 0.2;
-    private double ki = 0.0;
-    private double kd = 0.0;
-
-    public TurnTimeAction()
+    public TurnTimeAction(double seconds, double speed)
     {
-        mDrive = TurnDegreesAction.getInstance(seconds, speed);
+        mDrive = DriveBase.getInstance();
         this.seconds = seconds;
-        this.speed = speed
+        this.speed = speed;
     }
     
     public void start()
@@ -42,15 +25,23 @@ public class TurnTimeAction implements Actions
 
     public void update()
     {
-
+        mDrive.drive(this.speed, 2);
     }
 
-    public void isFinished()
+    public boolean isFinished()
     {
-
+        if(timer.get() >= seconds)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+    
     public void done()
     {
-
+        mDrive.drive(0, 0);
     }
 }
