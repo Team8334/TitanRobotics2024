@@ -45,7 +45,7 @@ public class Control implements Subsystem
     public void teleopControl()
     {
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
-        turn = 0.40 * -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
+        turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
         aprilTagTargeting.setAlliance("blue"); // Change depending on alliance
                                                // for upcoming match.

@@ -17,6 +17,8 @@ public class DriveBase implements Subsystem
   private ModifiedMotors leftMotor;
   private ModifiedMotors rightMotor;
   private Gyro gyro;
+  private double forward;
+  private double turn;
 
   private double leftEncoderRate;
   private double rightEncoderRate;
@@ -58,6 +60,9 @@ public class DriveBase implements Subsystem
 
     this.drive = new DifferentialDrive(leftMotor::set, rightMotor::set);
     this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());
+
+    
+
   }
 
   public void setRightMotorsPower(double power)
@@ -72,7 +77,8 @@ public class DriveBase implements Subsystem
 
   public void drive(double forward, double turn)
   {
-    drive.arcadeDrive(forward, turn);
+    this.forward = forward;
+    this.turn = turn;
   }
 
 
@@ -113,6 +119,7 @@ public class DriveBase implements Subsystem
     else {
       SmartDashboardSubsystem.getInstance().error("right encoder is null");
     }
+     drive.arcadeDrive(forward, turn);
 
     this.odometry.update(gyro.getRotation2d(), leftEncoderDistance, rightEncoderDistance);
   }

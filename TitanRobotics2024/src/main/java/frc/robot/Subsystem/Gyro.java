@@ -72,6 +72,11 @@ public class Gyro implements Subsystem
         return ahrs.getAngle();
     }
 
+    public double getAngleRate()
+    {
+        return ahrs.getRate();
+    }
+
     public Rotation2d getRotation2d()
     {
         return ahrs.getRotation2d();

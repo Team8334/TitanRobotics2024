@@ -43,6 +43,11 @@ public class PositionEstimation implements Subsystem
         return positionEstimator.getEstimatedPosition();
     }
 
+    public double getAngleRate()
+    {
+        return imu.getAngleRate();
+    }
+
     public double getAngle()
     {
         return positionEstimator.getEstimatedPosition().getRotation().getDegrees();
