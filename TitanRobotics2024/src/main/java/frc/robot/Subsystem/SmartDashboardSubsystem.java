@@ -12,6 +12,7 @@ public class SmartDashboardSubsystem implements Subsystem
     DriveBase driveBase;
     Targeting targeting;
     ClimberControl climberControl;
+    Intake intake;
 
     private PositionEstimation positionEstimation;
     private boolean initializedComponents = false;
@@ -43,6 +44,7 @@ public class SmartDashboardSubsystem implements Subsystem
         {
             gyro = Gyro.getInstance();
             driveBase = DriveBase.getInstance();
+            intake = Intake.getInstance();
             positionEstimation = PositionEstimation.getInstance();
             targeting = targeting.getInstance();
             initializedComponents = true;
@@ -70,6 +72,7 @@ public class SmartDashboardSubsystem implements Subsystem
     {
         initializeComponents();
         gyro.log();
+        intake.log();
         driveBase.log();
         targeting.log();
         positionEstimation.log();

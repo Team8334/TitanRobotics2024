@@ -107,7 +107,47 @@ public class Control implements Subsystem
         }
 
         driveBase.drive(forward, turn);
+
+        if (operatorController.getButton(ButtonMap.XboxY))
+        {
+            climberControl.top();
+        }
+        
+        if (operatorController.getButton(ButtonMap.XboxX))
+        {
+            climberControl.bottom();
+        }
+        
+        if (operatorController.getButton(ButtonMap.XboxB))
+        {
+            climberControl.stop();
+        }
+        
+        climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
+        
+         
+        if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))
+        {
+            intake.intaking();
+        }
+        
+        if (operatorController.getButton(ButtonMap.XboxLEFTBumper))
+        {
+            intake.reverseIntaking();
+        }
+        
+         if (Math.abs(rampspeed) > THRESHOLD)
+        {
+            rampspeed = operatorController.getStick(ButtonMap.XboxRIGHTTrigger);
+            System.out.println("ramp speed: " + rampspeed);
+        }
+        if (Math.abs(rampspeed) > THRESHOLD) //TODO: add Threshold here
+        {
+            rampspeed = - operatorController.getStick(ButtonMap.XboxLEFTTrigger);
+            System.out.println("ramp speed: " + rampspeed);
+        }
     }
+
     public void start()
     {
 
