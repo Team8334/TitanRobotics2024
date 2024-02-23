@@ -14,6 +14,7 @@ public class Control implements Subsystem
     private Intake intake;
     private Limelight limelight;
     private NoteTargeting noteTargeting;
+    private Ramp ramp;
 
     private double rampspeed;
     private double forward;
@@ -38,6 +39,7 @@ public class Control implements Subsystem
         //climberControl = ClimberControl.getInstance();
         operatorController = OperatorController.getInstance();
         intake = Intake.getInstance();
+        ramp = Ramp.getInstance();
         //limelight = Limelight.getInstance();
         //noteTargeting = NoteTargeting.getInstance();
     }
@@ -143,17 +145,9 @@ public class Control implements Subsystem
         {
             intake.stopIntake();
         }
-        
-        //  if (Math.abs(rampspeed) > THRESHOLD)
-        // {
-        //     rampspeed = operatorController.getStick(ButtonMap.XboxRIGHTTrigger);
-        //     System.out.println("ramp speed: " + rampspeed);
-        // }
-        // if (Math.abs(rampspeed) > THRESHOLD) //TODO: add Threshold here
-        // {
-        //     rampspeed = - operatorController.getStick(ButtonMap.XboxLEFTTrigger);
-        //     System.out.println("ramp speed: " + rampspeed);
-        // }
+        rampspeed =  operatorController.getStick(ButtonMap.XboxLEFTTrigger);
+    
+    
     }
 
     public void start()
