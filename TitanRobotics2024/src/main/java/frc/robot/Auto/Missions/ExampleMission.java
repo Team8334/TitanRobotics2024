@@ -12,7 +12,7 @@ public class ExampleMission extends MissionBase
     @Override
     protected void routine() throws AutoMissionEndedException 
     {
-        runAction(new DriveForDistanceAction(20, 4));
+        runAction(new DriveForDistanceAction(40, 6));
 
 
       
