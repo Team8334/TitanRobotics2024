@@ -28,7 +28,8 @@ public class DriveBase implements Subsystem
   private double rightPower;
 
   //private String motorType = "CANVictorSPX"; // This is Gyro
-   private String motorType = "CANTalon"; // This is Janus
+   //private String motorType = "CANVictorSPXDual"; // This is Janus
+   private String motorType = "CANTalonDual";
   // TODO: make a better selector for the motor type
 
   private static DriveBase instance = null;
@@ -45,8 +46,8 @@ public class DriveBase implements Subsystem
   public DriveBase()
   {
     gyro = Gyro.getInstance();
-    this.leftMotor = new ModifiedMotors(PortMap.FRONTLEFT.portNumber, PortMap.REARLEFT.portNumber, "CANVictorSPXDual", false);
-    this.rightMotor = new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, PortMap.REARRIGHT.portNumber, "CANVictorSPXDual", true);
+    this.leftMotor = new ModifiedMotors(PortMap.FRONTLEFT.portNumber, PortMap.REARLEFT.portNumber, motorType, false);
+    this.rightMotor = new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, PortMap.REARRIGHT.portNumber, motorType, true);
 
     
     this.leftEncoder = new ModifiedEncoders(PortMap.LEFTENCODER_A.portNumber, PortMap.LEFTENCODER_B.portNumber, "E4TEncoder");

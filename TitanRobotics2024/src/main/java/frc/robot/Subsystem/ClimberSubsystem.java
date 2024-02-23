@@ -111,7 +111,7 @@ public class ClimberSubsystem implements Subsystem {
                 //{
                 //    climberVelocity = 0.0;
                 //}
-                climberPower = velocityPID.calculate(currentVelocity, climberVelocity);
+                climberPower = climberVelocity * 0.5;//velocityPID.calculate(currentVelocity, climberVelocity);
                 break;
             case "TOP":
                 rotationTarget = TOP_DISTANCE;
