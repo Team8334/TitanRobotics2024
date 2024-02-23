@@ -5,31 +5,26 @@
 package frc.robot;
 
 import java.util.Optional;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 
-import frc.robot.Subsystem.SmartDashboardSubsystem;
-import frc.robot.Data.ButtonMap;
-import frc.robot.Data.PortMap;
 import frc.robot.ExternalLibraries.LimelightHelpers;
+
+import frc.robot.Subsystem.SmartDashboardSubsystem;
 import frc.robot.Subsystem.Control;
+import frc.robot.Subsystem.ClimberControl;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
+import frc.robot.Subsystem.OperatorController;
 import frc.robot.Subsystem.Intake;
 import frc.robot.Subsystem.Limelight;
-import frc.robot.Subsystem.OperatorController;
 import frc.robot.Subsystem.Targeting;
-import frc.robot.Subsystem.ClimberControl;
+import frc.robot.Subsystem.PositionEstimation;
+
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Auto.Missions.MissionBase;
-import frc.robot.Subsystem.PositionEstimation;
-import frc.robot.Subsystem.NoteTargeting;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Subsystem.AprilTagTargeting;
-import frc.robot.Subsystem.ClimberControl;
+
 //import frc.robot.Subsystem.AprilTagTargeting;
 
 /**
@@ -46,19 +41,16 @@ public class Robot extends TimedRobot
   private AutoMissionExecutor autoMissionExecutor = new AutoMissionExecutor();
   private AutoMissionChooser autoMissionChooser = new AutoMissionChooser();
   
-  private static Targeting targeting;
-  private static ButtonMap buttonMap;
-  private static PortMap portMap;
   private static Control control;
+  private static Targeting targeting;
   private static DriveBase driveBase;
   private static DriverController driverController;
   private static OperatorController operatorController;
   private static Limelight limelight;
   private static PositionEstimation positionEstimation;
-
   private static SmartDashboardSubsystem smartDashboardSubsystem;
   private static Intake intake;
-
+  
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -69,11 +61,11 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.updateMissionCreator();
 
-    targeting = Targeting.getInstance();
     control = Control.getInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
     operatorController = OperatorController.getInstance();
+    targeting = Targeting.getInstance();
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
     limelight = Limelight.getInstance();
@@ -93,16 +85,16 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.outputToSmartDashboard();
 
+    driverController.update();
+    operatorController.update();
     targeting.update();
     control.update();
     driveBase.update();
-    driverController.update();
     positionEstimation.update();
     limelight.update();
-    operatorController.update();
-    aprilTagTargeting.update();
-    smartDashboardSubsystem.update();
     intake.update();
+
+    smartDashboardSubsystem.update();
 
   }
 
@@ -134,7 +126,6 @@ public class Robot extends TimedRobot
   public void teleopPeriodic() 
   {
     control.teleopControl();
-    System.out.println(positionEstimation.getPose());
   }
 
   /** This function is called once when the robot is disabled. */

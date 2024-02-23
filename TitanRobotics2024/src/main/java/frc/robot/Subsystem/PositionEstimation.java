@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PositionEstimation implements Subsystem
 {
+    private DriveBase driveBase;
+    private Gyro gyro;
 
     private static final double WHEEL_BASE_WIDTH = 27.0;
-    DriveBase driveBase;
-    private Gyro gyro;
     DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(WHEEL_BASE_WIDTH));
-
+    
     private final DifferentialDrivePoseEstimator positionEstimator;
 
     private static PositionEstimation instance = null;
@@ -45,7 +45,7 @@ public class PositionEstimation implements Subsystem
 
     public double getAngleRate()
     {
-        return imu.getAngleRate();
+        return gyro.getAngleRate();
     }
 
     public double getAngle()

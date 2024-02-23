@@ -7,10 +7,10 @@ public class Control implements Subsystem
     private static Control instance = null;
 
     private DriveBase driveBase;
-    private static DriverController driverController;
+    private DriverController driverController;
+    private OperatorController operatorController;
     private Targeting targeting;
     private ClimberControl climberControl;
-    private OperatorController operatorController;
     private Intake intake;
     private Limelight limelight;
 
@@ -33,16 +33,18 @@ public class Control implements Subsystem
     {
         driveBase = DriveBase.getInstance();
         driverController = DriverController.getInstance();
-        targeting = Targeting.getInstance();
         operatorController = OperatorController.getInstance();
+        targeting = Targeting.getInstance();
         limelight = Limelight.getInstance();
+        intake = Intake.getInstance();
+        climberControl = ClimberControl.getInstance();
     }
 
     public void teleopControl()
     {
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
-        aprilTagTargeting.setAlliance("blue"); // Change depending on alliance
+        targeting.setAlliance("blue"); // Change depending on alliance
                                                // for upcoming match.
                                                // Failure to change this will
                                                // cause you to target the
@@ -52,7 +54,7 @@ public class Control implements Subsystem
         if (driverController.debounceSTART())
         {
             System.out.println("pressed");
-            if (limelight.pipeline == 0)
+            if (limelight.getPipeline() == 0)
             {
                 limelight.setPipeline(1);
             }
@@ -147,6 +149,8 @@ public class Control implements Subsystem
             System.out.println("ramp speed: " + rampspeed);
         }
     }
+
+    
 
     public void start()
     {
