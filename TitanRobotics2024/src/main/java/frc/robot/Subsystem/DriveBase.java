@@ -12,7 +12,7 @@ public class DriveBase implements Subsystem
   private double lki = 0.0;
   private double lkd = 0.0;
 
-   private double rkp = 0.0;
+  private double rkp = 0.0;
   private double rki = 0.0;
   private double rkd = 0.0;
 
@@ -22,7 +22,6 @@ public class DriveBase implements Subsystem
   private double rightEncoderRate;
   private double rightEncoderDistance;
   private double leftEncoderDistance;
-
 
   private double leftPower;
   private double rightPower;

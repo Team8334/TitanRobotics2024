@@ -10,7 +10,8 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
 {
     private static AprilTagTargeting instance = null;
 
-    public static AprilTagTargeting getInstance() {
+    public static AprilTagTargeting getInstance() 
+    {
         if (instance == null)
         {
             instance = new AprilTagTargeting();
@@ -28,49 +29,60 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
     String target = "ALL";
 
 
-    public void setAlliance(String alliance) {
+    public void setAlliance(String alliance) 
+    {
         this.alliance = alliance;
     }
 
 
-    public AprilTagTargeting() {
+    public AprilTagTargeting() 
+    {
         limelight = Limelight.getInstance();
     }
 
-    public void setTarget(String target) {
+    public void setTarget(String target) 
+    {
         this.target = target;
     }
 
 
 
-    public double runAprilTagXPID() {
-        if (target.equals("ALL") || target.equals(findTagName())) {
+    public double runAprilTagXPID() 
+    {
+        if (target.equals("ALL") || target.equals(findTagName())) 
+        {
             return(aprilTagXPID.calculate(limelight.x, 0) / 25);
         }
-        else {
+        else 
+        {
             return 0;
-        }
-        
+        } 
     }
     /**
      * Runs the AprilTag Area PID control and returns the result.
      *
      * @return a turn value for the robot
      */
-    public double runAprilTagAPID() {
-        if (target.equals("ALL") || target.equals(findTagName())) {
+    public double runAprilTagAPID() 
+    {
+        if (target.equals("ALL") || target.equals(findTagName())) 
+        {
             return(aprilTagAPID.calculate(limelight.area, 25) / 100);
         }
-        else {
+        else 
+        {
             return 0;
         }
     }
 
-    public String findTagName() {
-        if (!limelight.getLimelightState().equals("TRACKING")) {
+    public String findTagName() 
+    {
+        if (!limelight.getLimelightState().equals("TRACKING")) 
+        {
             return "Not Tracking";
         }
-        switch (limelight.getId()) {
+        switch (limelight.getId()) 
+        {
             case 11, 12, 13 -> {
                 return alliance.equals("red")  ? "Stage" : "Opponent's Stage";
             }
@@ -101,7 +113,8 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
         }
     }
 
-    public void log() {
+    public void log() 
+    {
         SmartDashboard.putString("AprilTag Target", findTagName());
     }
 

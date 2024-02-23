@@ -112,7 +112,6 @@ public abstract class MissionBase
         }
 
         action.done();
-
     }
 
     public boolean getIsInterrupted() 

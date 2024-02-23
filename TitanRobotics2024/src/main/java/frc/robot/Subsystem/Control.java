@@ -10,12 +10,14 @@ import frc.robot.Subsystem.ClimberSubsystem;
 
 public class Control implements Subsystem 
 {
-    private DriveBase driveBase;
     private static DriverController driverController = null;
+    private AprilTagTargeting aprilTagTargeting = null;
     private static Control instance = null;
+
     private double forward;
     private double turn;
-    private AprilTagTargeting aprilTagTargeting = null;
+    
+    private DriveBase driveBase;
     private ClimberControl climberControl;
     private OperatorController operatorController;
     private Intake intake;
@@ -43,7 +45,6 @@ public class Control implements Subsystem
     {
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
         turn = 0.35 * -driverController.getStick(ButtonMap.XboxRIGHTSTICKX) * (Math.abs(driverController.getStick(ButtonMap.XboxRIGHTSTICKX)));
-
 
         if(driverController.getButton(ButtonMap.XboxX) && aprilTagTargeting.target.equals("ALL"))
         {

@@ -2,12 +2,13 @@ package frc.robot.Subsystem;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Subsystem.SmartDashboardSubsystem;
 import frc.robot.Data.PortMap;
 import frc.robot.Subsystem.ModifiedEncoders;
 
-public class ClimberSubsystem implements Subsystem {
+public class ClimberSubsystem implements Subsystem 
+{
     // Constants for power and distance
-
     private static final double TOP_DISTANCE = 40.0;
     private static final double BOTTOM_DISTANCE = 0.0;
     private static final double TOP_HOLD_THRESHOLD = 0;
@@ -16,7 +17,6 @@ public class ClimberSubsystem implements Subsystem {
     // PID controllers for position and velocity
     private PIDController positionPID = new PIDController(0.01, 0.0, 0.0);
     private PIDController velocityPID = new PIDController(0.01, 0.0, 0.0);
-
     
     // Current climber state and related variables
     private String climberState = "Stopped";
@@ -41,7 +41,6 @@ public class ClimberSubsystem implements Subsystem {
     // Private constructor for initializing motors and encoders
     private ClimberSubsystem(ModifiedMotors motor, ModifiedEncoders encoder, String name) 
     {
-
         this.motor = motor;
         this.encoder = encoder;
         this.name = name;
@@ -52,7 +51,8 @@ public class ClimberSubsystem implements Subsystem {
     // Get instance for left climber
     public static ClimberSubsystem getLeftInstance() 
     {
-        if (leftInstance == null) {
+        if (leftInstance == null) 
+        {
             leftInstance = new ClimberSubsystem(new ModifiedMotors(PortMap.CLIMBERMOTORLEFT.portNumber, "CANSparkMax"),
              new ModifiedEncoders(PortMap.CLIMBERLEFTENCODER_A.portNumber, PortMap.CLIMBERLEFTENCODER_B.portNumber, "QuadratureEncoder"), "Left Climber");
         }
@@ -62,7 +62,8 @@ public class ClimberSubsystem implements Subsystem {
     // Get instance for right climber
     public static ClimberSubsystem getRightInstance() 
     {
-        if (rightInstance == null) {
+        if (rightInstance == null) 
+        {
             rightInstance = new ClimberSubsystem(new ModifiedMotors(PortMap.CLIMBERMOTORRIGHT.portNumber, "CANSparkMax"),
              new ModifiedEncoders(PortMap.CLIMBERRIGHTENCODER_A.portNumber, PortMap.CLIMBERRIGHTENCODER_B.portNumber, "QuadratureEncoder"), "Right Climber");
 
@@ -160,12 +161,15 @@ public class ClimberSubsystem implements Subsystem {
     // Update the climber based on the processed state
     public void update() 
     {
-        if (encoder != null && motor != null) {
+        if (encoder != null && motor != null) 
+        {
             currentDistance = encoder.getDistance();
             currentVelocity = encoder.getRate();
             processState();
             motor.set(climberPower);
-        } else {
+        } 
+        else 
+        {
             smartDashboardSubsystem.error("Climber not initialized");
         }
     }
