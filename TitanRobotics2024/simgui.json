@@ -3,22 +3,19 @@
     "Encoders": {
       "2": {
         "header": {
-          "open": true
+          "open": false
         }
-      },
-      "window": {
-        "visible": true
       }
     },
     "Other Devices": {
       "SPARK MAX [0]": {
         "header": {
-          "open": true
+          "open": false
         }
       },
       "SPARK MAX [4]": {
         "header": {
-          "open": true
+          "open": false
         }
       },
       "Victor SPX[0]": {
@@ -43,16 +40,16 @@
       },
       "navX-Sensor[0]": {
         "header": {
-          "open": true
+          "open": false
         }
       }
     },
     "RoboRIO": {
       "6V Rail": {
-        "open": true
+        "open": false
       },
       "RoboRIO Input": {
-        "open": true
+        "open": false
       }
     }
   },
@@ -60,22 +57,23 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Auto Mission": "String Chooser"
-    },
-    "windows": {
-      "/SmartDashboard/Auto Mission": {
-        "window": {
-          "visible": true
-        }
-      }
     }
   },
   "NetworkTables": {
-    "special": true,
+    "Persistent Values": {
+      "open": false
+    },
+    "Retained Values": {
+      "open": false
+    },
     "transitory": {
       "FMSInfo": {
         "open": true
       },
       "LiveWindow": {
+        "open": true
+      },
+      "Shuffleboard": {
         "open": true
       },
       "SmartDashboard": {
@@ -84,14 +82,6 @@
     }
   },
   "NetworkTables Info": {
-    "Server": {
-      "Publishers": {
-        "open": true
-      },
-      "Subscribers": {
-        "open": true
-      }
-    },
     "visible": true
   }
 }

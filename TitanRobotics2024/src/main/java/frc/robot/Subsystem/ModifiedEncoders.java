@@ -1,7 +1,6 @@
 package frc.robot.Subsystem;
 
 import edu.wpi.first.wpilibj.Encoder; //this import like to get mad if the class name is "Encoder". I don't know why, but just know that.
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ModifiedEncoders implements Subsystem
 {
@@ -23,9 +22,6 @@ public class ModifiedEncoders implements Subsystem
                 encoder = initializeE4T(channelA, channelB);
                 break;
             case "QuadratureEncoder":
-                if ( channelA < 0 || channelB < 0){
-                    break;
-                }
                 encoder = new Encoder(channelA, channelB);
                 break;
             default:
@@ -57,9 +53,6 @@ public class ModifiedEncoders implements Subsystem
 
     private Encoder initializeE4T(int channelA, int channelB)
     {
-        if ( channelA < 0 || channelB < 0){
-            return null;
-        }
         try
         {
             encoder = new Encoder(channelA, channelB);

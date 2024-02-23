@@ -34,32 +34,34 @@ public class Robot extends TimedRobot
   private static Control control;
   private static DriveBase driveBase;
   private static DriverController driverController;
-  private static ClimberControl climberControl;
-  private static ClimberSubsystem climberRight;
-  private static ClimberSubsystem climberLeft;
+  // private static ClimberControl climberControl;
+  // private static ClimberSubsystem climberRight;
+  // private static ClimberSubsystem climberLeft;
   private static Limelight limelight;
   private static NoteTargeting noteTargeting;
   private static OperatorController operatorController;
   private static PositionEstimation positionEstimation;
   private static SmartDashboardSubsystem smartDashboardSubsystem;
+  private static Intake intake;
 
   @Override
   public void robotInit()
   {
     autoMissionChooser.updateMissionCreator();
 
-    aprilTagTargeting = AprilTagTargeting.getInstance();
+    //aprilTagTargeting = AprilTagTargeting.getInstance();
     control = Control.getInstance();
-    climberControl = ClimberControl.getInstance();
-    climberLeft = ClimberSubsystem.getLeftInstance();
-    climberRight = ClimberSubsystem.getRightInstance();
+    //climberControl = ClimberControl.getInstance();
+    //climberLeft = ClimberSubsystem.getLeftInstance();
+    //climberRight = ClimberSubsystem.getRightInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
-    limelight = Limelight.getInstance();
-    noteTargeting = NoteTargeting.getInstance();
+    //limelight = Limelight.getInstance();
+    //noteTargeting = NoteTargeting.getInstance();
     operatorController = OperatorController.getInstance();
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
+    intake = Intake.getInstance();
 
   }
 
@@ -68,18 +70,19 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.outputToSmartDashboard();
 
-    aprilTagTargeting.update();
+    //aprilTagTargeting.update();
     control.update();
     driveBase.update();
     driverController.update();
-    climberControl.update();
-    climberLeft.update();
-    climberRight.update();
+    //climberControl.update();
+    //climberLeft.update();
+    //climberRight.update();
     positionEstimation.update();
-    limelight.update();
-    noteTargeting.update();
+    //limelight.update();
+    //noteTargeting.update();
     operatorController.update();
     smartDashboardSubsystem.update();
+    intake.update();
   }
 
   @Override
