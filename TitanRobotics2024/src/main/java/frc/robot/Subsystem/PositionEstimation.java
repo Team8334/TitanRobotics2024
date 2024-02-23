@@ -12,7 +12,7 @@ public class PositionEstimation implements Subsystem
 
     private static final double WHEEL_BASE_WIDTH = 27.0;
     DriveBase driveBase;
-    private Gyro imu;
+    private Gyro gyro;
     DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(WHEEL_BASE_WIDTH));
 
     private final DifferentialDrivePoseEstimator positionEstimator;
@@ -30,9 +30,9 @@ public class PositionEstimation implements Subsystem
 
     private PositionEstimation()
     {
-        imu = Gyro.getInstance();
+        gyro = Gyro.getInstance();
         driveBase = DriveBase.getInstance();
-        positionEstimator = new DifferentialDrivePoseEstimator(kinematics, imu.getRotation2d(),
+        positionEstimator = new DifferentialDrivePoseEstimator(kinematics, gyro.getRotation2d(),
                         driveBase.getLeftEncoderDistance(), driveBase.getRightEncoderDistance(), new Pose2d(),
                         VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
                         VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
@@ -57,6 +57,11 @@ public class PositionEstimation implements Subsystem
     {
         return ((driveBase.getLeftEncoderDistance() - driveBase.getRightEncoderDistance())/2);
     }
+    
+    public void resetPose()
+    {
+        positionEstimator.resetPosition(gyro.getRotation2d(), driveBase.getLeftEncoderDistance(), driveBase.getRightEncoderDistance(), getPose());
+    }
 
     public void log()
     {
@@ -68,7 +73,7 @@ public class PositionEstimation implements Subsystem
     // TODO: add vision pose updates
     public void update()
     {
-        positionEstimator.update(imu.getRotation2d(), driveBase.getLeftEncoderDistance(),
+        positionEstimator.update(gyro.getRotation2d(), driveBase.getLeftEncoderDistance(),
                         driveBase.getRightEncoderDistance());
     }
 

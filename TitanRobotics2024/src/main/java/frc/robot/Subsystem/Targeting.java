@@ -3,21 +3,23 @@ package frc.robot.Subsystem;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AprilTagTargeting implements Subsystem // This class contains functions for finding and
+public class Targeting implements Subsystem // This class contains functions for finding and
                                                     // locking onto elements of the field using
                                                     // their April Tags.
 {
-    private static AprilTagTargeting instance = null;
+    private static Targeting instance = null;
 
-    public static AprilTagTargeting getInstance() {
+    public static Targeting getInstance() {
         if (instance == null) {
-            instance = new AprilTagTargeting();
+            instance = new Targeting();
         }
         return instance;
     }
 
     private PIDController aprilTagXPID = new PIDController(1, 0, 0);
     private PIDController aPID = new PIDController(1, 0, 0);
+    private PIDController noteXPID = new PIDController(1, 0, 0);
+
 
     Limelight limelight;
     DriveBase driveBase;
@@ -26,7 +28,7 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
     String alliance = "red";
     String target = "ALL";
 
-    public AprilTagTargeting() {
+    public Targeting() {
         limelight = Limelight.getInstance();
     }
 
@@ -38,22 +40,22 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
         this.target = target;
     }
 
-    public double aprilTaglockOn() {
+    public double aprilTaglockOn() { //Locks on to apriltag depending on target. Set as "turn" in DriveBase.drive in control
         if (target.equals("ALL") || target.equals(findTagName())) {
-            return (aprilTagXPID.calculate(limelight.x, 0) / 25);
+            return (aprilTagXPID.calculate(limelight.x, 0) / 150);
         } else {
             return 0;
         }
     }
 
-    /**
-     * Runs the AprilTag Area PID control and returns the result.
-     *
-     * @return a turn value for the robot
-     */
-    public double follow() // setting "forward" as this function will cause the robot to follow the target.
+    public double otherLockOn() { //Lock on to whatever the pipeline is targeting. Only difference from aprilTagLockOn is it ignores target ID. For Notes, set confidence to 0.3 in limelight interface.
+        return(noteXPID.calculate(limelight.x, 0) / 150);
+    }
+
+    public double follow()  // Setting "forward" in DriveBase.drive in controlas this function will cause the robot to follow the target. 
+                            // USE AT OWN RISK. Feel free to increase the speed divisor value to make it even slower.
     {
-        return (aPID.calculate(limelight.area, 25) / 100);
+        return (aPID.calculate(limelight.area, 25) / 50);
     }
 
     public String findTagName() {
@@ -96,6 +98,5 @@ public class AprilTagTargeting implements Subsystem // This class contains funct
     }
 
     public void update() {
-        // smartDashboardSubsystem.status("AprilTagTargeting running");
     }
 }

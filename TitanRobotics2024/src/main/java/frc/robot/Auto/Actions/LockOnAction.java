@@ -2,23 +2,78 @@ package frc.robot.Auto.Actions;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Subsystem.DriveBase;
-import frc.robot.Subsystem.AprilTagTargeting;
+import frc.robot.Subsystem.Targeting;
+import frc.robot.Subsystem.Limelight;
 
 public class LockOnAction implements Actions 
 {
+    private Targeting targeting;
+    private DriveBase driveBase;
+    private Limelight limelight;
+    
+    double neededArea;
 
     /**
      * Run code once when the action is started, for setup
      */
-    public LockOnAction() 
+    public LockOnAction(String target, String alliance) 
     {
+        targeting = Targeting.getInstance();
+        limelight = Limelight.getInstance();
+        driveBase = DriveBase.getInstance();
+
+        if(alliance == "blue")
+        {
+            targeting.setAlliance("blue");
+        }
         
+        if(alliance == "red")
+        {
+            targeting.setAlliance("red");
+        }
+
+        switch(target)
+        {
+            case "Amp":
+            {
+                limelight.setPipeline(0);
+                targeting.setTarget("Amp");
+            }
+            break;
+            
+            case "Source":
+            {
+                limelight.setPipeline(0);
+                targeting.setTarget("Source");
+            }
+            break;
+
+            case "Stage":
+            {
+                limelight.setPipeline(0);
+                targeting.setTarget("Stage");
+            }
+            break;
+
+            case "Note":
+            {
+                limelight.setPipeline(1);
+            }
+        }
+
     }
 
     @Override
     public void start() 
     {
-    
+        if(limelight.getPipeline() == 0)
+        {
+            neededArea = 5;
+        }
+        if(limelight.getPipeline() == 1)
+        {
+            neededArea = 3.1;
+        }
     }
 
     /**
@@ -29,7 +84,15 @@ public class LockOnAction implements Actions
     @Override
     public void update() 
     {
-      
+        if(limelight.getPipeline() == 0)
+        {
+            driveBase.drive(targeting.follow(), targeting.aprilTaglockOn());
+        }
+        if(limelight.getPipeline() == 1)
+        {
+            driveBase.drive(targeting.follow(), targeting.otherLockOn());
+            System.out.println(limelight.getArea());
+        }
     }
 
     /**
@@ -42,7 +105,14 @@ public class LockOnAction implements Actions
     @Override
     public boolean isFinished() 
     {
-        return false;
+        if(limelight.getArea() >= neededArea && limelight.getX() == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -51,7 +121,7 @@ public class LockOnAction implements Actions
     @Override
     public void done() 
     {
-        
+        driveBase.drive(0, 0);
     }
 
 }
