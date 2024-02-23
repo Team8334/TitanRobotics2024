@@ -14,6 +14,7 @@ public class Intake implements Subsystem
   private double rotationPower;
   private double intakePower;
   private double currentDistance;
+  private double manualPower;
 
   private ModifiedEncoders encoder;
   private ModifiedMotors pivotMotor;
@@ -54,9 +55,14 @@ public class Intake implements Subsystem
     this.IntakeState = "down";
   }
 
-  public void stop()
+  public void stopIntake()
   {
-    this.IntakeState = "stop";
+    this.IntakeState = "stopIntake";
+  }
+
+  public void stopIntakeArm()
+  {
+    this.IntakeState = "stopIntakeArm";
   }
 
   public void intaking()
@@ -67,6 +73,14 @@ public class Intake implements Subsystem
   public void reverseIntaking()
   {
     this.IntakeState = "reverseIntaking";
+  }
+
+  public void manualUp(){
+    this.IntakeState = "manualUp";
+  }
+
+  public void manualDown(){
+    this.IntakeState = "manualDown";
   }
 
   private void IntakeStateProcess()
@@ -82,17 +96,30 @@ public class Intake implements Subsystem
         rotationtarget = Intake_Bottom_Position;
         intakePower = 0.0;
         break;
-      case "stop":// rotation of the intake arm set to zero, no movement
-        rotationPower = 0.0;
+      case "stopIntake":// rotation of the intake arm set to zero, no movement
         intakePower = 0.0;
+        manualPower = 0;
+        break;
+      case "stopIntakeArm":
+        manualPower = 0.0;
         break;
       case "Intaking":// rollers spin to move the note in
       //rotationtarget = Intake_Bottom_Position;
         intakePower = 0.3;
+        manualPower = 0;
         break;
       case "reverseIntaking":// rollers spin to push the note out into the ramp
         //rotationtarget = Intake_Up_Position;
         intakePower = -0.3;
+        manualPower = 0;
+        break;
+      case "manualUp":
+        manualPower = 0.1;
+        intakePower = 0;
+        break;
+      case "manualDown":
+        intakePower = 0;
+        manualPower = -0.1;
         break;
       default:
         break;
@@ -113,7 +140,7 @@ public class Intake implements Subsystem
   {
     currentDistance = encoder.getDistance();
     IntakeStateProcess();
-    pivotMotor.set(rotationPower);
+    pivotMotor.set(manualPower);
     rollerMotor.set(intakePower);
   }
 }

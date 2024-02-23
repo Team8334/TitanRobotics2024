@@ -134,8 +134,14 @@ public class Control implements Subsystem
         }else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))
         {
             intake.reverseIntaking();
-        } else {
-            intake.stop();
+        } else if(operatorController.getButton(ButtonMap.XboxY))
+        {
+            intake.manualUp();
+        }else if (operatorController.getButton(ButtonMap.XboxA)){
+            intake.manualDown();
+        } else
+        {
+            intake.stopIntake();
         }
         
         //  if (Math.abs(rampspeed) > THRESHOLD)
