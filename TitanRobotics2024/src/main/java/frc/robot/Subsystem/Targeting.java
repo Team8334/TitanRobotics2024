@@ -42,14 +42,14 @@ public class Targeting implements Subsystem // This class contains functions for
 
     public double aprilTaglockOn() { //Locks on to apriltag depending on target. Set as "turn" in DriveBase.drive in control
         if (target.equals("ALL") || target.equals(findTagName())) {
-            return (aprilTagXPID.calculate(limelight.x, 0) / 25);
+            return (aprilTagXPID.calculate(limelight.x, 0) / 150);
         } else {
             return 0;
         }
     }
 
     public double otherLockOn() { //Lock on to whatever the pipeline is targeting. Only difference from aprilTagLockOn is it ignores target ID. For Notes, set confidence to 0.3 in limelight interface.
-        return(noteXPID.calculate(limelight.x, 0) / 75);
+        return(noteXPID.calculate(limelight.x, 0) / 150);
     }
 
     public double follow()  // Setting "forward" in DriveBase.drive in controlas this function will cause the robot to follow the target. 

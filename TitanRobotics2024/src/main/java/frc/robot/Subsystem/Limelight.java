@@ -80,6 +80,21 @@ public class Limelight
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
     }
 
+    public int getPipeline()
+    {
+        return pipeline;
+    }
+
+    public double getX()
+    {
+        return x;
+    }
+    
+    public double getArea()
+    {
+        return area;
+    }
+
     public void setCamMode(int mode)
     {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(mode);
