@@ -1,6 +1,5 @@
 package frc.robot.Auto.Actions;
 
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.Limelight;

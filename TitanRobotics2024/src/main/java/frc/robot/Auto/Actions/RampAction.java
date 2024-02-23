@@ -10,7 +10,7 @@ public class RampAction implements Actions
     double speed;
     private Ramp mRamp = null;
     
-    public void RampAction (double seconds, double speed)
+    public RampAction (double seconds, double speed)
     {
         mRamp = Ramp.getInstance();
         this.seconds = seconds;
@@ -25,7 +25,7 @@ public class RampAction implements Actions
 
     public void update()
     {
-        mRamp.drive(this.speed, 0);
+        mRamp.setRamp(this.speed);
     }
 
     public boolean isFinished()
@@ -42,6 +42,6 @@ public class RampAction implements Actions
 
     public void done()
     {
-        mRamp.drive(0, 0);
+        mRamp.setRamp(0);
     }
 }

@@ -21,7 +21,7 @@ public class SparkMAX implements Subsystem {
     public SparkMAX()
     {
     
-         m_motor = new CANSparkMax(portNumber, MotorType.kBrushless);
+        m_motor = new CANSparkMax(portNumber, MotorType.kBrushless);
         m_motor.restoreFactoryDefaults();
         m_pidController = m_motor.getPIDController();
         m_encoder = m_motor.getEncoder();

@@ -1,13 +1,9 @@
 package frc.robot.Auto.Actions;
 
 import frc.robot.Subsystem.DriveBase;
-import frc.robot.Subsystem.Gyro;
 import frc.robot.Subsystem.PositionEstimation;
 
-import javax.swing.text.Position;
-
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,7 +19,6 @@ public class DriveForDistanceAction implements Actions
     private double endAfterSeconds;
 
     private DriveBase driveBase;
-    private Gyro gyro;
     private PositionEstimation position;
 
     private PIDController PID;

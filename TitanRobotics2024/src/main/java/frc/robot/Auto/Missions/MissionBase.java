@@ -2,7 +2,6 @@ package frc.robot.Auto.Missions;
 import frc.robot.Auto.AutoMissionEndedException;
 import frc.robot.Auto.Actions.Actions;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public abstract class MissionBase 
 {

@@ -29,9 +29,9 @@ public enum PortMap
     RIGHTENCODER_A(8),
     RIGHTENCODER_B(7),
 
-    RAMPMOTORLEFT(-1),
-    RAMPMOTORRIGHT(-1);
-
+    RAMPLEFTMOTOR(-1),
+    RAMPRIGHTMOTOR(-1),
+    OUTTAKEMOTOR(-1);
 
 
     public int portNumber;

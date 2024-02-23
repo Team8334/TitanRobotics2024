@@ -46,7 +46,7 @@ public class SmartDashboardSubsystem implements Subsystem
             driveBase = DriveBase.getInstance();
             intake = Intake.getInstance();
             positionEstimation = PositionEstimation.getInstance();
-            targeting = targeting.getInstance();
+            targeting = Targeting.getInstance();
             initializedComponents = true;
         }
     }
@@ -76,6 +76,8 @@ public class SmartDashboardSubsystem implements Subsystem
         driveBase.log();
         targeting.log();
         positionEstimation.log();
+        climberControl.log();
+        
         SmartDashboard.putString("Errors", errorLog.toString());
         //SmartDashboard.putString("Status", statusLog.toString());
 

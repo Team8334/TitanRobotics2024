@@ -14,7 +14,7 @@ public class Intake implements Subsystem
   private double rotationPower;
   private double intakePower;
   private double currentDistance;
-  private double manualPower;
+  private double pivotPower;
 
   private ModifiedEncoders encoder;
   private ModifiedMotors pivotMotor;
@@ -25,6 +25,8 @@ public class Intake implements Subsystem
   private double kd;
 
   private static Intake instance = null;
+  
+  private String intakeMode = "manual";
 
   public static Intake getInstance()
   {
@@ -82,6 +84,9 @@ public class Intake implements Subsystem
   public void manualDown(){
     this.IntakeState = "manualDown";
   }
+  public void setIntakeMode(){
+    this.IntakeState = "manualStop";
+  }
 
   private void IntakeStateProcess()
   {
@@ -98,28 +103,28 @@ public class Intake implements Subsystem
         break;
       case "stopIntake":// rotation of the intake arm set to zero, no movement
         intakePower = 0.0;
-        manualPower = 0;
+        pivotPower = 0;
         break;
       case "stopIntakeArm":
-        manualPower = 0.0;
+        pivotPower = 0.0;
         break;
       case "Intaking":// rollers spin to move the note in
       //rotationtarget = Intake_Bottom_Position;
         intakePower = 0.3;
-        manualPower = 0;
+        pivotPower = 0;
         break;
       case "reverseIntaking":// rollers spin to push the note out into the ramp
         //rotationtarget = Intake_Up_Position;
         intakePower = -0.3;
-        manualPower = 0;
+        pivotPower = 0;
         break;
       case "manualUp":
-        manualPower = 0.1;
+        pivotPower = 0.1;
         intakePower = 0;
         break;
       case "manualDown":
         intakePower = 0;
-        manualPower = -0.1;
+        pivotPower = -0.1;
         break;
       default:
         break;
@@ -136,11 +141,25 @@ public class Intake implements Subsystem
     SmartDashboard.putString(IntakeState, IntakeState);
   }
 
+  public void manualPivotPower(double power)
+  {
+    pivotPower = power;
+  }
+
+  public void manualIntakePower(double power)
+  {
+    intakePower = power;
+  }
+
   public void update()
   {
     currentDistance = encoder.getDistance();
-    IntakeStateProcess();
-    pivotMotor.set(manualPower);
+    if (intakeMode == "auto")
+    {
+      IntakeStateProcess();
+    }
+    
+    pivotMotor.set(pivotPower);
     rollerMotor.set(intakePower);
   }
 }
