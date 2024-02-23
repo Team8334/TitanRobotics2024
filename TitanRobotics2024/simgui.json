@@ -15,7 +15,27 @@
       },
       "SPARK MAX [4]": {
         "header": {
-          "open": false
+          "open": true
+        }
+      },
+      "SPARK MAX [5]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [6]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [7]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[2]/Fwd Limit": {
+        "header": {
+          "open": true
         }
       },
       "Victor SPX[0]": {
@@ -36,11 +56,6 @@
       "Victor SPX[3]": {
         "header": {
           "open": true
-        }
-      },
-      "navX-Sensor[0]": {
-        "header": {
-          "open": false
         }
       }
     },

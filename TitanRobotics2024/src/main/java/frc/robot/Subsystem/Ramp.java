@@ -1,5 +1,6 @@
 package frc.robot.Subsystem;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
 
 public class Ramp
@@ -7,7 +8,7 @@ public class Ramp
   public ModifiedMotors rampLeftMotor;
   public ModifiedMotors rampRightMotor;
   public ModifiedMotors outtakeMotor;
-  public double outtakepower;
+  public double outtakePower;
   public double rampMotorLeftpower;
   public double rampMotorRightpower;
   private static Ramp instance = null;
@@ -33,13 +34,19 @@ public class Ramp
   {
     this.rampMotorLeftpower = (rampforward);
     this.rampMotorRightpower = (-rampforward);
-    this.outtakepower = (rampforward);
+    this.outtakePower = (rampforward);
   }
-
+  
+  public void log()
+  {
+    SmartDashboard.putNumber("RampLeftPower",rampMotorLeftpower );
+    SmartDashboard.putNumber("RampRightPower", rampMotorRightpower);
+    SmartDashboard.putNumber("OuttakePower", outtakePower);
+  }
   public void update()
   {
     rampLeftMotor.set(rampMotorLeftpower);
     rampRightMotor.set(rampMotorRightpower);
-    outtakeMotor.set(outtakepower);
+    outtakeMotor.set(outtakePower);
   }
 }
