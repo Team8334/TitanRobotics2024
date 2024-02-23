@@ -107,7 +107,7 @@ public class Control implements Subsystem
                 System.out.println("Locking On to Note");
             }
         } 
-        */
+        
 
         driveBase.drive(forward, turn);
 
