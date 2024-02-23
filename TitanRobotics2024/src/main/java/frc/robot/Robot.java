@@ -28,7 +28,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystem.AprilTagTargeting;
 import frc.robot.Subsystem.ClimberControl;
-import frc.robot.Teleop.Teleop;
 //import frc.robot.Subsystem.AprilTagTargeting;
 
 /**
