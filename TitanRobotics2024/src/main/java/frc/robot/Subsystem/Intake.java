@@ -66,7 +66,7 @@ public class Intake implements Subsystem
 
   public void reverseIntaking()
   {
-    this.IntakeState = "reverseIntake";
+    this.IntakeState = "reverseIntaking";
   }
 
   private void IntakeStateProcess()
@@ -88,11 +88,11 @@ public class Intake implements Subsystem
         break;
       case "Intaking":// rollers spin to move the note in
       //rotationtarget = Intake_Bottom_Position;
-        intakePower = 1;
+        intakePower = 0.3;
         break;
       case "reverseIntaking":// rollers spin to push the note out into the ramp
         //rotationtarget = Intake_Up_Position;
-        intakePower = -1;
+        intakePower = -0.3;
         break;
       default:
         break;

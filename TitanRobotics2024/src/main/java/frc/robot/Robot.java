@@ -34,14 +34,15 @@ public class Robot extends TimedRobot
   private static Control control;
   private static DriveBase driveBase;
   private static DriverController driverController;
-  private static ClimberControl climberControl;
-  private static ClimberSubsystem climberRight;
-  private static ClimberSubsystem climberLeft;
+  // private static ClimberControl climberControl;
+  // private static ClimberSubsystem climberRight;
+  // private static ClimberSubsystem climberLeft;
   private static Limelight limelight;
   private static NoteTargeting noteTargeting;
   private static OperatorController operatorController;
   private static PositionEstimation positionEstimation;
   private static SmartDashboardSubsystem smartDashboardSubsystem;
+  private static Intake intake;
 
   @Override
   public void robotInit()
@@ -60,6 +61,7 @@ public class Robot extends TimedRobot
     operatorController = OperatorController.getInstance();
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
+    intake = Intake.getInstance();
 
   }
 
@@ -80,6 +82,7 @@ public class Robot extends TimedRobot
     //noteTargeting.update();
     operatorController.update();
     smartDashboardSubsystem.update();
+    intake.update();
   }
 
   @Override
