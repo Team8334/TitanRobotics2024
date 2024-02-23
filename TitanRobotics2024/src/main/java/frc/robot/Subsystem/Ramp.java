@@ -9,7 +9,18 @@ public class Ramp
   public ModifiedMotors rampMotorRight;
   public double rampMotorLeftpower;
   public double rampMotorRightpower;
+  private static Ramp instance = null;
 
+
+  public static Ramp getInstance() 
+  {
+    if (instance == null) 
+    {
+        instance = new Ramp();
+    }
+        return instance;
+  }
+  
   public void setRampMotors()
   {
     this.rampMotorLeft =  new ModifiedMotors(PortMap.RAMPMOTORLEFT.portNumber, "CANSparkMax");
