@@ -33,6 +33,7 @@ public class AutoMissionChooser
         // add more here as needed
 
         SmartDashboard.putData("Auto Mission", missionChooser);
+        SmartDashboard.putString( "Current Action System", "None");
     }
 
     public void updateMissionCreator() 

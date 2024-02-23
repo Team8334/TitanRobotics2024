@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class ParallelAction implements Actions
 {
     private ArrayList<Actions> actionsToExecute;
@@ -28,6 +30,7 @@ public class ParallelAction implements Actions
     public void start()
     {
         actionsToExecute.forEach(Actions::start);
+        SmartDashboard.putString( "Current Action System", "ParallelAction Started");
     }
 
     @Override
@@ -48,6 +51,7 @@ public class ParallelAction implements Actions
     @Override
     public void done()
     {
+        SmartDashboard.putString( "Current Action System", "ParallelAction Ended");
         actionsToExecute.forEach(Actions::done);
     }
 }

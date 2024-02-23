@@ -31,12 +31,12 @@ public class DriveForDistanceAction implements Actions
     private double ki = 0.011;
     private double kd = 0.002;
 
-    public DriveForDistanceAction(double distance, double seconds)
+    public DriveForDistanceAction(double distance, double endingSeconds)
     {
         driveBase = DriveBase.getInstance();
         //gyro = Gyro.getInstance();
         position = PositionEstimation.getInstance();
-        endAfterSeconds = seconds;
+        endAfterSeconds = endingSeconds;
         desiredDistance = distance;
         PID = new PIDController(kp, ki, kd);
     }
@@ -52,6 +52,7 @@ public class DriveForDistanceAction implements Actions
         PID.setSetpoint(targetDistance);
         PID.setTolerance(toleranceDistance);
        // System.out.println(targetDegrees);
+       SmartDashboard.putString( "Current Action", "DriveForDistanceAction Started");
     }
 
  
@@ -59,10 +60,12 @@ public class DriveForDistanceAction implements Actions
     @Override
     public void update()
     {
+        
         forward = PID.calculate(position.getDistance());
         driveBase.drive(forward, 0);
         //System.out.println(gyro.getAngleDegrees());
         SmartDashboard.putNumber("targetDistance", targetDistance);
+        SmartDashboard.putNumber("currentDistance", currentDistance);
         SmartDashboard.putNumber("forward", forward);
         //System.out.println(turn);
         
@@ -87,6 +90,7 @@ public class DriveForDistanceAction implements Actions
     @Override
     public void done()
     {
+        SmartDashboard.putString( "Current Action", "DriveForDistanceAction Ended");
         driveBase.drive(0, 0);
     }
 }

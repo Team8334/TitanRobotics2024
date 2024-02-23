@@ -2,6 +2,7 @@ package frc.robot.Auto.Missions;
 import frc.robot.Auto.AutoMissionEndedException;
 import frc.robot.Auto.Actions.Actions;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public abstract class MissionBase 
 {
@@ -80,7 +81,7 @@ public abstract class MissionBase
     {
         isActiveWithThrow();
         long waitTime = (long) (mUpdateRate * 1000.0);
-
+        //SmartDashboard.putString("Running Auto Mission:", String.valueOf(action));
         // WaitForNumBannerSensorsAction for interrupt state to clear
         while (isActiveWithThrow() && mIsInterrupted) 
         {

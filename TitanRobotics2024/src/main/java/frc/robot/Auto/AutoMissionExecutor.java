@@ -1,5 +1,6 @@
 package frc.robot.Auto;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Auto.Missions.MissionBase;
 
 /**

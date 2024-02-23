@@ -55,6 +55,7 @@ public class TurnDegreesAction implements Actions
         PID.setSetpoint(targetDegrees);
         PID.setTolerance(toleranceDegrees);
        // System.out.println(targetDegrees);
+       SmartDashboard.putString( "Current Action", "TurnDegreesAction Started");
     }
 
  
@@ -90,6 +91,7 @@ public class TurnDegreesAction implements Actions
     @Override
     public void done()
     {
+        SmartDashboard.putString( "Current Action", "TurnDegreesAction Ended");
         driveBase.drive(0, 0);
     }
 }
