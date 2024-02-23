@@ -7,7 +7,6 @@ package frc.robot;
 import java.util.Optional;
 import edu.wpi.first.wpilibj.TimedRobot;
 
-import frc.robot.ExternalLibraries.LimelightHelpers;
 
 import frc.robot.Subsystem.SmartDashboardSubsystem;
 import frc.robot.Subsystem.Control;
@@ -19,11 +18,11 @@ import frc.robot.Subsystem.Intake;
 import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.PositionEstimation;
+import frc.robot.Subsystem.Ramp;
 
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Auto.Missions.MissionBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //import frc.robot.Subsystem.AprilTagTargeting;
 
@@ -50,7 +49,8 @@ public class Robot extends TimedRobot
   private static PositionEstimation positionEstimation;
   private static SmartDashboardSubsystem smartDashboardSubsystem;
   private static Intake intake;
-  
+  private static ClimberControl climberControl;
+  private static Ramp ramp;
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -62,6 +62,7 @@ public class Robot extends TimedRobot
     autoMissionChooser.updateMissionCreator();
 
     control = Control.getInstance();
+    climberControl = ClimberControl.getInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
     operatorController = OperatorController.getInstance();
@@ -70,6 +71,7 @@ public class Robot extends TimedRobot
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
     limelight = Limelight.getInstance();
     intake = Intake.getInstance();
+    ramp = Ramp.getInstance();
 
     smartDashboardSubsystem.update();
   }
@@ -93,7 +95,8 @@ public class Robot extends TimedRobot
     positionEstimation.update();
     limelight.update();
     intake.update();
-
+    ramp.update();
+  
     smartDashboardSubsystem.update();
 
   }
