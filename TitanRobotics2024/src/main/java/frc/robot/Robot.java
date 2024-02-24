@@ -44,8 +44,6 @@ public class Robot extends TimedRobot
   private AutoMissionExecutor autoMissionExecutor = new AutoMissionExecutor();
   private AutoMissionChooser autoMissionChooser = new AutoMissionChooser();
 
-  private static AprilTagTargeting aprilTagTargeting;
-
  // private static AprilTagTargeting aprilTagTargeting;
  // private static Limelight limelight;
    //private static LimelightHelpers limelightHelpers;
@@ -57,8 +55,7 @@ public class Robot extends TimedRobot
   private static DriveBase driveBase;
   private static DriverController driverController;
   private static OperatorController operatorController;
-  private static Limelight limelight;
-  private static NoteTargeting noteTargeting;
+  //private static Limelight limelight;
   private static PositionEstimation positionEstimation;
 
   private static SmartDashboardSubsystem smartDashboardSubsystem;
@@ -75,9 +72,8 @@ public class Robot extends TimedRobot
     control = Control.getInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
-    limelight = Limelight.getInstance();
+    //limelight = Limelight.getInstance();
     operatorController = OperatorController.getInstance();
-    aprilTagTargeting = AprilTagTargeting.getInstance();
     autoMissionChooser.updateMissionCreator();
     positionEstimation = PositionEstimation.getInstance();
 
@@ -98,16 +94,14 @@ public class Robot extends TimedRobot
     control.update();
     driveBase.update();
     driverController.update();
-    limelight.update();
-    //modifiedMotors.update();
+    //limelight.update();
     positionEstimation.update();
     operatorController.update();
-    aprilTagTargeting.update();
     autoMissionChooser.outputToSmartDashboard();
     smartDashboardSubsystem.update();
     
     intake.update();
-    System.out.println(LimelightHelpers.getFiducialID(""));
+   //System.out.println(LimelightHelpers.getFiducialID(""));
    // System.out.println(LimelightHelpers.getTargetPose3d_CameraSpace(""));
   }
 
