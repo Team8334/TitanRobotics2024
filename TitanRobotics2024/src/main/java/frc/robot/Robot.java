@@ -66,6 +66,8 @@ public class Robot extends TimedRobot
 
     control = Control.getInstance();
     climberControl = ClimberControl.getInstance();
+    climberLeft = ClimberSubsystem.getLeftInstance();
+    climberRight = ClimberSubsystem.getRightInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
     operatorController = OperatorController.getInstance();
