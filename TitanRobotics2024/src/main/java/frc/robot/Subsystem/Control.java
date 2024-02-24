@@ -1,5 +1,6 @@
 package frc.robot.Subsystem;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 
 public class Control implements Subsystem
@@ -18,6 +19,7 @@ public class Control implements Subsystem
     private double rampspeed;
     private double forward;
     private double turn;
+    private boolean inversion;
 
     private double THRESHOLD = 0.05;
 
@@ -40,12 +42,24 @@ public class Control implements Subsystem
         intake = Intake.getInstance();
         climberControl = ClimberControl.getInstance();
         ramp = Ramp.getInstance();
+        inversion = false;
     }
 
     public void teleopControl()
     {
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
+
+        if (driverController.debounceB()){
+            inversion = !inversion;
+            SmartDashboard.putBoolean("inversion", inversion);
+        }
+
+        if (inversion){
+
+            forward = -forward;
+            turn = -turn;
+        }
 
         //limelightControl();
 
