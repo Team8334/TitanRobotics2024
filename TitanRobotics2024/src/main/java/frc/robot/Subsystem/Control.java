@@ -162,7 +162,7 @@ public class Control implements Subsystem
         {
             intake.manualIntakePower(0.3);
             intake.manualPivotPower(0);
-            ramp.setRamp(0);
+            ramp.setRamp(-0.3);
         }
         else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))
         {

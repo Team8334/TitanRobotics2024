@@ -13,7 +13,7 @@ public class ExampleMission extends MissionBase
     @Override
     protected void routine() throws AutoMissionEndedException 
     {
-        runAction(new DriveForDistanceAction(40, 6));  
+        runAction(new DriveForDistanceAction(40, 3));  
         //runAction(new DriveForTimeAction(1, 0.5)
     }
 }
