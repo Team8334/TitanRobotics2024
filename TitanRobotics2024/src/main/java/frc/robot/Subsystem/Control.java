@@ -134,10 +134,10 @@ public class Control implements Subsystem
         //     climberControl.bottom();
         // }
 
-        // if (operatorController.getButton(ButtonMap.XboxB))
-        // {
-        //     climberControl.stop();
-        // }
+         if (operatorController.getButton(ButtonMap.XboxB))
+         {
+             climberControl.stop();
+         }
 
         climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
 
@@ -160,13 +160,13 @@ public class Control implements Subsystem
         else if (operatorController.getButton(ButtonMap.XboxY))
         {
             intake.manualIntakePower(0);
-            intake.manualPivotPower(0.1);
+            intake.manualPivotPower(0.3);
             ramp.setRamp(0);
         }
         else if (operatorController.getButton(ButtonMap.XboxA))
         {
             intake.manualIntakePower(0);
-            intake.manualPivotPower(-0.1);
+            intake.manualPivotPower(-0.3);
             ramp.setRamp(0);
         }
         else
