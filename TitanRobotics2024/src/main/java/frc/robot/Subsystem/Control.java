@@ -48,7 +48,7 @@ public class Control implements Subsystem
 
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
-        aprilTagTargeting.setAlliance("blue"); // Change depending on alliance
+      /*   aprilTagTargeting.setAlliance("blue"); // Change depending on alliance
                                                // for upcoming match.
                                                // Failure to change this will
                                                // cause you to target the
@@ -107,7 +107,7 @@ public class Control implements Subsystem
                 System.out.println("Locking On to Note");
             }
         } 
-        
+        */
 
         driveBase.drive(forward, turn);
 
