@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.Subsystem.SmartDashboardSubsystem;
 import frc.robot.Subsystem.Control;
 import frc.robot.Subsystem.ClimberControl;
+import frc.robot.Subsystem.ClimberSubsystem;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
 import frc.robot.Subsystem.OperatorController;
@@ -44,11 +45,13 @@ public class Robot extends TimedRobot
   private static DriveBase driveBase;
   private static DriverController driverController;
   private static OperatorController operatorController;
+   private static ClimberControl climberControl;
+  private static ClimberSubsystem climberRight;
+  private static ClimberSubsystem climberLeft;
   private static Limelight limelight;
   private static PositionEstimation positionEstimation;
   private static SmartDashboardSubsystem smartDashboardSubsystem;
   private static Intake intake;
-  private static ClimberControl climberControl;
   private static Ramp ramp;
 
   /**
