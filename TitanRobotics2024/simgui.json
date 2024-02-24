@@ -37,11 +37,6 @@
         "header": {
           "open": true
         }
-      },
-      "navX-Sensor[0]": {
-        "header": {
-          "open": false
-        }
       }
     },
     "RoboRIO": {

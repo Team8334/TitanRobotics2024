@@ -14,6 +14,7 @@ public class Control implements Subsystem
     private Intake intake;
     private Limelight limelight;
     private NoteTargeting noteTargeting;
+    private Ramp ramp;
 
     private double rampspeed;
     private double forward;
@@ -37,7 +38,8 @@ public class Control implements Subsystem
         //aprilTagTargeting = AprilTagTargeting.getInstance();
         //climberControl = ClimberControl.getInstance();
         operatorController = OperatorController.getInstance();
-        //intake = Intake.getInstance();
+        intake = Intake.getInstance();
+        //ramp = Ramp.getInstance();
         //limelight = Limelight.getInstance();
         //noteTargeting = NoteTargeting.getInstance();
     }
@@ -45,10 +47,9 @@ public class Control implements Subsystem
     public void teleopControl()
     {
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
-
-        turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
-
-      /*   aprilTagTargeting.setAlliance("blue"); // Change depending on alliance
+        turn = 0.40 * -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
+        /* 
+        aprilTagTargeting.setAlliance("blue"); // Change depending on alliance
                                                // for upcoming match.
                                                // Failure to change this will
                                                // cause you to target the
@@ -111,44 +112,42 @@ public class Control implements Subsystem
 
         driveBase.drive(forward, turn);
 
-        if (operatorController.getButton(ButtonMap.XboxY))
-        {
-            climberControl.top();
-        }
+        // if (operatorController.getButton(ButtonMap.XboxY))
+        // {
+        //     climberControl.top();
+        // }
         
-        if (operatorController.getButton(ButtonMap.XboxX))
-        {
-            climberControl.bottom();
-        }
+        // if (operatorController.getButton(ButtonMap.XboxX))
+        // {
+        //     climberControl.bottom();
+        // }
         
-        if (operatorController.getButton(ButtonMap.XboxB))
-        {
-            climberControl.stop();
-        }
+        // if (operatorController.getButton(ButtonMap.XboxB))
+        // {
+        //     climberControl.stop();
+        // }
         
-        climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
+        // climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
         
          
         if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))
         {
             intake.intaking();
-        }
-        
-        if (operatorController.getButton(ButtonMap.XboxLEFTBumper))
+        }else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))
         {
             intake.reverseIntaking();
-        }
-        
-         if (Math.abs(rampspeed) > THRESHOLD)
+        } else if(operatorController.getButton(ButtonMap.XboxY))
         {
-            rampspeed = operatorController.getStick(ButtonMap.XboxRIGHTTrigger);
-            System.out.println("ramp speed: " + rampspeed);
-        }
-        if (Math.abs(rampspeed) > THRESHOLD) //TODO: add Threshold here
+            intake.manualUp();
+        }else if (operatorController.getButton(ButtonMap.XboxA)){
+            intake.manualDown();
+        } else
         {
-            rampspeed = - operatorController.getStick(ButtonMap.XboxLEFTTrigger);
-            System.out.println("ramp speed: " + rampspeed);
+            intake.stopIntake();
         }
+        rampspeed =  operatorController.getStick(ButtonMap.XboxLEFTTrigger);
+    
+    
     }
 
     public void start()
