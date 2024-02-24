@@ -45,7 +45,7 @@ public class Robot extends TimedRobot
   private static DriveBase driveBase;
   private static DriverController driverController;
   private static OperatorController operatorController;
-   private static ClimberControl climberControl;
+  private static ClimberControl climberControl;
   private static ClimberSubsystem climberRight;
   private static ClimberSubsystem climberLeft;
   private static Limelight limelight;
@@ -158,6 +158,7 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.outputToSmartDashboard();
     autoMissionChooser.updateMissionCreator();
+    
     Optional<MissionBase> autoMission = autoMissionChooser.getAutoMission();
     if (autoMission.isPresent() && autoMission.get() != autoMissionExecutor.getAutoMission())
     {

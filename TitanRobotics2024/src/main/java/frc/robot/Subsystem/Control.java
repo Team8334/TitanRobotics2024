@@ -121,7 +121,7 @@ public class Control implements Subsystem
         }*/
     }
 
-    private void climberControl() 
+    private void climberControl()
     {
 
         // if (operatorController.getButton(ButtonMap.XboxY))
@@ -134,10 +134,10 @@ public class Control implements Subsystem
         //     climberControl.bottom();
         // }
 
-         if (operatorController.getButton(ButtonMap.XboxB))
-         {
-             climberControl.stop();
-         }
+        if (operatorController.getButton(ButtonMap.XboxB))
+        {
+            climberControl.stop();
+        }
 
         climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
 
