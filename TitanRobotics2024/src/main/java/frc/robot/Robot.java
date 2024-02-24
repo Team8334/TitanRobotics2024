@@ -95,6 +95,9 @@ public class Robot extends TimedRobot
     driverController.update();
     operatorController.update();
     targeting.update();
+    climberControl.update();
+    climberLeft.update();
+    climberRight.update();
     control.update();
     driveBase.update();
     positionEstimation.update();
