@@ -114,14 +114,14 @@ public class Control implements Subsystem
             }
         }
 
-        if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
+        /*if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
         {
             forward = targeting.follow();
             turn = targeting.otherLockOn();
-        }
+        }*/
     }
 
-    private void climberControl()
+    private void climberControl() 
     {
 
         // if (operatorController.getButton(ButtonMap.XboxY))
@@ -160,13 +160,13 @@ public class Control implements Subsystem
         else if (operatorController.getButton(ButtonMap.XboxY))
         {
             intake.manualIntakePower(0);
-            intake.manualPivotPower(0.3);
+            intake.manualPivotPower(0.125);
             ramp.setRamp(0);
         }
         else if (operatorController.getButton(ButtonMap.XboxA))
         {
             intake.manualIntakePower(0);
-            intake.manualPivotPower(-0.3);
+            intake.manualPivotPower(-0.125);
             ramp.setRamp(0);
         }
         else

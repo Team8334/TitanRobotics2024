@@ -45,8 +45,17 @@ public class Ramp
 
   public void update()
   {
-    rampLeftMotor.set(rampMotorLeftpower);
+    if (rampLeftMotor != null)
+    {
+      rampLeftMotor.set(rampMotorLeftpower);
+    }
+    if (rampRightMotor != null)
+    {
     rampRightMotor.set(rampMotorRightpower);
+    }
+    if (outtakeMotor != null)
+    {
     outtakeMotor.set(outtakePower);
+  }
   }
 }
