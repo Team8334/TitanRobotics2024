@@ -31,8 +31,8 @@ public class Ramp
 
   public void setRamp(double rampforward)
   {
-    this.rampMotorLeftpower = (rampforward);
-    this.rampMotorRightpower = (-rampforward);
+    this.rampMotorLeftpower = (-rampforward);
+    this.rampMotorRightpower = (rampforward);
     this.outtakePower = (rampforward);
   }
 
