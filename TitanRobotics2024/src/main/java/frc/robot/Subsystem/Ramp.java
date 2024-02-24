@@ -13,19 +13,18 @@ public class Ramp
   public double rampMotorRightpower;
   private static Ramp instance = null;
 
-
-  public static Ramp getInstance() 
+  public static Ramp getInstance()
   {
-    if (instance == null) 
+    if (instance == null)
     {
-        instance = new Ramp();
+      instance = new Ramp();
     }
-        return instance;
+    return instance;
   }
-  
+
   public void setRampMotors()
   {
-    this.rampLeftMotor =  new ModifiedMotors(PortMap.RAMPLEFTMOTOR.portNumber, "CANSparkMax");
+    this.rampLeftMotor = new ModifiedMotors(PortMap.RAMPLEFTMOTOR.portNumber, "CANSparkMax");
     this.rampRightMotor = new ModifiedMotors(PortMap.RAMPRIGHTMOTOR.portNumber, "CANSparkMax");
     this.outtakeMotor = new ModifiedMotors(PortMap.OUTTAKEMOTOR.portNumber, "CANSparkMax");
   }
@@ -36,13 +35,14 @@ public class Ramp
     this.rampMotorRightpower = (-rampforward);
     this.outtakePower = (rampforward);
   }
-  
+
   public void log()
   {
-    SmartDashboard.putNumber("RampLeftPower",rampMotorLeftpower );
+    SmartDashboard.putNumber("RampLeftPower", rampMotorLeftpower);
     SmartDashboard.putNumber("RampRightPower", rampMotorRightpower);
     SmartDashboard.putNumber("OuttakePower", outtakePower);
   }
+
   public void update()
   {
     rampLeftMotor.set(rampMotorLeftpower);

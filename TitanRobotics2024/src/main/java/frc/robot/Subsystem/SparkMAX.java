@@ -8,7 +8,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import frc.robot.Data.PortMap;
 
-public class SparkMAX implements Subsystem {
+public class SparkMAX implements Subsystem
+{
 
     private static int portNumber;
     private CANSparkMax m_motor;
@@ -16,7 +17,8 @@ public class SparkMAX implements Subsystem {
     private RelativeEncoder m_encoder;
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, rotations, encoderCount;
 
-    public SparkMAX() {
+    public SparkMAX()
+    {
 
         m_motor = new CANSparkMax(portNumber, MotorType.kBrushless);
         m_motor.restoreFactoryDefaults();
@@ -25,7 +27,8 @@ public class SparkMAX implements Subsystem {
 
     }
 
-    public double UsefulOutputs() {
+    public double UsefulOutputs()
+    {
         m_pidController.setReference(rotations, CANSparkMax.ControlType.kPosition);
         encoderCount = m_encoder.getPosition();
         return encoderCount;
@@ -33,7 +36,8 @@ public class SparkMAX implements Subsystem {
     }
 
     @Override
-    public void update() {
+    public void update()
+    {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }

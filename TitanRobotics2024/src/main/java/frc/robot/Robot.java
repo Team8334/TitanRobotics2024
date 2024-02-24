@@ -34,7 +34,8 @@ import frc.robot.Auto.Missions.MissionBase;
  * build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot
+{
   private AutoMissionExecutor autoMissionExecutor = new AutoMissionExecutor();
   private AutoMissionChooser autoMissionChooser = new AutoMissionChooser();
 
@@ -56,7 +57,8 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit()
+  {
     autoMissionChooser.updateMissionCreator();
 
     control = Control.getInstance();
@@ -81,7 +83,8 @@ public class Robot extends TimedRobot {
    * This runs after the mission specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic()
+  {
     autoMissionChooser.outputToSmartDashboard();
 
     driverController.update();
@@ -99,8 +102,10 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void autonomousInit() {
-    if (autoMissionChooser.getAutoMission().isPresent()) {
+  public void autonomousInit()
+  {
+    if (autoMissionChooser.getAutoMission().isPresent())
+    {
       autoMissionChooser.getAutoMission().get().setStartPose();
     }
     autoMissionExecutor.start();
@@ -108,26 +113,31 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {
+  public void autonomousPeriodic()
+  {
   }
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {
+  public void teleopInit()
+  {
     positionEstimation.resetPose();
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic()
+  {
     control.teleopControl();
   }
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {
+  public void disabledInit()
+  {
     // Reset all auto mission states.
-    if (autoMissionExecutor != null) {
+    if (autoMissionExecutor != null)
+    {
       autoMissionExecutor.stop();
     }
     autoMissionChooser.reset();
@@ -136,11 +146,13 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {
+  public void disabledPeriodic()
+  {
     autoMissionChooser.outputToSmartDashboard();
     autoMissionChooser.updateMissionCreator();
     Optional<MissionBase> autoMission = autoMissionChooser.getAutoMission();
-    if (autoMission.isPresent() && autoMission.get() != autoMissionExecutor.getAutoMission()) {
+    if (autoMission.isPresent() && autoMission.get() != autoMissionExecutor.getAutoMission())
+    {
       System.out.println("Set auto mission to: " + autoMission.get().getClass().toString());
       autoMissionExecutor.setAutoMission(autoMission.get());
     }
@@ -148,21 +160,25 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {
+  public void testInit()
+  {
   }
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
+  public void testPeriodic()
+  {
   }
 
   /** This function is called once when the robot is first started up. */
   @Override
-  public void simulationInit() {
+  public void simulationInit()
+  {
   }
 
   /** This function is called periodically whilst in simulation. */
   @Override
-  public void simulationPeriodic() {
+  public void simulationPeriodic()
+  {
   }
 }

@@ -25,7 +25,7 @@ public class Intake implements Subsystem
   private double kd;
 
   private static Intake instance = null;
-  
+
   private String intakeMode = "manual";
 
   public static Intake getInstance()
@@ -77,14 +77,18 @@ public class Intake implements Subsystem
     this.IntakeState = "reverseIntaking";
   }
 
-  public void manualUp(){
+  public void manualUp()
+  {
     this.IntakeState = "manualUp";
   }
 
-  public void manualDown(){
+  public void manualDown()
+  {
     this.IntakeState = "manualDown";
   }
-  public void setIntakeMode(){
+
+  public void setIntakeMode()
+  {
     this.IntakeState = "manualStop";
   }
 
@@ -109,7 +113,7 @@ public class Intake implements Subsystem
         pivotPower = 0.0;
         break;
       case "Intaking":// rollers spin to move the note in
-      //rotationtarget = Intake_Bottom_Position;
+        //rotationtarget = Intake_Bottom_Position;
         intakePower = 0.3;
         pivotPower = 0;
         break;
@@ -137,7 +141,7 @@ public class Intake implements Subsystem
 
   public void log()
   {
-    SmartDashboard.putNumber("currentDistance",currentDistance);
+    SmartDashboard.putNumber("currentDistance", currentDistance);
     SmartDashboard.putString(IntakeState, IntakeState);
   }
 
@@ -158,7 +162,7 @@ public class Intake implements Subsystem
     {
       IntakeStateProcess();
     }
-    
+
     pivotMotor.set(pivotPower);
     rollerMotor.set(intakePower);
   }

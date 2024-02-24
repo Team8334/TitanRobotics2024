@@ -4,7 +4,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
 
-public class ClimberSubsystem implements Subsystem {
+public class ClimberSubsystem implements Subsystem
+{
     // Constants for power and distance
 
     private static final double TOP_DISTANCE = 40.0;
@@ -16,7 +17,6 @@ public class ClimberSubsystem implements Subsystem {
     private PIDController positionPID = new PIDController(0.01, 0.0, 0.0);
     private PIDController velocityPID = new PIDController(0.01, 0.0, 0.0);
 
-    
     // Current climber state and related variables
     private String climberState = "Stopped";
     private double rotationTarget;
@@ -35,9 +35,10 @@ public class ClimberSubsystem implements Subsystem {
     private ModifiedMotors motor;
     private ModifiedEncoders encoder;
     private SmartDashboardSubsystem smartDashboardSubsystem;
+
     // Other properties and methods...
     // Private constructor for initializing motors and encoders
-    private ClimberSubsystem(ModifiedMotors motor, ModifiedEncoders encoder, String name) 
+    private ClimberSubsystem(ModifiedMotors motor, ModifiedEncoders encoder, String name)
     {
 
         this.motor = motor;
@@ -48,61 +49,63 @@ public class ClimberSubsystem implements Subsystem {
     }
 
     // Get instance for left climber
-    public static ClimberSubsystem getLeftInstance() 
+    public static ClimberSubsystem getLeftInstance()
     {
-        if (leftInstance == null) {
+        if (leftInstance == null)
+        {
             leftInstance = new ClimberSubsystem(new ModifiedMotors(PortMap.CLIMBERMOTORLEFT.portNumber, "CANSparkMax"),
-             new ModifiedEncoders(PortMap.CLIMBERLEFTENCODER_A.portNumber, PortMap.CLIMBERLEFTENCODER_B.portNumber, "QuadratureEncoder"), "Left Climber");
+                            new ModifiedEncoders(PortMap.CLIMBERLEFTENCODER_A.portNumber, PortMap.CLIMBERLEFTENCODER_B.portNumber, "QuadratureEncoder"), "Left Climber");
         }
         return leftInstance;
     }
 
     // Get instance for right climber
-    public static ClimberSubsystem getRightInstance() 
+    public static ClimberSubsystem getRightInstance()
     {
-        if (rightInstance == null) {
+        if (rightInstance == null)
+        {
             rightInstance = new ClimberSubsystem(new ModifiedMotors(PortMap.CLIMBERMOTORRIGHT.portNumber, "CANSparkMax"),
-             new ModifiedEncoders(PortMap.CLIMBERRIGHTENCODER_A.portNumber, PortMap.CLIMBERRIGHTENCODER_B.portNumber, "QuadratureEncoder"), "Right Climber");
+                            new ModifiedEncoders(PortMap.CLIMBERRIGHTENCODER_A.portNumber, PortMap.CLIMBERRIGHTENCODER_B.portNumber, "QuadratureEncoder"), "Right Climber");
 
         }
         return rightInstance;
     }
 
     // Set manual control for climber velocity
-    public void manualControl(double velocity) 
+    public void manualControl(double velocity)
     {
         this.climberVelocity = velocity;
         this.climberState = "MANUAL";
     }
 
     // Stop the climber
-    public void stop() 
+    public void stop()
     {
         this.climberState = "STOPPED";
     }
 
     // Set climber state to top
-    public void top() 
+    public void top()
     {
         this.climberState = "TOP";
     }
 
     // Set climber state to bottom
-    public void bottom() 
+    public void bottom()
     {
         this.climberState = "BOTTOM";
     }
 
     // Set climber state to hold
-    public void hold() 
+    public void hold()
     {
         this.climberState = "HOLD";
         this.holdPosition = currentDistance;
     }
 
-    private void processState() 
+    private void processState()
     {
-        switch (climberState) 
+        switch (climberState)
         {
             case "MANUAL":
                 //if (!((climberVelocity > 0.0 && atTop()) || (climberVelocity < 0.0 && atBottom()))) 
@@ -126,13 +129,13 @@ public class ClimberSubsystem implements Subsystem {
             default:
                 break;
         }
-        if (!climberState.equals("MANUAL") && !climberState.equals("STOPPED")) 
+        if (!climberState.equals("MANUAL") && !climberState.equals("STOPPED"))
         {
             climberPower = positionPID.calculate(currentDistance, rotationTarget);
         }
     }
 
-    public void log() 
+    public void log()
     {
         SmartDashboard.putNumber(name + ": Climber Distance", currentDistance);
         SmartDashboard.putNumber(name + ": Climber Velocity", currentVelocity);
@@ -140,31 +143,32 @@ public class ClimberSubsystem implements Subsystem {
         SmartDashboard.putString(name + ": Climber State", climberState);
     }
 
-    public String getClimberState() 
+    public String getClimberState()
     {
         return climberState;
     }
-    
-    private boolean atTop() 
+
+    private boolean atTop()
     {
         return (currentDistance - TOP_DISTANCE) <= TOP_HOLD_THRESHOLD;
     }
 
-    private boolean atBottom() 
+    private boolean atBottom()
     {
         return (currentDistance - BOTTOM_DISTANCE) <= BOTTOM_HOLD_THRESHOLD;
     }
 
     // Update the climber based on the processed state
-    public void update() 
+    public void update()
     {
-        if (encoder != null && motor != null) {
+        if (encoder != null && motor != null)
+        {
             currentDistance = encoder.getDistance();
             currentVelocity = encoder.getRate();
             processState();
             motor.set(climberPower);
-        } 
-        else 
+        }
+        else
         {
             smartDashboardSubsystem.error(name + ": not initialized");
             System.out.println(name + ": not initialized");

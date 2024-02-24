@@ -89,7 +89,7 @@ public class Limelight
     {
         return x;
     }
-    
+
     public double getArea()
     {
         return area;

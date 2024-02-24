@@ -29,7 +29,6 @@
   ],
   "java.test.defaultConfig": "WPIlibUnitTests",
   "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
-  "java.format.settings.url": "",
-  "java.format.enabled": true,
-  "java.format.settings.profile": ""
+  "java.format.settings.url": ".vscode/FRC.xml",
+  "java.format.comments.enabled": false,
 }

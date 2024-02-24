@@ -14,7 +14,7 @@ public class PositionEstimation implements Subsystem
 
     private static final double WHEEL_BASE_WIDTH = 27.0;
     DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(WHEEL_BASE_WIDTH));
-    
+
     private final DifferentialDrivePoseEstimator positionEstimator;
 
     private static PositionEstimation instance = null;
@@ -55,9 +55,9 @@ public class PositionEstimation implements Subsystem
 
     public double getDistance()
     {
-        return ((driveBase.getLeftEncoderDistance() - driveBase.getRightEncoderDistance())/2);
+        return ((driveBase.getLeftEncoderDistance() - driveBase.getRightEncoderDistance()) / 2);
     }
-    
+
     public void resetPose()
     {
         positionEstimator.resetPosition(gyro.getRotation2d(), driveBase.getLeftEncoderDistance(), driveBase.getRightEncoderDistance(), getPose());

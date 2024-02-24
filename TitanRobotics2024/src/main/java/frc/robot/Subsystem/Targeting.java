@@ -4,13 +4,15 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Targeting implements Subsystem // This class contains functions for finding and
-                                                    // locking onto elements of the field using
-                                                    // their April Tags.
+                                            // locking onto elements of the field using
+                                            // their April Tags.
 {
     private static Targeting instance = null;
 
-    public static Targeting getInstance() {
-        if (instance == null) {
+    public static Targeting getInstance()
+    {
+        if (instance == null)
+        {
             instance = new Targeting();
         }
         return instance;
@@ -20,7 +22,6 @@ public class Targeting implements Subsystem // This class contains functions for
     private PIDController aPID = new PIDController(1, 0, 0);
     private PIDController noteXPID = new PIDController(1, 0, 0);
 
-
     Limelight limelight;
     DriveBase driveBase;
     SmartDashboardSubsystem smartDashboardSubsystem;
@@ -28,41 +29,52 @@ public class Targeting implements Subsystem // This class contains functions for
     String alliance = "red";
     String target = "ALL";
 
-    public Targeting() {
+    public Targeting()
+    {
         limelight = Limelight.getInstance();
     }
 
-    public void setAlliance(String alliance) {
+    public void setAlliance(String alliance)
+    {
         this.alliance = alliance;
     }
 
-    public void setTarget(String target) {
+    public void setTarget(String target)
+    {
         this.target = target;
     }
 
-    public double aprilTaglockOn() { //Locks on to apriltag depending on target. Set as "turn" in DriveBase.drive in control
-        if (target.equals("ALL") || target.equals(findTagName())) {
+    public double aprilTaglockOn()
+    { //Locks on to apriltag depending on target. Set as "turn" in DriveBase.drive in control
+        if (target.equals("ALL") || target.equals(findTagName()))
+        {
             return (aprilTagXPID.calculate(limelight.x, 0) / 150);
-        } else {
+        }
+        else
+        {
             return 0;
         }
     }
 
-    public double otherLockOn() { //Lock on to whatever the pipeline is targeting. Only difference from aprilTagLockOn is it ignores target ID. For Notes, set confidence to 0.3 in limelight interface.
-        return(noteXPID.calculate(limelight.x, 0) / 150);
+    public double otherLockOn()
+    { //Lock on to whatever the pipeline is targeting. Only difference from aprilTagLockOn is it ignores target ID. For Notes, set confidence to 0.3 in limelight interface.
+        return (noteXPID.calculate(limelight.x, 0) / 150);
     }
 
-    public double follow()  // Setting "forward" in DriveBase.drive in controlas this function will cause the robot to follow the target. 
-                            // USE AT OWN RISK. Feel free to increase the speed divisor value to make it even slower.
+    public double follow() // Setting "forward" in DriveBase.drive in controlas this function will cause the robot to follow the target. 
+                           // USE AT OWN RISK. Feel free to increase the speed divisor value to make it even slower.
     {
         return (aPID.calculate(limelight.area, 25) / 50);
     }
 
-    public String findTagName() {
-        if (!limelight.getLimelightState().equals("TRACKING")) {
+    public String findTagName()
+    {
+        if (!limelight.getLimelightState().equals("TRACKING"))
+        {
             return "Not Tracking";
         }
-        switch (limelight.getId()) {
+        switch (limelight.getId())
+        {
             case 11, 12, 13 -> {
                 return alliance.equals("red") ? "Stage" : "Opponent's Stage";
             }
@@ -93,10 +105,12 @@ public class Targeting implements Subsystem // This class contains functions for
         }
     }
 
-    public void log() {
+    public void log()
+    {
         SmartDashboard.putString("AprilTag Target", findTagName());
     }
 
-    public void update() {
+    public void update()
+    {
     }
 }

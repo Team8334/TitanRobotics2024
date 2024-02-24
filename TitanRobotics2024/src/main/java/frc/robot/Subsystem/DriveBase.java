@@ -7,7 +7,8 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-public class DriveBase implements Subsystem {
+public class DriveBase implements Subsystem
+{
   private final DifferentialDrive drive;
   private final DifferentialDriveOdometry odometry;
   private ModifiedEncoders leftEncoder;
@@ -32,22 +33,25 @@ public class DriveBase implements Subsystem {
 
   private static DriveBase instance = null;
 
-  public static DriveBase getInstance() {
-    if (instance == null) {
+  public static DriveBase getInstance()
+  {
+    if (instance == null)
+    {
       instance = new DriveBase();
     }
     return instance;
   }
 
-  public DriveBase() {
+  public DriveBase()
+  {
     gyro = Gyro.getInstance();
     this.leftMotor = new ModifiedMotors(PortMap.FRONTLEFT.portNumber, PortMap.REARLEFT.portNumber, motorType, false);
     this.rightMotor = new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, PortMap.REARRIGHT.portNumber, motorType, true);
 
     this.leftEncoder = new ModifiedEncoders(PortMap.LEFTENCODER_A.portNumber, PortMap.LEFTENCODER_B.portNumber,
-        "E4TEncoder");
+            "E4TEncoder");
     this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber, PortMap.RIGHTENCODER_B.portNumber,
-        "E4TEncoder");
+            "E4TEncoder");
 
     this.leftEncoder.setRatio(49 / 360);
     this.rightEncoder.setRatio(49 / 360);
@@ -55,31 +59,37 @@ public class DriveBase implements Subsystem {
 
     this.drive = new DifferentialDrive(leftMotor::set, rightMotor::set);
     this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getDistance(),
-        rightEncoder.getDistance());
+            rightEncoder.getDistance());
   }
 
-  public void setRightMotorsPower(double power) {
+  public void setRightMotorsPower(double power)
+  {
     this.rightPower = power;
   }
 
-  public void setLeftMotorsPower(double power) {
+  public void setLeftMotorsPower(double power)
+  {
     this.leftPower = power;
   }
 
-  public void drive(double forward, double turn) {
+  public void drive(double forward, double turn)
+  {
     this.forward = forward;
     this.turn = turn;
   }
 
-  public double getLeftEncoderDistance() {
+  public double getLeftEncoderDistance()
+  {
     return leftEncoderDistance;
   }
 
-  public double getRightEncoderDistance() {
+  public double getRightEncoderDistance()
+  {
     return rightEncoderDistance;
   }
 
-  public void log() {
+  public void log()
+  {
     SmartDashboard.putNumber("leftEncoderRate", leftEncoderRate);
     SmartDashboard.putNumber("rightEncoderRate", rightEncoderRate);
     SmartDashboard.putNumber("leftEncoderDistance", leftEncoderDistance);
@@ -89,17 +99,24 @@ public class DriveBase implements Subsystem {
 
   @Override
   /* Updates the state the motors are in */
-  public void update() {
-    if (leftEncoder != null) {
+  public void update()
+  {
+    if (leftEncoder != null)
+    {
       leftEncoderRate = this.leftEncoder.getRate();
       leftEncoderDistance = this.leftEncoder.getDistance();
-    } else {
+    }
+    else
+    {
       SmartDashboardSubsystem.getInstance().error("left encoder is null");
     }
-    if (rightEncoder != null) {
+    if (rightEncoder != null)
+    {
       rightEncoderRate = this.rightEncoder.getRate();
       rightEncoderDistance = this.rightEncoder.getDistance();
-    } else {
+    }
+    else
+    {
       SmartDashboardSubsystem.getInstance().error("right encoder is null");
     }
     drive.arcadeDrive(forward, turn);
