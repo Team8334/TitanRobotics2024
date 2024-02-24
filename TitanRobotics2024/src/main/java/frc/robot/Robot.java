@@ -75,9 +75,9 @@ public class Robot extends TimedRobot
     control = Control.getInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
-    //limelight = Limelight.getInstance();
+    limelight = Limelight.getInstance();
     operatorController = OperatorController.getInstance();
-    //aprilTagTargeting = AprilTagTargeting.getInstance();
+    aprilTagTargeting = AprilTagTargeting.getInstance();
     autoMissionChooser.updateMissionCreator();
     positionEstimation = PositionEstimation.getInstance();
 
@@ -85,14 +85,6 @@ public class Robot extends TimedRobot
 
     smartDashboardSubsystem.update();
     intake = Intake.getInstance();
-
-    control = Control.getInstance();
-    driveBase = DriveBase.getInstance();
-    driverController = DriverController.getInstance();
-    limelight = Limelight.getInstance();
-    //modifiedMotors = ModifiedMotors.getInstance();
-    //operatorController = OperatorController.getInstance();*/
-    aprilTagTargeting = AprilTagTargeting.getInstance();
   }
 
   /**
