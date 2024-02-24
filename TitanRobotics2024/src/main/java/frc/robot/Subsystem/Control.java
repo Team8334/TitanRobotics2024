@@ -58,7 +58,6 @@ public class Control implements Subsystem
         if (inversion){
 
             forward = -forward;
-            turn = -turn;
         }
 
         //limelightControl();
