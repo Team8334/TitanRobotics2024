@@ -30,8 +30,6 @@ public class TurnDegreesAction implements Actions
         desiredDegrees = degrees;
         PID = new PIDController(kp, ki, kd);
         PID.enableContinuousInput(-180, 180);
-        
-
     }
 
     @Override
