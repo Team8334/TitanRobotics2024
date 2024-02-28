@@ -51,6 +51,19 @@ public class ModifiedEncoders implements Subsystem
         this.ratio = -ratio;
     }
 
+    public void setDistancePerPulse(double distancePerPulse)
+    {
+        if (encoder != null)
+        {
+            encoder.setDistancePerPulse(distancePerPulse);
+        }
+
+        else
+        {
+            return;
+        }
+    }
+
     private Encoder initializeE4T(int channelA, int channelB)
     {
         if (channelA < 0 || channelB < 0)

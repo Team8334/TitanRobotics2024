@@ -120,6 +120,11 @@ public class ModifiedMotors implements Subsystem
         motor.setInverted(true);
     }
 
+    public void setVoltage(double voltage)
+    {
+        motor.set(voltage);
+    }
+
     private MotorController initializeCANTalon(int portNumber)
     {
         try
