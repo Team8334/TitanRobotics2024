@@ -58,7 +58,6 @@ public class DriveForDistanceAction implements Actions
         SmartDashboard.putNumber("targetDistance", targetDistance);
         SmartDashboard.putNumber("currentDistance", currentDistance);
         SmartDashboard.putNumber("forward", forward);
-        //System.out.println(turn);
         
     }
 
