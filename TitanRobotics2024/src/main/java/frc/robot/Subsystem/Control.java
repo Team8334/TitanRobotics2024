@@ -106,7 +106,6 @@ public class Control implements Subsystem
             {
                 targeting.setTarget("Stage");
                 turn = targeting.aprilTaglockOn();
-                System.out.println("Locking on to Stage");
             }
 
             else
