@@ -44,7 +44,6 @@ public class DriveForDistanceAction implements Actions
         targetDistance = (currentDistance + desiredDistance);
         PID.setSetpoint(targetDistance);
         PID.setTolerance(toleranceDistance);
-       // System.out.println(targetDegrees);
        SmartDashboard.putString( "Current Action", "DriveForDistanceAction Started");
     }
 
