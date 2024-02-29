@@ -71,15 +71,6 @@ public class TurnDegreesAction implements Actions
     public boolean isFinished()
     {
         return (timer.get() >= endAfterSeconds);
-        {
-            System.out.println("ended properly");
-            return true;
-            
-        }
-        else 
-        {
-            return false;
-        }
     }
     
 
