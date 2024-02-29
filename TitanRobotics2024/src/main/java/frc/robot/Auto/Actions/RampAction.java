@@ -30,7 +30,7 @@ public class RampAction implements Actions
 
     public boolean isFinished()
     {
-        if (timer.get() >= seconds) 
+        return (timer.get() >= seconds);
         {
             return true;
         } 
