@@ -170,7 +170,6 @@ public class ClimberSubsystem implements Subsystem
         else
         {
             smartDashboardSubsystem.error(name + ": not initialized");
-            System.out.println(name + ": not initialized");
         }
     }
 }
