@@ -40,7 +40,6 @@ public class DriveForDistanceAction implements Actions
     {
         timer = new Timer();
         timer.start();
-        //currentDegrees = gyro.getAngleDegrees();
         currentDistance = position.getDistance();
         targetDistance = (currentDistance + desiredDistance);
         PID.setSetpoint(targetDistance);
