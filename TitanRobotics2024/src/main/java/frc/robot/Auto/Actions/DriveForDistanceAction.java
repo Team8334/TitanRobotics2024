@@ -66,7 +66,6 @@ public class DriveForDistanceAction implements Actions
     {
         if (timer.get() >= endAfterSeconds)
         {
-            System.out.println("drive for distance ended properly");
             return true;
             
         }
