@@ -34,7 +34,6 @@ public class TurnDegreesAction implements Actions
     public TurnDegreesAction(double degrees, double seconds)
     {
         driveBase = DriveBase.getInstance();
-        //gyro = Gyro.getInstance();
         position = PositionEstimation.getInstance();
         endAfterSeconds = seconds;
         desiredDegrees = degrees;
