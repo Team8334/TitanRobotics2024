@@ -29,7 +29,6 @@ public class DriveForDistanceAction implements Actions
     public DriveForDistanceAction(double distance, double endingSeconds)
     {
         driveBase = DriveBase.getInstance();
-        //gyro = Gyro.getInstance();
         position = PositionEstimation.getInstance();
         endAfterSeconds = endingSeconds;
         desiredDistance = distance;
