@@ -64,7 +64,7 @@ public class DriveForDistanceAction implements Actions
     @Override
     public boolean isFinished()
     {
-        if (timer.get() >= endAfterSeconds)
+return (timer.get() >= endAfterSeconds);
         {
             return true;
             
