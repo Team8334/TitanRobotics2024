@@ -121,12 +121,6 @@ public class Control implements Subsystem
                 turn = targeting.otherLockOn();
             }
         }
-
-        /*if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
-        {
-            forward = targeting.follow();
-            turn = targeting.otherLockOn();
-        }*/
     }
 
     private void climberControl()
