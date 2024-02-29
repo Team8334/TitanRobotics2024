@@ -45,7 +45,6 @@ public class ClimberSubsystem implements Subsystem
         this.encoder = encoder;
         this.name = name;
         smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
-        // Add initialization logic here
     }
 
     // Get instance for left climber
