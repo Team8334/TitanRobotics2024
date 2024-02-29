@@ -70,7 +70,7 @@ public class TurnDegreesAction implements Actions
     @Override
     public boolean isFinished()
     {
-        if (timer.get() >= endAfterSeconds)
+        return (timer.get() >= endAfterSeconds);
         {
             System.out.println("ended properly");
             return true;
