@@ -7,8 +7,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
-public class DriveForDistanceAction implements Actions 
+public class DriveForDistanceAction implements Actions
 {
     Timer timer;
     private double currentDistance;
@@ -44,43 +43,31 @@ public class DriveForDistanceAction implements Actions
         targetDistance = (currentDistance + desiredDistance);
         PID.setSetpoint(targetDistance);
         PID.setTolerance(toleranceDistance);
-       SmartDashboard.putString( "Current Action", "DriveForDistanceAction Started");
+        SmartDashboard.putString("Current Action", "DriveForDistanceAction Started");
     }
-
- 
 
     @Override
     public void update()
     {
-        
+
         forward = PID.calculate(position.getDistance());
         driveBase.drive(forward, 0);
         SmartDashboard.putNumber("targetDistance", targetDistance);
         SmartDashboard.putNumber("currentDistance", currentDistance);
         SmartDashboard.putNumber("forward", forward);
-        
+
     }
 
     @Override
     public boolean isFinished()
     {
-return (timer.get() >= endAfterSeconds);
-        {
-            return true;
-            
-        }
-        else 
-        {
-            return false;
-        }
+        return (timer.get() >= endAfterSeconds);
     }
-    
 
     @Override
     public void done()
     {
-        SmartDashboard.putString( "Current Action", "DriveForDistanceAction Ended");
+        SmartDashboard.putString("Current Action", "DriveForDistanceAction Ended");
         driveBase.drive(0, 0);
     }
 }
-
