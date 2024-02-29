@@ -60,7 +60,6 @@ public class Control implements Subsystem
             forward = -forward;
         }
 
-        //limelightControl();
 
         driveBase.drive(forward, turn);
 
@@ -95,21 +94,18 @@ public class Control implements Subsystem
             {
                 targeting.setTarget("Amp");
                 turn = targeting.aprilTaglockOn();
-                System.out.println("Locking on to Amp");
             }
 
             if (driverController.getButton(ButtonMap.XboxA))
             {
                 targeting.setTarget("Source");
                 turn = targeting.aprilTaglockOn();
-                System.out.println("Locking on to Source");
             }
 
             if (driverController.getButton(ButtonMap.XboxB))
             {
                 targeting.setTarget("Stage");
                 turn = targeting.aprilTaglockOn();
-                System.out.println("Locking on to Stage");
             }
 
             else
@@ -123,15 +119,8 @@ public class Control implements Subsystem
             if (driverController.getButton(ButtonMap.XboxY))
             {
                 turn = targeting.otherLockOn();
-                System.out.println("Locking On to Note");
             }
         }
-
-        /*if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
-        {
-            forward = targeting.follow();
-            turn = targeting.otherLockOn();
-        }*/
     }
 
     private void climberControl()

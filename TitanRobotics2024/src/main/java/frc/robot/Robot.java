@@ -158,7 +158,7 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.outputToSmartDashboard();
     autoMissionChooser.updateMissionCreator();
-    
+
     Optional<MissionBase> autoMission = autoMissionChooser.getAutoMission();
     if (autoMission.isPresent() && autoMission.get() != autoMissionExecutor.getAutoMission())
     {
