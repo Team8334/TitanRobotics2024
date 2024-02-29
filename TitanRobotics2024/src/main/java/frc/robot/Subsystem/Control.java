@@ -60,7 +60,6 @@ public class Control implements Subsystem
             forward = -forward;
         }
 
-        //limelightControl();
 
         driveBase.drive(forward, turn);
 
