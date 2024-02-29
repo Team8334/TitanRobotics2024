@@ -48,7 +48,6 @@ public class TurnDegreesAction implements Actions
     {
         timer = new Timer();
         timer.start();
-        //currentDegrees = gyro.getAngleDegrees();
         currentDegrees = position.getAngle();
         targetDegrees = (currentDegrees + desiredDegrees);
         PID.setSetpoint(targetDegrees);
