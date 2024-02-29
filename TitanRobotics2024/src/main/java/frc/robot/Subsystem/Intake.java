@@ -33,7 +33,7 @@ public class Intake implements Subsystem
     if (instance == null)
     {
       instance = new Intake(new ModifiedEncoders(PortMap.INTAKEPIVOTENCODER_A.portNumber, PortMap.INTAKEPIVOTENCODER_B.portNumber, "E4TEncoder"),
-              new ModifiedMotors(PortMap.INTAKEMOTORPIVOT.portNumber, "CANSparkMax"),
+              new ModifiedMotors(PortMap.INTAKEPIVOTMOTOR.portNumber, "CANSparkMax"),
               new ModifiedMotors(PortMap.INTAKEMOTORROLLER.portNumber, "CANSparkMax"));
     }
     return instance;

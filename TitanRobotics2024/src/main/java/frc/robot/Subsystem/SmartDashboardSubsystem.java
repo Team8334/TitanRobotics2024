@@ -63,14 +63,6 @@ public class SmartDashboardSubsystem implements Subsystem
         }
     }
 
-    /*public void status(String status) 
-    {
-      //if error is not in errorLog
-      if (!statusLog.contains(status)){
-          statusLog.add(status);
-      }
-    }
-    */
     @Override
     public void update()
     {
@@ -84,7 +76,6 @@ public class SmartDashboardSubsystem implements Subsystem
         ramp.log();
 
         SmartDashboard.putString("Errors", errorLog.toString());
-        //SmartDashboard.putString("Status", statusLog.toString());
 
     }
 }
