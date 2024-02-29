@@ -126,16 +126,6 @@ public class Control implements Subsystem
     private void climberControl()
     {
 
-        // if (operatorController.getButton(ButtonMap.XboxY))
-        // {
-        //     climberControl.top();
-        // }
-
-        // if (operatorController.getButton(ButtonMap.XboxX))
-        // {
-        //     climberControl.bottom();
-        // }
-
         if (operatorController.getButton(ButtonMap.XboxB))
         {
             climberControl.stop();
