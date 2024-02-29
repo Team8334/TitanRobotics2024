@@ -52,7 +52,6 @@ public class TurnDegreesAction implements Actions
         targetDegrees = (currentDegrees + desiredDegrees);
         PID.setSetpoint(targetDegrees);
         PID.setTolerance(toleranceDegrees);
-       // System.out.println(targetDegrees);
        SmartDashboard.putString( "Current Action", "TurnDegreesAction Started");
     }
 
@@ -63,10 +62,8 @@ public class TurnDegreesAction implements Actions
     {
         turn = PID.calculate(position.getAngle());
         driveBase.drive(0, turn);
-        //System.out.println(gyro.getAngleDegrees());
         SmartDashboard.putNumber("targetDegrees", targetDegrees);
         SmartDashboard.putNumber("turn", turn);
-        //System.out.println(turn);
         
     }
 

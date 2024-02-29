@@ -31,13 +31,6 @@ public class RampAction implements Actions
     public boolean isFinished()
     {
         return (timer.get() >= seconds);
-        {
-            return true;
-        } 
-        else 
-        {
-            return false;
-        }
     }
 
     public void done()
