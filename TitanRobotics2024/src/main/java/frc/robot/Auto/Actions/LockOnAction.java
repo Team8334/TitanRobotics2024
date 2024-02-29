@@ -104,7 +104,7 @@ public class LockOnAction implements Actions
     @Override
     public boolean isFinished() 
     {
-        if(limelight.getArea() >= neededArea && limelight.getX() == 0)
+         return (limelight.getArea() >= neededArea && limelight.getX() == 0);
         {
             return true;
         }
