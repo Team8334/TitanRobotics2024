@@ -55,7 +55,6 @@ public class DriveForDistanceAction implements Actions
         
         forward = PID.calculate(position.getDistance());
         driveBase.drive(forward, 0);
-        //System.out.println(gyro.getAngleDegrees());
         SmartDashboard.putNumber("targetDistance", targetDistance);
         SmartDashboard.putNumber("currentDistance", currentDistance);
         SmartDashboard.putNumber("forward", forward);
