@@ -21,8 +21,8 @@ public class IntakePivot implements Subsystem
     private double kD = 0.0;
     private double kSVolts = 0.0;
     private double kGVolts = 0.0;
-    private double kVVoltSecondsPerDegree = 0.0;
-    private double kGVoltSecondsSquaredPerDegree = 0.0;
+    private double kVVolts = 0.0;
+    private double kAVolts = 0.0;
 
     private double maxVelocity;
     private double maxAcceleration;
@@ -31,7 +31,7 @@ public class IntakePivot implements Subsystem
     private double goal;
     private double startingOffset = 0.0;
 
-    private final ArmFeedforward feedforward = new ArmFeedforward(kSVolts, kGVolts, kVVoltSecondsPerDegree, kGVoltSecondsSquaredPerDegree);
+    private final ArmFeedforward feedforward = new ArmFeedforward(kSVolts, kGVolts, kVVolts, kAVolts);
 
     public static IntakePivot getInstance()
     {
