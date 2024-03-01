@@ -13,7 +13,8 @@ public class AutoMissionChooser
         doNothing,
         leaveCommunityRight,
         exampleMission,
-        oneNoteMission
+        oneNoteMission,
+        ScoringMission
     }
 
     private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
@@ -66,6 +67,8 @@ public class AutoMissionChooser
                 return Optional.of(new ExampleMission());
             case oneNoteMission:
                 return Optional.of(new OneNoteMission());
+            case ScoringMission:
+                return Optional.of(new ScoringMission());
             default:
                 System.err.println("No valid autonomous mission found for" + mission);
                 return Optional.empty();
