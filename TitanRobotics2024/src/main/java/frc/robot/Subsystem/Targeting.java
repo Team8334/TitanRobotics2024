@@ -4,8 +4,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Targeting implements Subsystem // This class contains functions for finding and
-                                                    // locking onto elements of the field using
-                                                    // their April Tags.
+                                                    // locking onto elements of the field.
 {
     private static Targeting instance = null;
 
@@ -52,16 +51,13 @@ public class Targeting implements Subsystem // This class contains functions for
         return(noteXPID.calculate(limelight.x, 0) / 150);
     }
 
-    public double follow()  // Setting "forward" in DriveBase.drive in controlas this function will cause the robot to follow the target. 
+    public double follow()  // Setting "forward" in DriveBase.drive in control as this function will cause the robot to follow the target. 
                             // USE AT OWN RISK. Feel free to increase the speed divisor value to make it even slower.
     {
         return (aPID.calculate(limelight.area, 25) / 50);
     }
 
     public String findTagName() {
-        if (!limelight.getLimelightState().equals("TRACKING")) {
-            return "Not Tracking";
-        }
         switch (limelight.getId()) {
             case 11, 12, 13 -> {
                 return alliance.equals("red") ? "Stage" : "Opponent's Stage";

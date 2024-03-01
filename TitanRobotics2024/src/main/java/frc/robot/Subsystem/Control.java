@@ -49,7 +49,7 @@ public class Control implements Subsystem
                                                // wrong AprilTags when using
                                                // lock on buttons.
         
-        if (driverController.debounceSTART())
+        if (driverController.debounceSTART()) //Switches the pipeline.
         {
             System.out.println("pressed");
             if (limelight.pipeline == 0)
