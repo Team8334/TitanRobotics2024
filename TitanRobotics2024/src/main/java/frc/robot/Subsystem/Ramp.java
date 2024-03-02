@@ -62,11 +62,11 @@ public class Ramp
     }
     if (rampRightMotor != null)
     {
-    rampRightMotor.set(rampMotorRightpower);
+      rampRightMotor.set(rampMotorRightpower);
     }
     if (outtakeMotor != null)
     {
-    outtakeMotor.set(outtakePower);
-  }
+      outtakeMotor.set(outtakePower);
+    }
   }
 }
