@@ -25,13 +25,13 @@ public enum PortMap
     REARLEFT(1),
 
     LEFTENCODER_A(3),
-    LEFTENCODER_B(4), //4
-    RIGHTENCODER_A(8),
+    LEFTENCODER_B(2),
+    RIGHTENCODER_A(6),
     RIGHTENCODER_B(7),
 
     RAMPLEFTMOTOR(8),
     RAMPRIGHTMOTOR(9),
-    OUTTAKEMOTOR(11);
+    OUTTAKEMOTOR(-11);
 
 
     public int portNumber;

@@ -31,6 +31,7 @@ public class AutoMissionChooser
         missionChooser.addOption("Leave Community on right side", DesiredMission.leaveCommunityRight);
         missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
         missionChooser.addOption("Score 1 note in amp", DesiredMission.oneNoteMission);
+        missionChooser.addOption("Scoring 1 note", DesiredMission.ScoringMission);
         // add more here as needed
 
         SmartDashboard.putData("Auto Mission", missionChooser);

@@ -26,8 +26,8 @@ public class DriveBase implements Subsystem
   private double leftPower;
   private double rightPower;
 
-  private String motorType = "CANVictorSPX"; // This is Gyro
-  //private String motorType = "CANVictorSPXDual"; // This is Janus
+  //private String motorType = "CANVictorSPX"; // This is Gyro
+  private String motorType = "CANVictorSPXDual"; // This is Janus
   //private String motorType = "CANTalonDual";
   // TODO: make a better selector for the motor type
 
@@ -53,9 +53,10 @@ public class DriveBase implements Subsystem
     this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber, PortMap.RIGHTENCODER_B.portNumber,
             "E4TEncoder");
 
-    this.leftEncoder.setRatio(49 / 360);
-    this.rightEncoder.setRatio(49 / 360);
-    this.rightEncoder.invert();
+    this.leftEncoder.setDistancePerPulse(0.155*Math.PI/360);
+    this.rightEncoder.setDistancePerPulse(0.155*Math.PI/360);
+    this.leftEncoder.invert(true);
+    this.rightEncoder.invert(true);
 
     this.drive = new DifferentialDrive(leftMotor::set, rightMotor::set);
     this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getDistance(),
