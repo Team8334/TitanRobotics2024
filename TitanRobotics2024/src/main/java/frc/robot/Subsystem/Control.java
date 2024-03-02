@@ -12,7 +12,7 @@ public class Control implements Subsystem
     private OperatorController operatorController;
     private Targeting targeting;
     private ClimberControl climberControl;
-    private Intake intake;
+   // private Intake intake;
     private Limelight limelight;
     private Ramp ramp;
 
@@ -20,6 +20,7 @@ public class Control implements Subsystem
     private double forward;
     private double turn;
     private boolean inversion;
+    private IntakePivot intakePivot;
 
     private double THRESHOLD = 0.05;
 
@@ -39,7 +40,8 @@ public class Control implements Subsystem
         operatorController = OperatorController.getInstance();
         targeting = Targeting.getInstance();
         limelight = Limelight.getInstance();
-        intake = Intake.getInstance();
+       // intake = Intake.getInstance();
+        intakePivot = IntakePivot.getInstance();
         climberControl = ClimberControl.getInstance();
         ramp = Ramp.getInstance();
         inversion = false;
@@ -160,32 +162,32 @@ public class Control implements Subsystem
     {
         if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))
         {
-            intake.manualIntakePower(0.3);
-            intake.manualPivotPower(0);
+            //intake.manualIntakePower(0.3);
+            //intake.manualPivotPower(0);
             ramp.setRamp(-0.3);
         }
         else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))
         {
-            intake.manualIntakePower(-0.3);
-            intake.manualPivotPower(0);
+           // intake.manualIntakePower(-0.3);
+            //intake.manualPivotPower(0);
             ramp.setRamp(0.3);
         }
         else if (operatorController.getButton(ButtonMap.XboxY))
         {
-            intake.manualIntakePower(0);
-            intake.manualPivotPower(0.175);
+            //intake.manualIntakePower(0);
+            intakePivot.manualPivotPower(0.175);
             ramp.setRamp(0);
         }
         else if (operatorController.getButton(ButtonMap.XboxA))
         {
-            intake.manualIntakePower(0);
-            intake.manualPivotPower(-0.175);
+            //intake.manualIntakePower(0);
+            intakePivot.manualPivotPower(-0.175);
             ramp.setRamp(0);
         }
         else
         {
-            intake.manualIntakePower(0);
-            intake.manualPivotPower(0);
+            //intake.manualIntakePower(0);
+            intakePivot.manualPivotPower(0);
             ramp.setRamp(0);
         }
     }

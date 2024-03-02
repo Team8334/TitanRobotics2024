@@ -92,16 +92,16 @@ public class ModifiedEncoders implements Subsystem
             System.err.println("Encoder not activated " + channelA + " " + channelB);
             return null;
         }
-        try
-        {
+        //try
+       // {
             encoder = new Encoder(channelA, channelB);
             return encoder;
-        }
-        catch (Exception e)
+        //}
+        /*catch (Exception e)
         {
-            System.err.println("Error: Encoder Not Activated " + channelA + " " + channelB);
+            System.err.println("Error: eEncoder Not Activated " + channelA + " " + channelB);
             return null;
-        }
+        }*/
     }
 
     public double getRate()

@@ -68,7 +68,16 @@ public class IntakePivot implements Subsystem
     {
         this.disabled = disabled;
     }
-    
+
+    public void manualPivotPower(double power)
+    {
+      pivotMotor.setVoltage(power);
+    }
+  
+    public void log()
+    {
+      SmartDashboard.putNumber("pivotEncoder", pivotEncoder.getDistance());
+    }
 
 
     public void update()
