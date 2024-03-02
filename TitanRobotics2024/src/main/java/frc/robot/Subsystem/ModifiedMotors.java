@@ -122,7 +122,9 @@ public class ModifiedMotors implements Subsystem
 
     public void setVoltage(double voltage)
     {
-        motor.set(voltage);
+        if (motor != null){
+            motor.setVoltage(voltage);
+        }
     }
 
     private MotorController initializeCANTalon(int portNumber)

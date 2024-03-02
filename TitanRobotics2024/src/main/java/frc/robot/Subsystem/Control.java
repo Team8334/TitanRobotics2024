@@ -175,13 +175,13 @@ public class Control implements Subsystem
         else if (operatorController.getButton(ButtonMap.XboxY))
         {
             //intake.manualIntakePower(0);
-            intakePivot.manualPivotPower(0.175);
-            ramp.setRamp(0);
+            intakePivot.manualPivotPower(1.75);
+            ramp.setRamp(.3);
         }
         else if (operatorController.getButton(ButtonMap.XboxA))
         {
             //intake.manualIntakePower(0);
-            intakePivot.manualPivotPower(-0.175);
+            intakePivot.manualPivotPower(-1.75);
             ramp.setRamp(0);
         }
         else

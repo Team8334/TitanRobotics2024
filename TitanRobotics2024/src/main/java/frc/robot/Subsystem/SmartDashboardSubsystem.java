@@ -12,7 +12,7 @@ public class SmartDashboardSubsystem implements Subsystem
     private DriveBase driveBase;
     private Targeting targeting;
     private ClimberControl climberControl;
-    private Intake intake;
+    //private Intake intake;
     private IntakePivot intakePivot;
     private Ramp ramp;
 
@@ -46,7 +46,7 @@ public class SmartDashboardSubsystem implements Subsystem
         {
             gyro = Gyro.getInstance();
             driveBase = DriveBase.getInstance();
-            intake = Intake.getInstance();
+            //intake = Intake.getInstance();
             intakePivot = IntakePivot.getInstance();
             positionEstimation = PositionEstimation.getInstance();
             targeting = Targeting.getInstance();
@@ -78,7 +78,7 @@ public class SmartDashboardSubsystem implements Subsystem
     {
         initializeComponents();
         gyro.log();
-        intake.log();
+        //intake.log();
         intakePivot.log();
         driveBase.log();
         targeting.log();
@@ -89,5 +89,6 @@ public class SmartDashboardSubsystem implements Subsystem
         SmartDashboard.putString("Errors", errorLog.toString());
         //SmartDashboard.putString("Status", statusLog.toString());
 
+        
     }
 }
