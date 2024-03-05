@@ -7,7 +7,7 @@ import frc.robot.Auto.Actions.RunScoringSystemAction;
 import frc.robot.Auto.Actions.TurnDegreesAction;
 import frc.robot.Auto.Actions.SeriesAction;
 
-public class OneNoteMission extends MissionBase
+public class OneNoteNoLeaveMission extends MissionBase
 {
     @Override
     protected void routine() throws AutoMissionEndedException
