@@ -84,7 +84,7 @@ public class IntakePivot implements Subsystem
     {
         if (!disabled)
         {
-            control();
+            //control();
         }
         else
         {
