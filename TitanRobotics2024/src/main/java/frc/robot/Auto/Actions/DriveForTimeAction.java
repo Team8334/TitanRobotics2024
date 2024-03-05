@@ -1,6 +1,7 @@
 package frc.robot.Auto.Actions;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystem.DriveBase;
 
 public class DriveForTimeAction implements Actions 
@@ -25,6 +26,7 @@ public class DriveForTimeAction implements Actions
     {
         timer = new Timer();
         timer.start();
+        SmartDashboard.putString( "Current Action", "DriveForTimeAction Started");
     }
 
     /**
@@ -64,6 +66,7 @@ public class DriveForTimeAction implements Actions
     @Override
     public void done() 
     {
+        SmartDashboard.putString( "Current Action", "DriveForTimeAction Ended");
         mDrive.drive(0, 0);
     }
 

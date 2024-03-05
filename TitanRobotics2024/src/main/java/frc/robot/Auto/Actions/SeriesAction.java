@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class SeriesAction implements Actions
 {
     private ArrayList<Actions> actionsToExecute;
@@ -29,6 +31,7 @@ public class SeriesAction implements Actions
     public void start()
     {
         actionsToExecute.get(currentActionIndex).start();
+        SmartDashboard.putString( "Current Action System", "SeriesAction Started");
     }
 
     @Override
@@ -59,5 +62,6 @@ public class SeriesAction implements Actions
     @Override
     public void done()
     {
+        SmartDashboard.putString( "Current Action System", "SeriesAction Ended");
     }
 }

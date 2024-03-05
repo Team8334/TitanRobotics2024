@@ -80,7 +80,6 @@ public abstract class MissionBase
     {
         isActiveWithThrow();
         long waitTime = (long) (mUpdateRate * 1000.0);
-
         // WaitForNumBannerSensorsAction for interrupt state to clear
         while (isActiveWithThrow() && mIsInterrupted) 
         {
