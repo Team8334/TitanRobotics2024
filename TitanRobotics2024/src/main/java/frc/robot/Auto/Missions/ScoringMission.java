@@ -3,7 +3,7 @@ package frc.robot.Auto.Missions;
 import frc.robot.Auto.AutoMissionEndedException;
 import frc.robot.Auto.Actions.DriveForDistanceAction;
 import frc.robot.Auto.Actions.TurnDegreesAction;
-import frc.robot.Auto.Actions.RampAction;
+import frc.robot.Auto.Actions.RunningScoringActions;;
 
 //none of the number values are for certain, they are just placeholders
 
@@ -17,8 +17,7 @@ public class ScoringMission extends MissionBase
         //runAction(new DriveForTimeAction(1, 0.5)
         runAction(new TurnDegreesAction(-77, 3));
         runAction(new DriveForDistanceAction(2, 3));
-        // runaction(new IntakeAction(3)); needed? Depends on where the note starts preloaded in the robot
-        runAction(new RampAction(3, 0.3));
+        runAction(new RunningScoringActions(9, 2, 8, 6));
     }
 }
 

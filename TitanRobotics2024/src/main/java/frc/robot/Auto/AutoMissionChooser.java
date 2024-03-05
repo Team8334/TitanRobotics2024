@@ -1,5 +1,6 @@
 package frc.robot.Auto;
 
+import frc.robot.Auto.Actions.RunningScoringActions;
 import frc.robot.Auto.Missions.*;
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ public class AutoMissionChooser
         leaveCommunityRight,
         exampleMission,
         oneNoteMission,
-        ScoringMission
+        ScoringMission,
     }
 
     private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
@@ -67,7 +68,7 @@ public class AutoMissionChooser
             case exampleMission:
                 return Optional.of(new ExampleMission());
             case oneNoteMission:
-                return Optional.of(new OneNoteMission());
+               // return Optional.of(new OneNoteMission());
             case ScoringMission:
                 return Optional.of(new ScoringMission());
             default:

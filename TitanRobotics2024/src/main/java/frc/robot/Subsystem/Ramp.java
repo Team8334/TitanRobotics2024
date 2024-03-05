@@ -29,11 +29,15 @@ public class Ramp
     this.outtakeMotor = new ModifiedMotors(PortMap.OUTTAKEMOTOR.portNumber, "CANSparkMax");
   }
 
-  public void setRamp(double rampforward)
+  public void setRampLeftAndRight(double rampforward)
   {
     this.rampMotorLeftpower = (-rampforward);
     this.rampMotorRightpower = (rampforward);
-    this.outtakePower = (rampforward);
+  }
+
+  public void setOuttake(double outtakePower)
+  {
+    this.outtakePower = outtakePower;
   }
 
   public void log()
@@ -51,11 +55,11 @@ public class Ramp
     }
     if (rampRightMotor != null)
     {
-    rampRightMotor.set(rampMotorRightpower);
+      rampRightMotor.set(rampMotorRightpower);
     }
     if (outtakeMotor != null)
     {
-    outtakeMotor.set(outtakePower);
-  }
+      outtakeMotor.set(outtakePower);
+    }
   }
 }
