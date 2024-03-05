@@ -29,6 +29,13 @@ public class Ramp
     this.outtakeMotor = new ModifiedMotors(PortMap.OUTTAKEMOTOR.portNumber, "CANSparkMax");
   }
 
+  public void setRamp(double rampforward)
+  {
+    this.rampMotorLeftpower = (-rampforward);
+    this.rampMotorRightpower = (rampforward);
+    this.outtakePower = (rampforward);
+  }
+
   public void setRampLeftAndRight(double rampforward)
   {
     this.rampMotorLeftpower = (-rampforward);

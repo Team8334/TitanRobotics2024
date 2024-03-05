@@ -17,7 +17,7 @@ public class ScoringMission extends MissionBase
         //runAction(new DriveForTimeAction(1, 0.5)
         runAction(new TurnDegreesAction(-77, 3));
         runAction(new DriveForDistanceAction(2, 3));
-        runAction(new RunningScoringActions(9, 2, 8, 6));
+        runAction(new RunningScoringActions(5, .25, .25, .25));
     }
 }
 
