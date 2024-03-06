@@ -46,7 +46,10 @@ public class IntakePivot implements Subsystem
     {
         pivotMotor = new ModifiedMotors(PortMap.INTAKEMOTORPIVOT.portNumber, "CANSparkMax");
         pivotEncoder = new ModifiedEncoders(PortMap.INTAKEPIVOTENCODER_A.portNumber, PortMap.INTAKEPIVOTENCODER_B.portNumber, "QuadratureEncoder");
-        if( pivotMotor == null){System.out.println("Pivot null");}
+        if (pivotMotor == null)
+        {
+            System.out.println("Pivot null");
+        }
         pivotProfiledPIDController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
 
         pivotEncoder.setDistancePerPulse(encoderDistancePerPulse);
@@ -71,14 +74,13 @@ public class IntakePivot implements Subsystem
 
     public void manualPivotPower(double power)
     {
-      pivotMotor.setVoltage(power);
-    }
-  
-    public void log()
-    {
-      SmartDashboard.putNumber("pivotEncoder", pivotEncoder.getDistance());
+        pivotMotor.setVoltage(power);
     }
 
+    public void log()
+    {
+        SmartDashboard.putNumber("pivotEncoder", pivotEncoder.getDistance());
+    }
 
     public void update()
     {
