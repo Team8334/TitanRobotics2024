@@ -2,13 +2,13 @@ package frc.robot.Auto.Actions;
 
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.Targeting;
-import frc.robot.Subsystem.Limelight;
+import frc.robot.Subsystem.LimelightFront;
 
 public class LockOnAction implements Actions
 {
     private Targeting targeting;
     private DriveBase driveBase;
-    private Limelight limelight;
+    private LimelightFront limelight;
 
     double neededArea;
 
@@ -18,7 +18,7 @@ public class LockOnAction implements Actions
     public LockOnAction(String target, String alliance)
     {
         targeting = Targeting.getInstance();
-        limelight = Limelight.getInstance();
+        limelight = LimelightFront.getInstance();
         driveBase = DriveBase.getInstance();
 
         if (alliance == "blue")
