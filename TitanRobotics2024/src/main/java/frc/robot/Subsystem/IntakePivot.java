@@ -26,7 +26,7 @@ public class IntakePivot implements Subsystem
 
     private double maxVelocity;
     private double maxAcceleration;
-    private double encoderDistancePerPulse = 360 / 2048;
+    private double encoderDistancePerPulse = 360.0 / 2048.0;
     private boolean disabled;
     private double goal;
     private double startingOffset = 0.0;
