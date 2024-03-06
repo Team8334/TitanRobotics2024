@@ -2,6 +2,7 @@ package frc.robot.Subsystem;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class Targeting implements Subsystem // This class contains functions for finding and
                                             // locking onto elements of the field using
@@ -28,10 +29,19 @@ public class Targeting implements Subsystem // This class contains functions for
     DriveBase driveBase;
     SmartDashboardSubsystem smartDashboardSubsystem;
 
-    String alliance = "red";
+    //String alliance = "red";
     String target = "ALL";
     String frontTags;
     String backTags;
+    //String alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
+    try {
+        String alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
+    } 
+    catch (Exception e) 
+    {
+        // Handle the exception, for example:
+        System.out.println("Exception occurred: " + e.getMessage());
+    }
 
 
     public Targeting()

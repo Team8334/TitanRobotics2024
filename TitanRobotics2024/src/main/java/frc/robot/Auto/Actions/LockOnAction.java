@@ -21,16 +21,6 @@ public class LockOnAction implements Actions
         limelight = LimelightFront.getInstance();
         driveBase = DriveBase.getInstance();
 
-        if (alliance == "blue")
-        {
-            targeting.setAlliance("blue");
-        }
-
-        if (alliance == "red")
-        {
-            targeting.setAlliance("red");
-        }
-
         switch (target)
         {
             case "Amp":
@@ -85,17 +75,17 @@ public class LockOnAction implements Actions
     {
         if (limelight.getPipeline() == 0)
         {
-            driveBase.drive(targeting.follow(), targeting.aprilTaglockOn());
+            driveBase.drive(targeting.follow(), targeting.aprilTagLockOn());
         }
         if (limelight.getPipeline() == 1)
         {
-            driveBase.drive(targeting.follow(), targeting.otherLockOn());
+            driveBase.drive(targeting.follow(), targeting.noteLockOn());
             System.out.println(limelight.getArea());
         }
     }
 
     /**
-     * Returns whether or not the code has finished execution. When implementing
+     * Returns whether or not the code has finished executaprilTagLockOnementing
      * this interface, this method is used by
      * the runAction method every cycle to know when to stop running the action
      *
