@@ -12,7 +12,13 @@ public class PickUpNoteMission extends MissionBase
     protected void routine() throws AutoMissionEndedException 
     // should drive forward, intake on front, activate the intake, and then we can make in do other stuff
     {
+        runAction(new DriveForDistanceAction(1.7, 3));  
+        //runAction(new DriveForTimeAction(1, 0.5) needed?
+        runAction(new TurnDegreesAction(-77, 3));
         runAction(new DriveForDistanceAction(2, 3));
+        runAction(new RunningScoringActions(5, .25, .25, .25));
+        runAction(new DriveForDistanceAction(-2, 3));
+        runAction(new TurnDegreesAction(90, 1));
         runAction(new RunningScoringActions(2,.5,0,0));
         runAction(new RunningScoringActions(2, 0, 0, 0));
     }
