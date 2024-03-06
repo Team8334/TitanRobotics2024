@@ -23,42 +23,51 @@ public class Targeting implements Subsystem // This class contains functions for
     private PIDController noteXPID = new PIDController(1, 0, 0);
 
     Limelight limelight;
+    LimelightBack limelightBack;
+    LimelightFront limelightFront;
     DriveBase driveBase;
     SmartDashboardSubsystem smartDashboardSubsystem;
 
     String alliance = "red";
     String target = "ALL";
+    String frontTags;
+    String backTags;
+
 
     public Targeting()
     {
-        limelight = Limelight.getInstance();
+        limelightBack = LimelightBack.getInstance();
+        limelightFront = LimelightFront.getInstance();
     }
 
-    public void setAlliance(String alliance)
-    {
-        this.alliance = alliance;
-    }
-
+   
     public void setTarget(String target)
     {
         this.target = target;
     }
 
-    public double aprilTaglockOn()
-    { //Locks on to apriltag depending on target. Set as "turn" in DriveBase.drive in control
-        if (target.equals("ALL") || target.equals(findTagName()))
-        {
-            return (aprilTagXPID.calculate(limelight.x, 0) / 150);
+   
+
+    public double aprilTagLockOn()
+    {
+        limelightFront.setPipeline(0);
+        frontTags = limelightFront.findTagName();
+        backTags = limelightBack.findTagName();
+        if (backTags == "amp"){
+            return (aprilTagXPID.calculate(limelightBack.x, 0) / 150);
         }
-        else
-        {
+        else if (frontTags == "source"){
+            return (aprilTagXPID.calculate(limelightFront.x, 0) / 150);
+        }
+        else{
             return 0;
         }
     }
 
-    public double otherLockOn()
+    public double noteLockOn()
     { //Lock on to whatever the pipeline is targeting. Only difference from aprilTagLockOn is it ignores target ID. For Notes, set confidence to 0.3 in limelight interface.
-        return (noteXPID.calculate(limelight.x, 0) / 150);
+        limelightFront.setPipeline(1);
+        return (noteXPID.calculate(limelightFront.x, 0) / 150);
     }
 
     public double follow() // Setting "forward" in DriveBase.drive in controlas this function will cause the robot to follow the target. 
@@ -67,47 +76,10 @@ public class Targeting implements Subsystem // This class contains functions for
         return (aPID.calculate(limelight.area, 25) / 50);
     }
 
-    public String findTagName()
-    {
-        if (!limelight.getLimelightState().equals("TRACKING"))
-        {
-            return "Not Tracking";
-        }
-        switch (limelight.getId())
-        {
-            case 11, 12, 13 -> {
-                return alliance.equals("red") ? "Stage" : "Opponent's Stage";
-            }
-            case 14, 15, 16 -> {
-                return alliance.equals("blue") ? "Stage" : "Opponent's Stage";
-            }
-            case 5 -> {
-                return alliance.equals("red") ? "Amp" : "Opponent's Amp";
-            }
-            case 6 -> {
-                return alliance.equals("blue") ? "Amp" : "Opponent's Amp";
-            }
-            case 9, 10 -> {
-                return alliance.equals("red") ? "Source" : "Opponent's Source";
-            }
-            case 1, 2 -> {
-                return alliance.equals("blue") ? "Source" : "Opponent's Source";
-            }
-            case 3, 4 -> {
-                return alliance.equals("red") ? "Speaker" : "Opponent's Speaker";
-            }
-            case 7, 8 -> {
-                return alliance.equals("blue") ? "Speaker" : "Opponent's Speaker";
-            }
-            default -> {
-                return "Unknown";
-            }
-        }
-    }
-
     public void log()
     {
-        SmartDashboard.putString("AprilTag Target", findTagName());
+        SmartDashboard.putString("AprilTag Target", limelightBack.findTagName());
+        SmartDashboard.putString("AprilTag Target", limelightFront.findTagName());
     }
 
     public void update()
