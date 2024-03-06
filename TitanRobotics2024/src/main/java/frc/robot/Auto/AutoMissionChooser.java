@@ -16,6 +16,7 @@ public class AutoMissionChooser
         exampleMission,
         oneNoteMission,
         ScoringMission,
+        ScoringThenMovingMission
     }
 
     private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
@@ -33,6 +34,7 @@ public class AutoMissionChooser
         missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
         missionChooser.addOption("Score 1 note in amp", DesiredMission.oneNoteMission);
         missionChooser.addOption("Scoring 1 note", DesiredMission.ScoringMission);
+        missionChooser.addOption("Score and Move After", DesiredMission.ScoringThenMovingMission);
         // add more here as needed
 
         SmartDashboard.putData("Auto Mission", missionChooser);
@@ -71,6 +73,8 @@ public class AutoMissionChooser
                // return Optional.of(new OneNoteMission());
             case ScoringMission:
                 return Optional.of(new ScoringMission());
+            case ScoringThenMovingMission:
+                return Optional.of(new ScoringThenMovingMission());
             default:
                 System.err.println("No valid autonomous mission found for" + mission);
                 return Optional.empty();
