@@ -63,8 +63,8 @@ public class DriveBase implements Subsystem
     this.rightEncoder.invert(true);
 
     this.drive = new DifferentialDrive(leftMotor::set, rightMotor::set);
-    this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getDistance(),
-            rightEncoder.getDistance());
+    this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getRelativeDistance(),
+            rightEncoder.getRelativeDistance());
   }
 
   public void setRightMotorsPower(double power)
@@ -109,7 +109,7 @@ public class DriveBase implements Subsystem
     if (leftEncoder != null)
     {
       leftEncoderRate = this.leftEncoder.getRate();
-      leftEncoderDistance = this.leftEncoder.getDistance();
+      leftEncoderDistance = this.leftEncoder.getRelativeDistance();
     }
     else
     {
@@ -118,7 +118,7 @@ public class DriveBase implements Subsystem
     if (rightEncoder != null)
     {
       rightEncoderRate = this.rightEncoder.getRate();
-      rightEncoderDistance = this.rightEncoder.getDistance();
+      rightEncoderDistance = this.rightEncoder.getRelativeDistance();
     }
     else
     {

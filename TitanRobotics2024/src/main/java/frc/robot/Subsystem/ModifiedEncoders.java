@@ -1,5 +1,6 @@
 package frc.robot.Subsystem;
 
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder; //this import like to get mad if the class name is "Encoder". I don't know why, but just know that.
 
 public class ModifiedEncoders implements Subsystem
@@ -12,6 +13,7 @@ public class ModifiedEncoders implements Subsystem
     }
 
     private Encoder encoder;
+    private DutyCycleEncoder dutyCycleEncoder;
     private double ratio = 1.0;
 
     public ModifiedEncoders(int channelA, int channelB, String encodertype)
@@ -21,11 +23,11 @@ public class ModifiedEncoders implements Subsystem
             case "E4TEncoder":
                 encoder = initializeE4T(channelA, channelB);
                 break;
-            case "QuadratureEncoder":
+            case "QuadratureEncoder": //relative encoder
                 encoder = initializeQuadrature(channelA, channelB);
                 break;
             default:
-                System.err.println("Error: encoders not activated");
+                System.err.println("Error: dual channel encoders not activated");
                 encoder = null;
         }
     }
@@ -36,8 +38,12 @@ public class ModifiedEncoders implements Subsystem
         {
             case "CANSparkMaxEncoder":
                 break;
+            case "DutyCycleEncoder": //absolute encoder
+                dutyCycleEncoder = initializeDutyCycle(portNumber);
+                break;
             default:
-                System.err.println("Error: encoders not activated");
+                System.err.println("Error: single channel encoders not activated");
+            
         }
     }
 
@@ -71,7 +77,7 @@ public class ModifiedEncoders implements Subsystem
     {
         if (channelA < 0 || channelB < 0)
         {
-            System.err.println("Encoder not activated " + channelA + " " + channelB);
+            System.err.println("E4T Encoder not activated due to negative port value" + channelA + " " + channelB);
             return null;
         }
         try
@@ -82,7 +88,7 @@ public class ModifiedEncoders implements Subsystem
         }
         catch (Exception e)
         {
-            System.err.println("Error: Encoder Not Activated " + channelA + " " + channelB);
+            System.err.println("Error: E4T Encoder not activated due to initialization error" + channelA + " " + channelB);
             return null;
         }
 
@@ -92,7 +98,7 @@ public class ModifiedEncoders implements Subsystem
     {
         if (channelA < 0 || channelB < 0)
         {
-            System.err.println("Encoder not activated " + channelA + " " + channelB);
+            System.err.println("Quadrature Encoder not activated due to negative port value" + channelA + " " + channelB);
             return null;
         }
         try
@@ -102,7 +108,26 @@ public class ModifiedEncoders implements Subsystem
         }
         catch (Exception e)
         {
-            System.err.println("Error: eEncoder Not Activated " + channelA + " " + channelB);
+            System.err.println("Error: Quadrature Encoder not activated due to initialization error" + channelA + " " + channelB);
+            return null;
+        }
+    }
+
+    private DutyCycleEncoder initializeDutyCycle(int portNumber)
+    {
+        if (portNumber < 0)
+        {
+            System.err.println("DutyCycleEncoder not activated due to negative port value" + portNumber);
+            return null;
+        }
+        try
+        {
+            dutyCycleEncoder = new DutyCycleEncoder(portNumber);
+            return dutyCycleEncoder;
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error: DutyCycleEncoder not activated due to initialization error" + portNumber);
             return null;
         }
     }
@@ -119,12 +144,36 @@ public class ModifiedEncoders implements Subsystem
         }
     }
 
-    public double getDistance()
+    public double getRelativeDistance()
     {
         if (encoder != null)
         {
             return encoder.getDistance();
            
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public double getAbsoluteDistance()
+    {
+        if (dutyCycleEncoder != null)
+        {
+            return dutyCycleEncoder.getDistance();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public double getAbsolutePosition()
+    {
+            if (dutyCycleEncoder != null)
+        {
+            return dutyCycleEncoder.getAbsolutePosition();
         }
         else
         {

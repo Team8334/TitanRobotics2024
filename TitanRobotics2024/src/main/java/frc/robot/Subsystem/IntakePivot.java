@@ -59,7 +59,7 @@ public class IntakePivot implements Subsystem
     private void control()
     {
         pivotProfiledPIDController.setGoal(goal + startingOffset);
-        pivotMotor.setVoltage(pivotProfiledPIDController.calculate(pivotEncoder.getDistance()) + feedforward.calculate(pivotProfiledPIDController.getSetpoint().position, pivotProfiledPIDController.getSetpoint().velocity));
+        pivotMotor.setVoltage(pivotProfiledPIDController.calculate(pivotEncoder.getRelativeDistance()) + feedforward.calculate(pivotProfiledPIDController.getSetpoint().position, pivotProfiledPIDController.getSetpoint().velocity));
     }
 
     public void setTargetPosition(double position)
@@ -82,7 +82,7 @@ public class IntakePivot implements Subsystem
 
     public void log()
     {
-        SmartDashboard.putNumber("pivotEncoder", pivotEncoder.getDistance());
+        SmartDashboard.putNumber("pivotEncoder", pivotEncoder.getRelativeDistance());
     }
 
     public void update()

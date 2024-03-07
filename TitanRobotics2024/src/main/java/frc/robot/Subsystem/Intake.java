@@ -157,7 +157,7 @@ public class Intake implements Subsystem
 
   public void update()
   {
-    currentDistance = encoder.getDistance();
+    currentDistance = encoder.getRelativeDistance();
     if (intakeMode == "auto")
     {
       IntakeStateProcess();
