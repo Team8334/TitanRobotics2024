@@ -135,27 +135,27 @@ public class Control implements Subsystem
 
     }
 
-    private void manipulatorControl()
+    private void manipulatorControl()//please do not mess with the buttons, they are set to operator's preference.
     {
-        if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))
+        if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))//right bumper = intake in, pushes ramp back towards the intake
         {
             intake.manualIntakePower(0.3);
             intake.manualPivotPower(0);
             ramp.setRamp(-0.3);
         }
-        else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))
+        else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))//left bumper = intake out, pushes ramp towards the scoring side
         {
             intake.manualIntakePower(-0.3);
             intake.manualPivotPower(0);
             ramp.setRamp(0.3);
         }
-        else if (operatorController.getButton(ButtonMap.XboxY))
+        else if (operatorController.getButton(ButtonMap.XboxY))//button y = pivot arm up
         {
             intake.manualIntakePower(0);
             intake.manualPivotPower(0.175);
             ramp.setRamp(0);
         }
-        else if (operatorController.getButton(ButtonMap.XboxA))
+        else if (operatorController.getButton(ButtonMap.XboxA))//button a = pivot arm down
         {
             intake.manualIntakePower(0);
             intake.manualPivotPower(-0.175);
