@@ -50,20 +50,6 @@ public class Limelight
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
     }
 
-    private void processState()
-    {
-        switch (limelightState)
-        {
-            case "NOT_TRACKING":
-                break;
-            case "TRACKING":
-                break;
-            default:
-                break;
-        }
-
-    }
-
     public String getLimelightState()
     {
         return limelightState;

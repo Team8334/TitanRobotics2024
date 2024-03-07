@@ -4,55 +4,55 @@ import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.Limelight;
 
-public class LockOnAction implements Actions 
+public class LockOnAction implements Actions
 {
     private Targeting targeting;
     private DriveBase driveBase;
     private Limelight limelight;
-    
+
     double neededArea;
 
     /**
      * Run code once when the action is started, for setup
      */
-    public LockOnAction(String target, String alliance) 
+    public LockOnAction(String target, String alliance)
     {
         targeting = Targeting.getInstance();
         limelight = Limelight.getInstance();
         driveBase = DriveBase.getInstance();
 
-        if(alliance == "blue")
+        if (alliance == "blue")
         {
             targeting.setAlliance("blue");
         }
-        
-        if(alliance == "red")
+
+        if (alliance == "red")
         {
             targeting.setAlliance("red");
         }
 
-        switch(target)
+        switch (target)
         {
             case "Amp":
             {
                 limelight.setPipeline(0);
                 targeting.setTarget("Amp");
             }
-            break;
-            
+                break;
+
             case "Source":
             {
                 limelight.setPipeline(0);
                 targeting.setTarget("Source");
             }
-            break;
+                break;
 
             case "Stage":
             {
                 limelight.setPipeline(0);
                 targeting.setTarget("Stage");
             }
-            break;
+                break;
 
             case "Note":
             {
@@ -63,13 +63,13 @@ public class LockOnAction implements Actions
     }
 
     @Override
-    public void start() 
+    public void start()
     {
-        if(limelight.getPipeline() == 0)
+        if (limelight.getPipeline() == 0)
         {
             neededArea = 5;
         }
-        if(limelight.getPipeline() == 1)
+        if (limelight.getPipeline() == 1)
         {
             neededArea = 3.1;
         }
@@ -81,13 +81,13 @@ public class LockOnAction implements Actions
      * method
      */
     @Override
-    public void update() 
+    public void update()
     {
-        if(limelight.getPipeline() == 0)
+        if (limelight.getPipeline() == 0)
         {
             driveBase.drive(targeting.follow(), targeting.aprilTaglockOn());
         }
-        if(limelight.getPipeline() == 1)
+        if (limelight.getPipeline() == 1)
         {
             driveBase.drive(targeting.follow(), targeting.otherLockOn());
             System.out.println(limelight.getArea());
@@ -102,26 +102,18 @@ public class LockOnAction implements Actions
      * @return boolean
      */
     @Override
-    public boolean isFinished() 
+    public boolean isFinished()
     {
-        if(limelight.getArea() >= neededArea && limelight.getX() == 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return (limelight.getArea() >= neededArea && limelight.getX() == 0);
     }
 
     /**
      * Run code once when the action finishes, usually for clean up
      */
     @Override
-    public void done() 
+    public void done()
     {
         driveBase.drive(0, 0);
     }
 
 }
-

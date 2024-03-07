@@ -1,126 +1,114 @@
 package frc.robot.Subsystem;
 
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Subsystem.ModifiedEncoders;
 
-public class DriveBase implements Subsystem
+public class DriveBase implements Subsystem 
 {
-  private final DifferentialDrive drive;
-  private final DifferentialDriveOdometry odometry;
+  private double lkp = 0.0;
+  private double lki = 0.0;
+  private double lkd = 0.0;
+
+   private double rkp = 0.0;
+  private double rki = 0.0;
+  private double rkd = 0.0;
+
   private ModifiedEncoders leftEncoder;
   private ModifiedEncoders rightEncoder;
-  private ModifiedMotors leftMotor;
-  private ModifiedMotors rightMotor;
-  private Gyro gyro;
-  private double forward;
-  private double turn;
-
   private double leftEncoderRate;
   private double rightEncoderRate;
   private double rightEncoderDistance;
   private double leftEncoderDistance;
+
+
   private double leftPower;
   private double rightPower;
 
-  //private String motorType = "CANVictorSPX"; // This is Gyro
-  //private String motorType = "CANVictorSPXDual"; // This is Janus
-  private String motorType = "CANTalonDual";
-  // TODO: make a better selector for the motor type
+  private ModifiedMotors rearLeftMotor;
+  private ModifiedMotors frontRightMotor;
+  private ModifiedMotors rearRightMotor;
+  private ModifiedMotors frontLeftMotor;
+  private PIDController leftPID;
+  private PIDController rightPID;
 
   private static DriveBase instance = null;
 
-  public static DriveBase getInstance()
+  public static DriveBase getInstance() 
   {
-    if (instance == null)
+    if (instance == null) 
     {
       instance = new DriveBase();
     }
     return instance;
   }
 
-  public DriveBase()
+  public DriveBase() 
   {
-    gyro = Gyro.getInstance();
-    this.leftMotor = new ModifiedMotors(PortMap.FRONTLEFT.portNumber, PortMap.REARLEFT.portNumber, motorType, false);
-    this.rightMotor = new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, PortMap.REARRIGHT.portNumber, motorType, true);
+    this.frontLeftMotor  =  new ModifiedMotors(PortMap.FRONTLEFT.portNumber, "CANVictorSPX");
+    this.rearLeftMotor   =  new ModifiedMotors(PortMap.REARLEFT.portNumber, "CANVictorSPX");
+    this.frontRightMotor =  new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, "CANVictorSPX");
+    this.rearRightMotor  =  new ModifiedMotors(PortMap.REARRIGHT.portNumber, "CANVictorSPX");
 
-    this.leftEncoder = new ModifiedEncoders(PortMap.LEFTENCODER_A.portNumber, PortMap.LEFTENCODER_B.portNumber,
-            "E4TEncoder");
-    this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber, PortMap.RIGHTENCODER_B.portNumber,
-            "E4TEncoder");
+    leftPID = new PIDController(lkp, lki, lkd);
+    rightPID = new PIDController(rkp, rki, rkd);
+    
+    this.leftEncoder = new ModifiedEncoders(PortMap.LEFTENCODER_A.portNumber,PortMap.LEFTENCODER_B.portNumber, "E4TEncoder");
+    this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber,PortMap.RIGHTENCODER_B.portNumber, "E4TEncoder");
 
-    this.leftEncoder.setDistancePerPulse(0.155*Math.PI/360);
-    this.rightEncoder.setDistancePerPulse(0.155*Math.PI/360);
+    this.leftEncoder.setRatio(49/360);
+    this.rightEncoder.setRatio(49/360);
     this.rightEncoder.invert();
-
-    this.drive = new DifferentialDrive(leftMotor::set, rightMotor::set);
-    this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getDistance(),
-            rightEncoder.getDistance());
   }
 
-  public void setRightMotorsPower(double power)
+  public void setRightMotorsPower(double power) 
   {
     this.rightPower = power;
   }
 
-  public void setLeftMotorsPower(double power)
+  public void setLeftMotorsPower(double power) 
   {
     this.leftPower = power;
   }
 
-  public void drive(double forward, double turn)
+  public void drive(double forward, double turn) 
   {
-    this.forward = forward;
-    this.turn = turn;
+    this.leftPower = (forward - (turn));
+    this.rightPower = (forward + (turn));
   }
 
-  public double getLeftEncoderDistance()
+  public void setLeftVelocity(double velocity)
   {
-    return leftEncoderDistance;
+    this.leftPower = leftPID.calculate(leftEncoderRate, velocity); //rate in centimeters per second
   }
 
-  public double getRightEncoderDistance()
+  public void setRightVelocity(double velocity)
   {
-    return rightEncoderDistance;
+    this.rightPower = leftPID.calculate(leftEncoderRate, velocity); //rate in centimeters per second
   }
 
-  public void log()
-  {
-    SmartDashboard.putNumber("leftEncoderRate", leftEncoderRate);
-    SmartDashboard.putNumber("rightEncoderRate", rightEncoderRate);
-    SmartDashboard.putNumber("leftEncoderDistance", leftEncoderDistance);
-    SmartDashboard.putNumber("rightEncoderDistance", rightEncoderDistance);
+  public void log(){
+    SmartDashboard.putNumber("leftEncoderRate",leftEncoderRate);
+    SmartDashboard.putNumber("rightEncoderRate",rightEncoderRate);
+    SmartDashboard.putNumber("leftEncoderDistance",leftEncoderDistance);
+    SmartDashboard.putNumber("rightEncoderDistance",rightEncoderDistance);
 
   }
 
   @Override
   /* Updates the state the motors are in */
-  public void update()
+  public void update() 
   {
-    if (leftEncoder != null)
-    {
-      leftEncoderRate = this.leftEncoder.getRate();
-      leftEncoderDistance = this.leftEncoder.getDistance();
-    }
-    else
-    {
-      SmartDashboardSubsystem.getInstance().error("left encoder is null");
-    }
-    if (rightEncoder != null)
-    {
-      rightEncoderRate = this.rightEncoder.getRate();
-      rightEncoderDistance = this.rightEncoder.getDistance();
-    }
-    else
-    {
-      SmartDashboardSubsystem.getInstance().error("right encoder is null");
-    }
-    drive.arcadeDrive(forward, turn);
-
-    this.odometry.update(gyro.getRotation2d(), leftEncoderDistance, rightEncoderDistance);
+    this.frontLeftMotor.set(leftPower); 
+    this.rearLeftMotor.set(leftPower);
+    this.frontRightMotor.set(-rightPower);
+    this.rearRightMotor.set(-rightPower);
+    leftEncoderRate = this.leftEncoder.getRate();
+    rightEncoderRate = this.rightEncoder.getRate();
+    leftEncoderDistance = this.leftEncoder.getDistance();
+    rightEncoderDistance = this.rightEncoder.getDistance();
+  
   }
 }

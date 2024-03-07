@@ -27,14 +27,13 @@ public class TurnDegreesAction implements Actions
     private PositionEstimation position;
 
     private PIDController PID;
-    private double kp = 0.01;
-    private double ki = 0.011;
-    private double kd = 0.002;
+    private final double kp = 0.01;
+    private final double ki = 0.011;
+    private final double kd = 0.002;
 
     public TurnDegreesAction(double degrees, double seconds)
     {
         driveBase = DriveBase.getInstance();
-        //gyro = Gyro.getInstance();
         position = PositionEstimation.getInstance();
         endAfterSeconds = seconds;
         desiredDegrees = degrees;
@@ -49,12 +48,10 @@ public class TurnDegreesAction implements Actions
     {
         timer = new Timer();
         timer.start();
-        //currentDegrees = gyro.getAngleDegrees();
         currentDegrees = position.getAngle();
         targetDegrees = (currentDegrees + desiredDegrees);
         PID.setSetpoint(targetDegrees);
         PID.setTolerance(toleranceDegrees);
-       // System.out.println(targetDegrees);
        SmartDashboard.putString( "Current Action", "TurnDegreesAction Started");
     }
 
@@ -65,26 +62,15 @@ public class TurnDegreesAction implements Actions
     {
         turn = PID.calculate(position.getAngle());
         driveBase.drive(0, turn);
-        //System.out.println(gyro.getAngleDegrees());
         SmartDashboard.putNumber("targetDegrees", targetDegrees);
         SmartDashboard.putNumber("turn", turn);
-        //System.out.println(turn);
         
     }
 
     @Override
     public boolean isFinished()
     {
-        if (timer.get() >= endAfterSeconds)
-        {
-            System.out.println("ended properly");
-            return true;
-            
-        }
-        else 
-        {
-            return false;
-        }
+        return (timer.get() >= endAfterSeconds);
     }
     
 

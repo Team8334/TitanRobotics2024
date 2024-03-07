@@ -11,7 +11,6 @@ public class OneNoteMission extends MissionBase
     @Override
     protected void routine() throws AutoMissionEndedException
     {
-        // TODO Auto-generated method stub
-        runAction(new DriveForTimeAction(3, 0.5));// may be milliseconds
+        runAction(new DriveForTimeAction(3, 0.5));
     }
 }
