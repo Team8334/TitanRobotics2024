@@ -53,8 +53,8 @@ public class DriveBase implements Subsystem
     this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber, PortMap.RIGHTENCODER_B.portNumber,
             "E4TEncoder");
 
-    this.leftEncoder.setDistancePerPulse();
-    this.rightEncoder.setDistancePerPulse();
+    this.leftEncoder.setDistancePerPulse(0.155*Math.PI/360);
+    this.rightEncoder.setDistancePerPulse(0.155*Math.PI/360);
     this.rightEncoder.invert();
 
     this.drive = new DifferentialDrive(leftMotor::set, rightMotor::set);
