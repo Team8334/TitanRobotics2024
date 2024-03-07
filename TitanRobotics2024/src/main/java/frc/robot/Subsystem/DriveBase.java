@@ -1,6 +1,5 @@
 package frc.robot.Subsystem;
 
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
@@ -12,11 +11,6 @@ public class DriveBase implements Subsystem
 {
   private final DifferentialDrive drive;
   private final DifferentialDriveOdometry odometry;
-
-
-
-
-
 
   private ModifiedEncoders leftEncoder;
   private ModifiedEncoders rightEncoder;
@@ -31,16 +25,13 @@ public class DriveBase implements Subsystem
   private double rightEncoderDistance;
   private double leftEncoderDistance;
 
-
   private double leftPower;
   private double rightPower;
 
   //private String motorType = "CANVictorSPX"; // This is Gyro
   //private String motorType = "CANVictorSPXDual"; // This is Janus
   private String motorType = "CANTalonDual";
-   // TODO: make a better selector for the motor type
-
-
+  // TODO: make a better selector for the motor type
 
   private static DriveBase instance = null;
 
@@ -64,11 +55,12 @@ public class DriveBase implements Subsystem
     this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber, PortMap.RIGHTENCODER_B.portNumber,
             "E4TEncoder");
 
-    this.leftEncoder.setDistancePerPulse(0.155*Math.PI/360);
-     this.rightEncoder.setDistancePerPulse(0.155*Math.PI/360);
+    this.leftEncoder.setDistancePerPulse(0.155 * Math.PI / 360);
+    this.rightEncoder.setDistancePerPulse(0.155 * Math.PI / 360);
 
+    this.leftEncoder.invert(true);
 
-    this.rightEncoder.invert();
+    this.rightEncoder.invert(true);
 
     this.drive = new DifferentialDrive(leftMotor::set, rightMotor::set);
     this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getDistance(),
@@ -95,7 +87,8 @@ public class DriveBase implements Subsystem
   {
     return leftEncoderDistance;
   }
-   public double getRightEncoderDistance()
+
+  public double getRightEncoderDistance()
   {
     return rightEncoderDistance;
   }
@@ -121,7 +114,7 @@ public class DriveBase implements Subsystem
     else
     {
       SmartDashboardSubsystem.getInstance().error("left encoder is null");
-      }
+    }
     if (rightEncoder != null)
     {
       rightEncoderRate = this.rightEncoder.getRate();
