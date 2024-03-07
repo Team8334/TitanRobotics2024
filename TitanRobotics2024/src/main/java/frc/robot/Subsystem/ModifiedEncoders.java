@@ -46,9 +46,12 @@ public class ModifiedEncoders implements Subsystem
         this.ratio = ratio;
     }
 
-    public void invert()
+    public void invert(boolean reversed)
     {
-        this.ratio = -ratio;
+        if (encoder != null)
+        {
+            encoder.setReverseDirection(reversed);
+        }
     }
 
     public void setDistancePerPulse(double distancePerPulse)
