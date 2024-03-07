@@ -16,8 +16,13 @@ public enum PortMap
     
     INTAKEMOTORPIVOT(6),
     INTAKEMOTORROLLER(7),
+<<<<<<< Updated upstream
     INTAKEPIVOTENCODER_A(5),
     INTAKEPIVOTENCODER_B(4),
+=======
+    INTAKEPIVOTENCODER_A(4),
+    INTAKEPIVOTENCODER_B(5),
+>>>>>>> Stashed changes
 
 
     FRONTRIGHT(3), 
@@ -25,10 +30,17 @@ public enum PortMap
     FRONTLEFT(10),
     REARLEFT(1),
 
+<<<<<<< Updated upstream
     LEFTENCODER_A(2),//3
     LEFTENCODER_B(3), //4
     RIGHTENCODER_A(6),//8
     RIGHTENCODER_B(7),//7
+=======
+    LEFTENCODER_A(2),
+    LEFTENCODER_B(3), //4
+    RIGHTENCODER_A(1),
+    RIGHTENCODER_B(0),
+>>>>>>> Stashed changes
 
     RAMPLEFTMOTOR(8),
     RAMPRIGHTMOTOR(9),
