@@ -64,7 +64,9 @@ public class IntakePivot implements Subsystem
 
     public void setTargetPosition(double position)
     {
+        
         goal = position;
+        this.disabled = false;
     }
 
     public void setDisabled(boolean disabled)
@@ -87,7 +89,7 @@ public class IntakePivot implements Subsystem
     {
         if (!disabled)
         {
-            //control();
+            control();
         }
         else
         {
