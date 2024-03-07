@@ -29,47 +29,47 @@ public class Targeting implements Subsystem // This class contains functions for
     DriveBase driveBase;
     SmartDashboardSubsystem smartDashboardSubsystem;
 
-    //String alliance = "red";
+    String alliance;
     String target = "ALL";
     String frontTags;
     String backTags;
     //String alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
-    try {
-        String alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
-    } 
-    catch (Exception e) 
-    {
-        // Handle the exception, for example:
-        System.out.println("Exception occurred: " + e.getMessage());
-    }
-
 
     public Targeting()
     {
         limelightBack = LimelightBack.getInstance();
         limelightFront = LimelightFront.getInstance();
+        try
+        {
+           alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
+        }
+        catch (Exception e)
+        {
+            // Handle the exception, for example:
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
     }
 
-   
     public void setTarget(String target)
     {
         this.target = target;
     }
-
-   
 
     public double aprilTagLockOn()
     {
         limelightFront.setPipeline(0);
         frontTags = limelightFront.findTagName();
         backTags = limelightBack.findTagName();
-        if (backTags == "amp"){
+        if (backTags == "amp")
+        {
             return (aprilTagXPID.calculate(limelightBack.x, 0) / 150);
         }
-        else if (frontTags == "source"){
+        else if (frontTags == "source")
+        {
             return (aprilTagXPID.calculate(limelightFront.x, 0) / 150);
         }
-        else{
+        else
+        {
             return 0;
         }
     }
@@ -88,8 +88,8 @@ public class Targeting implements Subsystem // This class contains functions for
 
     public void log()
     {
-        SmartDashboard.putString("AprilTag Target", limelightBack.findTagName());
-        SmartDashboard.putString("AprilTag Target", limelightFront.findTagName());
+        SmartDashboard.putString("AprilTag Target (Back)", limelightBack.findTagName());
+        SmartDashboard.putString("AprilTag Target (Front)", limelightFront.findTagName());
     }
 
     public void update()
