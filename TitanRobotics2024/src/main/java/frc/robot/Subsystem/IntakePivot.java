@@ -74,6 +74,7 @@ public class IntakePivot implements Subsystem
 
     public void manualPivotPower(double power)
     {
+        this.disabled = false;
         pivotMotor.setVoltage(power);
     }
 
