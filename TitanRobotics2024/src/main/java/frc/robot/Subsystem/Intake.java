@@ -16,7 +16,6 @@ public class Intake implements Subsystem
   private double currentDistance;
   private double pivotPower;
 
-  private ModifiedEncoders encoder;
   private ModifiedMotors pivotMotor;
   private ModifiedMotors rollerMotor;
   private PIDController positionPID;
@@ -32,17 +31,13 @@ public class Intake implements Subsystem
   {
     if (instance == null)
     {
-      instance = new Intake(new ModifiedEncoders(PortMap.INTAKEPIVOTENCODER_A.portNumber, PortMap.INTAKEPIVOTENCODER_B.portNumber, "QuadratureEncoder"),
-              new ModifiedMotors(PortMap.INTAKEMOTORPIVOT.portNumber, "CANSparkMax"),
-              new ModifiedMotors(PortMap.INTAKEMOTORROLLER.portNumber, "CANSparkMax"));
+      instance = new Intake(new ModifiedMotors(PortMap.INTAKEMOTORROLLER.portNumber, "CANSparkMax"));
     }
     return instance;
   }
 
-  private Intake(ModifiedEncoders encoder, ModifiedMotors Pmotor, ModifiedMotors Rmotor)
+  private Intake( ModifiedMotors Rmotor)
   {
-    this.encoder = encoder;
-    this.pivotMotor = Pmotor;
     this.rollerMotor = Rmotor;
     positionPID = new PIDController(kp, ki, kd);
   }
@@ -62,11 +57,6 @@ public class Intake implements Subsystem
     this.IntakeState = "stopIntake";
   }
 
-  public void stopIntakeArm()
-  {
-    this.IntakeState = "stopIntakeArm";
-  }
-
   public void intaking()
   {
     this.IntakeState = "Intaking";
@@ -77,22 +67,12 @@ public class Intake implements Subsystem
     this.IntakeState = "reverseIntaking";
   }
 
-  public void manualUp()
-  {
-    this.IntakeState = "manualUp";
-  }
-
-  public void manualDown()
-  {
-    this.IntakeState = "manualDown";
-  }
-
   public void setIntakeMode()
   {
     this.IntakeState = "manualStop";
   }
 
-  private void IntakeStateProcess()
+ /*  private void IntakeStateProcess()
   {
     switch (IntakeState)
     {
@@ -137,17 +117,12 @@ public class Intake implements Subsystem
     {
       rotationPower = positionPID.calculate(currentDistance, rotationtarget);
     }
-  }
+  } */
 
   public void log()
   {
     SmartDashboard.putNumber("currentDistance", currentDistance);
     SmartDashboard.putString(IntakeState, IntakeState);
-  }
-
-  public void manualPivotPower(double power)
-  {
-    pivotPower = power;
   }
 
   public void manualIntakePower(double power)
@@ -157,13 +132,11 @@ public class Intake implements Subsystem
 
   public void update()
   {
-    currentDistance = encoder.getRelativeDistance();
-    if (intakeMode == "auto")
-    {
-      IntakeStateProcess();
-    }
+    //if (intakeMode == "auto")
+    //{
+    //  IntakeStateProcess();
+    //}
 
-    pivotMotor.set(pivotPower);
     rollerMotor.set(intakePower);
-  }
+  } 
 }

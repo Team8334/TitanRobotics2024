@@ -52,7 +52,7 @@ public class Robot extends TimedRobot
   private static Limelight limelight;
   private static PositionEstimation positionEstimation;
   private static SmartDashboardSubsystem smartDashboardSubsystem;
-  //private static Intake intake;
+  private static Intake intake;
   private static IntakePivot intakePivot;
   private static Ramp ramp;
 
@@ -77,7 +77,7 @@ public class Robot extends TimedRobot
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
     limelight = Limelight.getInstance();
-    //intake = Intake.getInstance();
+    intake = Intake.getInstance();
     intakePivot = IntakePivot.getInstance();
     ramp = Ramp.getInstance();
 
@@ -105,7 +105,7 @@ public class Robot extends TimedRobot
     driveBase.update();
     positionEstimation.update();
     limelight.update();
-    //intake.update();
+    intake.update();
     intakePivot.update();
     ramp.update();
 

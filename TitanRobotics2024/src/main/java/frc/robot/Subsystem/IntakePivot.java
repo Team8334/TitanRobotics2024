@@ -26,7 +26,8 @@ public class IntakePivot implements Subsystem
 
     private double maxVelocity;
     private double maxAcceleration;
-    private double encoderDistancePerPulse = 360.0 / 2048.0;
+    private double encoderDistancePerRotation = 360.0;
+    private double encoderPositionOffset = 0.5;
     private boolean disabled;
     private double goal;
     private double startingOffset = 0.0;
@@ -45,21 +46,21 @@ public class IntakePivot implements Subsystem
     public IntakePivot()
     {
         pivotMotor = new ModifiedMotors(PortMap.INTAKEMOTORPIVOT.portNumber, "CANSparkMax");
-        pivotEncoder = new ModifiedEncoders(PortMap.INTAKEPIVOTENCODER_A.portNumber, PortMap.INTAKEPIVOTENCODER_B.portNumber, "QuadratureEncoder");
+        pivotEncoder = new ModifiedEncoders(PortMap.INTAKEPIVOTENCODER.portNumber, encoderPositionOffset, "DutyCycleEncoder");
         if (pivotMotor == null)
         {
             System.out.println("Pivot null");
         }
         pivotProfiledPIDController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
 
-        pivotEncoder.setDistancePerPulse(encoderDistancePerPulse);
+        pivotEncoder.setDistancePerRotation(encoderDistancePerRotation);
         disabled = true;
     }
 
     private void control()
     {
         pivotProfiledPIDController.setGoal(goal + startingOffset);
-        pivotMotor.setVoltage(pivotProfiledPIDController.calculate(pivotEncoder.getRelativeDistance()) + feedforward.calculate(pivotProfiledPIDController.getSetpoint().position, pivotProfiledPIDController.getSetpoint().velocity));
+        pivotMotor.setVoltage(pivotProfiledPIDController.calculate(pivotEncoder.getAbsoluteDistance()) + feedforward.calculate(pivotProfiledPIDController.getSetpoint().position, pivotProfiledPIDController.getSetpoint().velocity));
     }
 
     public void setTargetPosition(double position)
@@ -76,13 +77,12 @@ public class IntakePivot implements Subsystem
 
     public void manualPivotPower(double power)
     {
-        this.disabled = false;
         pivotMotor.setVoltage(power);
     }
 
     public void log()
     {
-        SmartDashboard.putNumber("pivotEncoder", pivotEncoder.getRelativeDistance());
+        SmartDashboard.putNumber("pivotEncoder", pivotEncoder.getAbsoluteDistance());
     }
 
     public void update()

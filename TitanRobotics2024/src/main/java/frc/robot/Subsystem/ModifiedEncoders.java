@@ -32,14 +32,14 @@ public class ModifiedEncoders implements Subsystem
         }
     }
 
-    public ModifiedEncoders(int portNumber, String encodertype)
+    public ModifiedEncoders(int portNumber, double positionOffset, String encodertype)
     {
         switch (encodertype)
         {
             case "CANSparkMaxEncoder":
                 break;
             case "DutyCycleEncoder": //absolute encoder
-                dutyCycleEncoder = initializeDutyCycle(portNumber);
+                dutyCycleEncoder = initializeDutyCycle(portNumber, positionOffset);
                 break;
             default:
                 System.err.println("Error: single channel encoders not activated");
@@ -70,6 +70,14 @@ public class ModifiedEncoders implements Subsystem
         else
         {
             return;
+        }
+    }
+
+    public void setDistancePerRotation(double distancePerRotation)
+    {
+         if (dutyCycleEncoder != null)
+        {
+            dutyCycleEncoder.setDistancePerRotation(distancePerRotation);
         }
     }
 
@@ -113,7 +121,7 @@ public class ModifiedEncoders implements Subsystem
         }
     }
 
-    private DutyCycleEncoder initializeDutyCycle(int portNumber)
+    private DutyCycleEncoder initializeDutyCycle(int portNumber, double positionOffset)
     {
         if (portNumber < 0)
         {
@@ -123,6 +131,7 @@ public class ModifiedEncoders implements Subsystem
         try
         {
             dutyCycleEncoder = new DutyCycleEncoder(portNumber);
+            dutyCycleEncoder.setPositionOffset(positionOffset);
             return dutyCycleEncoder;
         }
         catch (Exception e)
