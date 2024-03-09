@@ -50,7 +50,7 @@ public class Control implements Subsystem
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
-        if (driverController.debounceB()){
+        if (driverController.debounceLeftBumper()){
             inversion = !inversion;
             SmartDashboard.putBoolean("inversion", inversion);
         }
@@ -106,7 +106,7 @@ public class Control implements Subsystem
             {
                 targeting.setTarget("Stage");
                 turn = targeting.aprilTaglockOn();
-            }
+             }
 
             else
             {
@@ -145,7 +145,7 @@ public class Control implements Subsystem
         }
         else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))//left bumper = intake out, pushes ramp towards the scoring side
         {
-            intake.manualIntakePower(-0.3);
+            intake.manualIntakePower(-0.2);
             intake.manualPivotPower(0);
             ramp.setRamp(0.3);
         }
