@@ -10,7 +10,7 @@ public class DriverController extends XboxController implements Subsystem
     private XboxController xboxController;
     private static DriverController instance = null;
     
-    boolean bReleased;
+    boolean leftBumperReleased;
     boolean startReleased;
 
     public static DriverController getInstance()
@@ -123,16 +123,16 @@ public class DriverController extends XboxController implements Subsystem
         }
     }
 
-    public boolean debounceB()
+    public boolean debounceLeftBumper()
     {
-        if (getButton(ButtonMap.XboxB) && bReleased)
+        if (getButton(ButtonMap.XboxB) && leftBumperReleased)
         {
-            bReleased = false;
+            leftBumperReleased = false;
             return true;
         }
         else
         {
-            bReleased = !getButton(ButtonMap.XboxB);
+            leftBumperReleased = !getButton(ButtonMap.XboxB);
             return false;
         }
     }
