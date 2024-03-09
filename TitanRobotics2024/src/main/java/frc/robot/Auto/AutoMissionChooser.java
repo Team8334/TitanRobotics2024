@@ -17,7 +17,9 @@ public class AutoMissionChooser
         ScoringMission,
         ScoringThenMovingMission,
         RedScorePickUpMission,
-        BlueScorePickUpMission
+        BlueScorePickUpMission,
+        RedScoreMoveOutMission,
+        BlueScoreMoveOutMission
     }
 
     private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
@@ -38,6 +40,8 @@ public class AutoMissionChooser
         missionChooser.addOption("Score and Move After", DesiredMission.ScoringThenMovingMission);
         missionChooser.addOption("Red Score and pick up", DesiredMission.RedScorePickUpMission);
         missionChooser.addOption("Blue Score and pick up", DesiredMission.BlueScorePickUpMission);
+        missionChooser.addOption("Red Score and move out", DesiredMission.RedScoreMoveOutMission);
+        missionChooser.addOption("Blue Score and move out", DesiredMission.BlueScoreMoveOutMission);
         // add more here as needed
 
         SmartDashboard.putData("Auto Mission", missionChooser);
@@ -79,9 +83,13 @@ public class AutoMissionChooser
             case ScoringThenMovingMission:
                 return Optional.of(new ScoringThenMovingMission());
             case RedScorePickUpMission:
-                return Optional.of(new RedScorePickUpMission());
+                return Optional.of(new RedScoreMoveOutMission());
             case BlueScorePickUpMission:
-                return Optional.of(new BlueScorePickUpMission());
+                return Optional.of(new BlueScoreMoveOutMission());
+            case RedScoreMoveOutMission:
+                return Optional.of(new RedScoreMoveOutMission());
+            case BlueScoreMoveOutMission:
+                return Optional.of(new BlueScoreMoveOutMission());
             default:
                 System.err.println("No valid autonomous mission found for" + mission);
                 return Optional.empty();
