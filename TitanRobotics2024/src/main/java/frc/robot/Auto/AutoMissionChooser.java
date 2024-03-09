@@ -1,6 +1,5 @@
 package frc.robot.Auto;
 
-import frc.robot.Auto.Actions.RunningScoringActions;
 import frc.robot.Auto.Missions.*;
 import java.util.Optional;
 
@@ -16,7 +15,9 @@ public class AutoMissionChooser
         exampleMission,
         oneNoteMission,
         ScoringMission,
-        ScoringThenMovingMission
+        ScoringThenMovingMission,
+        RedScorePickUpMission,
+        BlueScorePickUpMission
     }
 
     private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
@@ -35,6 +36,8 @@ public class AutoMissionChooser
         missionChooser.addOption("Score 1 note in amp", DesiredMission.oneNoteMission);
         missionChooser.addOption("Scoring 1 note", DesiredMission.ScoringMission);
         missionChooser.addOption("Score and Move After", DesiredMission.ScoringThenMovingMission);
+        missionChooser.addOption("Red Score and pick up", DesiredMission.RedScorePickUpMission);
+        missionChooser.addOption("Blue Score and pick up", DesiredMission.BlueScorePickUpMission);
         // add more here as needed
 
         SmartDashboard.putData("Auto Mission", missionChooser);
@@ -75,6 +78,10 @@ public class AutoMissionChooser
                 return Optional.of(new ScoringMission());
             case ScoringThenMovingMission:
                 return Optional.of(new ScoringThenMovingMission());
+            case RedScorePickUpMission:
+                return Optional.of(new RedScorePickUpMission());
+            case BlueScorePickUpMission:
+                return Optional.of(new BlueScorePickUpMission());
             default:
                 System.err.println("No valid autonomous mission found for" + mission);
                 return Optional.empty();

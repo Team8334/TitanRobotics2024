@@ -7,6 +7,8 @@ public class Control implements Subsystem
 {
     private static Control instance = null;
 
+    private boolean useSlew = false;
+    //private SlewRateLimiter limiter = new SlewRateLimiter(0.5);
     private DriveBase driveBase;
     private DriverController driverController;
     private OperatorController operatorController;
@@ -50,6 +52,14 @@ public class Control implements Subsystem
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
+        if (driverController.debounceSTART()) {
+            useSlew = !useSlew;
+            SmartDashboard.putBoolean("use slew", useSlew);
+        }
+        if (useSlew) {
+            //forward = limiter.calculate(forward);
+            //turn = limiter.calculate(turn);
+        }
         if (driverController.debounceB()){
             inversion = !inversion;
             SmartDashboard.putBoolean("inversion", inversion);
