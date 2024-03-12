@@ -60,6 +60,8 @@ public class TurnDegreesAction implements Actions
     @Override
     public void update()
     {
+        currentDegrees = position.getAngle();
+        SmartDashboard.putNumber("CurrentDegrees", currentDegrees);
         turn = PID.calculate(position.getAngle());
         driveBase.drive(0, turn);
         SmartDashboard.putNumber("targetDegrees", targetDegrees);
