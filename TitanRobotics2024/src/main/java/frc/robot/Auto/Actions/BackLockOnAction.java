@@ -9,6 +9,7 @@ public class BackLockOnAction implements Actions
     private Targeting targeting;
     private DriveBase driveBase;
     private LimelightBack limelight;
+    private String target;
 
     double neededArea;
 
@@ -17,6 +18,7 @@ public class BackLockOnAction implements Actions
      */
     public BackLockOnAction(String target)
     {
+        this.target = target;
         targeting = Targeting.getInstance();
         limelight = LimelightBack.getInstance();
         driveBase = DriveBase.getInstance();
@@ -26,21 +28,18 @@ public class BackLockOnAction implements Actions
             case "Amp":
             {
                 limelight.setPipeline(0);
-                targeting.setTarget("Amp");
             }
                 break;
 
             case "Source":
             {
                 limelight.setPipeline(0);
-                targeting.setTarget("Source");
             }
                 break;
 
             case "Stage":
             {
                 limelight.setPipeline(0);
-                targeting.setTarget("Stage");
             }
                 break;
 
@@ -75,7 +74,7 @@ public class BackLockOnAction implements Actions
     {
         if (limelight.getPipeline() == 0)
         {
-            driveBase.drive(targeting.follow(), targeting.aprilTagLockOn());
+            driveBase.drive(targeting.follow(), targeting.backAprilTagLockOn(target));
         }
         if (limelight.getPipeline() == 1)
         {

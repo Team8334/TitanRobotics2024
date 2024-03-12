@@ -41,18 +41,13 @@ public class Targeting implements Subsystem // This class contains functions for
         limelightFront = LimelightFront.getInstance();
         try
         {
-           alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
+            alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
         }
         catch (Exception e)
         {
             // Handle the exception, for example:
             System.out.println("Exception occurred: " + e.getMessage());
         }
-    }
-
-    public void setTarget(String target)
-    {
-        this.target = target;
     }
 
     public double aprilTagLockOn()
@@ -62,15 +57,44 @@ public class Targeting implements Subsystem // This class contains functions for
         backTags = limelightBack.findTagName();
         if (backTags == "amp")
         {
-            return (aprilTagXPID.calculate(limelightBack.x, 0) / 150);
+            return (aprilTagXPID.calculate(limelightBack.x, 0) / 150.0);
         }
         else if (frontTags == "source")
         {
-            return (aprilTagXPID.calculate(limelightFront.x, 0) / 150);
+            return (aprilTagXPID.calculate(limelightFront.x, 0) / 150.0);
         }
         else
         {
             return 0;
+        }
+    }
+
+    public double frontAprilTagLockOn(String target)
+    {
+       
+        limelightFront.setPipeline(0);
+        frontTags = limelightFront.findTagName();
+        if (frontTags == target)
+        {
+            return (aprilTagXPID.calculate(limelightFront.x, 0) / 150.0);
+        }
+        else
+        {
+            return 0.0;
+        }
+    }
+
+    public double backAprilTagLockOn(String target)
+    {
+        limelightBack.setPipeline(0);
+        backTags = limelightBack.findTagName();
+        if (backTags == target)
+        {
+            return (aprilTagXPID.calculate(limelightBack.x, 0) / 150.0);
+        }
+        else
+        {
+            return 0.0;
         }
     }
 

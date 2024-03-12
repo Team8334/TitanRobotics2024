@@ -9,6 +9,7 @@ public class FrontLockOnAction implements Actions
     private Targeting targeting;
     private DriveBase driveBase;
     private LimelightFront limelight;
+    private String target;
 
     double neededArea;
 
@@ -18,6 +19,7 @@ public class FrontLockOnAction implements Actions
     public FrontLockOnAction(String target)
     {
         targeting = Targeting.getInstance();
+        this.target = target;
         limelight = LimelightFront.getInstance();
         driveBase = DriveBase.getInstance();
 
@@ -26,21 +28,18 @@ public class FrontLockOnAction implements Actions
             case "Amp":
             {
                 limelight.setPipeline(0);
-                targeting.setTarget("Amp");
             }
                 break;
 
             case "Source":
             {
                 limelight.setPipeline(0);
-                targeting.setTarget("Source");
             }
                 break;
 
             case "Stage":
             {
                 limelight.setPipeline(0);
-                targeting.setTarget("Stage");
             }
                 break;
 
@@ -75,7 +74,7 @@ public class FrontLockOnAction implements Actions
     {
         if (limelight.getPipeline() == 0)
         {
-            driveBase.drive(targeting.follow(), targeting.aprilTagLockOn());
+            driveBase.drive(targeting.follow(), targeting.frontAprilTagLockOn(target));
         }
         if (limelight.getPipeline() == 1)
         {
