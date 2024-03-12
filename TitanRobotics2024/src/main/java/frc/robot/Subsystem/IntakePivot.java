@@ -133,7 +133,7 @@ public class IntakePivot implements Subsystem
                 currentPosition += 360;
             }
             IntakeStateProcess();
-        } 
+        }
         if (!disabled)
         {
             control();
