@@ -69,7 +69,7 @@ public class Control implements Subsystem
 
     private void limelightControl()
     {
-        targeting.setAlliance("blue"); // Change depending on alliance
+        targeting.setAlliance("blue"); // Change depending on alliance.
                                        // for upcoming match.
                                        // Failure to change this will
                                        // cause you to target the
