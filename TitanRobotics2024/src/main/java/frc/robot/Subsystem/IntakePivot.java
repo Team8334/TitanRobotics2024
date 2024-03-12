@@ -1,15 +1,10 @@
 package frc.robot.Subsystem;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
-import frc.robot.Subsystem.ModifiedMotors;
-import frc.robot.Subsystem.ModifiedEncoders;
 
 public class IntakePivot implements Subsystem
 {
