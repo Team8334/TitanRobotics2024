@@ -2,23 +2,23 @@ package frc.robot.Auto.Actions;
 
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.Targeting;
-import frc.robot.Subsystem.LimelightFront;
+import frc.robot.Subsystem.LimelightBack;
 
-public class LockOnAction implements Actions
+public class BackLockOnAction implements Actions
 {
     private Targeting targeting;
     private DriveBase driveBase;
-    private LimelightFront limelight;
+    private LimelightBack limelight;
 
     double neededArea;
 
     /**
      * Run code once when the action is started, for setup
      */
-    public LockOnAction(String target, String alliance)
+    public BackLockOnAction(String target)
     {
         targeting = Targeting.getInstance();
-        limelight = LimelightFront.getInstance();
+        limelight = LimelightBack.getInstance();
         driveBase = DriveBase.getInstance();
 
         switch (target)
@@ -57,7 +57,7 @@ public class LockOnAction implements Actions
     {
         if (limelight.getPipeline() == 0)
         {
-            neededArea = 5;
+            neededArea = 5.0;
         }
         if (limelight.getPipeline() == 1)
         {
