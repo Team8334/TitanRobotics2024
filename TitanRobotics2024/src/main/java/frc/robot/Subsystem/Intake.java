@@ -4,6 +4,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
 
+
 public class Intake implements Subsystem
 {
   private double Intake_Up_Position = 0.0; // set these later
@@ -23,7 +24,9 @@ public class Intake implements Subsystem
   private double kp;
   private double ki;
   private double kd;
+  private boolean state; //values are opposite of what is to be expected, true is when not pressed, false is when pressed.
 
+ 
   private static Intake instance = null;
 
   private String intakeMode = "manual";
@@ -93,7 +96,7 @@ public class Intake implements Subsystem
   }
 
   private void IntakeStateProcess()
-  {
+{
     switch (IntakeState)
     {
       case "up":// this can be used to hold the note in place before the ramp to
@@ -157,6 +160,8 @@ public class Intake implements Subsystem
 
   public void update()
   {
+    
+
     currentDistance = encoder.getDistance();
     if (intakeMode == "auto")
     {

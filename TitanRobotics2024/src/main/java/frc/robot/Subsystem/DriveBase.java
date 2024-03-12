@@ -6,6 +6,7 @@ import frc.robot.Data.PortMap;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class DriveBase implements Subsystem
 {
@@ -18,7 +19,7 @@ public class DriveBase implements Subsystem
   private Gyro gyro;
   private double forward;
   private double turn;
-
+ 
   private double leftEncoderRate;
   private double rightEncoderRate;
   private double rightEncoderDistance;
