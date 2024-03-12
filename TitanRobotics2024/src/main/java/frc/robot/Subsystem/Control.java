@@ -53,17 +53,18 @@ public class Control implements Subsystem
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY); //* (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
-       /*  if (driverController.debounceSTART()) {
+        //Driver does not want this code on forward drive
+        if (driverController.debounceSTART()) {
             useSlew = !useSlew;
             SmartDashboard.putBoolean("use slew", useSlew);
         }
         if (useSlew) {
-            forward = limiter.calculate(forward);
+            turn = limiter.calculate(turn);
         }
         if (driverController.debounceB()){
             inversion = !inversion;
             SmartDashboard.putBoolean("inversion", inversion);
-        }*/
+        }
 
         if (inversion){
 
