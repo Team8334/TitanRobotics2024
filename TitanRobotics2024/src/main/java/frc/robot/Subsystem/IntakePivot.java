@@ -21,6 +21,9 @@ public class IntakePivot implements Subsystem
     private double kAVolts = 0.0;
     private double currentPosition;
 
+    private double upGoal = 385.0;
+    private double downGoal = 212.0;
+
     private double maxVelocity;
     private double maxAcceleration;
     private double encoderDistancePerRotation = 360.0;
@@ -86,11 +89,11 @@ public class IntakePivot implements Subsystem
                 setDisabled(true);
                 break;
             case "up":
-                goal = 385.0;
+                goal = upGoal;
                 setDisabled(false);
                 break;
             case "down":
-                goal = 212.0;
+                goal = downGoal;
                 setDisabled(false);
                 break;
             default:
