@@ -9,7 +9,6 @@ public class BlueScoreMoveOutMission extends MissionBase
 {
     @Override
     protected void routine() throws AutoMissionEndedException 
-    // should drive forward, intake on front, activate the intake, and then we can make in do other stuff
     {
         runAction(new DriveForDistanceAction(1.7, 3));  
         runAction(new TurnDegreesAction(77, 1));

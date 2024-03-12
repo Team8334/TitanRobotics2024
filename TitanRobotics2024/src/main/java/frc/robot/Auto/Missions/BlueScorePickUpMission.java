@@ -10,7 +10,6 @@ public class BlueScorePickUpMission extends MissionBase
     @Override
     protected void routine() throws AutoMissionEndedException 
     {
-    
         runAction(new DriveForDistanceAction(1.7, 3));  
         runAction(new TurnDegreesAction(77, 1));
         runAction(new DriveForDistanceAction(1.5, 3));

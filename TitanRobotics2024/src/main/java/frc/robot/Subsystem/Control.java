@@ -1,5 +1,6 @@
 package frc.robot.Subsystem;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 
@@ -8,7 +9,7 @@ public class Control implements Subsystem
     private static Control instance = null;
 
     private boolean useSlew = false;
-    //private SlewRateLimiter limiter = new SlewRateLimiter(0.5);
+    private SlewRateLimiter limiter = new SlewRateLimiter(20);
     private DriveBase driveBase;
     private DriverController driverController;
     private OperatorController operatorController;
@@ -49,21 +50,20 @@ public class Control implements Subsystem
 
     public void teleopControl()
     {
-        forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
+        forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY); //* (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
-        if (driverController.debounceSTART()) {
+       /*  if (driverController.debounceSTART()) {
             useSlew = !useSlew;
             SmartDashboard.putBoolean("use slew", useSlew);
         }
         if (useSlew) {
-            //forward = limiter.calculate(forward);
-            //turn = limiter.calculate(turn);
+            forward = limiter.calculate(forward);
         }
         if (driverController.debounceB()){
             inversion = !inversion;
             SmartDashboard.putBoolean("inversion", inversion);
-        }
+        }*/
 
         if (inversion){
 
