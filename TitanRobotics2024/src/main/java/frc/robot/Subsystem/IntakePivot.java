@@ -125,6 +125,15 @@ public class IntakePivot implements Subsystem
 
     public void update()
     {
+        if (pivotEncoder != null)
+        {
+            currentPosition = pivotEncoder.getAbsolutePosition();
+            if (currentPosition <= 120)
+            {
+                currentPosition += 360;
+            }
+            IntakeStateProcess();
+        } 
         if (!disabled)
         {
             control();
@@ -132,15 +141,6 @@ public class IntakePivot implements Subsystem
         else
         {
             pivotMotor.setVoltage(0.0);
-        }
-        if (pivotEncoder != null)
-        {
-            IntakeStateProcess();
-        }
-        currentPosition = pivotEncoder.getAbsolutePosition();
-        if (currentPosition <= 120)
-        {
-            currentPosition = (currentPosition + 360);
         }
     }
 
