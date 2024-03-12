@@ -107,11 +107,7 @@ public class ClimberSubsystem implements Subsystem
         switch (climberState)
         {
             case "MANUAL":
-                //if (!((climberVelocity > 0.0 && atTop()) || (climberVelocity < 0.0 && atBottom()))) 
-                //{
-                //    climberVelocity = 0.0;
-                //}
-                climberPower = climberVelocity * 0.5;//velocityPID.calculate(currentVelocity, climberVelocity);
+                climberPower = climberVelocity * 0.5;
                 break;
             case "TOP":
                 rotationTarget = TOP_DISTANCE;

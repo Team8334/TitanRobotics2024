@@ -87,7 +87,6 @@ public class Gyro implements Subsystem
 
   public void reset()
   {
-    // ahrs.zeroYaw();-+
 
   }
 

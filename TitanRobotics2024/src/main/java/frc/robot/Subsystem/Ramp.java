@@ -36,6 +36,17 @@ public class Ramp
     this.outtakePower = (rampforward);
   }
 
+  public void setRampLeftAndRight(double rampforward)
+  {
+    this.rampMotorLeftpower = (-rampforward);
+    this.rampMotorRightpower = (rampforward);
+  }
+
+  public void setOuttake(double outtakePower)
+  {
+    this.outtakePower = outtakePower;
+  }
+
   public void log()
   {
     SmartDashboard.putNumber("RampLeftPower", rampMotorLeftpower);
@@ -51,11 +62,11 @@ public class Ramp
     }
     if (rampRightMotor != null)
     {
-    rampRightMotor.set(rampMotorRightpower);
+      rampRightMotor.set(rampMotorRightpower);
     }
     if (outtakeMotor != null)
     {
-    outtakeMotor.set(outtakePower);
-  }
+      outtakeMotor.set(outtakePower);
+    }
   }
 }
