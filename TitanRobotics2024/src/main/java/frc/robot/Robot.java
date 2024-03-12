@@ -19,6 +19,7 @@ import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.PositionEstimation;
 import frc.robot.Subsystem.Ramp;
+import frc.robot.Subsystem.LEDLightStrip;
 
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot
   private static SmartDashboardSubsystem smartDashboardSubsystem;
   private static Intake intake;
   private static Ramp ramp;
+  private static LEDLightStrip ledLightStrip;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -77,6 +79,7 @@ public class Robot extends TimedRobot
     limelight = Limelight.getInstance();
     intake = Intake.getInstance();
     ramp = Ramp.getInstance();
+    ledLightStrip = LEDLightStrip.getInstance();
 
     smartDashboardSubsystem.update();
   }

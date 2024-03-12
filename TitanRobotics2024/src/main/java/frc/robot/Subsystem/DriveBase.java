@@ -7,6 +7,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
+
 public class DriveBase implements Subsystem
 {
   private final DifferentialDrive drive;
@@ -18,7 +19,7 @@ public class DriveBase implements Subsystem
   private Gyro gyro;
   private double forward;
   private double turn;
-
+ 
   private double leftEncoderRate;
   private double rightEncoderRate;
   private double rightEncoderDistance;
