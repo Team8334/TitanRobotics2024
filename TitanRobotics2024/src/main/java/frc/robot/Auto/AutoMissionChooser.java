@@ -83,9 +83,9 @@ public class AutoMissionChooser
             case ScoringThenMovingMission:
                 return Optional.of(new ScoringThenMovingMission());
             case RedScorePickUpMission:
-                return Optional.of(new RedScoreMoveOutMission());
+                return Optional.of(new RedScorePickUpMission());
             case BlueScorePickUpMission:
-                return Optional.of(new BlueScoreMoveOutMission());
+                return Optional.of(new BlueScorePickUpMission());
             case RedScoreMoveOutMission:
                 return Optional.of(new RedScoreMoveOutMission());
             case BlueScoreMoveOutMission:
