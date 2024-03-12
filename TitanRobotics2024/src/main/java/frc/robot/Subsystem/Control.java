@@ -52,17 +52,17 @@ public class Control implements Subsystem
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
-        if (driverController.debounceB()){
+        if (driverController.debounceB())
+        {
             inversion = !inversion;
             SmartDashboard.putBoolean("inversion", inversion);
         }
 
-        if (inversion){
+        if (inversion)
+        {
 
             forward = -forward;
         }
-
-        //limelightControl();
 
         driveBase.drive(forward, turn);
 
@@ -128,26 +128,10 @@ public class Control implements Subsystem
                 System.out.println("Locking On to Note");
             }
         }
-
-        /*if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
-        {
-            forward = targeting.follow();
-            turn = targeting.otherLockOn();
-        }*/
     }
 
     private void climberControl()
     {
-
-        // if (operatorController.getButton(ButtonMap.XboxY))
-        // {
-        //     climberControl.top();
-        // }
-
-        // if (operatorController.getButton(ButtonMap.XboxX))
-        // {
-        //     climberControl.bottom();
-        // }
 
         if (operatorController.getButton(ButtonMap.XboxB))
         {
@@ -162,37 +146,41 @@ public class Control implements Subsystem
     {
         if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))
         {
-            intake.manualIntakePower(0.3);
-            //intake.manualPivotPower(0);
+            intake.manualIntakePower(0.6);
+
             ramp.setRamp(-0.3);
         }
         else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))
         {
             intake.manualIntakePower(-0.3);
-            //intake.manualPivotPower(0);
             ramp.setRamp(0.3);
         }
-        else if (operatorController.getButton(ButtonMap.XboxY))
-        {
-            intake.manualIntakePower(0);
-            //intakePivot.manualPivotPower(1.75);
-            //ramp.setRamp(0);
-            intakePivot.setTargetPosition(25);
-        }
-        else if (operatorController.getButton(ButtonMap.XboxA))
-        {
-            intake.manualIntakePower(0);
-            //intakePivot.manualPivotPower(-1.75);
-            //ramp.setRamp(0);
-            intakePivot.setTargetPosition(-145);
-        }
-        
+
         else
         {
             intake.manualIntakePower(0);
-            intakePivot.manualPivotPower(0);
-            intakePivot.setDisabled(true);
             ramp.setRamp(0);
+        }
+
+        if (operatorController.debounceA())
+        {
+            if (intakePivot.intakeState == "disabled")
+            {
+                intakePivot.down();
+            }
+            else if (intakePivot.intakeState == "up")
+            {
+                intakePivot.down();
+            }
+            else if (intakePivot.intakeState == "down")
+            {
+                intakePivot.up();
+            }
+        }
+
+        if (operatorController.getButton(ButtonMap.XboxB))
+        {
+            intakePivot.disabled();
         }
     }
 

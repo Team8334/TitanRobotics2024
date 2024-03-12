@@ -36,88 +36,11 @@ public class Intake implements Subsystem
     return instance;
   }
 
-  private Intake( ModifiedMotors Rmotor)
+  private Intake(ModifiedMotors Rmotor)
   {
     this.rollerMotor = Rmotor;
     positionPID = new PIDController(kp, ki, kd);
   }
-
-  public void up()
-  {
-    this.IntakeState = "up";
-  }
-
-  public void down()
-  {
-    this.IntakeState = "down";
-  }
-
-  public void stopIntake()
-  {
-    this.IntakeState = "stopIntake";
-  }
-
-  public void intaking()
-  {
-    this.IntakeState = "Intaking";
-  }
-
-  public void reverseIntaking()
-  {
-    this.IntakeState = "reverseIntaking";
-  }
-
-  public void setIntakeMode()
-  {
-    this.IntakeState = "manualStop";
-  }
-
- /*  private void IntakeStateProcess()
-  {
-    switch (IntakeState)
-    {
-      case "up":// this can be used to hold the note in place before the ramp to
-                // amp transfer
-        rotationtarget = Intake_Up_Position;
-        intakePower = 0.0;
-        break;
-      case "down":// used if when intake is lowered, but rollers have not been activated
-        rotationtarget = Intake_Bottom_Position;
-        intakePower = 0.0;
-        break;
-      case "stopIntake":// rotation of the intake arm set to zero, no movement
-        intakePower = 0.0;
-        pivotPower = 0;
-        break;
-      case "stopIntakeArm":
-        pivotPower = 0.0;
-        break;
-      case "Intaking":// rollers spin to move the note in
-        //rotationtarget = Intake_Bottom_Position;
-        intakePower = 0.3;
-        pivotPower = 0;
-        break;
-      case "reverseIntaking":// rollers spin to push the note out into the ramp
-        //rotationtarget = Intake_Up_Position;
-        intakePower = -0.3;
-        pivotPower = 0;
-        break;
-      case "manualUp":
-        pivotPower = 0.1;
-        intakePower = 0;
-        break;
-      case "manualDown":
-        intakePower = 0;
-        pivotPower = -0.1;
-        break;
-      default:
-        break;
-    }
-    if (IntakeState != "stop")
-    {
-      rotationPower = positionPID.calculate(currentDistance, rotationtarget);
-    }
-  } */
 
   public void log()
   {
@@ -132,11 +55,6 @@ public class Intake implements Subsystem
 
   public void update()
   {
-    //if (intakeMode == "auto")
-    //{
-    //  IntakeStateProcess();
-    //}
-
     rollerMotor.set(intakePower);
-  } 
+  }
 }

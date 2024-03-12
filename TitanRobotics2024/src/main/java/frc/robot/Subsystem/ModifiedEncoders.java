@@ -182,7 +182,7 @@ public class ModifiedEncoders implements Subsystem
     {
             if (dutyCycleEncoder != null)
         {
-            return dutyCycleEncoder.getAbsolutePosition();
+            return (dutyCycleEncoder.getAbsolutePosition() * 360.0);
         }
         else
         {

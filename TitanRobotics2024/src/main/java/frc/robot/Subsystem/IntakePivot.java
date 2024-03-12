@@ -4,6 +4,7 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
@@ -23,14 +24,17 @@ public class IntakePivot implements Subsystem
     private double kGVolts = 0.0;
     private double kVVolts = 0.0;
     private double kAVolts = 0.0;
+    private double currentPosition;
 
     private double maxVelocity;
     private double maxAcceleration;
     private double encoderDistancePerRotation = 360.0;
-    private double encoderPositionOffset = 0.5;
+    private double encoderPositionOffset = 0.0;
     private boolean disabled;
     private double goal;
     private double startingOffset = 0.0;
+
+    public String intakeState = "disabled";
 
     private final ArmFeedforward feedforward = new ArmFeedforward(kSVolts, kGVolts, kVVolts, kAVolts);
 
@@ -60,12 +64,48 @@ public class IntakePivot implements Subsystem
     private void control()
     {
         pivotProfiledPIDController.setGoal(goal + startingOffset);
-        pivotMotor.setVoltage(pivotProfiledPIDController.calculate(pivotEncoder.getAbsoluteDistance()) + feedforward.calculate(pivotProfiledPIDController.getSetpoint().position, pivotProfiledPIDController.getSetpoint().velocity));
+
+        pivotMotor.setVoltage((pivotProfiledPIDController.calculate(currentPosition) + feedforward.calculate(pivotProfiledPIDController.getSetpoint().position, pivotProfiledPIDController.getSetpoint().velocity)));
+    }
+
+    public void disabled()
+    {
+        this.intakeState = "disabled";
+    }
+
+    public void up()
+    {
+        this.intakeState = "up";
+    }
+
+    public void down()
+    {
+        this.intakeState = "down";
+    }
+
+    private void IntakeStateProcess()
+    {
+        switch (intakeState)
+        {
+            case "disabled":
+                setDisabled(true);
+                break;
+            case "up":
+                goal = 385.0;
+                setDisabled(false);
+                break;
+            case "down":
+                goal = 212.0;
+                setDisabled(false);
+                break;
+            default:
+                break;
+        }
     }
 
     public void setTargetPosition(double position)
     {
-        
+
         goal = position;
         this.disabled = false;
     }
@@ -82,7 +122,7 @@ public class IntakePivot implements Subsystem
 
     public void log()
     {
-        SmartDashboard.putNumber("pivotEncoder", pivotEncoder.getAbsoluteDistance());
+        SmartDashboard.putNumber("pivotAbsoluteEncoder", currentPosition);
     }
 
     public void update()
@@ -94,6 +134,15 @@ public class IntakePivot implements Subsystem
         else
         {
             pivotMotor.setVoltage(0.0);
+        }
+        if (pivotEncoder != null)
+        {
+            IntakeStateProcess();
+        }
+        currentPosition = pivotEncoder.getAbsolutePosition();
+        if (currentPosition <= 120)
+        {
+            currentPosition = (currentPosition + 360);
         }
     }
 

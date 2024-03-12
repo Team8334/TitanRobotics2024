@@ -9,6 +9,7 @@ public class OperatorController extends XboxController implements Subsystem
 {
     private OperatorController xboxController;
     private static OperatorController instance = null;
+    private boolean aReleased = true;
 
     public static OperatorController getInstance()
     {
@@ -101,6 +102,20 @@ public class OperatorController extends XboxController implements Subsystem
         }
         else
         {
+            return false;
+        }
+    }
+
+    public boolean debounceA()
+    {
+        if (getButton(ButtonMap.XboxA) && aReleased)
+        {
+            aReleased = false;
+            return true;
+        }
+        else
+        {
+            aReleased = !getButton(ButtonMap.XboxA);
             return false;
         }
     }
