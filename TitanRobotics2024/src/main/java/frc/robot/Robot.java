@@ -107,6 +107,7 @@ public class Robot extends TimedRobot
     limelight.update();
     intake.update();
     ramp.update();
+    ledLightStrip.update();
 
     smartDashboardSubsystem.update();
 

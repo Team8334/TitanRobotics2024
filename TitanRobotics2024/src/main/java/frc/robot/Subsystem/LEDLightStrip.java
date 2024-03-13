@@ -1,11 +1,9 @@
 package frc.robot.Subsystem;
 
 import frc.robot.Subsystem.ModifiedMotors;
-
-import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import frc.robot.Data.PortMap;
 
+//    https://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf
 public class LEDLightStrip implements Subsystem {
 
     private static LEDLightStrip instance = null;
@@ -23,13 +21,13 @@ public class LEDLightStrip implements Subsystem {
 
   public LEDLightStrip()
   {
-    this.LEDLightStrip = new ModifiedMotors (PortMap.LEDLIGHTSTRIP.portNumber,"CANSparkMax");
+    this.LEDLightStrip = new ModifiedMotors(PortMap.LEDLIGHTSTRIP.portNumber,"Spark");
   }
 
     @Override
     public void update()
     {
-       LEDLightStrip.set(-0.95);
+       LEDLightStrip.set(0.65);
     }
     
 }

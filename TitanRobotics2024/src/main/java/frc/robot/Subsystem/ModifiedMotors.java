@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax; //https://software-metadata.revrobotics.com/REVLib-2024.json
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ModifiedMotors implements Subsystem
@@ -44,6 +45,9 @@ public class ModifiedMotors implements Subsystem
                 break;
             case "CANTalon":
                 motor = initializeCANTalon(portNumber);
+                break;
+            case "Spark":
+                motor = initializeSpark(portNumber);
                 break;
             default:
                 System.err.println("Error: motors not activated");
@@ -107,6 +111,19 @@ public class ModifiedMotors implements Subsystem
         try
         {
             return new CANSparkMax(portNumber, CANSparkMax.MotorType.kBrushless);
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error: CANID Not Activated " + portNumber);
+            return null;
+        }
+    }
+
+    private MotorController initializeSpark(int portNumber)
+    {
+        try
+        {
+            return new Spark(portNumber);
         }
         catch (Exception e)
         {

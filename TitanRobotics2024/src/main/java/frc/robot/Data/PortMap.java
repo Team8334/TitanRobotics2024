@@ -33,7 +33,7 @@ public enum PortMap
     RAMPRIGHTMOTOR(9),
     OUTTAKEMOTOR(11),
 
-    LEDLIGHTSTRIP(-1);
+    LEDLIGHTSTRIP(9);
 
 
     public int portNumber;
