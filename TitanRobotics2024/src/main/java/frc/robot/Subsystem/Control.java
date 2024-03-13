@@ -3,6 +3,7 @@ package frc.robot.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 
+
 public class Control implements Subsystem
 {
     private static Control instance = null;
@@ -15,8 +16,8 @@ public class Control implements Subsystem
     private Intake intake;
     private Limelight limelight;
     private Ramp ramp;
+    private IntakeControl intakeControl;
 
-    private double rampspeed;
     private double forward;
     private double turn;
     private boolean inversion;
@@ -168,7 +169,7 @@ public class Control implements Subsystem
         {
             if (intakePivot.intakeState == "disabled")
             {
-                intakePivot.down();
+                intakePivot.disabled();
             }
             else if (intakePivot.intakeState == "up")
             {
