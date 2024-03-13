@@ -43,6 +43,7 @@ public class Control implements Subsystem
         limelight = Limelight.getInstance();
         intake = Intake.getInstance();
         intakePivot = IntakePivot.getInstance();
+        intakeControl = IntakeControl.getInstance();
         climberControl = ClimberControl.getInstance();
         ramp = Ramp.getInstance();
         inversion = false;
@@ -160,7 +161,7 @@ public class Control implements Subsystem
 
         else
         {
-            intake.manualIntakePower(0);
+           
             ramp.setRamp(0);
         }
 
@@ -185,7 +186,7 @@ public class Control implements Subsystem
             }
             else if (intakeControl.state == "score piece")
             {
-                intakeControl.disabled();
+                intakeControl.up();
             }
         }
 

@@ -85,20 +85,21 @@ public class IntakeControl
                 break;
             case "score piece":
                 intakePivot.up();
-                intake.manualIntakePower(-0.3);
-                ramp.setRamp(0.3);
+                intake.manualIntakePower(-0.15);
+                ramp.setRampLeftAndRight(0.15);
+                ramp.setOuttake(0.4);
             default:
                 break;
         }
 
         if (state.equals("intaking"))
         {
-            if (limitSwitch.get())
+            if (!limitSwitch.get())
             {
                 state = "up with piece";
             }
         }
-        if (state.equals("up") && limitSwitch.get())
+        if (state.equals("up") && !limitSwitch.get())
         {
             state = "up with piece";
         }
