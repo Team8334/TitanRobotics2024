@@ -21,9 +21,9 @@ public class DriveForDistanceAction implements Actions
     private PositionEstimation position;
 
     private PIDController PID;
-    private final double kp = 0.01;
-    private final double ki = 0.011;
-    private final double kd = 0.002;
+    private final double kp = 0.1;
+    private final double ki = 0.11;
+    private final double kd = 0.02;
 
     public DriveForDistanceAction(double distance, double endingSeconds)
     {
@@ -49,8 +49,8 @@ public class DriveForDistanceAction implements Actions
     @Override
     public void update()
     {
-
-        forward = PID.calculate(position.getDistance());
+        currentDistance = position.getDistance();
+        forward = PID.calculate(currentDistance);
         driveBase.drive(forward, 0);
         SmartDashboard.putNumber("targetDistance", targetDistance);
         SmartDashboard.putNumber("currentDistance", currentDistance);
