@@ -11,6 +11,7 @@ public class DriveBase implements Subsystem
 {
   private final DifferentialDrive drive;
   private final DifferentialDriveOdometry odometry;
+
   private ModifiedEncoders leftEncoder;
   private ModifiedEncoders rightEncoder;
   private ModifiedMotors leftMotor;
@@ -23,6 +24,7 @@ public class DriveBase implements Subsystem
   private double rightEncoderRate;
   private double rightEncoderDistance;
   private double leftEncoderDistance;
+
   private double leftPower;
   private double rightPower;
 
@@ -53,13 +55,16 @@ public class DriveBase implements Subsystem
     this.rightEncoder = new ModifiedEncoders(PortMap.RIGHTENCODER_A.portNumber, PortMap.RIGHTENCODER_B.portNumber,
             "E4TEncoder");
 
-    this.leftEncoder.setRatio(49 / 360);
-    this.rightEncoder.setRatio(49 / 360);
-    this.rightEncoder.invert();
+    this.leftEncoder.setDistancePerPulse(0.155 * Math.PI / 360);
+    this.rightEncoder.setDistancePerPulse(0.155 * Math.PI / 360);
+
+    this.leftEncoder.invert(true);
+
+    this.rightEncoder.invert(true);
 
     this.drive = new DifferentialDrive(leftMotor::set, rightMotor::set);
-    this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getDistance(),
-            rightEncoder.getDistance());
+    this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getRelativeDistance(),
+            rightEncoder.getRelativeDistance());
   }
 
   public void setRightMotorsPower(double power)
@@ -104,7 +109,7 @@ public class DriveBase implements Subsystem
     if (leftEncoder != null)
     {
       leftEncoderRate = this.leftEncoder.getRate();
-      leftEncoderDistance = this.leftEncoder.getDistance();
+      leftEncoderDistance = this.leftEncoder.getRelativeDistance();
     }
     else
     {
@@ -113,7 +118,7 @@ public class DriveBase implements Subsystem
     if (rightEncoder != null)
     {
       rightEncoderRate = this.rightEncoder.getRate();
-      rightEncoderDistance = this.rightEncoder.getDistance();
+      rightEncoderDistance = this.rightEncoder.getRelativeDistance();
     }
     else
     {

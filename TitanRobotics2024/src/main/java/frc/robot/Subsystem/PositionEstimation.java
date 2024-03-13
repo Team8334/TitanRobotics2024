@@ -55,7 +55,7 @@ public class PositionEstimation implements Subsystem
 
     public double getDistance()
     {
-        return ((driveBase.getLeftEncoderDistance() - driveBase.getRightEncoderDistance()) / 2);
+        return ((driveBase.getLeftEncoderDistance() + driveBase.getRightEncoderDistance()) / 2);
     }
 
     public void resetPose()
