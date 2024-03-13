@@ -33,12 +33,6 @@ public class IntakeControl
         limitSwitch = new DigitalInput(PortMap.INTAKELIMITSWITCH.portNumber);
     }
 
-    public void log()
-    {
-        SmartDashboard.putString("Intake State", state);
-
-    }
-
     public void up()
     {
         state = "up";
@@ -57,6 +51,11 @@ public class IntakeControl
     public void disabled()
     {
         state = "disabled";
+    }
+
+    public void unClog()
+    {
+        state = "unClog";
     }
 
     private void ProcessState()
@@ -88,6 +87,8 @@ public class IntakeControl
                 intake.manualIntakePower(-0.15);
                 ramp.setRampLeftAndRight(0.15);
                 ramp.setOuttake(0.4);
+            case "unClog":
+                break;
             default:
                 break;
         }
@@ -105,6 +106,13 @@ public class IntakeControl
         }
 
     }
+    
+    public void log()
+    {
+        SmartDashboard.putString("Intake State", state);
+        SmartDashboard.putBoolean("Intake Limit Switch", limitSwitch.get());
+    }
+
     public void update()
     {
         ProcessState();

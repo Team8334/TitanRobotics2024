@@ -21,8 +21,8 @@ public class IntakePivot implements Subsystem
     private double kAVolts = 0.0;
     private double currentPosition;
 
-    private double upGoal = 385.0;
-    private double downGoal = 212.0;
+    private double upGoal = 386.0;
+    private double downGoal = 205.0;
 
     private double maxVelocity;
     private double maxAcceleration;

@@ -32,7 +32,10 @@ public enum PortMap
 
     RAMPLEFTMOTOR(8),
     RAMPRIGHTMOTOR(9),
-    OUTTAKEMOTOR(11);
+    OUTTAKEMOTOR(11),
+
+    LEFTLIMITSWITCH(5),
+    RIGHTLIMITSWITCH(6);
 
 
     public int portNumber;

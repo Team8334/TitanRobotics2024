@@ -146,26 +146,9 @@ public class Control implements Subsystem
 
     private void manipulatorControl()//please do not mess with the buttons, they are set to operator's preference.
     {
-        if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))//right bumper = intake in, pushes ramp back towards the intake
-        {
-            intake.manualIntakePower(0.6);
-
-            ramp.setRamp(-0.3);
-        }
-        else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))//left bumper = intake out, pushes ramp towards the scoring side
-        {
-            intake.manualIntakePower(-0.3);
-            ramp.setRamp(0.3);
-        }
-
-
-        else
-        {
-           
-            ramp.setRamp(0);
-        }
-
-
+        
+        
+        
         if (operatorController.debounceA())
         {
             if (intakeControl.state == "disabled")
@@ -175,6 +158,7 @@ public class Control implements Subsystem
             else if (intakeControl.state == "up")
             {
                 intakeControl.intaking();
+                
             }
             else if (intakeControl.state == "intaking")
             {
@@ -188,8 +172,27 @@ public class Control implements Subsystem
             {
                 intakeControl.up();
             }
+            
         }
+        
+        if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))//right bumper = intake in, pushes ramp back towards the intake
+        {
+            intakeControl.unClog();
+            intake.manualIntakePower(0.6);
 
+            ramp.setRamp(-0.3);
+        }
+        else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))//left bumper = intake out, pushes ramp towards the scoring side
+        {
+
+            intakeControl.unClog();
+            intake.manualIntakePower(-0.3);
+            ramp.setRamp(0.3);
+        }
+        else if (intakeControl.state == "unClog")
+        {
+            intakeControl.state = "disabled";
+        }
         if (operatorController.getButton(ButtonMap.XboxB))
         {
             intakePivot.disabled();

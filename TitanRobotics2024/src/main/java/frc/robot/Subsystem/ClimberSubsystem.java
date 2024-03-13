@@ -38,7 +38,6 @@ public class ClimberSubsystem implements Subsystem
     private DigitalInput LimitSwitch;
     private SmartDashboardSubsystem smartDashboardSubsystem;
 
-
     // Other properties and methods...
     // Private constructor for initializing motors and encoders
     private ClimberSubsystem(ModifiedMotors motor, ModifiedEncoders encoder, String name, DigitalInput LimitSwitch)
@@ -57,9 +56,9 @@ public class ClimberSubsystem implements Subsystem
         if (leftInstance == null)
         {
             leftInstance = new ClimberSubsystem(new ModifiedMotors(PortMap.CLIMBERMOTORLEFT.portNumber, "CANSparkMax"),
-                           new ModifiedEncoders(PortMap.CLIMBERLEFTENCODER_A.portNumber, PortMap.CLIMBERLEFTENCODER_B.portNumber, "QuadratureEncoder"), 
-                           "Left Climber",
-                           new DigitalInput(PortMap.LEFTLIMITSWITCH.portNumber));
+                            new ModifiedEncoders(PortMap.CLIMBERLEFTENCODER_A.portNumber, PortMap.CLIMBERLEFTENCODER_B.portNumber, "QuadratureEncoder"),
+                            "Left Climber",
+                            new DigitalInput(PortMap.LEFTLIMITSWITCH.portNumber));
         }
         return leftInstance;
     }
@@ -70,7 +69,7 @@ public class ClimberSubsystem implements Subsystem
         if (rightInstance == null)
         {
             rightInstance = new ClimberSubsystem(new ModifiedMotors(PortMap.CLIMBERMOTORRIGHT.portNumber, "CANSparkMax"),
-                            new ModifiedEncoders(PortMap.CLIMBERRIGHTENCODER_A.portNumber, PortMap.CLIMBERRIGHTENCODER_B.portNumber, "QuadratureEncoder"), 
+                            new ModifiedEncoders(PortMap.CLIMBERRIGHTENCODER_A.portNumber, PortMap.CLIMBERRIGHTENCODER_B.portNumber, "QuadratureEncoder"),
                             "Right Climber",
                             new DigitalInput(PortMap.RIGHTLIMITSWITCH.portNumber));
 
@@ -144,6 +143,7 @@ public class ClimberSubsystem implements Subsystem
         SmartDashboard.putNumber(name + ": Climber Velocity", currentVelocity);
         SmartDashboard.putNumber(name + ": Climber Power", climberPower);
         SmartDashboard.putString(name + ": Climber State", climberState);
+        SmartDashboard.putBoolean(name + "Limit Switch", LimitSwitch.get());
     }
 
     public String getClimberState()
@@ -167,15 +167,19 @@ public class ClimberSubsystem implements Subsystem
 
         if (encoder != null && motor != null)
         {
-            currentDistance = encoder.getRelativeDistance();
-            currentVelocity = encoder.getRate();
+            //currentDistance = encoder.getRelativeDistance();
+            //currentVelocity = encoder.getRate();
             processState();
-            motor.set(climberPower);
+            if (!LimitSwitch.get() && climberPower >= 0)
+            {
+                motor.set(0);
+            }
+            else
+            {
+                motor.set(climberPower);
+            }
         }
-        else if(!LimitSwitch.get() && climberPower <=0)
-        {
-            motor.set(0);
-        }
+
         else
         {
             smartDashboardSubsystem.error(name + ": not initialized");
