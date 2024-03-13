@@ -17,6 +17,7 @@ public enum PortMap
     INTAKEMOTORPIVOT(6),//6
     INTAKEMOTORROLLER(7),//7
     INTAKEPIVOTENCODER(4),
+    INTAKELIMITSWITCH(7),
 
 
     FRONTRIGHT(3), 
@@ -31,7 +32,10 @@ public enum PortMap
 
     RAMPLEFTMOTOR(8),
     RAMPRIGHTMOTOR(9),
-    OUTTAKEMOTOR(11);
+    OUTTAKEMOTOR(11),
+
+    LEFTLIMITSWITCH(5),
+    RIGHTLIMITSWITCH(6);
 
 
     public int portNumber;
