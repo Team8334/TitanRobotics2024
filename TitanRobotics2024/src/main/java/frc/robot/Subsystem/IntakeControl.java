@@ -65,18 +65,23 @@ public class IntakeControl
         {
             case "disabled":
                 intakePivot.setDisabled(true);
+                intake.manualIntakePower(0.0);
+                ramp.setRamp(0.0);
                 break;
             case "up":
                 intakePivot.up();
                 intake.manualIntakePower(0.0);
+                ramp.setRamp(0.0);
                 break;
             case "intaking":
                 intake.manualIntakePower(0.6);
                 intakePivot.down();
+                ramp.setRamp(0.0);
                 break;
             case "up with piece":
                 intakePivot.up();
                 intake.manualIntakePower(0.0);
+                ramp.setRamp(0.0);
                 break;
             case "score piece":
                 intakePivot.up();
