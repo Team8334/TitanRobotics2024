@@ -167,17 +167,25 @@ public class Control implements Subsystem
 
         if (operatorController.debounceA())
         {
-            if (intakePivot.intakeState == "disabled")
+            if (intakeControl.state == "disabled")
             {
-                intakePivot.disabled();
+                intakeControl.up();
             }
-            else if (intakePivot.intakeState == "up")
+            else if (intakeControl.state == "up")
             {
-                intakePivot.down();
+                intakeControl.intaking();
             }
-            else if (intakePivot.intakeState == "down")
+            else if (intakeControl.state == "intaking")
             {
-                intakePivot.up();
+                intakeControl.up();
+            }
+            else if (intakeControl.state == "up with piece")
+            {
+                intakeControl.score();
+            }
+            else if (intakeControl.state == "score piece")
+            {
+                intakeControl.disabled();
             }
         }
 
