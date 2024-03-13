@@ -39,7 +39,6 @@ public class Control implements Subsystem
         driverController = DriverController.getInstance();
         operatorController = OperatorController.getInstance();
         targeting = Targeting.getInstance();
-        limelight = Limelight.getInstance();
         intake = Intake.getInstance();
         intakePivot = IntakePivot.getInstance();
         climberControl = ClimberControl.getInstance();
@@ -73,60 +72,21 @@ public class Control implements Subsystem
     private void limelightControl()
     {
         targeting.setAlliance("blue"); // Change depending on alliance.
+        limelight.setAlliance("blue"); // Change depending on alliance
                                        // for upcoming match.
                                        // Failure to change this will
                                        // cause you to target the
                                        // wrong AprilTags when using
                                        // lock on buttons.
-        if (driverController.debounceSTART())
+
+        if (DriverController.getInstance().getButton(ButtonMap.XboxRIGHTBumper))
         {
-            System.out.println("pressed");
-            if (limelight.getPipeline() == 0)
-            {
-                limelight.setPipeline(1);
-            }
-            else
-            {
-                limelight.setPipeline(0);
-            }
+            turn = targeting.noteLockOn();
         }
 
-        if (limelight.getPipeline() == 0)
+        if (DriverController.getInstance().getButton(ButtonMap.XboxLEFTBumper))
         {
-            if (driverController.getButton(ButtonMap.XboxX))
-            {
-                targeting.setTarget("Amp");
-                turn = targeting.aprilTaglockOn();
-                System.out.println("Locking on to Amp");
-            }
-
-            if (driverController.getButton(ButtonMap.XboxA))
-            {
-                targeting.setTarget("Source");
-                turn = targeting.aprilTaglockOn();
-                System.out.println("Locking on to Source");
-            }
-
-            if (driverController.getButton(ButtonMap.XboxB))
-            {
-                targeting.setTarget("Stage");
-                turn = targeting.aprilTaglockOn();
-                System.out.println("Locking on to Stage");
-            }
-
-            else
-            {
-                targeting.setTarget("none");
-            }
-        }
-
-        if (limelight.pipeline == 1)
-        {
-            if (driverController.getButton(ButtonMap.XboxY))
-            {
-                turn = targeting.otherLockOn();
-                System.out.println("Locking On to Note");
-            }
+            turn = targeting.aprilTagLockOn();
         }
     }
 
@@ -156,13 +116,11 @@ public class Control implements Subsystem
             ramp.setRamp(0.3);
         }
 
-
         else
         {
             intake.manualIntakePower(0);
             ramp.setRamp(0);
         }
-
 
         if (operatorController.debounceA())
         {

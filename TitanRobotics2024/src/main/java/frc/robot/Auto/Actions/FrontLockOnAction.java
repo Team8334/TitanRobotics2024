@@ -2,55 +2,44 @@ package frc.robot.Auto.Actions;
 
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.Targeting;
-import frc.robot.Subsystem.Limelight;
+import frc.robot.Subsystem.LimelightFront;
 
-public class LockOnAction implements Actions
+public class FrontLockOnAction implements Actions
 {
     private Targeting targeting;
     private DriveBase driveBase;
-    private Limelight limelight;
+    private LimelightFront limelight;
+    private String target;
 
     double neededArea;
 
     /**
      * Run code once when the action is started, for setup
      */
-    public LockOnAction(String target, String alliance)
+    public FrontLockOnAction(String target)
     {
         targeting = Targeting.getInstance();
-        limelight = Limelight.getInstance();
+        this.target = target;
+        limelight = LimelightFront.getInstance();
         driveBase = DriveBase.getInstance();
-
-        if (alliance == "blue")
-        {
-            targeting.setAlliance("blue");
-        }
-
-        if (alliance == "red")
-        {
-            targeting.setAlliance("red");
-        }
 
         switch (target)
         {
             case "Amp":
             {
                 limelight.setPipeline(0);
-                targeting.setTarget("Amp");
             }
                 break;
 
             case "Source":
             {
                 limelight.setPipeline(0);
-                targeting.setTarget("Source");
             }
                 break;
 
             case "Stage":
             {
                 limelight.setPipeline(0);
-                targeting.setTarget("Stage");
             }
                 break;
 
@@ -85,17 +74,17 @@ public class LockOnAction implements Actions
     {
         if (limelight.getPipeline() == 0)
         {
-            driveBase.drive(targeting.follow(), targeting.aprilTaglockOn());
+            driveBase.drive(targeting.follow(), targeting.frontAprilTagLockOn(target));
         }
         if (limelight.getPipeline() == 1)
         {
-            driveBase.drive(targeting.follow(), targeting.otherLockOn());
+            driveBase.drive(targeting.follow(), targeting.noteLockOn());
             System.out.println(limelight.getArea());
         }
     }
 
     /**
-     * Returns whether or not the code has finished execution. When implementing
+     * Returns whether or not the code has finished executaprilTagLockOnementing
      * this interface, this method is used by
      * the runAction method every cycle to know when to stop running the action
      *

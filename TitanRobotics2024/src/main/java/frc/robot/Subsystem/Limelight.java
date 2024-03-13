@@ -27,27 +27,22 @@ public class Limelight
 
     int pipeline;
 
+    private NetworkTable table;
+
     private String limelightState = "TRACKING";
 
-    public static Limelight getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new Limelight();
-        }
-        return instance;
-    }
+	private String alliance;
 
-    public Limelight()
+    public Limelight(String tableName)
     {
-        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+        table = NetworkTableInstance.getDefault().getTable(tableName);
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
         tz = table.getEntry("tz");
         tl = table.getEntry("tl");
         cl = table.getEntry("cl");
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
+        table.getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
     }
 
     public String getLimelightState()
@@ -57,13 +52,13 @@ public class Limelight
 
     public void setLedMode(int mode)
     {
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
+        table.getEntry("ledMode").setNumber(mode);
     }
 
     public void setPipeline(int pipeline)
     {
         this.pipeline = pipeline;
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+        table.getEntry("pipeline").setNumber(pipeline);
     }
 
     public int getPipeline()
@@ -83,12 +78,51 @@ public class Limelight
 
     public void setCamMode(int mode)
     {
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(mode);
+        table.getEntry("camMode").setNumber(mode);
     }
 
     public int getId() //finds April Tag ID. This is a variable, not a function.
     {
         return (int)LimelightHelpers.getFiducialID("");
+    }
+
+    public void setAlliance(String alliance)
+    {
+        this.alliance = alliance;
+    }
+
+    public String findTagName()
+    {
+        switch (getId())
+        {
+            case 11, 12, 13 -> {
+                return alliance.equals("red") ? "Stage" : "Opponent's Stage";
+            }
+            case 14, 15, 16 -> {
+                return alliance.equals("blue") ? "Stage" : "Opponent's Stage";
+            }
+            case 5 -> {
+                return alliance.equals("red") ? "Amp" : "Opponent's Amp";
+            }
+            case 6 -> {
+                return alliance.equals("blue") ? "Amp" : "Opponent's Amp";
+            }
+            case 9, 10 -> {
+                return alliance.equals("red") ? "Source" : "Opponent's Source";
+            }
+            case 1, 2 -> {
+                return alliance.equals("blue") ? "Source" : "Opponent's Source";
+            }
+            case 3, 4 -> {
+                return alliance.equals("red") ? "Speaker" : "Opponent's Speaker";
+            }
+            case 7, 8 -> {
+                return alliance.equals("blue") ? "Speaker" : "Opponent's Speaker";
+            }
+            default -> {
+                return "Unknown";
+            }
+        }
     }
 
     public void log()
