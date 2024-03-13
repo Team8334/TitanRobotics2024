@@ -3,7 +3,6 @@ package frc.robot.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 
-
 public class Control implements Subsystem
 {
     private static Control instance = null;
@@ -146,19 +145,17 @@ public class Control implements Subsystem
 
     private void manipulatorControl()//please do not mess with the buttons, they are set to operator's preference.
     {
-        
-        
-        
+
         if (operatorController.debounceA())
         {
             if (intakeControl.state == "disabled")
             {
-                intakeControl.up();
+                intakeControl.intaking();
             }
             else if (intakeControl.state == "up")
             {
                 intakeControl.intaking();
-                
+
             }
             else if (intakeControl.state == "intaking")
             {
@@ -172,9 +169,9 @@ public class Control implements Subsystem
             {
                 intakeControl.up();
             }
-            
+
         }
-        
+
         if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))//right bumper = intake in, pushes ramp back towards the intake
         {
             intakeControl.unClog();
