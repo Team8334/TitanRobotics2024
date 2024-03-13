@@ -123,7 +123,6 @@ public class Control implements Subsystem
             if (driverController.getButton(ButtonMap.XboxY))
             {
                 turn = targeting.otherLockOn();
-                System.out.println("Locking On to Note");
             }
         }
     }
