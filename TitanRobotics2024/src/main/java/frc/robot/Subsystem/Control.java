@@ -104,7 +104,6 @@ public class Control implements Subsystem
             {
                 targeting.setTarget("Source");
                 turn = targeting.aprilTaglockOn();
-                System.out.println("Locking on to Source");
             }
 
             if (driverController.getButton(ButtonMap.XboxB))
