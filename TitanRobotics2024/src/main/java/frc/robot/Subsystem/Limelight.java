@@ -96,28 +96,28 @@ public class Limelight
         switch (getId())
         {
             case 11, 12, 13 -> {
-                return alliance.equals("red") ? "Stage" : "Opponent's Stage";
+                return alliance.equals("Red") ? "Stage" : "Opponent's Stage";
             }
             case 14, 15, 16 -> {
-                return alliance.equals("blue") ? "Stage" : "Opponent's Stage";
+                return alliance.equals("Blue") ? "Stage" : "Opponent's Stage";
             }
             case 5 -> {
-                return alliance.equals("red") ? "Amp" : "Opponent's Amp";
+                return alliance.equals("Red") ? "Amp" : "Opponent's Amp";
             }
             case 6 -> {
-                return alliance.equals("blue") ? "Amp" : "Opponent's Amp";
+                return alliance.equals("Blue") ? "Amp" : "Opponent's Amp";
             }
             case 9, 10 -> {
-                return alliance.equals("red") ? "Source" : "Opponent's Source";
+                return alliance.equals("Red") ? "Source" : "Opponent's Source";
             }
             case 1, 2 -> {
-                return alliance.equals("blue") ? "Source" : "Opponent's Source";
+                return alliance.equals("Blue") ? "Source" : "Opponent's Source";
             }
             case 3, 4 -> {
-                return alliance.equals("red") ? "Speaker" : "Opponent's Speaker";
+                return alliance.equals("Red") ? "Speaker" : "Opponent's Speaker";
             }
             case 7, 8 -> {
-                return alliance.equals("blue") ? "Speaker" : "Opponent's Speaker";
+                return alliance.equals("Blue") ? "Speaker" : "Opponent's Speaker";
             }
             default -> {
                 return "Unknown";

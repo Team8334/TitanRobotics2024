@@ -80,18 +80,8 @@ public class Control implements Subsystem
         }
 
 
-        limelightControl();
-
-        driveBase.drive(forward, turn);
-
-        climberControl();
-        manipulatorControl();
-    }
-
-    private void limelightControl()
-    {
-        limelightBack.setAlliance("red");
-        limelightFront.setAlliance("red");
+        limelightBack.setAlliance("Red");
+        limelightFront.setAlliance("Red");
         // Change depending on alliance
                                        // for upcoming match.
                                        // Failure to change this will
@@ -99,16 +89,22 @@ public class Control implements Subsystem
                                        // wrong AprilTags when using
                                        // lock on buttons.
         
-        if (DriverController.getInstance().getButton(ButtonMap.XboxRIGHTBumper))
+        if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
         {
            turn = targeting.noteLockOn();
         }
 
-        if (DriverController.getInstance().getButton(ButtonMap.XboxLEFTBumper))
+        if (driverController.getButton(ButtonMap.XboxLEFTBumper))
         {
             turn = targeting.aprilTagLockOn();
         }
+
+        driveBase.drive(forward, turn);
+
+        climberControl();
+        manipulatorControl();
     }
+
 
     private void climberControl()
     {

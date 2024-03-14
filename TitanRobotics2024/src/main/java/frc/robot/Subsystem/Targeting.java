@@ -39,6 +39,7 @@ public class Targeting implements Subsystem // This class contains functions for
     {
         limelightBack = LimelightBack.getInstance();
         limelightFront = LimelightFront.getInstance();
+        limelightBack.setLedMode(10);
         //limelightBack.setAlliance(alliance);
         //limelightFront.setAlliance(alliance);
         try
