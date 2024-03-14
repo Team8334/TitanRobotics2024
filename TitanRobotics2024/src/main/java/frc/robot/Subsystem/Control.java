@@ -59,7 +59,7 @@ public class Control implements Subsystem
         {
             inversion = !inversion;
             SmartDashboard.putBoolean("inversion", inversion);
-        }*/
+        }
 
         if (inversion)
         {
