@@ -20,6 +20,7 @@ public class Control implements Subsystem
     private double forward;
     private double turn;
     private boolean inversion;
+    private IntakePivot intakePivot;
 
     private double THRESHOLD = 0.05;
 
@@ -40,6 +41,7 @@ public class Control implements Subsystem
         targeting = Targeting.getInstance();
         limelight = Limelight.getInstance();
         intake = Intake.getInstance();
+        intakePivot = IntakePivot.getInstance();
         climberControl = ClimberControl.getInstance();
         ramp = Ramp.getInstance();
         inversion = false;
@@ -50,16 +52,17 @@ public class Control implements Subsystem
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
-        if (driverController.debounceB()){
+        if (driverController.debounceB())
+        {
             inversion = !inversion;
             SmartDashboard.putBoolean("inversion", inversion);
         }
 
-        if (inversion){
+        if (inversion)
+        {
 
             forward = -forward;
         }
-
 
         driveBase.drive(forward, turn);
 
@@ -69,7 +72,7 @@ public class Control implements Subsystem
 
     private void limelightControl()
     {
-        targeting.setAlliance("blue"); // Change depending on alliance
+        targeting.setAlliance("blue"); // Change depending on alliance.
                                        // for upcoming match.
                                        // Failure to change this will
                                        // cause you to target the
@@ -94,6 +97,7 @@ public class Control implements Subsystem
             {
                 targeting.setTarget("Amp");
                 turn = targeting.aprilTaglockOn();
+                System.out.println("Locking on to Amp");
             }
 
             if (driverController.getButton(ButtonMap.XboxA))
@@ -139,33 +143,43 @@ public class Control implements Subsystem
     {
         if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))//right bumper = intake in, pushes ramp back towards the intake
         {
-            intake.manualIntakePower(0.3);
-            intake.manualPivotPower(0);
+            intake.manualIntakePower(0.6);
+
             ramp.setRamp(-0.3);
         }
         else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))//left bumper = intake out, pushes ramp towards the scoring side
         {
             intake.manualIntakePower(-0.3);
-            intake.manualPivotPower(0);
             ramp.setRamp(0.3);
         }
-        else if (operatorController.getButton(ButtonMap.XboxY))//button y = pivot arm up
-        {
-            intake.manualIntakePower(0);
-            intake.manualPivotPower(0.175);
-            ramp.setRamp(0);
-        }
-        else if (operatorController.getButton(ButtonMap.XboxA))//button a = pivot arm down
-        {
-            intake.manualIntakePower(0);
-            intake.manualPivotPower(-0.175);
-            ramp.setRamp(0);
-        }
+
+
         else
         {
             intake.manualIntakePower(0);
-            intake.manualPivotPower(0);
             ramp.setRamp(0);
+        }
+
+
+        if (operatorController.debounceA())
+        {
+            if (intakePivot.intakeState == "disabled")
+            {
+                intakePivot.down();
+            }
+            else if (intakePivot.intakeState == "up")
+            {
+                intakePivot.down();
+            }
+            else if (intakePivot.intakeState == "down")
+            {
+                intakePivot.up();
+            }
+        }
+
+        if (operatorController.getButton(ButtonMap.XboxB))
+        {
+            intakePivot.disabled();
         }
     }
 

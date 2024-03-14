@@ -1,16 +1,18 @@
 package frc.robot.Subsystem;
 
 import frc.robot.Subsystem.ModifiedMotors;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
 
 //    https://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf
-public class LEDLightStrip implements Subsystem {
+//go here for info on the colors of the LED light strip. 
+public class LEDLightStrip implements Subsystem
+{
+  private static LEDLightStrip instance = null;
 
-    private static LEDLightStrip instance = null;
+  private ModifiedMotors LEDLightStrip;
 
-    private ModifiedMotors LEDLightStrip;
-
-    public static LEDLightStrip getInstance()
+  public static LEDLightStrip getInstance()
   {
     if (instance == null)
     {
@@ -21,13 +23,13 @@ public class LEDLightStrip implements Subsystem {
 
   public LEDLightStrip()
   {
-    this.LEDLightStrip = new ModifiedMotors(PortMap.LEDLIGHTSTRIP.portNumber,"Spark");
+    this.LEDLightStrip = new ModifiedMotors(PortMap.LEDLIGHTSTRIP.portNumber, "Spark");
   }
 
-    @Override
-    public void update()
-    {
-       LEDLightStrip.set(0.65);
-    }
-    
+  @Override
+  public void update()
+  {
+    double color = SmartDashboard.getNumber("LEd color", 0);
+    LEDLightStrip.set(0.65);
+  }
 }

@@ -20,6 +20,7 @@ import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.PositionEstimation;
 import frc.robot.Subsystem.Ramp;
 import frc.robot.Subsystem.LEDLightStrip;
+import frc.robot.Subsystem.IntakePivot;
 
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot
   private static PositionEstimation positionEstimation;
   private static SmartDashboardSubsystem smartDashboardSubsystem;
   private static Intake intake;
+  private static IntakePivot intakePivot;
   private static Ramp ramp;
   private static LEDLightStrip ledLightStrip;
 
@@ -78,6 +80,7 @@ public class Robot extends TimedRobot
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
     limelight = Limelight.getInstance();
     intake = Intake.getInstance();
+    intakePivot = IntakePivot.getInstance();
     ramp = Ramp.getInstance();
     ledLightStrip = LEDLightStrip.getInstance();
 
@@ -106,6 +109,7 @@ public class Robot extends TimedRobot
     positionEstimation.update();
     limelight.update();
     intake.update();
+    intakePivot.update();
     ramp.update();
     ledLightStrip.update();
 
@@ -162,7 +166,7 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.outputToSmartDashboard();
     autoMissionChooser.updateMissionCreator();
-
+    
     Optional<MissionBase> autoMission = autoMissionChooser.getAutoMission();
     if (autoMission.isPresent() && autoMission.get() != autoMissionExecutor.getAutoMission())
     {
