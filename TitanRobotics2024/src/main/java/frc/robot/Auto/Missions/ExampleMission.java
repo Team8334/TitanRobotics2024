@@ -15,7 +15,7 @@ public class ExampleMission extends MissionBase
     @Override
     protected void routine() throws AutoMissionEndedException 
     {
-        runAction(new DriveForDistanceAction(40, 3.0));
+        runAction(new DriveForDistanceAction(1.0, 3.0));
         runAction(new TurnDegreesAction(90.0, 3.0));
         runAction(new ScoringSystemStateAction(6.0, "up with piece"));
         runAction(new ScoringSystemStateAction(3.0, "score piece"));
