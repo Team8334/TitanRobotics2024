@@ -3,7 +3,7 @@ package frc.robot.Auto.Missions;
 import frc.robot.Auto.AutoMissionEndedException;
 import frc.robot.Auto.Actions.DriveForDistanceAction;
 import frc.robot.Auto.Actions.DriveForTimeAction;
-import frc.robot.Auto.Actions.LockOnAction;
+import frc.robot.Auto.Actions.FrontLockOnAction;
 import frc.robot.Auto.Actions.ParallelAction;
 import frc.robot.Auto.Actions.RunScoringSystemAction;
 import frc.robot.Auto.Actions.ScoringSystemStateAction;
