@@ -16,7 +16,8 @@ public class Control implements Subsystem
     private Targeting targeting;
     private ClimberControl climberControl;
     private Intake intake;
-    private Limelight limelight;
+    private LimelightBack limelightBack;
+    private LimelightFront limelightFront;
     private Ramp ramp;
     private IntakeControl intakeControl;
 
@@ -48,11 +49,14 @@ public class Control implements Subsystem
         climberControl = ClimberControl.getInstance();
         ramp = Ramp.getInstance();
         inversion = false;
+        limelightBack = LimelightBack.getInstance();
+        limelightFront = LimelightFront.getInstance();
     }
 
     public void teleopControl()
     {
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY);
+
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
 
@@ -86,7 +90,9 @@ public class Control implements Subsystem
 
     private void limelightControl()
     {
-        limelight.setAlliance("blue"); // Change depending on alliance
+        limelightBack.setAlliance("red");
+        limelightFront.setAlliance("red");
+        // Change depending on alliance
                                        // for upcoming match.
                                        // Failure to change this will
                                        // cause you to target the
@@ -165,7 +171,7 @@ public class Control implements Subsystem
         }
         if (operatorController.getButton(ButtonMap.XboxB))
         {
-            intakePivot.disabled();
+            intakeControl.disabled();
         }
     }
 

@@ -39,6 +39,8 @@ public class Targeting implements Subsystem // This class contains functions for
     {
         limelightBack = LimelightBack.getInstance();
         limelightFront = LimelightFront.getInstance();
+        //limelightBack.setAlliance(alliance);
+        //limelightFront.setAlliance(alliance);
         try
         {
             alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
@@ -55,11 +57,11 @@ public class Targeting implements Subsystem // This class contains functions for
         limelightFront.setPipeline(0);
         frontTags = limelightFront.findTagName();
         backTags = limelightBack.findTagName();
-        if (backTags == "amp")
+        if (backTags == "Amp")
         {
             return (aprilTagXPID.calculate(limelightBack.x, 0) / 150.0);
         }
-        else if (frontTags == "source")
+        else if (frontTags == "Source")
         {
             return (aprilTagXPID.calculate(limelightFront.x, 0) / 150.0);
         }
@@ -114,6 +116,7 @@ public class Targeting implements Subsystem // This class contains functions for
     {
         SmartDashboard.putString("AprilTag Target (Back)", limelightBack.findTagName());
         SmartDashboard.putString("AprilTag Target (Front)", limelightFront.findTagName());
+        SmartDashboard.putString("AprilTag Target (Alliance)", alliance);
     }
 
     public void update()
