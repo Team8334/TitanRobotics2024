@@ -1,5 +1,6 @@
 package frc.robot.Subsystem;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 
@@ -7,6 +8,8 @@ public class Control implements Subsystem
 {
     private static Control instance = null;
 
+    private boolean useSlew = false;
+    private SlewRateLimiter limiter = new SlewRateLimiter(20);
     private DriveBase driveBase;
     private DriverController driverController;
     private OperatorController operatorController;
@@ -56,7 +59,7 @@ public class Control implements Subsystem
         {
             inversion = !inversion;
             SmartDashboard.putBoolean("inversion", inversion);
-        }
+        }*/
 
         if (inversion)
         {
