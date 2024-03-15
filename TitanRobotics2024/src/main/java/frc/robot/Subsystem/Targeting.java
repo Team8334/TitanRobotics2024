@@ -40,8 +40,6 @@ public class Targeting implements Subsystem // This class contains functions for
         limelightBack = LimelightBack.getInstance();
         limelightFront = LimelightFront.getInstance();
         limelightBack.setLedMode(10);
-        //limelightBack.setAlliance(alliance);
-        //limelightFront.setAlliance(alliance);
         try
         {
             alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
@@ -51,6 +49,8 @@ public class Targeting implements Subsystem // This class contains functions for
             // Handle the exception, for example:
             System.out.println("Exception occurred: " + e.getMessage());
         }
+        limelightBack.setAlliance(alliance);
+        limelightFront.setAlliance(alliance);
     }
 
     public double aprilTagLockOn()
@@ -107,7 +107,7 @@ public class Targeting implements Subsystem // This class contains functions for
         return (noteXPID.calculate(limelightFront.x, 0) / 150);
     }
 
-    public double follow() // Setting "forward" in DriveBase.drive in controlas this function will cause the robot to follow the target. 
+    public double follow() // Setting "forward" in DriveBase.drive in control as this function will cause the robot to follow the target. 
                            // USE AT OWN RISK. Feel free to increase the speed divisor value to make it even slower.
     {
         return (aPID.calculate(limelight.area, 25) / 50);

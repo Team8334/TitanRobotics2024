@@ -56,7 +56,6 @@ public class Control implements Subsystem
     public void teleopControl()
     {
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY);
-
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
 
@@ -79,24 +78,15 @@ public class Control implements Subsystem
             forward = -forward;
         }
 
-
-        limelightBack.setAlliance("Red");
-        limelightFront.setAlliance("Red");
-        // Change depending on alliance
-                                       // for upcoming match.
-                                       // Failure to change this will
-                                       // cause you to target the
-                                       // wrong AprilTags when using
-                                       // lock on buttons.
         
         if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
         {
-           turn = targeting.noteLockOn();
+           turn += targeting.noteLockOn();
         }
 
         if (driverController.getButton(ButtonMap.XboxLEFTBumper))
         {
-            turn = targeting.aprilTagLockOn();
+            turn += targeting.aprilTagLockOn();
         }
 
         driveBase.drive(forward, turn);

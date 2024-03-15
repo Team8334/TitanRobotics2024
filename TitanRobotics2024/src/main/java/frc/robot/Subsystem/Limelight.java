@@ -28,6 +28,7 @@ public class Limelight
     int pipeline;
 
     private NetworkTable table;
+    private String tableName;
 
     private String limelightState = "TRACKING";
 
@@ -35,6 +36,7 @@ public class Limelight
 
     public Limelight(String tableName)
     {
+        this.tableName = tableName;
         table = NetworkTableInstance.getDefault().getTable(tableName);
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
@@ -83,7 +85,7 @@ public class Limelight
 
     public int getId() //finds April Tag ID. This is a variable, not a function.
     {
-        return (int)LimelightHelpers.getFiducialID("");
+        return (int)LimelightHelpers.getFiducialID(tableName);
     }
 
     public void setAlliance(String alliance)
