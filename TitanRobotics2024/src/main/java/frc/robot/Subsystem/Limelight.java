@@ -144,10 +144,15 @@ public class Limelight
         }
     }
 
-    public boolean seeNote()
-    { //returns true if limelight sees a note
-        //toDo: add logic to determine if limelight sees a note
-        return false;
+    public boolean seeNote() {
+     // returns true if limelight sees a note
+        if (x != -1 && y != -1 && area != -1) {
+            // if the limelight has a valid target
+            return true;
+        } else {
+            // if the limelight does not have a valid target
+            return false;
+        }
     }
     
     public double getDistanceFromTarget()

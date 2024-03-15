@@ -58,11 +58,11 @@ public class Targeting implements Subsystem // This class contains functions for
         limelightFront.setPipeline(0);
         frontTags = limelightFront.findTagName();
         backTags = limelightBack.findTagName();
-        if (backTags == "Amp")
+        if (backTags.equals( "Amp"))
         {
             return (aprilTagXPID.calculate(limelightBack.x, 0) / 150.0);
         }
-        else if (frontTags == "Source")
+        else if (frontTags.equals("Source"))
         {
             return (aprilTagXPID.calculate(limelightFront.x, 0) / 150.0);
         }
