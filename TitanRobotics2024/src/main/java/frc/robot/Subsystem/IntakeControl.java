@@ -43,6 +43,11 @@ public class IntakeControl
         state = "intaking";
     }
 
+    public void upWithPiece()
+    {
+        state = "up with piece";
+    }
+
     public void score()
     {
         state = "score piece";

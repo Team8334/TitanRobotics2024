@@ -17,5 +17,7 @@ public class LimelightFront extends Limelight implements Subsystem
     private LimelightFront()
     {
         super("limelight-front");
+        this.limelightMountAngleDegrees = 25.0;
+        this.limelightLensHeightMeters = 20.0;
     }
 }

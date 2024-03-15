@@ -14,6 +14,7 @@ public class AutoMissionChooser
         leaveCommunityRight,
         exampleMission,
         oneNoteMission,
+        TwoNoteMission,
         ScoringMission,
         ScoringThenMovingMission,
         RedScorePickUpMission,

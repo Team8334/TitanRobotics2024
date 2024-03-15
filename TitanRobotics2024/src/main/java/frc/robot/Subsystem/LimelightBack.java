@@ -17,5 +17,7 @@ public class LimelightBack extends Limelight implements Subsystem
     private LimelightBack()
     {
         super("limelight-back");
+        this.limelightMountAngleDegrees = 25.0;
+        this.limelightLensHeightMeters = 20.0;
     }
 }

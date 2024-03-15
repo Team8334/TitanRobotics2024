@@ -1,67 +1,71 @@
 package frc.robot.Auto.Actions;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.LimelightFront;
+import frc.robot.Subsystem.PositionEstimation;
 
 public class FrontLockOnAction implements Actions
 {
-    private Targeting targeting;
+    private double currentDistanceFromTarget;
+    private double targetDistance;
+    private double startingAlternatePosition;
+    private double finalKnownLimelightDistanceFromTarget = 0.0;
+    private double alternatePosition;
+    private double forward;
+
+    private double toleranceDistance = 0.0025;
+
     private DriveBase driveBase;
+    private PositionEstimation position;
+
+    private PIDController PID;
+    private final double kp = 0.1;
+    private final double ki = 0.11;
+    private final double kd = 0.02;
+
+    private Targeting targeting;
     private LimelightFront limelight;
     private String target;
+    private boolean driveTo;
 
+    Timer timer;
+    double seconds;
     double neededArea;
 
     /**
      * Run code once when the action is started, for setup
      */
-    public FrontLockOnAction(String target)
+    public FrontLockOnAction(String target, boolean driveTo, double seconds)
     {
-        targeting = Targeting.getInstance();
+        this.driveTo = driveTo;
         this.target = target;
+        targeting = Targeting.getInstance();
         limelight = LimelightFront.getInstance();
         driveBase = DriveBase.getInstance();
 
-        switch (target)
-        {
-            case "Amp":
-            {
-                limelight.setPipeline(0);
-            }
-                break;
+        position = PositionEstimation.getInstance();
+        PID = new PIDController(kp, ki, kd);
+        limelight.setPipeline(0);
 
-            case "Source":
-            {
-                limelight.setPipeline(0);
-            }
-                break;
-
-            case "Stage":
-            {
-                limelight.setPipeline(0);
-            }
-                break;
-
-            case "Note":
-            {
-                limelight.setPipeline(1);
-            }
-        }
-
+        this.seconds = seconds;
     }
 
     @Override
     public void start()
     {
-        if (limelight.getPipeline() == 0)
-        {
-            neededArea = 5;
-        }
-        if (limelight.getPipeline() == 1)
-        {
-            neededArea = 3.1;
-        }
+        timer = new Timer();
+        timer.start();
+        neededArea = 5.0;
+        targetDistance = 0.0;
+        PID.setSetpoint(targetDistance);
+        PID.setTolerance(toleranceDistance);
+        SmartDashboard.putString("Current Action", "BackLockOnAction Started");
+        startingAlternatePosition = position.getDistance();
+        
     }
 
     /**
@@ -72,15 +76,41 @@ public class FrontLockOnAction implements Actions
     @Override
     public void update()
     {
-        if (limelight.getPipeline() == 0)
+        alternatePosition = (position.getDistance()-startingAlternatePosition);
+
+        if (limelight.findTagName() != "Unknown")
         {
-            driveBase.drive(targeting.follow(), targeting.frontAprilTagLockOn(target));
+            currentDistanceFromTarget = limelight.getDistanceFromTarget();
+            finalKnownLimelightDistanceFromTarget = limelight.getDistanceFromTarget();
+            startingAlternatePosition = position.getDistance();
         }
-        if (limelight.getPipeline() == 1)
+        else 
         {
-            driveBase.drive(targeting.follow(), targeting.noteLockOn());
-            System.out.println(limelight.getArea());
+            currentDistanceFromTarget = (finalKnownLimelightDistanceFromTarget - alternatePosition);
         }
+
+        forward = PID.calculate(currentDistanceFromTarget);
+
+        if ((limelight.findTagName() != "Unknown") && driveTo && limelight.getPipeline() == 0)
+        {
+            driveBase.drive(forward, targeting.backAprilTagLockOn(target));
+
+        }
+        else if ((limelight.findTagName() != "Unknown") && !driveTo && limelight.getPipeline() == 0)
+        {
+            driveBase.drive(0.0, targeting.frontAprilTagLockOn(target));
+        }
+        else if (limelight.findTagName() == "Unknown" && driveTo && limelight.getPipeline() == 0) 
+        {
+            driveBase.drive(forward, 0.0);
+        }
+        else
+        {
+            driveBase.drive(0, 0);
+        }
+        SmartDashboard.putNumber("targetDistance", targetDistance);
+        SmartDashboard.putNumber("currentDistance", currentDistanceFromTarget);
+        SmartDashboard.putNumber("forward", forward);
     }
 
     /**
@@ -93,7 +123,18 @@ public class FrontLockOnAction implements Actions
     @Override
     public boolean isFinished()
     {
-        return (limelight.getArea() >= neededArea && limelight.getX() == 0);
+        if (PID.atSetpoint())
+        {
+            return true;
+        }
+        if (timer.get() >= seconds) 
+        {
+            return true;
+        } 
+        else 
+        {
+            return false;
+        }
     }
 
     /**
@@ -106,3 +147,4 @@ public class FrontLockOnAction implements Actions
     }
 
 }
+

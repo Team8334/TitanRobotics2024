@@ -30,6 +30,15 @@ public class Limelight
     private NetworkTable table;
     private String tableName;
 
+    // how many degrees back is your limelight rotated from perfectly vertical?
+    protected double limelightMountAngleDegrees = 25.0; 
+
+    // distance from the center of the Limelight lens to the floor
+    protected double limelightLensHeightMeters = 20.0; 
+    
+    // distance from the target to the floor
+    private double goalHeightMeters; 
+
     private String limelightState = "TRACKING";
 
 	private String alliance;
@@ -98,33 +107,58 @@ public class Limelight
         switch (getId())
         {
             case 11, 12, 13 -> {
+                goalHeightMeters = 60.0; 
                 return alliance.equals("Red") ? "Stage" : "Opponent's Stage";
             }
             case 14, 15, 16 -> {
+                goalHeightMeters = 60.0; 
                 return alliance.equals("Blue") ? "Stage" : "Opponent's Stage";
             }
             case 5 -> {
+                goalHeightMeters = 60.0; 
                 return alliance.equals("Red") ? "Amp" : "Opponent's Amp";
             }
             case 6 -> {
+                goalHeightMeters = 60.0; 
                 return alliance.equals("Blue") ? "Amp" : "Opponent's Amp";
             }
             case 9, 10 -> {
+                goalHeightMeters = 60.0; 
                 return alliance.equals("Red") ? "Source" : "Opponent's Source";
             }
             case 1, 2 -> {
+                goalHeightMeters = 60.0; 
                 return alliance.equals("Blue") ? "Source" : "Opponent's Source";
             }
             case 3, 4 -> {
+                goalHeightMeters = 60.0; 
                 return alliance.equals("Red") ? "Speaker" : "Opponent's Speaker";
             }
             case 7, 8 -> {
+                goalHeightMeters = 60.0; 
                 return alliance.equals("Blue") ? "Speaker" : "Opponent's Speaker";
             }
             default -> {
                 return "Unknown";
             }
         }
+    }
+
+    public boolean seeNote()
+    { //returns true if limelight sees a note
+        //toDo: add logic to determine if limelight sees a note
+        return false;
+    }
+    
+    public double getDistanceFromTarget()
+    {
+        double targetOffsetAngle_Vertical = ty.getDouble(0.0);
+    
+        double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+        double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+    
+        //calculate distance
+        return (goalHeightMeters - limelightLensHeightMeters) / Math.tan(angleToGoalRadians);
     }
 
     public void log()
