@@ -15,6 +15,18 @@ public class LEDLightStrip implements Subsystem
   private ModifiedMotors ledLightStrip;
 
   private double color = 0;
+  public enum Color
+  {
+    RED (0),
+    GREEN (1),
+    BLUE (2);
+    
+    public int color;
+    private Color(int color) //constructor
+    {
+        this.color = color;
+    }
+  }
 
   private OperatorController operatorController;
 
@@ -34,15 +46,24 @@ public class LEDLightStrip implements Subsystem
     SmartDashboard.putNumber("LED color", 0);
   }
 
+  public void set(int color)
+  {
+    ledLightStrip.set(color);
+  }
+
+    public void set(Color color)
+  {
+    ledLightStrip.set(color.color);
+  }
+
   @Override
   public void update()
   {
-    
-    SmartDashboard.getNumber("LED color", 0);
+    color = SmartDashboard.getNumber("LED color", 0);
    
     if(operatorController.getButton(ButtonMap.XboxB))
     {
-      ledLightStrip.set(color+1);
+      ledLightStrip.set(color+=1);
     }
   }
 }
