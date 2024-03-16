@@ -17,7 +17,7 @@ public class OneNoteMission extends MissionBase
         runAction(new DriveForDistanceAction(-0.5, 3.0));
         //runAction(new TurnDegreesAction(-90.0, 3.0));
         //runAction(new BackLockOnAction("Amp", true, 4.0));
-        //runAction(new ScoringSystemStateAction(2.0, "score piece"));
-        //runAction(new ParallelAction(new DriveForTimeAction(1.0, 0.25), new ScoringSystemStateAction(1.0, "score piece")));
+        runAction(new ScoringSystemStateAction(2.0, "score piece"));
+        runAction(new ParallelAction(new DriveForTimeAction(1.0, 0.5), new ScoringSystemStateAction(1.0, "score piece")));
     }
 }

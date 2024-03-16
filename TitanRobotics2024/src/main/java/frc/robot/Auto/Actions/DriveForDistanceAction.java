@@ -21,9 +21,9 @@ public class DriveForDistanceAction implements Actions
     private PositionEstimation position;
 
     private PIDController PID;
-    private final double kp = 0.1;
+    private final double kp = 0.4;//0.1
     private final double ki = 0.11;
-    private final double kd = 0.02;
+    private final double kd = 0.04;
 
     public DriveForDistanceAction(double distance, double endingSeconds)
     {

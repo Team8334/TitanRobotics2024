@@ -16,9 +16,10 @@ public class ExampleMission extends MissionBase
     @Override
     protected void routine() throws AutoMissionEndedException 
     {
-        runAction(new DriveForTimeAction (1.0, 0.25));
-        //runAction(new ScoringSystemStateAction(3.0, "intaking"));
-        //runAction(new FrontPickupNoteAction(0.25, 5.0));
+        runAction(new TurnDegreesAction(90, 3.0)); //plus is left
+        //runAction(new DriveForTimeAction (1.0, 0.7));
+        //runAction(new ScoringSystemStateAction(2.0, "intaking"));
+        //runAction(new FrontPickupNoteAction(0.7, 5.0));
     }
 }
 

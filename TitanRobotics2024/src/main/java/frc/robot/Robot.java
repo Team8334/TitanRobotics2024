@@ -129,6 +129,7 @@ public class Robot extends TimedRobot
       autoMissionChooser.getAutoMission().get().setStartPose();
     }
     autoMissionExecutor.start();
+    positionEstimation.resetPose();
   }
 
   /** This function is called periodically during autonomous. */

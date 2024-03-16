@@ -94,7 +94,7 @@ public class BackLockOnAction implements Actions
 
         if ((limelight.findTagName() != "Unknown") && driveTo && limelight.getPipeline() == 0)
         {
-            driveBase.drive(-forward, targeting.backAprilTagLockOn(target));
+            driveBase.drive(forward, targeting.backAprilTagLockOn(target));
 
         }
         else if ((limelight.findTagName() != "Unknown") && !driveTo && limelight.getPipeline() == 0)
@@ -103,7 +103,7 @@ public class BackLockOnAction implements Actions
         }
         else if (limelight.findTagName() == "Unknown" && driveTo && limelight.getPipeline() == 0) 
         {
-            driveBase.drive(-forward, 0.0);
+            driveBase.drive(forward, 0.0);
         }
         else
         {

@@ -37,6 +37,7 @@ public class AutoMissionChooser
         missionChooser.addOption("Leave Community on right side", DesiredMission.leaveCommunityRight);
         missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
         missionChooser.addOption("Score 1 note in amp", DesiredMission.oneNoteMission);
+        missionChooser.addOption("Score 2 notes in amp", DesiredMission.TwoNoteMission);
 
         missionChooser.addOption("Scoring 1 note", DesiredMission.ScoringMission);
         missionChooser.addOption("Score and Move After", DesiredMission.ScoringThenMovingMission);
@@ -81,6 +82,8 @@ public class AutoMissionChooser
                 return Optional.of(new ExampleMission());
             case oneNoteMission:
                 return Optional.of(new OneNoteMission());
+            case TwoNoteMission:
+                return Optional.of(new TwoNoteMission());
             case ScoringMission:
                 return Optional.of(new ScoringMission());
             case ScoringThenMovingMission:
