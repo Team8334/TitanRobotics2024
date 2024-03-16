@@ -69,11 +69,14 @@ public class FrontPickupNoteAction implements Actions
     {
         if (intakeControl.state == "up with piece")
         {
+            System.out.println ("ended state");
             return true;
         }
         if (timer.get() >= seconds) 
         {
+            System.out.println ("ended seconds");
             return true;
+            
         } 
         else 
         {

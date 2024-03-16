@@ -26,12 +26,23 @@ public class ScoringSystemStateAction implements Actions
 
     public void update()
     {
-        
+
     }
 
     public boolean isFinished()
     {
-        return (timer.get() >= seconds);
+        if (timer.get() >= seconds)
+        {
+            return true;
+        }
+        else if (intakeControl.state != state)
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
     }
 
     public void done()

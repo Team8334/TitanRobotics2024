@@ -7,7 +7,7 @@ public class LeaveCommunityRightMission extends MissionBase
     @Override
     protected void routine() throws AutoMissionEndedException
     {
-        runAction(new DriveForDistanceAction(40, 3));
+        runAction(new DriveForDistanceAction(1.0, 3));
         System.out.println("Leave Community Right Mission");
     }
 }
