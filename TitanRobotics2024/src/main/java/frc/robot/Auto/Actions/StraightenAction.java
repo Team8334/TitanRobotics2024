@@ -37,7 +37,7 @@ public class StraightenAction implements Actions
         driveBase = DriveBase.getInstance();
         position = PositionEstimation.getInstance();
         endAfterSeconds = seconds;
-        desiredDegrees = degrees;
+        desiredDegrees = degrees - position.initialAngle;
         PID = new PIDController(kp, ki, kd);
         PID.enableContinuousInput(-180, 180);
         

@@ -130,6 +130,7 @@ public class Robot extends TimedRobot
     }
     autoMissionExecutor.start();
     positionEstimation.resetPose();
+    positionEstimation.getInitialPosition();
   }
 
   /** This function is called periodically during autonomous. */
