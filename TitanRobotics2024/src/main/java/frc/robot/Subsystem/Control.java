@@ -93,7 +93,7 @@ public class Control implements Subsystem
         turn = Math.abs(turn) >= 0.07? turn :0.0;
         driveBase.driftCorrectedDrive(forward, turn);
 
-        //driveBase.driftCorrectedDrive(0.0, 0.0);
+        //driveBase.drive(forward, turn);
 
         climberControl();
         manipulatorControl();

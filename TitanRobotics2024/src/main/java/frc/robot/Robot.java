@@ -108,8 +108,8 @@ public class Robot extends TimedRobot
     climberLeft.update();
     climberRight.update();
     control.update();
-    driveBase.update();
     positionEstimation.update();
+    driveBase.update();
     limelightFront.update();
     limelightBack.update();
     intake.update();
