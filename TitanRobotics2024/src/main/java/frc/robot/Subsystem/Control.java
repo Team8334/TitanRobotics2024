@@ -1,5 +1,6 @@
 package frc.robot.Subsystem;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 
@@ -7,16 +8,19 @@ public class Control implements Subsystem
 {
     private static Control instance = null;
 
+    private boolean useSlew = false;
+    private SlewRateLimiter limiter = new SlewRateLimiter(20);
     private DriveBase driveBase;
     private DriverController driverController;
     private OperatorController operatorController;
     private Targeting targeting;
     private ClimberControl climberControl;
     private Intake intake;
-    private Limelight limelight;
+    private LimelightBack limelightBack;
+    private LimelightFront limelightFront;
     private Ramp ramp;
+    private IntakeControl intakeControl;
 
-    private double rampspeed;
     private double forward;
     private double turn;
     private boolean inversion;
@@ -39,21 +43,31 @@ public class Control implements Subsystem
         driverController = DriverController.getInstance();
         operatorController = OperatorController.getInstance();
         targeting = Targeting.getInstance();
-        limelight = Limelight.getInstance();
         intake = Intake.getInstance();
         intakePivot = IntakePivot.getInstance();
+        intakeControl = IntakeControl.getInstance();
         climberControl = ClimberControl.getInstance();
         ramp = Ramp.getInstance();
         inversion = false;
+        limelightBack = LimelightBack.getInstance();
+        limelightFront = LimelightFront.getInstance();
     }
 
     public void teleopControl()
     {
-        forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY) * (Math.abs(driverController.getStick(ButtonMap.XboxLEFTSTICKY)));
+        forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY);
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
-        if (driverController.debounceB())
-        {
+
+        //Driver does not want this code on forward drive
+        if (driverController.debounceSTART()) {
+            useSlew = !useSlew;
+            SmartDashboard.putBoolean("use slew", useSlew);
+        }
+        if (useSlew) {
+            turn = limiter.calculate(turn);
+        }
+        if (driverController.debounceB()){
             inversion = !inversion;
             SmartDashboard.putBoolean("inversion", inversion);
         }
@@ -64,68 +78,23 @@ public class Control implements Subsystem
             forward = -forward;
         }
 
+        
+        if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
+        {
+           turn += targeting.noteLockOn();
+        }
+
+        if (driverController.getButton(ButtonMap.XboxLEFTBumper))
+        {
+            turn += targeting.aprilTagLockOn();
+        }
+
         driveBase.drive(forward, turn);
 
         climberControl();
         manipulatorControl();
     }
 
-    private void limelightControl()
-    {
-        targeting.setAlliance("blue"); // Change depending on alliance.
-                                       // for upcoming match.
-                                       // Failure to change this will
-                                       // cause you to target the
-                                       // wrong AprilTags when using
-                                       // lock on buttons.
-        if (driverController.debounceSTART())
-        {
-            System.out.println("pressed");
-            if (limelight.getPipeline() == 0)
-            {
-                limelight.setPipeline(1);
-            }
-            else
-            {
-                limelight.setPipeline(0);
-            }
-        }
-
-        if (limelight.getPipeline() == 0)
-        {
-            if (driverController.getButton(ButtonMap.XboxX))
-            {
-                targeting.setTarget("Amp");
-                turn = targeting.aprilTaglockOn();
-                System.out.println("Locking on to Amp");
-            }
-
-            if (driverController.getButton(ButtonMap.XboxA))
-            {
-                targeting.setTarget("Source");
-                turn = targeting.aprilTaglockOn();
-            }
-
-            if (driverController.getButton(ButtonMap.XboxB))
-            {
-                targeting.setTarget("Stage");
-                turn = targeting.aprilTaglockOn();
-            }
-
-            else
-            {
-                targeting.setTarget("none");
-            }
-        }
-
-        if (limelight.pipeline == 1)
-        {
-            if (driverController.getButton(ButtonMap.XboxY))
-            {
-                turn = targeting.otherLockOn();
-            }
-        }
-    }
 
     private void climberControl()
     {
@@ -141,45 +110,54 @@ public class Control implements Subsystem
 
     private void manipulatorControl()//please do not mess with the buttons, they are set to operator's preference.
     {
+
+        if (operatorController.debounceA())
+        {
+            if (intakeControl.state == "disabled")
+            {
+                intakeControl.intaking();
+            }
+            else if (intakeControl.state == "up")
+            {
+                intakeControl.intaking();
+
+            }
+            else if (intakeControl.state == "intaking")
+            {
+                intakeControl.up();
+            }
+            else if (intakeControl.state == "up with piece")
+            {
+                intakeControl.score();
+            }
+            else if (intakeControl.state == "score piece")
+            {
+                intakeControl.up();
+            }
+
+        }
+
         if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))//right bumper = intake in, pushes ramp back towards the intake
         {
+            intakeControl.unClog();
             intake.manualIntakePower(0.6);
 
             ramp.setRamp(-0.3);
         }
         else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))//left bumper = intake out, pushes ramp towards the scoring side
         {
+
+            intakeControl.unClog();
             intake.manualIntakePower(-0.3);
             ramp.setRamp(0.3);
         }
-
-
-        else
+        else if (intakeControl.state == "unClog")
         {
-            intake.manualIntakePower(0);
-            ramp.setRamp(0);
+            intakeControl.state = "disabled";
         }
-
-
-        if (operatorController.debounceA())
-        {
-            if (intakePivot.intakeState == "disabled")
-            {
-                intakePivot.down();
-            }
-            else if (intakePivot.intakeState == "up")
-            {
-                intakePivot.down();
-            }
-            else if (intakePivot.intakeState == "down")
-            {
-                intakePivot.up();
-            }
-        }
-
         if (operatorController.getButton(ButtonMap.XboxB))
         {
-            intakePivot.disabled();
+            intakeControl.disabled();
         }
     }
 

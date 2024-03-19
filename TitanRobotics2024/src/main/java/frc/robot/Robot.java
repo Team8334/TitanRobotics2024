@@ -15,7 +15,9 @@ import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Subsystem.Intake;
-import frc.robot.Subsystem.Limelight;
+import frc.robot.Subsystem.IntakeControl;
+import frc.robot.Subsystem.LimelightFront;
+import frc.robot.Subsystem.LimelightBack;
 import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.PositionEstimation;
 import frc.robot.Subsystem.Ramp;
@@ -50,11 +52,13 @@ public class Robot extends TimedRobot
   private static ClimberControl climberControl;
   private static ClimberSubsystem climberRight;
   private static ClimberSubsystem climberLeft;
-  private static Limelight limelight;
+  private static LimelightFront limelightFront;
+  private static LimelightBack limelightBack;
   private static PositionEstimation positionEstimation;
   private static SmartDashboardSubsystem smartDashboardSubsystem;
   private static Intake intake;
   private static IntakePivot intakePivot;
+  private static IntakeControl intakeControl;
   private static Ramp ramp;
   private static LEDLightStrip ledLightStrip;
 
@@ -78,9 +82,11 @@ public class Robot extends TimedRobot
     targeting = Targeting.getInstance();
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
-    limelight = Limelight.getInstance();
+    limelightFront = LimelightFront.getInstance();
+    limelightBack = LimelightBack.getInstance();
     intake = Intake.getInstance();
     intakePivot = IntakePivot.getInstance();
+    intakeControl = IntakeControl.getInstance();
     ramp = Ramp.getInstance();
     ledLightStrip = LEDLightStrip.getInstance();
 
@@ -107,9 +113,11 @@ public class Robot extends TimedRobot
     control.update();
     driveBase.update();
     positionEstimation.update();
-    limelight.update();
+    limelightFront.update();
+    limelightBack.update();
     intake.update();
     intakePivot.update();
+    intakeControl.update();
     ramp.update();
     ledLightStrip.update();
 
@@ -125,6 +133,8 @@ public class Robot extends TimedRobot
       autoMissionChooser.getAutoMission().get().setStartPose();
     }
     autoMissionExecutor.start();
+    positionEstimation.resetPose();
+    positionEstimation.getInitialPosition();
   }
 
   /** This function is called periodically during autonomous. */

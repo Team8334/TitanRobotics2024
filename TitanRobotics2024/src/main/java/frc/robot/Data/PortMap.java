@@ -6,17 +6,23 @@ public enum PortMap
     XBOX_DRIVER_CONTROLLER(0), //find this number in driverstation
     XBOX_OPERATOR_CONTROLLER(1),
     
+
     CLIMBERMOTORLEFT(4),//4
     CLIMBERMOTORRIGHT(5),//5
     
+
+
     CLIMBERLEFTENCODER_A(-1), //8
     CLIMBERLEFTENCODER_B(-1), //9
     CLIMBERRIGHTENCODER_A(-1), //1
     CLIMBERRIGHTENCODER_B(-1), //0
     
+
     INTAKEMOTORPIVOT(6),//6
     INTAKEMOTORROLLER(7),//7
     INTAKEPIVOTENCODER(4),
+    INTAKELIMITSWITCH(7),
+
 
 
     FRONTRIGHT(3), 
@@ -33,7 +39,9 @@ public enum PortMap
     RAMPRIGHTMOTOR(9),
     OUTTAKEMOTOR(11),
 
-    LEDLIGHTSTRIP(9);
+    LEDLIGHTSTRIP(9),
+    LEFTLIMITSWITCH(5),
+    RIGHTLIMITSWITCH(6);
 
 
     public int portNumber;

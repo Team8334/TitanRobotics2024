@@ -13,7 +13,14 @@ public class AutoMissionChooser
         doNothing,
         leaveCommunityRight,
         exampleMission,
-        oneNoteMission
+        oneNoteMission,
+        TwoNoteMission,
+        ScoringMission,
+        ScoringThenMovingMission,
+        RedScorePickUpMission,
+        BlueScorePickUpMission,
+        RedScoreMoveOutMission,
+        BlueScoreMoveOutMission
     }
 
     private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
@@ -30,6 +37,15 @@ public class AutoMissionChooser
         missionChooser.addOption("Leave Community on right side", DesiredMission.leaveCommunityRight);
         missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
         missionChooser.addOption("Score 1 note in amp", DesiredMission.oneNoteMission);
+        missionChooser.addOption("Score 2 notes in amp", DesiredMission.TwoNoteMission);
+
+        missionChooser.addOption("Scoring 1 note", DesiredMission.ScoringMission);
+        missionChooser.addOption("Score and Move After", DesiredMission.ScoringThenMovingMission);
+        missionChooser.addOption("Red Score and pick up", DesiredMission.RedScorePickUpMission);
+        missionChooser.addOption("Blue Score and pick up", DesiredMission.BlueScorePickUpMission);
+        missionChooser.addOption("Red Score and move out", DesiredMission.RedScoreMoveOutMission);
+        missionChooser.addOption("Blue Score and move out", DesiredMission.BlueScoreMoveOutMission);
+
         // add more here as needed
 
         SmartDashboard.putData("Auto Mission", missionChooser);
@@ -66,6 +82,21 @@ public class AutoMissionChooser
                 return Optional.of(new ExampleMission());
             case oneNoteMission:
                 return Optional.of(new OneNoteMission());
+            case TwoNoteMission:
+                return Optional.of(new TwoNoteMission());
+            case ScoringMission:
+                return Optional.of(new ScoringMission());
+            case ScoringThenMovingMission:
+                return Optional.of(new ScoringThenMovingMission());
+            case RedScorePickUpMission:
+                return Optional.of(new RedScorePickUpMission());
+            case BlueScorePickUpMission:
+                return Optional.of(new BlueScorePickUpMission());
+            case RedScoreMoveOutMission:
+                return Optional.of(new RedScoreMoveOutMission());
+            case BlueScoreMoveOutMission:
+                return Optional.of(new BlueScoreMoveOutMission());
+
             default:
                 System.err.println("No valid autonomous mission found for" + mission);
                 return Optional.empty();

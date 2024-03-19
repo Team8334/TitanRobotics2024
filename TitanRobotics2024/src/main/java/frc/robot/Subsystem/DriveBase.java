@@ -31,7 +31,7 @@ public class DriveBase implements Subsystem
 
   //private String motorType = "CANVictorSPX"; // This is Gyro
   //private String motorType = "CANVictorSPXDual"; // This is Janus
-  private String motorType = "CANTalonDual";
+  private String motorType = "CANTalonDual"; //this is 
   // TODO: make a better selector for the motor type
 
   private static DriveBase instance = null;
