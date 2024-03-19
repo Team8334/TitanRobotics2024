@@ -1,41 +1,24 @@
 {
   "HALProvider": {
     "Encoders": {
+      "1": {
+        "header": {
+          "open": true
+        }
+      },
       "2": {
         "header": {
           "open": false
         }
+      },
+      "window": {
+        "visible": true
       }
     },
     "Other Devices": {
       "SPARK MAX [0]": {
         "header": {
           "open": false
-        }
-      },
-      "SPARK MAX [4]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [5]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [6]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [7]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon SRX[2]/Fwd Limit": {
-        "header": {
-          "open": true
         }
       },
       "Victor SPX[0]": {
@@ -60,18 +43,34 @@
       }
     },
     "RoboRIO": {
-      "6V Rail": {
-        "open": false
-      },
       "RoboRIO Input": {
-        "open": false
+        "open": true
       }
     }
   },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
-      "/SmartDashboard/Auto Mission": "String Chooser"
+      "/SmartDashboard/Auto Mission": "String Chooser",
+      "/SmartDashboard/Field": "Field2d"
+    },
+    "windows": {
+      "/SmartDashboard/Auto Mission": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Field": {
+        "bottom": 1476,
+        "height": 8.210550308227539,
+        "left": 150,
+        "right": 2961,
+        "top": 79,
+        "width": 16.541748046875,
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables": {
@@ -81,22 +80,24 @@
     "Retained Values": {
       "open": false
     },
-    "transitory": {
-      "FMSInfo": {
-        "open": true
-      },
-      "LiveWindow": {
-        "open": true
-      },
-      "Shuffleboard": {
-        "open": true
-      },
+    "Transitory Values": {
+      "open": false
+    },
+    "retained": {
       "SmartDashboard": {
+        "Auto Mission": {
+          "open": true
+        },
         "open": true
       }
     }
   },
   "NetworkTables Info": {
+    "shuffleboard@1": {
+      "Subscribers": {
+        "open": true
+      }
+    },
     "visible": true
   }
 }
