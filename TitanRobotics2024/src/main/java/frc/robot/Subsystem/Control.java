@@ -89,7 +89,11 @@ public class Control implements Subsystem
             turn += targeting.aprilTagLockOn();
         }
 
-        driveBase.drive(forward, turn);
+        forward = Math.abs(forward) >= 0.07? forward :0.0;
+        turn = Math.abs(turn) >= 0.07? turn :0.0;
+        driveBase.driftCorrectedDrive(forward, turn);
+
+        //driveBase.driftCorrectedDrive(0.0, 0.0);
 
         climberControl();
         manipulatorControl();

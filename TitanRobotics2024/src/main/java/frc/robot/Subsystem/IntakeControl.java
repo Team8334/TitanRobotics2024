@@ -30,7 +30,16 @@ public class IntakeControl
         ramp = Ramp.getInstance();
         intakePivot = IntakePivot.getInstance();
         intake = Intake.getInstance();
-        limitSwitch = new DigitalInput(PortMap.INTAKELIMITSWITCH.portNumber);
+        try
+        {
+            limitSwitch = new DigitalInput(PortMap.INTAKELIMITSWITCH.portNumber);
+        }
+        catch (Exception e)
+        {
+           
+
+            limitSwitch = null;
+        }
     }
 
     public void up()
@@ -100,7 +109,7 @@ public class IntakeControl
 
         if (state.equals("intaking"))
         {
-            if (!limitSwitch.get())
+            if (limitSwitch != null && !limitSwitch.get())
             {
                 state = "up with piece";
             }
@@ -115,7 +124,10 @@ public class IntakeControl
     public void log()
     {
         SmartDashboard.putString("Intake State", state);
-        SmartDashboard.putBoolean("Intake Limit Switch", limitSwitch.get());
+        if (limitSwitch != null)
+        {
+            SmartDashboard.putBoolean("Intake Limit Switch", limitSwitch.get());
+        }
     }
 
     public void update()

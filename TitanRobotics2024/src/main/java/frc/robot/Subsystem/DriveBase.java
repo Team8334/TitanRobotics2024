@@ -1,16 +1,24 @@
 package frc.robot.Subsystem;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.math.controller.DifferentialDriveFeedforward;
+
 
 public class DriveBase implements Subsystem
 {
   private final DifferentialDrive drive;
   private final DifferentialDriveOdometry odometry;
+
+  //private PositionEstimation positionEstimation;
 
   private ModifiedEncoders leftEncoder;
   private ModifiedEncoders rightEncoder;
@@ -25,15 +33,44 @@ public class DriveBase implements Subsystem
   private double rightEncoderDistance;
   private double leftEncoderDistance;
 
+  private double leftMetersPerSecond;
+  private double rightMetersPerSecond;
+
   private double leftPower;
   private double rightPower;
 
+  private double leftVoltage;
+  private double rightVoltage;
+  private DifferentialDriveFeedforward feedForward;
+
+  private double kVLinear = 2.39;
+  private double kALinear = 0.66;
+  private double kVAngular = 0.0;
+  private double kAAngular = 0.0;
+  private double trackwidth = 0.6858; //meters
+
+  public static final double kMaxSpeed = 5.28; // meters per second
+  public static final double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
+
+  private static final double kTrackWidth = 0.381 * 2; // meters
+  private static final double kWheelRadius = 0.0508; // meters
+  private static final int kEncoderResolution = 4096;
+
+  private final PIDController m_leftPIDController = new PIDController(1.0, 0, 0);
+  private final PIDController m_rightPIDController = new PIDController(1.0, 0, 0);
+
+  private final SimpleMotorFeedforward leftFeedforwardController = new SimpleMotorFeedforward(0, kVLinear, kALinear);
+  private final SimpleMotorFeedforward rightFeedforwardController = new SimpleMotorFeedforward(0, kVLinear, kALinear);
+  DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
+
+
   //private String motorType = "CANVictorSPX"; // This is Gyro
-  //private String motorType = "CANVictorSPXDual"; // This is Janus
-  private String motorType = "CANTalonDual"; //this is 
+  private String motorType = "CANVictorSPXDual"; // This is Janus
+  //private String motorType = "CANTalonDual"; //this is 
   // TODO: make a better selector for the motor type
 
   private static DriveBase instance = null;
+  
 
   public static DriveBase getInstance()
   {
@@ -47,6 +84,7 @@ public class DriveBase implements Subsystem
   public DriveBase()
   {
     gyro = Gyro.getInstance();
+    //positionEstimation = PositionEstimation.getInstance();
     this.leftMotor = new ModifiedMotors(PortMap.FRONTLEFT.portNumber, PortMap.REARLEFT.portNumber, motorType, false);
     this.rightMotor = new ModifiedMotors(PortMap.FRONTRIGHT.portNumber, PortMap.REARRIGHT.portNumber, motorType, true);
 
@@ -65,6 +103,8 @@ public class DriveBase implements Subsystem
     this.drive = new DifferentialDrive(leftMotor::set, rightMotor::set);
     this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getRelativeDistance(),
             rightEncoder.getRelativeDistance());
+
+    
   }
 
   public void setRightMotorsPower(double power)
@@ -83,6 +123,36 @@ public class DriveBase implements Subsystem
     this.turn = turn;
   }
 
+public void setSpeeds(DifferentialDriveWheelSpeeds speeds) 
+{
+    final double leftFeedforward = leftFeedforwardController.calculate(speeds.leftMetersPerSecond);
+    final double rightFeedforward = rightFeedforwardController.calculate(speeds.rightMetersPerSecond);
+
+    final double leftOutput =
+        m_leftPIDController.calculate(leftEncoder.getRate(), speeds.leftMetersPerSecond);
+    final double rightOutput =
+        m_rightPIDController.calculate(rightEncoder.getRate(), speeds.rightMetersPerSecond);
+    leftMotor.setVoltage(leftOutput + leftFeedforward);
+    rightMotor.setVoltage(rightOutput + rightFeedforward);
+
+    leftMetersPerSecond = speeds.leftMetersPerSecond;
+    leftVoltage = leftOutput + leftFeedforward;
+    rightMetersPerSecond = speeds.rightMetersPerSecond;
+    rightVoltage = rightOutput + rightFeedforward;
+  }
+
+  /**
+   * Drives the robot with the given linear velocity and angular velocity.
+   *
+   * @param xSpeed Linear velocity in m/s.
+   * @param rot Angular velocity in rad/s.
+   */
+  public void driftCorrectedDrive(double forward, double turn) 
+  {
+    var wheelSpeeds = kinematics.toWheelSpeeds(new ChassisSpeeds(forward * kMaxSpeed, 0.0, turn * kMaxAngularSpeed));
+    setSpeeds(wheelSpeeds);
+  }
+
   public double getLeftEncoderDistance()
   {
     return leftEncoderDistance;
@@ -99,6 +169,12 @@ public class DriveBase implements Subsystem
     SmartDashboard.putNumber("rightEncoderRate", rightEncoderRate);
     SmartDashboard.putNumber("leftEncoderDistance", leftEncoderDistance);
     SmartDashboard.putNumber("rightEncoderDistance", rightEncoderDistance);
+    SmartDashboard.putNumber("leftMetersPerSecond", leftMetersPerSecond);
+    SmartDashboard.putNumber("rightMetersPerSecond", rightMetersPerSecond);
+    SmartDashboard.putNumber("leftVoltage", leftVoltage);
+    SmartDashboard.putNumber("rightVoltage", rightVoltage);
+    SmartDashboard.putNumber("EncoderDiff", rightEncoderDistance - leftEncoderDistance);
+    SmartDashboard.putNumber("EncoderRateDiff", rightEncoderRate - leftEncoderRate);
 
   }
 
@@ -124,7 +200,7 @@ public class DriveBase implements Subsystem
     {
       SmartDashboardSubsystem.getInstance().error("right encoder is null");
     }
-    drive.arcadeDrive(forward, turn);
+    //drive.arcadeDrive(forward, turn);
 
     this.odometry.update(gyro.getRotation2d(), leftEncoderDistance, rightEncoderDistance);
   }
