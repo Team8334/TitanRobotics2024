@@ -11,7 +11,7 @@ public class BlueScorePickUpMission extends MissionBase
     protected void routine() throws AutoMissionEndedException 
     {
         runAction(new DriveForDistanceAction(1.7, 3));  
-        runAction(new TurnDegreesAction(77, 1));
+        runAction(new TurnDegreesAction(77, 1)); //plus is left
         runAction(new DriveForDistanceAction(1.5, 3));
         runAction(new RunningScoringActions(5, .25, .25, .25));
         runAction(new DriveForDistanceAction(-1.5, 3));

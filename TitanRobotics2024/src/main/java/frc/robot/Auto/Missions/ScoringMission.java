@@ -20,7 +20,7 @@ public class ScoringMission extends MissionBase
     {
         runAction(new DriveForDistanceAction(-0.9, 3));  
         //runAction(new DriveForTimeAction(1, 0.5) needed?
-        runAction(new TurnDegreesAction(-77, 3));
+        runAction(new TurnDegreesAction(-77, 3)); //plus is left
         //runAction(new ParallelAction(new DriveForDistanceAction(-0.7, 3), new RunScoringSystemAction(3.0,0.0,0.0,0.6)));
         runAction(new BackLockOnAction("Amp", true, 3));
         runAction(new ParallelAction(new ScoringSystemStateAction(2.5, "score piece"), new DriveForTimeAction(2.5, -0.5)));

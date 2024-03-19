@@ -46,7 +46,7 @@ public class LEDLightStrip implements Subsystem
     SmartDashboard.putNumber("LED color", 0);
   }
 
-  public void set(int color)
+  public void set(double color)
   {
     ledLightStrip.set(color);
   }

@@ -4,10 +4,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.Subsystem.LEDLightStrip;
 
 public class IntakeControl
 {
     private Ramp ramp;
+    private LEDLightStrip ledLightStrip;
 
     private static IntakeControl instance = null;
     private IntakePivot intakePivot;
@@ -31,6 +33,7 @@ public class IntakeControl
         intakePivot = IntakePivot.getInstance();
         intake = Intake.getInstance();
         limitSwitch = new DigitalInput(PortMap.INTAKELIMITSWITCH.portNumber);
+        ledLightStrip = LEDLightStrip.getInstance();
     }
 
     public void up()
@@ -103,11 +106,13 @@ public class IntakeControl
             if (!limitSwitch.get())
             {
                 state = "up with piece";
+                ledLightStrip.set(0.63);
             }
         }
         if (state.equals("up") && !limitSwitch.get())
         {
             state = "up with piece";
+            ledLightStrip.set(0.63);
         }
 
     }
