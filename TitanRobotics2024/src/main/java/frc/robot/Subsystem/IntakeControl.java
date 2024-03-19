@@ -86,6 +86,7 @@ public class IntakeControl
                 ramp.setRamp(0.0);
                 break;
             case "up with piece":
+                ledLightStrip.set(0.63);
                 intakePivot.up();
                 intake.manualIntakePower(0.0);
                 ramp.setRamp(0.0);
@@ -95,6 +96,7 @@ public class IntakeControl
                 intake.manualIntakePower(-0.15);
                 ramp.setRampLeftAndRight(0.15);
                 ramp.setOuttake(0.4);
+                ledLightStrip.set(0.73);
             case "unClog":
                 break;
             default:
@@ -106,13 +108,11 @@ public class IntakeControl
             if (!limitSwitch.get())
             {
                 state = "up with piece";
-                ledLightStrip.set(0.63);
             }
         }
         if (state.equals("up") && !limitSwitch.get())
         {
             state = "up with piece";
-            ledLightStrip.set(0.63);
         }
 
     }
