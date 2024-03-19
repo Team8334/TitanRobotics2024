@@ -81,6 +81,7 @@ public class IntakeControl
                 ramp.setRamp(0.0);
                 break;
             case "intaking":
+                ledLightStrip.set(0.81);
                 intake.manualIntakePower(0.6);
                 intakePivot.down();
                 ramp.setRamp(0.0);
