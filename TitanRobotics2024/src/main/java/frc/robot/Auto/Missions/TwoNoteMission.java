@@ -17,10 +17,10 @@ public class TwoNoteMission extends MissionBase
     protected void routine() throws AutoMissionEndedException
     {
         runAction(new DriveForDistanceAction(-0.45, 3));  
-        runAction(new TurnDegreesAction(-77, 2));
+        runAction(new TurnDegreesAction(-70, 2));
         //runAction(new BackLockOnAction("Amp", true, 2));
         runAction(new DriveForTimeAction(0.5, -0.5));
-        runAction(new ParallelAction(new DriveForTimeAction(2.5, -0.25), new ScoringSystemStateAction(2.5, "score piece")));
+        runAction(new ParallelAction(new DriveForTimeAction(2.5, -0.22), new ScoringSystemStateAction(2.5, "score piece")));
         runAction(new ParallelAction(new DriveForDistanceAction(0.20, 1.5)  , new ScoringSystemStateAction(1.0, "score piece")));
         runAction(new ParallelAction(new TurnDegreesAction(-30, 3), new ScoringSystemStateAction(3, "intaking")));
         runAction(new FrontPickupNoteAction(0.35, 4));
