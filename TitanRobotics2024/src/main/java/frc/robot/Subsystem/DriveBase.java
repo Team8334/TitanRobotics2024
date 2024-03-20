@@ -2,6 +2,7 @@ package frc.robot.Subsystem;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.PortMap;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -10,9 +11,12 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.PubSub;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.controller.DifferentialDriveFeedforward;
-
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.PathPlannerLogging;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 public class DriveBase implements Subsystem
 {
@@ -46,6 +50,9 @@ public class DriveBase implements Subsystem
   private double rightVoltage;
   private DifferentialDriveFeedforward feedForward;
 
+  private DifferentialDriveWheelSpeeds wheelSpeeds;
+  private ChassisSpeeds chassisSpeeds;
+
   private double kVLinearLeft = 2.39;
   private double kALinearLeft = 0.66;
   private double kVLinearRight = 2.39;
@@ -72,14 +79,12 @@ public class DriveBase implements Subsystem
   private final SimpleMotorFeedforward rightFeedforwardController = new SimpleMotorFeedforward(0.0, kVLinearRight, kALinearRight);
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
 
-
   //private String motorType = "CANVictorSPX"; // This is Gyro
   //private String motorType = "CANVictorSPXDual"; // This is Janus
   private String motorType = "CANTalonDual"; //this is Aiode
   // TODO: make a better selector for the motor type
 
   private static DriveBase instance = null;
-  
 
   public static DriveBase getInstance()
   {
@@ -110,7 +115,38 @@ public class DriveBase implements Subsystem
 
     this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getRelativeDistance(),
             rightEncoder.getRelativeDistance());
+
+
+     AutoBuilder.configureRamsete(
+        this::getPose, // Robot pose supplier
+        this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
+        this::getCurrentSpeeds, // Current ChassisSpeeds supplier
+        this::drive, // Method that will drive the robot given ChassisSpeeds
+        new ReplanningConfig(), // Default path replanning config. See the API for the options here
+        this // Reference to this subsystem to set requirements
+        var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+              return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+        );
+    );
     
+  }
+
+  public Pose2d getPose()
+  {
+    return odometry.getPoseMeters();
+  }
+
+  public void resetPose(Pose2d pose)
+  {
+    odometry.resetPosition(gyro.getRotation2d(), getPositions(), pose);
+  }
+
+  public ChassisSpeeds getSpeeds()
+  {
+    return kinematics.toWheelSpeeds(chassisSpeeds);
   }
 
   public void setRightMotorsPower(double power)
@@ -123,16 +159,14 @@ public class DriveBase implements Subsystem
     this.leftPower = power;
   }
 
-public void setSpeeds(DifferentialDriveWheelSpeeds speeds) 
-{
+  public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
+  {
     final double leftFeedforward = leftFeedforwardController.calculate(speeds.leftMetersPerSecond);
     final double rightFeedforward = rightFeedforwardController.calculate(speeds.rightMetersPerSecond);
 
-    final double leftOutput =
-        m_leftPIDController.calculate(leftEncoderRate, speeds.leftMetersPerSecond);
-    final double rightOutput =
-        m_rightPIDController.calculate(rightEncoderRate, speeds.rightMetersPerSecond);
-    leftMotor.setVoltage( leftFeedforward);
+    final double leftOutput = m_leftPIDController.calculate(leftEncoderRate, speeds.leftMetersPerSecond);
+    final double rightOutput = m_rightPIDController.calculate(rightEncoderRate, speeds.rightMetersPerSecond);
+    leftMotor.setVoltage(leftFeedforward);
     rightMotor.setVoltage(rightFeedforward);
 
     leftMetersPerSecond = speeds.leftMetersPerSecond;
@@ -147,12 +181,17 @@ public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
    * @param xSpeed Linear velocity in m/s.
    * @param rot Angular velocity in rad/s.
    */
-  public void drive(double forward, double turn) 
+  public void drive(double forward, double turn)
   {
-   
+    chassisSpeeds = new ChassisSpeeds(forward * kMaxSpeed, 0.0, correctedTurn);
     correctedTurn = m_angularPIDController.calculate(gyro.getAngleRate() * Math.PI / 180, turn * kMaxAngularSpeed);
-    var wheelSpeeds = kinematics.toWheelSpeeds(new ChassisSpeeds(forward * kMaxSpeed, 0.0, correctedTurn));
+    wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
     setSpeeds(wheelSpeeds);
+  }
+
+  public DifferentialDriveWheelSpeeds getCurrentSpeeds()
+  {
+    return kinematics.toWheelSpeeds(chassisSpeeds);
   }
 
   public double getLeftEncoderDistance()
@@ -177,10 +216,12 @@ public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
     SmartDashboard.putNumber("rightVoltage", rightVoltage);
     SmartDashboard.putNumber("EncoderDiff", rightEncoderDistance - leftEncoderDistance);
     SmartDashboard.putNumber("EncoderRateDiff", rightEncoderRate - leftEncoderRate);
-     SmartDashboard.putNumber("GyroA", gyro.getAngleRate());
+    SmartDashboard.putNumber("GyroA", gyro.getAngleRate());
     SmartDashboard.putNumber("TurnError", (gyro.getAngleRate() * Math.PI / 180) - (turn * kMaxAngularSpeed));
     SmartDashboard.putNumber("DriftCorrectedTur", correctedTurn);
+    PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
 
+    SmartDashboard.putData("Field", field);
   }
 
   @Override
@@ -206,7 +247,7 @@ public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
       SmartDashboardSubsystem.getInstance().error("right encoder is null");
     }
     //drive.arcadeDrive(forward, turn);
-  
+
     this.odometry.update(gyro.getRotation2d(), leftEncoderDistance, rightEncoderDistance);
   }
 }
