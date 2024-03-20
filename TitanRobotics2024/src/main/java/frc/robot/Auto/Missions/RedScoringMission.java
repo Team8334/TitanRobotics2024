@@ -8,11 +8,11 @@ import frc.robot.Auto.Actions.ParallelAction;
 import frc.robot.Auto.Actions.RunScoringSystemAction;
 import frc.robot.Auto.Actions.TurnDegreesAction;
 import frc.robot.Auto.Actions.RunningScoringActions;
-import frc.robot.Auto.Actions.ScoringSystemStateAction;;
+import frc.robot.Auto.Actions.ScoringSystemStateAction;
 
 //none of the number values are for certain, they are just placeholders
 
-public class ScoringMission extends MissionBase
+public class RedScoringMission extends MissionBase
 {
      @Override
     protected void routine() throws AutoMissionEndedException 
