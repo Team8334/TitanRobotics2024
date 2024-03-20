@@ -108,7 +108,17 @@ public class AutoMissionChooser
                     return Optional.of(new DoNothingMission());
                 }
             case ScoringThenMovingMission:
-                return Optional.of(new ScoringThenMovingMission());
+                if (alliance == "Red")
+                {
+                    return Optional.of(new RedScoreMoveOutMission());
+                }
+                else if (alliance == "Blue")
+                {
+                    return Optional.of(new BlueScoreMoveOutMission());
+                }
+                else{
+                return Optional.of(new DoNothingMission());
+                }
             //case RedScorePickUpMission:
             //    return Optional.of(new RedScorePickUpMission());
             //case BlueScorePickUpMission:

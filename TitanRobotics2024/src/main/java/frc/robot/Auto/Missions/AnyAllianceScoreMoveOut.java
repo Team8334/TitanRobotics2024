@@ -3,11 +3,11 @@ package frc.robot.Auto.Missions;
 import frc.robot.Auto.AutoMissionEndedException;
 import edu.wpi.first.wpilibj.DriverStation;
 
-public class AnyAllianceScorMoveOut extends MissionBase {
+public class AnyAllianceScoreMoveOut extends MissionBase {
 
     String alliance;
 
-    public AnyAllianceScorMoveOut()
+    public AnyAllianceScoreMoveOut()
     {
         try
         {
@@ -20,12 +20,9 @@ public class AnyAllianceScorMoveOut extends MissionBase {
         }
     }
 
-    public void AutoAllianceSide()
+    public String AutoAllianceSide()
     {
-        if (alliance.equals("Red"))
-        {
-            
-        }
+        return alliance;
     }
 
     @Override

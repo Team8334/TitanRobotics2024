@@ -15,16 +15,14 @@ public class BlueScoringMission extends MissionBase {
     @Override
     protected void routine() throws AutoMissionEndedException
     {
-        runAction(new DriveForDistanceAction(-0.9, 3));  
-        //runAction(new DriveForTimeAction(1, 0.5) needed?
-        runAction(new TurnDegreesAction(77, 3));
-        //runAction(new ParallelAction(new DriveForDistanceAction(-0.7, 3), new RunScoringSystemAction(3.0,0.0,0.0,0.6)));
-        runAction(new BackLockOnAction("Amp", true, 3));
-        runAction(new ParallelAction(new ScoringSystemStateAction(2.5, "score piece"), new DriveForTimeAction(2.5, -0.5)));
-        runAction(new ParallelAction(new DriveForTimeAction(1.0, 0.5), new ScoringSystemStateAction(1.0, "score piece")));
+        runAction(new DriveForDistanceAction(-0.45, 3));  
+        runAction(new TurnDegreesAction(75, 2));
+        //runAction(new BackLockOnAction("Amp", true, 2));
+        runAction(new DriveForTimeAction(0.5, -0.5));
+        runAction(new ParallelAction(new DriveForTimeAction(2.5, -0.22), new ScoringSystemStateAction(2.5, "score piece")));
+        runAction(new ParallelAction(new DriveForDistanceAction(0.20, 1.5)  , new ScoringSystemStateAction(1.0, "score piece")));
 
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'routine'");
+        
     }
     
 }
