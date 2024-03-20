@@ -46,14 +46,16 @@ public class DriveBase implements Subsystem
   private double rightVoltage;
   private DifferentialDriveFeedforward feedForward;
 
-  private double kVLinear = 2.39;
-  private double kALinear = 0.66;
+  private double kVLinearLeft = 2.39;
+  private double kALinearLeft = 0.66;
+  private double kVLinearRight = 2.39;
+  private double kALinearRight = 0.66;
   private double kVAngular = 0.0;
   private double kAAngular = 0.0;
   private double trackwidth = 0.6858; //meters
 
   public static final double kMaxSpeed = 5.28; // meters per second
-  public static final double kMaxAngularSpeed = Math.PI; // one rotation per second
+  public static final double kMaxAngularSpeed = 5 * Math.PI; // one rotation per second
 
   public double correctedTurn;
 
@@ -64,10 +66,10 @@ public class DriveBase implements Subsystem
   private final PIDController m_leftPIDController = new PIDController(1.0, 0, 0);
   private final PIDController m_rightPIDController = new PIDController(1.0, 0, 0);
 
-  private final PIDController m_angularPIDController = new PIDController(5.0, 0, 0);
+  private final PIDController m_angularPIDController = new PIDController(0.5, 0.1, 0);
 
-  private final SimpleMotorFeedforward leftFeedforwardController = new SimpleMotorFeedforward(0, kVLinear, kALinear);
-  private final SimpleMotorFeedforward rightFeedforwardController = new SimpleMotorFeedforward(0, kVLinear, kALinear);
+  private final SimpleMotorFeedforward leftFeedforwardController = new SimpleMotorFeedforward(0.0, kVLinearLeft, kALinearLeft);
+  private final SimpleMotorFeedforward rightFeedforwardController = new SimpleMotorFeedforward(0.0, kVLinearRight, kALinearRight);
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
 
 
@@ -121,23 +123,17 @@ public class DriveBase implements Subsystem
     this.leftPower = power;
   }
 
-  public void drive(double forward, double turn)
-  {
-    this.forward = forward;
-    this.turn = turn;
-  }
-
 public void setSpeeds(DifferentialDriveWheelSpeeds speeds) 
 {
     final double leftFeedforward = leftFeedforwardController.calculate(speeds.leftMetersPerSecond);
     final double rightFeedforward = rightFeedforwardController.calculate(speeds.rightMetersPerSecond);
 
     final double leftOutput =
-        m_leftPIDController.calculate(leftEncoder.getRate(), speeds.leftMetersPerSecond);
+        m_leftPIDController.calculate(leftEncoderRate, speeds.leftMetersPerSecond);
     final double rightOutput =
-        m_rightPIDController.calculate(rightEncoder.getRate(), speeds.rightMetersPerSecond);
-    leftMotor.setVoltage(leftOutput + leftFeedforward);
-    rightMotor.setVoltage(rightOutput + rightFeedforward);
+        m_rightPIDController.calculate(rightEncoderRate, speeds.rightMetersPerSecond);
+    leftMotor.setVoltage( leftFeedforward);
+    rightMotor.setVoltage(rightFeedforward);
 
     leftMetersPerSecond = speeds.leftMetersPerSecond;
     leftVoltage = leftOutput + leftFeedforward;
@@ -151,10 +147,10 @@ public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
    * @param xSpeed Linear velocity in m/s.
    * @param rot Angular velocity in rad/s.
    */
-  public void driftCorrectedDrive(double forward, double turn) 
+  public void drive(double forward, double turn) 
   {
    
-    correctedTurn = turn * kMaxAngularSpeed;//m_angularPIDController.calculate(-gyro.getAngleRate() * Math.PI / 180, turn * kMaxAngularSpeed);
+    correctedTurn = m_angularPIDController.calculate(gyro.getAngleRate() * Math.PI / 180, turn * kMaxAngularSpeed);
     var wheelSpeeds = kinematics.toWheelSpeeds(new ChassisSpeeds(forward * kMaxSpeed, 0.0, correctedTurn));
     setSpeeds(wheelSpeeds);
   }
@@ -182,6 +178,7 @@ public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
     SmartDashboard.putNumber("EncoderDiff", rightEncoderDistance - leftEncoderDistance);
     SmartDashboard.putNumber("EncoderRateDiff", rightEncoderRate - leftEncoderRate);
      SmartDashboard.putNumber("GyroA", gyro.getAngleRate());
+    SmartDashboard.putNumber("TurnError", (gyro.getAngleRate() * Math.PI / 180) - (turn * kMaxAngularSpeed));
     SmartDashboard.putNumber("DriftCorrectedTur", correctedTurn);
 
   }
@@ -209,7 +206,7 @@ public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
       SmartDashboardSubsystem.getInstance().error("right encoder is null");
     }
     //drive.arcadeDrive(forward, turn);
-
+  
     this.odometry.update(gyro.getRotation2d(), leftEncoderDistance, rightEncoderDistance);
   }
 }

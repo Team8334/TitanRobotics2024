@@ -8,8 +8,9 @@ public class Control implements Subsystem
 {
     private static Control instance = null;
 
-    private boolean useSlew = false;
-    private SlewRateLimiter limiter = new SlewRateLimiter(20);
+    private boolean useSlew = true;
+    private SlewRateLimiter turnLimiter = new SlewRateLimiter(20);
+    private SlewRateLimiter forwardLimiter = new SlewRateLimiter(5);
     private DriveBase driveBase;
     private DriverController driverController;
     private OperatorController operatorController;
@@ -62,14 +63,13 @@ public class Control implements Subsystem
         //Driver does not want this code on forward drive
         if (driverController.debounceSTART()) {
             useSlew = !useSlew;
-            SmartDashboard.putBoolean("use slew", useSlew);
         }
         if (useSlew) {
-            turn = limiter.calculate(turn);
+            turn = turnLimiter.calculate(turn);
+            forward = forwardLimiter.calculate(forward);
         }
         if (driverController.debounceB()){
             inversion = !inversion;
-            SmartDashboard.putBoolean("inversion", inversion);
         }
 
         if (inversion)
@@ -91,7 +91,7 @@ public class Control implements Subsystem
 
         forward = Math.abs(forward) >= 0.07? forward :0.0;
         turn = Math.abs(turn) >= 0.07? turn :0.0;
-        driveBase.driftCorrectedDrive(forward, turn);
+        driveBase.drive(forward, turn);
 
         //driveBase.drive(forward, turn);
 
@@ -168,6 +168,14 @@ public class Control implements Subsystem
     public void start()
     {
 
+    } 
+
+    public void log()
+    {
+        SmartDashboard.putBoolean("use slew", useSlew);
+        SmartDashboard.putBoolean("inversion", inversion);
+        SmartDashboard.putNumber("forward", forward);
+        SmartDashboard.putNumber("turn", turn);
     }
 
     public void update()

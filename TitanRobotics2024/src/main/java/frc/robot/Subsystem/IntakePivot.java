@@ -63,7 +63,7 @@ public class IntakePivot implements Subsystem
     {
         pivotProfiledPIDController.setGoal(goal + startingOffset);
 
-        pivotMotor.setVoltage(0.3 * (pivotProfiledPIDController.calculate(currentPosition) + feedforward.calculate(pivotProfiledPIDController.getSetpoint().position, pivotProfiledPIDController.getSetpoint().velocity)));
+        pivotMotor.setVoltage((pivotProfiledPIDController.calculate(currentPosition) + feedforward.calculate(pivotProfiledPIDController.getSetpoint().position, pivotProfiledPIDController.getSetpoint().velocity)));
     }
 
     public void disabled()

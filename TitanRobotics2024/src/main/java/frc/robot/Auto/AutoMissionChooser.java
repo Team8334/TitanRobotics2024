@@ -36,15 +36,9 @@ public class AutoMissionChooser
         missionChooser.setDefaultOption("Do Nothing", DesiredMission.doNothing);
         missionChooser.addOption("Leave Community on right side", DesiredMission.leaveCommunityRight);
         missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
-        missionChooser.addOption("Score 1 note in amp", DesiredMission.oneNoteMission);
         missionChooser.addOption("Score 2 notes in amp", DesiredMission.TwoNoteMission);
 
         missionChooser.addOption("Scoring 1 note", DesiredMission.ScoringMission);
-        missionChooser.addOption("Score and Move After", DesiredMission.ScoringThenMovingMission);
-        missionChooser.addOption("Red Score and pick up", DesiredMission.RedScorePickUpMission);
-        missionChooser.addOption("Blue Score and pick up", DesiredMission.BlueScorePickUpMission);
-        missionChooser.addOption("Red Score and move out", DesiredMission.RedScoreMoveOutMission);
-        missionChooser.addOption("Blue Score and move out", DesiredMission.BlueScoreMoveOutMission);
 
         // add more here as needed
 

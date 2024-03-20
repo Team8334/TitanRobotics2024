@@ -16,6 +16,7 @@ public class SmartDashboardSubsystem implements Subsystem
     private IntakePivot intakePivot;
     private Ramp ramp;
     private IntakeControl intakeControl;
+    private Control control;
 
     private PositionEstimation positionEstimation;
     private boolean initializedComponents = false;
@@ -54,6 +55,7 @@ public class SmartDashboardSubsystem implements Subsystem
             climberControl = ClimberControl.getInstance();
             ramp = Ramp.getInstance();
             intakeControl = IntakeControl.getInstance();
+            control = Control.getInstance();
             initializedComponents = true;
             
         }
@@ -81,6 +83,7 @@ public class SmartDashboardSubsystem implements Subsystem
         climberControl.log();
         ramp.log();
         intakeControl.log();
+        control.log();
         SmartDashboard.putString("Errors", errorLog.toString());
 
         
