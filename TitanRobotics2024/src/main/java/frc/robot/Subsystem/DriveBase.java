@@ -13,7 +13,6 @@ import edu.wpi.first.networktables.PubSub;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.controller.DifferentialDriveFeedforward;
 
-
 public class DriveBase implements Subsystem
 {
 
@@ -72,14 +71,11 @@ public class DriveBase implements Subsystem
   private final SimpleMotorFeedforward rightFeedforwardController = new SimpleMotorFeedforward(0.0, kVLinearRight, kALinearRight);
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
 
-
-  //private String motorType = "CANVictorSPX"; // This is Gyro
-  //private String motorType = "CANVictorSPXDual"; // This is Janus
+  //private String motorType = "CANVictorSPXDual"; // This is Gyro
   private String motorType = "CANTalonDual"; //this is Aiode
   // TODO: make a better selector for the motor type
 
   private static DriveBase instance = null;
-  
 
   public static DriveBase getInstance()
   {
@@ -110,7 +106,7 @@ public class DriveBase implements Subsystem
 
     this.odometry = new DifferentialDriveOdometry(gyro.getRotation2d(), leftEncoder.getRelativeDistance(),
             rightEncoder.getRelativeDistance());
-    
+
   }
 
   public void setRightMotorsPower(double power)
@@ -123,16 +119,14 @@ public class DriveBase implements Subsystem
     this.leftPower = power;
   }
 
-public void setSpeeds(DifferentialDriveWheelSpeeds speeds) 
-{
+  public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
+  {
     final double leftFeedforward = leftFeedforwardController.calculate(speeds.leftMetersPerSecond);
     final double rightFeedforward = rightFeedforwardController.calculate(speeds.rightMetersPerSecond);
 
-    final double leftOutput =
-        m_leftPIDController.calculate(leftEncoderRate, speeds.leftMetersPerSecond);
-    final double rightOutput =
-        m_rightPIDController.calculate(rightEncoderRate, speeds.rightMetersPerSecond);
-    leftMotor.setVoltage( leftFeedforward);
+    final double leftOutput = m_leftPIDController.calculate(leftEncoderRate, speeds.leftMetersPerSecond);
+    final double rightOutput = m_rightPIDController.calculate(rightEncoderRate, speeds.rightMetersPerSecond);
+    leftMotor.setVoltage(leftFeedforward);
     rightMotor.setVoltage(rightFeedforward);
 
     leftMetersPerSecond = speeds.leftMetersPerSecond;
@@ -147,9 +141,9 @@ public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
    * @param xSpeed Linear velocity in m/s.
    * @param rot Angular velocity in rad/s.
    */
-  public void drive(double forward, double turn) 
+  public void drive(double forward, double turn)
   {
-   
+
     correctedTurn = m_angularPIDController.calculate(gyro.getAngleRate() * Math.PI / 180, turn * kMaxAngularSpeed);
     var wheelSpeeds = kinematics.toWheelSpeeds(new ChassisSpeeds(forward * kMaxSpeed, 0.0, correctedTurn));
     setSpeeds(wheelSpeeds);
@@ -177,7 +171,7 @@ public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
     SmartDashboard.putNumber("rightVoltage", rightVoltage);
     SmartDashboard.putNumber("EncoderDiff", rightEncoderDistance - leftEncoderDistance);
     SmartDashboard.putNumber("EncoderRateDiff", rightEncoderRate - leftEncoderRate);
-     SmartDashboard.putNumber("GyroA", gyro.getAngleRate());
+    SmartDashboard.putNumber("GyroA", gyro.getAngleRate());
     SmartDashboard.putNumber("TurnError", (gyro.getAngleRate() * Math.PI / 180) - (turn * kMaxAngularSpeed));
     SmartDashboard.putNumber("DriftCorrectedTur", correctedTurn);
 
@@ -205,8 +199,7 @@ public void setSpeeds(DifferentialDriveWheelSpeeds speeds)
     {
       SmartDashboardSubsystem.getInstance().error("right encoder is null");
     }
-    //drive.arcadeDrive(forward, turn);
-  
+
     this.odometry.update(gyro.getRotation2d(), leftEncoderDistance, rightEncoderDistance);
   }
 }
