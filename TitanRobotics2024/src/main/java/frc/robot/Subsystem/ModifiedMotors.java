@@ -1,10 +1,12 @@
 package frc.robot.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX; //https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix5-frc2024-latest.json
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax; //https://software-metadata.revrobotics.com/REVLib-2024.json
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ModifiedMotors implements Subsystem
@@ -45,6 +47,9 @@ public class ModifiedMotors implements Subsystem
             case "CANTalon":
                 motor = initializeCANTalon(portNumber);
                 break;
+            case "Spark":
+                motor = initializeSpark(portNumber);
+                break;
             default:
                 System.err.println("Error: motors not activated");
                 motor = null;
@@ -67,6 +72,7 @@ public class ModifiedMotors implements Subsystem
                 break;
             case "CANVictorSPXDual":
                 motor = initializeDualCANVictorSPX(portNumber, followerPortNumber, inverted);
+                
                 break;
 
             default:
@@ -115,6 +121,19 @@ public class ModifiedMotors implements Subsystem
         }
     }
 
+    private MotorController initializeSpark(int portNumber)
+    {
+        try
+        {
+            return new Spark(portNumber);
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error: CANID Not Activated " + portNumber);
+            return null;
+        }
+    }
+
     public void invert()
     {
         motor.setInverted(true);
@@ -146,6 +165,10 @@ public class ModifiedMotors implements Subsystem
         {
             WPI_TalonSRX leaderMotor = new WPI_TalonSRX(portNumber);
             WPI_TalonSRX followerMotor = new WPI_TalonSRX(followerPortNumber);
+
+            leaderMotor.setNeutralMode(NeutralMode.Brake);
+            followerMotor.setNeutralMode(NeutralMode.Brake);
+
             followerMotor.follow(leaderMotor);
             leaderMotor.setInverted(inverted);
             followerMotor.setInverted(inverted);
@@ -165,6 +188,9 @@ public class ModifiedMotors implements Subsystem
         {
             WPI_VictorSPX leaderMotor = new WPI_VictorSPX(portNumber);
             WPI_VictorSPX followerMotor = new WPI_VictorSPX(followerPortNumber);
+
+            leaderMotor.setNeutralMode(NeutralMode.Brake);
+            followerMotor.setNeutralMode(NeutralMode.Brake);
 
             followerMotor.follow(leaderMotor);
             leaderMotor.setInverted(inverted);

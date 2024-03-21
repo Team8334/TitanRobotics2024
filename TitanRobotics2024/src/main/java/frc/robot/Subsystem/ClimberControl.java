@@ -45,10 +45,16 @@ public class ClimberControl implements Subsystem
         rightClimber.hold();
     }
 
-    public void log()
+    public void logAll()
     {
-        leftClimber.log();
-        rightClimber.log();
+        leftClimber.logAll();
+        rightClimber.logAll();
+    }
+
+    public void logDriverRelevant()
+    {
+        leftClimber.logDriverRelevant();
+        rightClimber.logDriverRelevant();
     }
 
     public void manualControl(double leftSpeed, double rightSpeed)

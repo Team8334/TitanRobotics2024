@@ -3,6 +3,7 @@ package frc.robot.Subsystem;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,11 +12,12 @@ public class PositionEstimation implements Subsystem
 {
     private DriveBase driveBase;
     private Gyro gyro;
+    public double initialAngle;
 
     private static final double WHEEL_BASE_WIDTH = 27.0;
     DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(WHEEL_BASE_WIDTH));
 
-    private final DifferentialDrivePoseEstimator positionEstimator;
+    private DifferentialDrivePoseEstimator positionEstimator;
 
     private static PositionEstimation instance = null;
 
@@ -43,6 +45,11 @@ public class PositionEstimation implements Subsystem
         return positionEstimator.getEstimatedPosition();
     }
 
+    public Rotation2d getRotation2d()
+    {
+        return gyro.getRotation2d();
+    }
+
     public double getAngleRate()
     {
         return gyro.getAngleRate();
@@ -61,6 +68,11 @@ public class PositionEstimation implements Subsystem
     public void resetPose()
     {
         positionEstimator.resetPosition(gyro.getRotation2d(), driveBase.getLeftEncoderDistance(), driveBase.getRightEncoderDistance(), getPose());
+    }
+
+    public void getInitialPosition()
+    {
+        initialAngle = positionEstimator.getEstimatedPosition().getRotation().getDegrees();
     }
 
     public void log()

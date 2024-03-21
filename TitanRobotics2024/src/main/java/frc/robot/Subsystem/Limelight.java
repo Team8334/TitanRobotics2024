@@ -27,27 +27,33 @@ public class Limelight
 
     int pipeline;
 
+    private NetworkTable table;
+    private String tableName;
+
+    // how many degrees back is your limelight rotated from perfectly vertical?
+    protected double limelightMountAngleDegrees = 25.0; 
+
+    // distance from the center of the Limelight lens to the floor
+    protected double limelightLensHeightMeters = 20.0; 
+    
+    // distance from the target to the floor
+    private double goalHeightMeters; 
+
     private String limelightState = "TRACKING";
 
-    public static Limelight getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new Limelight();
-        }
-        return instance;
-    }
+	private String alliance;
 
-    public Limelight()
+    public Limelight(String tableName)
     {
-        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+        this.tableName = tableName;
+        table = NetworkTableInstance.getDefault().getTable(tableName);
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
         tz = table.getEntry("tz");
         tl = table.getEntry("tl");
         cl = table.getEntry("cl");
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
+        table.getEntry("ledMode").setNumber(1); //0=default; 1=off; 2=blinking; 3 = on
     }
 
     public String getLimelightState()
@@ -57,13 +63,13 @@ public class Limelight
 
     public void setLedMode(int mode)
     {
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
+        table.getEntry("ledMode").setNumber(mode);
     }
 
     public void setPipeline(int pipeline)
     {
         this.pipeline = pipeline;
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+        table.getEntry("pipeline").setNumber(pipeline);
     }
 
     public int getPipeline()
@@ -83,12 +89,81 @@ public class Limelight
 
     public void setCamMode(int mode)
     {
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(mode);
+        table.getEntry("camMode").setNumber(mode);
     }
 
     public int getId() //finds April Tag ID. This is a variable, not a function.
     {
-        return (int)LimelightHelpers.getFiducialID("");
+        return (int)LimelightHelpers.getFiducialID(tableName);
+    }
+
+    public void setAlliance(String alliance)
+    {
+        this.alliance = alliance;
+    }
+
+    public String findTagName()
+    {
+        switch (getId())
+        {
+            case 11, 12, 13 -> {
+                goalHeightMeters = 60.0; 
+                return alliance.equals("Red") ? "Stage" : "Opponent's Stage";
+            }
+            case 14, 15, 16 -> {
+                goalHeightMeters = 60.0; 
+                return alliance.equals("Blue") ? "Stage" : "Opponent's Stage";
+            }
+            case 5 -> {
+                goalHeightMeters = 60.0; 
+                return alliance.equals("Red") ? "Amp" : "Opponent's Amp";
+            }
+            case 6 -> {
+                goalHeightMeters = 60.0; 
+                return alliance.equals("Blue") ? "Amp" : "Opponent's Amp";
+            }
+            case 9, 10 -> {
+                goalHeightMeters = 60.0; 
+                return alliance.equals("Red") ? "Source" : "Opponent's Source";
+            }
+            case 1, 2 -> {
+                goalHeightMeters = 60.0; 
+                return alliance.equals("Blue") ? "Source" : "Opponent's Source";
+            }
+            case 3, 4 -> {
+                goalHeightMeters = 60.0; 
+                return alliance.equals("Red") ? "Speaker" : "Opponent's Speaker";
+            }
+            case 7, 8 -> {
+                goalHeightMeters = 60.0; 
+                return alliance.equals("Blue") ? "Speaker" : "Opponent's Speaker";
+            }
+            default -> {
+                return "Unknown";
+            }
+        }
+    }
+
+    public boolean seeNote() {
+     // returns true if limelight sees a note
+        if (x != -1 && y != -1 && area != -1) {
+            // if the limelight has a valid target
+            return true;
+        } else {
+            // if the limelight does not have a valid target
+            return false;
+        }
+    }
+    
+    public double getDistanceFromTarget()
+    {
+        double targetOffsetAngle_Vertical = ty.getDouble(0.0);
+    
+        double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+        double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+    
+        //calculate distance
+        return (goalHeightMeters - limelightLensHeightMeters) / Math.tan(angleToGoalRadians);
     }
 
     public void log()

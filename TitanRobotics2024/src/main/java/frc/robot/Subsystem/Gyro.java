@@ -46,9 +46,14 @@ public class Gyro implements Subsystem
     ahrs.reset();
   }
 
-  public void log()
+  public void logAll()
   {
     SmartDashboard.putNumber("GyroYaw", ahrs.getYaw());
+    SmartDashboard.putNumber("GyroAngle", ahrs.getAngle());
+  }
+
+  public void logDriverRelevant()
+  {
     SmartDashboard.putNumber("GyroAngle", ahrs.getAngle());
   }
 

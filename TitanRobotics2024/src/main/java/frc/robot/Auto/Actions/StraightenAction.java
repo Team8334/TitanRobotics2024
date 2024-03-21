@@ -10,9 +10,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-
-public class TurnDegreesAction implements Actions 
+public class StraightenAction implements Actions
 {
     Timer timer;
     private double currentDegrees = 0;
@@ -27,19 +25,19 @@ public class TurnDegreesAction implements Actions
     private PositionEstimation position;
 
     private PIDController PID;
-    private final double kp = 0.01;
+    private final double kp = 0.02;
     private final double ki = 0.013;
     private final double kd = 0.002;
     /**
      * plus is left
      * 
      */
-    public TurnDegreesAction(double degrees, double seconds) 
+    public StraightenAction(double degrees, double seconds) 
     {
         driveBase = DriveBase.getInstance();
         position = PositionEstimation.getInstance();
         endAfterSeconds = seconds;
-        desiredDegrees = degrees;
+        desiredDegrees = degrees - position.initialAngle;
         PID = new PIDController(kp, ki, kd);
         PID.enableContinuousInput(-180, 180);
         
@@ -51,11 +49,9 @@ public class TurnDegreesAction implements Actions
     {
         timer = new Timer();
         timer.start();
-        currentDegrees = position.getAngle();
-        targetDegrees = (currentDegrees + desiredDegrees);
-        PID.setSetpoint(targetDegrees);
+        PID.setSetpoint(desiredDegrees);
         PID.setTolerance(toleranceDegrees);
-       SmartDashboard.putString( "Current Action", "TurnDegreesAction Started");
+       SmartDashboard.putString( "Current Action", "StraightenAction Started");
     }
 
  
@@ -63,12 +59,10 @@ public class TurnDegreesAction implements Actions
     @Override
     public void update()
     {
-        currentDegrees = position.getAngle();
-        SmartDashboard.putNumber("CurrentDegrees", currentDegrees);
         turn = PID.calculate(position.getAngle());
         driveBase.drive(0, turn);
-        SmartDashboard.putNumber("targetDegrees", targetDegrees);
-        SmartDashboard.putNumber("turn", turn);
+        SmartDashboard.putNumber("targetDegreesS", desiredDegrees);
+        SmartDashboard.putNumber("turnS", turn);
         
     }
 
@@ -86,3 +80,4 @@ public class TurnDegreesAction implements Actions
         driveBase.drive(0, 0);
     }
 }
+

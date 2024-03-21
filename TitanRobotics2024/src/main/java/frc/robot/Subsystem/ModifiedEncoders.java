@@ -43,7 +43,7 @@ public class ModifiedEncoders implements Subsystem
                 break;
             default:
                 System.err.println("Error: single channel encoders not activated");
-            
+
         }
     }
 
@@ -75,7 +75,7 @@ public class ModifiedEncoders implements Subsystem
 
     public void setDistancePerRotation(double distancePerRotation)
     {
-         if (dutyCycleEncoder != null)
+        if (dutyCycleEncoder != null)
         {
             dutyCycleEncoder.setDistancePerRotation(distancePerRotation);
         }
@@ -145,7 +145,7 @@ public class ModifiedEncoders implements Subsystem
     {
         if (encoder != null)
         {
-            return encoder.getRate();// * ratio;
+            return encoder.getRate();
         }
         else
         {
@@ -158,7 +158,7 @@ public class ModifiedEncoders implements Subsystem
         if (encoder != null)
         {
             return encoder.getDistance();
-           
+
         }
         else
         {
@@ -180,7 +180,7 @@ public class ModifiedEncoders implements Subsystem
 
     public double getAbsolutePosition()
     {
-            if (dutyCycleEncoder != null)
+        if (dutyCycleEncoder != null)
         {
             return (dutyCycleEncoder.getAbsolutePosition() * 360.0);
         }
