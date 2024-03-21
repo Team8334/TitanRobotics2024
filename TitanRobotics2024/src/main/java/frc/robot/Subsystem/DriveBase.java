@@ -117,20 +117,7 @@ public class DriveBase implements Subsystem
             rightEncoder.getRelativeDistance());
 
 
-     AutoBuilder.configureRamsete(
-        this::getPose, // Robot pose supplier
-        this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
-        this::getCurrentSpeeds, // Current ChassisSpeeds supplier
-        this::drive, // Method that will drive the robot given ChassisSpeeds
-        new ReplanningConfig(), // Default path replanning config. See the API for the options here
-        this // Reference to this subsystem to set requirements
-        var alliance = DriverStation.getAlliance();
-          if (alliance.isPresent()) {
-              return alliance.get() == DriverStation.Alliance.Red;
-          }
-          return false;
-        );
-    );
+  
     
   }
 
