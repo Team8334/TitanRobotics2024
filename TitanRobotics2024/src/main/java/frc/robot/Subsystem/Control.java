@@ -102,6 +102,7 @@ public class Control implements Subsystem
 
     private void climberControl()
     {
+
         if (operatorController.getButton(ButtonMap.XboxB))
         {
             climberControl.stop();
@@ -123,6 +124,7 @@ public class Control implements Subsystem
             else if (intakeControl.state == "up")
             {
                 intakeControl.intaking();
+
             }
             else if (intakeControl.state == "intaking")
             {

@@ -1,10 +1,8 @@
 package frc.robot.Auto.Missions;
 import frc.robot.Auto.Actions.DriveForDistanceAction;
 import frc.robot.Auto.Actions.DriveForTimeAction;
-
 import frc.robot.Auto.Actions.WaitAction;
 import frc.robot.Auto.AutoMissionChooser;
-
 import frc.robot.Auto.AutoMissionEndedException;
 
 public class LeaveCommunityRightMission extends MissionBase
