@@ -60,6 +60,15 @@ public class AutoMissionChooser
 
     public void updateMissionCreator()
     {
+        try
+        {
+            alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
+        }
+        catch (Exception e)
+        {
+            // Handle the exception, for example:
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
         delay = SmartDashboard.getNumber("Auto Delay", 0);
         DesiredMission desiredMission = missionChooser.getSelected();
 
