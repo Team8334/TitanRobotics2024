@@ -33,7 +33,6 @@ public class Targeting implements Subsystem // This class contains functions for
     String target = "ALL";
     String frontTags;
     String backTags;
-    //String alliance = DriverStation.getAlliance().orElseThrow(() -> new Exception("No alliance")).toString();
 
     public Targeting()
     {

@@ -4,14 +4,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Data.ButtonMap;
 import frc.robot.Data.PortMap;
 import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.Subsystem.LEDLightStrip;
 
 public class IntakeControl
 {
     private Ramp ramp;
+    private LEDLightStrip ledLightStrip;
 
     private static IntakeControl instance = null;
     private IntakePivot intakePivot;
-    private double rampspeed;
     private Intake intake;
     public String state = "disabled";
     private DigitalInput limitSwitch;
@@ -30,16 +31,18 @@ public class IntakeControl
         ramp = Ramp.getInstance();
         intakePivot = IntakePivot.getInstance();
         intake = Intake.getInstance();
+
         try
         {
             limitSwitch = new DigitalInput(PortMap.INTAKELIMITSWITCH.portNumber);
         }
         catch (Exception e)
         {
-           
 
             limitSwitch = null;
         }
+        ledLightStrip = LEDLightStrip.getInstance();
+
     }
 
     public void up()
@@ -77,6 +80,7 @@ public class IntakeControl
         switch (state)
         {
             case "disabled":
+                ledLightStrip.set(0.61);
                 intakePivot.setDisabled(true);
                 intake.manualIntakePower(0.0);
                 ramp.setRamp(0.0);
@@ -87,11 +91,13 @@ public class IntakeControl
                 ramp.setRamp(0.0);
                 break;
             case "intaking":
+                ledLightStrip.set(0.81);
                 intake.manualIntakePower(0.6);
                 intakePivot.down();
                 ramp.setRamp(0.0);
                 break;
             case "up with piece":
+                ledLightStrip.set(0.63);
                 intakePivot.up();
                 intake.manualIntakePower(0.0);
                 ramp.setRamp(0.0);
@@ -101,6 +107,7 @@ public class IntakeControl
                 intake.manualIntakePower(-0.15);
                 ramp.setRampLeftAndRight(0.15);
                 ramp.setOuttake(0.4);
+                ledLightStrip.set(0.73);
             case "unClog":
                 break;
             default:
@@ -120,7 +127,7 @@ public class IntakeControl
         }
 
     }
-    
+
     public void logAll()
     {
         SmartDashboard.putString("Intake State", state);
@@ -142,7 +149,7 @@ public class IntakeControl
     public void update()
     {
         ProcessState();
-      
+
     }
 
 }

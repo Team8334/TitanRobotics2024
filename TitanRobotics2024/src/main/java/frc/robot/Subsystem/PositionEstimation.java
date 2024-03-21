@@ -20,7 +20,6 @@ public class PositionEstimation implements Subsystem
     private DifferentialDrivePoseEstimator positionEstimator;
 
     private static PositionEstimation instance = null;
-    private boolean initializedComponents = false;
 
     public static PositionEstimation getInstance()
     {
@@ -34,17 +33,11 @@ public class PositionEstimation implements Subsystem
     private PositionEstimation()
     {
         gyro = Gyro.getInstance();
-            driveBase = DriveBase.getInstance();
-            initializedComponents = true;
-            positionEstimator = new DifferentialDrivePoseEstimator(kinematics, gyro.getRotation2d(),
+        driveBase = DriveBase.getInstance();
+        positionEstimator = new DifferentialDrivePoseEstimator(kinematics, gyro.getRotation2d(),
                         driveBase.getLeftEncoderDistance(), driveBase.getRightEncoderDistance(), new Pose2d(),
                         VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
                         VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
-    }
-       
-
-    private void initializeComponents()
-    {
     }
 
     public Pose2d getPose()

@@ -22,13 +22,12 @@ import frc.robot.Subsystem.LimelightBack;
 import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.PositionEstimation;
 import frc.robot.Subsystem.Ramp;
+import frc.robot.Subsystem.LEDLightStrip;
 import frc.robot.Subsystem.IntakePivot;
 
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Auto.Missions.MissionBase;
-
-//import frc.robot.Subsystem.AprilTagTargeting;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -60,6 +59,7 @@ public class Robot extends TimedRobot
   private static IntakePivot intakePivot;
   private static IntakeControl intakeControl;
   private static Ramp ramp;
+  private static LEDLightStrip ledLightStrip;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -90,6 +90,7 @@ public class Robot extends TimedRobot
     intakePivot = IntakePivot.getInstance();
     intakeControl = IntakeControl.getInstance();
     ramp = Ramp.getInstance();
+    ledLightStrip = LEDLightStrip.getInstance();
 
     smartDashboardSubsystem.update();
   }
@@ -120,6 +121,7 @@ public class Robot extends TimedRobot
     intakePivot.update();
     intakeControl.update();
     ramp.update();
+    ledLightStrip.update();
 
     smartDashboardSubsystem.update();
 

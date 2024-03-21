@@ -5,6 +5,7 @@ import java.util.List;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class SmartDashboardSubsystem implements Subsystem
 {
@@ -31,6 +32,7 @@ public class SmartDashboardSubsystem implements Subsystem
 
     private PositionEstimation positionEstimation;
     private boolean initializedComponents = false;
+    private double matchTime;
 
     List<String> errorLog = new ArrayList<>();
     List<String> statusLog = new ArrayList<>();
@@ -46,6 +48,8 @@ public class SmartDashboardSubsystem implements Subsystem
 
     public SmartDashboardSubsystem()
     {
+        matchTime = DriverStation.getMatchTime();
+
         logChooser = new SendableChooser<>();
 
         logChooser.setDefaultOption("Log Only Driver Relevant", LogChoice.logOnlyDriverRelevant);
@@ -101,6 +105,7 @@ public class SmartDashboardSubsystem implements Subsystem
             ramp.log();
             intakeControl.logAll();
             control.logAll();
+            SmartDashboard.putNumber("Match Time:", matchTime);
             SmartDashboard.putString("Errors", errorLog.toString());
         }
         else if (logChooser.getSelected() == LogChoice.logOnlyDriverRelevant)
@@ -109,6 +114,7 @@ public class SmartDashboardSubsystem implements Subsystem
             climberControl.logDriverRelevant();
             intakeControl.logDriverRelevant();
             control.logDriverRelevant();
+            SmartDashboard.putNumber("Match Time:", matchTime);
         }
         else if (logChooser.getSelected() == LogChoice.dontLogAll){}
 

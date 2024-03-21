@@ -14,8 +14,8 @@ public class BlueScoreMoveOutMission extends MissionBase
 {
     @Override
     protected void routine() throws AutoMissionEndedException 
-    {
-      runAction(new WaitAction(AutoMissionChooser.delay));
+    {      
+	runAction(new WaitAction(AutoMissionChooser.delay));
         runAction(new DriveForDistanceAction(-0.50, 2.5));  
         runAction(new TurnDegreesAction(75.0, 2));
         //runAction(new BackLockOnAction("Amp", true, 2));

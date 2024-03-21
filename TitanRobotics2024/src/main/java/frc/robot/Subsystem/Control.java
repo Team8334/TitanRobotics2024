@@ -17,17 +17,12 @@ public class Control implements Subsystem
     private Targeting targeting;
     private ClimberControl climberControl;
     private Intake intake;
-    private LimelightBack limelightBack;
-    private LimelightFront limelightFront;
     private Ramp ramp;
     private IntakeControl intakeControl;
 
     private double forward;
     private double turn;
     private boolean inversion;
-    private IntakePivot intakePivot;
-
-    private double THRESHOLD = 0.05;
 
     public static Control getInstance()
     {
@@ -45,13 +40,10 @@ public class Control implements Subsystem
         operatorController = OperatorController.getInstance();
         targeting = Targeting.getInstance();
         intake = Intake.getInstance();
-        intakePivot = IntakePivot.getInstance();
         intakeControl = IntakeControl.getInstance();
         climberControl = ClimberControl.getInstance();
         ramp = Ramp.getInstance();
         inversion = false;
-        limelightBack = LimelightBack.getInstance();
-        limelightFront = LimelightFront.getInstance();
     }
 
     public void teleopControl()
@@ -59,16 +51,16 @@ public class Control implements Subsystem
         forward = -driverController.getStick(ButtonMap.XboxLEFTSTICKY);
         turn = -driverController.getStick(ButtonMap.XboxRIGHTSTICKX);
 
-
-        //Driver does not want this code on forward drive
-        if (driverController.debounceSTART()) {
+        if (driverController.debounceSTART())
+        {
             useSlew = !useSlew;
         }
         if (useSlew) {
             //turn = turnLimiter.calculate(turn);
             forward = forwardLimiter.calculate(forward);
         }
-        if (driverController.debounceB()){
+        if (driverController.debounceB())
+        {
             inversion = !inversion;
         }
 
@@ -78,10 +70,9 @@ public class Control implements Subsystem
             forward = -forward;
         }
 
-        
         if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
         {
-           turn += targeting.noteLockOn();
+            turn += targeting.noteLockOn();
         }
 
         if (driverController.getButton(ButtonMap.XboxLEFTBumper))
@@ -89,11 +80,9 @@ public class Control implements Subsystem
             turn += targeting.aprilTagLockOn();
         }
 
-        forward = Math.abs(forward) >= 0.07? forward :0.0;
-        turn = Math.abs(turn) >= 0.07? turn :0.0;
+        forward = Math.abs(forward) >= 0.07 ? forward : 0.0;
+        turn = Math.abs(turn) >= 0.07 ? turn : 0.0;
         driveBase.drive(forward, turn);
-
-        //driveBase.drive(forward, turn);
 
         climberControl();
         manipulatorControl();
@@ -109,7 +98,6 @@ public class Control implements Subsystem
         }
 
         climberControl.manualControl(operatorController.getStick(ButtonMap.XboxLEFTSTICKY), operatorController.getStick(ButtonMap.XboxRIGHTSTICKY));
-
     }
 
     private void manipulatorControl()//please do not mess with the buttons, they are set to operator's preference.
@@ -124,7 +112,6 @@ public class Control implements Subsystem
             else if (intakeControl.state == "up")
             {
                 intakeControl.intaking();
-
             }
             else if (intakeControl.state == "intaking")
             {
@@ -150,7 +137,6 @@ public class Control implements Subsystem
         }
         else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))//left bumper = intake out, pushes ramp towards the scoring side
         {
-
             intakeControl.unClog();
             intake.manualIntakePower(-0.3);
             ramp.setRamp(0.3);
@@ -168,7 +154,7 @@ public class Control implements Subsystem
     public void start()
     {
 
-    } 
+    }
 
     public void logAll()
     {
@@ -188,5 +174,4 @@ public class Control implements Subsystem
     {
 
     }
-
 }

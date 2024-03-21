@@ -172,8 +172,6 @@ public class ClimberSubsystem implements Subsystem
 
         if (encoder != null && motor != null)
         {
-            //currentDistance = encoder.getRelativeDistance();
-            //currentVelocity = encoder.getRate();
             processState();
             if (!LimitSwitch.get() && climberPower >= 0)
             {
