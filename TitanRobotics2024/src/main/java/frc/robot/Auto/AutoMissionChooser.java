@@ -40,7 +40,7 @@ public class AutoMissionChooser
         missionChooser.addOption("Scoring 2 notes", DesiredMission.TwoNoteMission);
         //missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
 
-        SmartDashboard.putNumber("Auto Delay", 0);
+        SmartDashboard.putNumber("Auto Delay (seconds)", 0);
 
         // add more here as needed
 

@@ -1,5 +1,6 @@
 package frc.robot.Auto.Missions;
 
+import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Auto.AutoMissionEndedException;
 import frc.robot.Auto.Actions.BackLockOnAction;
 import frc.robot.Auto.Actions.DriveForDistanceAction;
@@ -8,6 +9,7 @@ import frc.robot.Auto.Actions.FrontPickupNoteAction;
 import frc.robot.Auto.Actions.ParallelAction;
 import frc.robot.Auto.Actions.ScoringSystemStateAction;
 import frc.robot.Auto.Actions.TurnDegreesAction;
+import frc.robot.Auto.Actions.WaitAction;
 import frc.robot.Auto.Actions.SeriesAction;
 import frc.robot.Auto.Actions.StraightenAction;
 
@@ -16,6 +18,7 @@ public class TwoNoteMission extends MissionBase
     @Override
     protected void routine() throws AutoMissionEndedException
     {
+        runAction(new WaitAction(AutoMissionChooser.delay));
         runAction(new DriveForDistanceAction(-0.45, 3));  
         runAction(new TurnDegreesAction(-75, 2));
         //runAction(new BackLockOnAction("Amp", true, 2));
