@@ -80,6 +80,7 @@ public class IntakeControl
         switch (state)
         {
             case "disabled":
+                ledLightStrip.set(0.61);
                 intakePivot.setDisabled(true);
                 intake.manualIntakePower(0.0);
                 ramp.setRamp(0.0);
