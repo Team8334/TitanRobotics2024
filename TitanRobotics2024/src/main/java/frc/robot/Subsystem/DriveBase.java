@@ -55,7 +55,7 @@ public class DriveBase implements Subsystem
   private double trackwidth = 0.6858; //meters
 
   public static final double kMaxSpeed = 5.28; // meters per second
-  public static final double kMaxAngularSpeed = 5 * Math.PI; // one rotation per second
+  public static final double kMaxAngularSpeed = 6.5 * Math.PI; // one rotation per second
 
   public double correctedTurn;
 

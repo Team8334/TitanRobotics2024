@@ -34,7 +34,7 @@ public class AutoMissionChooser
         missionChooser = new SendableChooser<>();
 
         missionChooser.setDefaultOption("Do Nothing", DesiredMission.doNothing);
-        missionChooser.addOption("Leave Community on right side", DesiredMission.leaveCommunityRight);
+        missionChooser.addOption("Leave Community", DesiredMission.leaveCommunityRight);
         missionChooser.addOption("Scoring 1 note", DesiredMission.ScoringMission);
         missionChooser.addOption("Score and Move After", DesiredMission.ScoringThenMovingMission);
         missionChooser.addOption("Scoring 2 notes", DesiredMission.TwoNoteMission);

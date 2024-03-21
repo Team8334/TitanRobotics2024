@@ -65,7 +65,7 @@ public class Control implements Subsystem
             useSlew = !useSlew;
         }
         if (useSlew) {
-            turn = turnLimiter.calculate(turn);
+            //turn = turnLimiter.calculate(turn);
             forward = forwardLimiter.calculate(forward);
         }
         if (driverController.debounceB()){

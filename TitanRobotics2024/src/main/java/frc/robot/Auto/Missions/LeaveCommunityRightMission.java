@@ -11,7 +11,7 @@ public class LeaveCommunityRightMission extends MissionBase
     protected void routine() throws AutoMissionEndedException
     {
         runAction(new WaitAction(AutoMissionChooser.delay));
-        runAction(new DriveForTimeAction(1.6, 0.75));
+        runAction(new DriveForTimeAction(1.6, -0.75));
         System.out.println("Leave Community Right Mission");
     }
 }

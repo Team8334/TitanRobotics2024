@@ -29,7 +29,7 @@ public class FrontPickupNoteAction implements Actions
         targeting = Targeting.getInstance();
         limelight = LimelightFront.getInstance();
         driveBase = DriveBase.getInstance();
-        intakeControl = IntakeControl.getInstance();
+        intakeControl = IntakeControl.getInstance(); 
         limelight.setPipeline(1);
 
         this.seconds = seconds;

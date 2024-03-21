@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.Optional;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.cameraserver.CameraServer;
 
 import frc.robot.Subsystem.SmartDashboardSubsystem;
 import frc.robot.Subsystem.Control;
@@ -69,6 +70,9 @@ public class Robot extends TimedRobot
   public void robotInit()
   {
     autoMissionChooser.updateMissionCreator();
+
+   try{ CameraServer.startAutomaticCapture();}
+   catch(Exception e){}
 
     control = Control.getInstance();
     climberControl = ClimberControl.getInstance();
