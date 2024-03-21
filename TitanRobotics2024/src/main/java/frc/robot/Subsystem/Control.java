@@ -15,8 +15,8 @@ public class Control implements Subsystem
     private Intake intake;
     private Limelight limelight;
     private Ramp ramp;
+    private IntakeControl intakeControl;
 
-    private double rampspeed;
     private double forward;
     private double turn;
     private boolean inversion;
@@ -42,6 +42,7 @@ public class Control implements Subsystem
         limelight = Limelight.getInstance();
         intake = Intake.getInstance();
         intakePivot = IntakePivot.getInstance();
+        intakeControl = IntakeControl.getInstance();
         climberControl = ClimberControl.getInstance();
         ramp = Ramp.getInstance();
         inversion = false;
@@ -141,42 +142,51 @@ public class Control implements Subsystem
 
     private void manipulatorControl()//please do not mess with the buttons, they are set to operator's preference.
     {
+
+        if (operatorController.debounceA())
+        {
+            if (intakeControl.state == "disabled")
+            {
+                intakeControl.intaking();
+            }
+            else if (intakeControl.state == "up")
+            {
+                intakeControl.intaking();
+
+            }
+            else if (intakeControl.state == "intaking")
+            {
+                intakeControl.up();
+            }
+            else if (intakeControl.state == "up with piece")
+            {
+                intakeControl.score();
+            }
+            else if (intakeControl.state == "score piece")
+            {
+                intakeControl.up();
+            }
+
+        }
+
         if (operatorController.getButton(ButtonMap.XboxRIGHTBumper))//right bumper = intake in, pushes ramp back towards the intake
         {
+            intakeControl.unClog();
             intake.manualIntakePower(0.6);
 
             ramp.setRamp(-0.3);
         }
         else if (operatorController.getButton(ButtonMap.XboxLEFTBumper))//left bumper = intake out, pushes ramp towards the scoring side
         {
+
+            intakeControl.unClog();
             intake.manualIntakePower(-0.3);
             ramp.setRamp(0.3);
         }
-
-
-        else
+        else if (intakeControl.state == "unClog")
         {
-            intake.manualIntakePower(0);
-            ramp.setRamp(0);
+            intakeControl.state = "disabled";
         }
-
-
-        if (operatorController.debounceA())
-        {
-            if (intakePivot.intakeState == "disabled")
-            {
-                intakePivot.down();
-            }
-            else if (intakePivot.intakeState == "up")
-            {
-                intakePivot.down();
-            }
-            else if (intakePivot.intakeState == "down")
-            {
-                intakePivot.up();
-            }
-        }
-
         if (operatorController.getButton(ButtonMap.XboxB))
         {
             intakePivot.disabled();

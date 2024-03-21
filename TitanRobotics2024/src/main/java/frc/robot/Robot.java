@@ -15,6 +15,7 @@ import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Subsystem.Intake;
+import frc.robot.Subsystem.IntakeControl;
 import frc.robot.Subsystem.Limelight;
 import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.PositionEstimation;
@@ -54,6 +55,7 @@ public class Robot extends TimedRobot
   private static SmartDashboardSubsystem smartDashboardSubsystem;
   private static Intake intake;
   private static IntakePivot intakePivot;
+  private static IntakeControl intakeControl;
   private static Ramp ramp;
 
   /**
@@ -79,6 +81,7 @@ public class Robot extends TimedRobot
     limelight = Limelight.getInstance();
     intake = Intake.getInstance();
     intakePivot = IntakePivot.getInstance();
+    intakeControl = IntakeControl.getInstance();
     ramp = Ramp.getInstance();
 
     smartDashboardSubsystem.update();
@@ -107,6 +110,7 @@ public class Robot extends TimedRobot
     limelight.update();
     intake.update();
     intakePivot.update();
+    intakeControl.update();
     ramp.update();
 
     smartDashboardSubsystem.update();
