@@ -25,6 +25,8 @@ public class AutoMissionChooser
 
     private Optional<MissionBase> autoMission = Optional.empty();
 
+    public static double delay;
+
     String alliance;
 
     public AutoMissionChooser()
@@ -38,7 +40,7 @@ public class AutoMissionChooser
         missionChooser.addOption("Scoring 2 notes", DesiredMission.TwoNoteMission);
         //missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
 
-        
+        SmartDashboard.putNumber("Auto Delay", 0);
 
         // add more here as needed
 
@@ -58,6 +60,7 @@ public class AutoMissionChooser
 
     public void updateMissionCreator()
     {
+        delay = SmartDashboard.getNumber("Auto Delay", 0);
         DesiredMission desiredMission = missionChooser.getSelected();
 
         if (desiredMission == null)
