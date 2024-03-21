@@ -11,7 +11,6 @@ public class IntakeControl
 
     private static IntakeControl instance = null;
     private IntakePivot intakePivot;
-    private double rampspeed;
     private Intake intake;
     public String state = "disabled";
     private DigitalInput limitSwitch;
@@ -36,7 +35,6 @@ public class IntakeControl
         }
         catch (Exception e)
         {
-           
 
             limitSwitch = null;
         }
@@ -120,7 +118,7 @@ public class IntakeControl
         }
 
     }
-    
+
     public void logAll()
     {
         SmartDashboard.putString("Intake State", state);
@@ -142,7 +140,7 @@ public class IntakeControl
     public void update()
     {
         ProcessState();
-      
+
     }
 
 }

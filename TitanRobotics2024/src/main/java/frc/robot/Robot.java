@@ -27,8 +27,6 @@ import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Auto.Missions.MissionBase;
 
-//import frc.robot.Subsystem.AprilTagTargeting;
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to
