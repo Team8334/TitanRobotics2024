@@ -137,12 +137,17 @@ public class ClimberSubsystem implements Subsystem
         }
     }
 
-    public void log()
+    public void logAll()
     {
         SmartDashboard.putNumber(name + ": Climber Distance", currentDistance);
         SmartDashboard.putNumber(name + ": Climber Velocity", currentVelocity);
         SmartDashboard.putNumber(name + ": Climber Power", climberPower);
         SmartDashboard.putString(name + ": Climber State", climberState);
+        SmartDashboard.putBoolean(name + "Limit Switch", LimitSwitch.get());
+    }
+
+    public void logDriverRelevant()
+    {
         SmartDashboard.putBoolean(name + "Limit Switch", LimitSwitch.get());
     }
 

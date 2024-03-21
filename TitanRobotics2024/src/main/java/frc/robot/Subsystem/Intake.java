@@ -45,8 +45,9 @@ public class Intake implements Subsystem
   public void log()
   {
     SmartDashboard.putNumber("currentDistance", currentDistance);
-    SmartDashboard.putString(IntakeState, IntakeState);
   }
+
+
 
   public void manualIntakePower(double power)
   {

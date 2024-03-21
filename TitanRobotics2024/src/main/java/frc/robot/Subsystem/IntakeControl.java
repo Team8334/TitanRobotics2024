@@ -121,7 +121,16 @@ public class IntakeControl
 
     }
     
-    public void log()
+    public void logAll()
+    {
+        SmartDashboard.putString("Intake State", state);
+        if (limitSwitch != null)
+        {
+            SmartDashboard.putBoolean("Intake Limit Switch", limitSwitch.get());
+        }
+    }
+
+    public void logDriverRelevant()
     {
         SmartDashboard.putString("Intake State", state);
         if (limitSwitch != null)

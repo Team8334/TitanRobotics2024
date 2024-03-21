@@ -170,12 +170,18 @@ public class Control implements Subsystem
 
     } 
 
-    public void log()
+    public void logAll()
     {
         SmartDashboard.putBoolean("use slew", useSlew);
         SmartDashboard.putBoolean("inversion", inversion);
         SmartDashboard.putNumber("forward", forward);
         SmartDashboard.putNumber("turn", turn);
+    }
+
+    public void logDriverRelevant()
+    {
+        SmartDashboard.putBoolean("use slew", useSlew);
+        SmartDashboard.putBoolean("inversion", inversion);
     }
 
     public void update()
