@@ -16,7 +16,8 @@ public class AutoMissionChooser
         exampleMission,
         TwoNoteMission,
         ScoringThenMovingMission,
-        ScoringMission
+        ScoringMission,
+        NewMission
     }
 
     private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
@@ -38,6 +39,7 @@ public class AutoMissionChooser
         missionChooser.addOption("Scoring 1 note", DesiredMission.ScoringMission);
         missionChooser.addOption("Score and Move After", DesiredMission.ScoringThenMovingMission);
         missionChooser.addOption("Scoring 2 notes", DesiredMission.TwoNoteMission);
+        missionChooser.addOption("New Mission", DesiredMission.NewMission);
         //missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
 
         SmartDashboard.putNumber("Auto Delay (seconds)", 0);
@@ -67,7 +69,12 @@ public class AutoMissionChooser
         catch (Exception e)
         {
             // Handle the exception, for example:
-            System.out.println("Exception occurred: " + e.getMessage());
+            if (alliance == null)
+            {
+                System.out.println("Exception occurred: " + e.getMessage());
+                alliance = "Red"; // Set a default value for alliance
+                System.out.println("Defaulting alliance to Red");
+            }
         }
         delay = SmartDashboard.getNumber("Auto Delay", 0);
         DesiredMission desiredMission = missionChooser.getSelected();
@@ -124,7 +131,8 @@ public class AutoMissionChooser
                 {
                     return Optional.of(new DoNothingMission());
                 }
-
+            case NewMission:
+                return Optional.of(new NewMission());
             default:
                 System.err.println("No valid autonomous mission found for" + mission);
                 return Optional.empty();

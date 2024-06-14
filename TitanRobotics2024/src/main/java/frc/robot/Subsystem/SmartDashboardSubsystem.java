@@ -67,13 +67,13 @@ public class SmartDashboardSubsystem implements Subsystem
         {
             gyro = Gyro.getInstance();
             driveBase = DriveBase.getInstance();
-            intake = Intake.getInstance();
-            intakePivot = IntakePivot.getInstance();
+            //intake = Intake.getInstance();
+            //intakePivot = IntakePivot.getInstance();
             positionEstimation = PositionEstimation.getInstance();
-            targeting = Targeting.getInstance();
-            climberControl = ClimberControl.getInstance();
-            ramp = Ramp.getInstance();
-            intakeControl = IntakeControl.getInstance();
+            //targeting = Targeting.getInstance();
+            //climberControl = ClimberControl.getInstance();
+            //ramp = Ramp.getInstance();
+            //intakeControl = IntakeControl.getInstance();
             control = Control.getInstance();
             initializedComponents = true;
 
@@ -111,12 +111,14 @@ public class SmartDashboardSubsystem implements Subsystem
         else if (logChooser.getSelected() == LogChoice.logOnlyDriverRelevant)
         {
             gyro.logDriverRelevant();
-            climberControl.logDriverRelevant();
-            intakeControl.logDriverRelevant();
+            //climberControl.logDriverRelevant();
+            //intakeControl.logDriverRelevant();
             control.logDriverRelevant();
             SmartDashboard.putNumber("Match Time:", matchTime);
         }
-        else if (logChooser.getSelected() == LogChoice.dontLogAll){}
+        else if (logChooser.getSelected() == LogChoice.dontLogAll)
+        {
+        }
 
     }
 }

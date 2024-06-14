@@ -71,26 +71,27 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.updateMissionCreator();
 
-   try{ CameraServer.startAutomaticCapture();}
-   catch(Exception e){}
+    //try{ CameraServer.startAutomaticCapture();}
+    //catch(Exception e){}
+    //TODO: Soft error
 
     control = Control.getInstance();
-    climberControl = ClimberControl.getInstance();
-    climberLeft = ClimberSubsystem.getLeftInstance();
-    climberRight = ClimberSubsystem.getRightInstance();
+    //climberControl = ClimberControl.getInstance();
+    //climberLeft = ClimberSubsystem.getLeftInstance();
+    //climberRight = ClimberSubsystem.getRightInstance();
     driveBase = DriveBase.getInstance();
     driverController = DriverController.getInstance();
     operatorController = OperatorController.getInstance();
-    targeting = Targeting.getInstance();
+    //targeting = Targeting.getInstance();
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
-    limelightFront = LimelightFront.getInstance();
-    limelightBack = LimelightBack.getInstance();
-    intake = Intake.getInstance();
-    intakePivot = IntakePivot.getInstance();
-    intakeControl = IntakeControl.getInstance();
-    ramp = Ramp.getInstance();
-    ledLightStrip = LEDLightStrip.getInstance();
+    //limelightFront = LimelightFront.getInstance();
+    //limelightBack = LimelightBack.getInstance();
+    //intake = Intake.getInstance();
+    //intakePivot = IntakePivot.getInstance();
+    //intakeControl = IntakeControl.getInstance();
+    //ramp = Ramp.getInstance();
+    //ledLightStrip = LEDLightStrip.getInstance();
 
     smartDashboardSubsystem.update();
   }
@@ -108,20 +109,20 @@ public class Robot extends TimedRobot
 
     driverController.update();
     operatorController.update();
-    targeting.update();
-    climberControl.update();
-    climberLeft.update();
-    climberRight.update();
+    //targeting.update();
+    //climberControl.update();
+    //climberLeft.update();
+    //climberRight.update();
     control.update();
     positionEstimation.update();
     driveBase.update();
-    limelightFront.update();
-    limelightBack.update();
-    intake.update();
-    intakePivot.update();
-    intakeControl.update();
-    ramp.update();
-    ledLightStrip.update();
+    //limelightFront.update();
+    //limelightBack.update();
+    //intake.update();
+    //intakePivot.update();
+    //intakeControl.update();
+    //ramp.update();
+    //ledLightStrip.update();
 
     smartDashboardSubsystem.update();
 
@@ -178,7 +179,7 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.outputToSmartDashboard();
     autoMissionChooser.updateMissionCreator();
-    
+
     Optional<MissionBase> autoMission = autoMissionChooser.getAutoMission();
     if (autoMission.isPresent() && autoMission.get() != autoMissionExecutor.getAutoMission())
     {

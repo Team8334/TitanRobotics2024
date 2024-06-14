@@ -13,7 +13,6 @@ import edu.wpi.first.networktables.PubSub;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.controller.DifferentialDriveFeedforward;
 
-
 public class DriveBase implements Subsystem
 {
 
@@ -72,8 +71,8 @@ public class DriveBase implements Subsystem
   private final SimpleMotorFeedforward rightFeedforwardController = new SimpleMotorFeedforward(0.0, kVLinearRight, kALinearRight);
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
 
-  //private String motorType = "CANVictorSPXDual"; // This is Gyro
-  private String motorType = "CANTalonDual"; //this is Aiode
+  private String motorType = "CANVictorSPXDual"; // This is Gyro
+  //private String motorType = "CANTalonDual"; //this is Aiode
   // TODO: make a better selector for the motor type
 
   private static DriveBase instance = null;

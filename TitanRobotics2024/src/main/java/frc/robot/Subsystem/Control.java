@@ -38,11 +38,11 @@ public class Control implements Subsystem
         driveBase = DriveBase.getInstance();
         driverController = DriverController.getInstance();
         operatorController = OperatorController.getInstance();
-        targeting = Targeting.getInstance();
-        intake = Intake.getInstance();
-        intakeControl = IntakeControl.getInstance();
-        climberControl = ClimberControl.getInstance();
-        ramp = Ramp.getInstance();
+        //targeting = Targeting.getInstance();
+        //intake = Intake.getInstance();
+        //intakeControl = IntakeControl.getInstance();
+        //climberControl = ClimberControl.getInstance();
+        //ramp = Ramp.getInstance();
         inversion = false;
     }
 
@@ -55,7 +55,8 @@ public class Control implements Subsystem
         {
             useSlew = !useSlew;
         }
-        if (useSlew) {
+        if (useSlew)
+        {
             //turn = turnLimiter.calculate(turn);
             forward = forwardLimiter.calculate(forward);
         }
@@ -69,25 +70,25 @@ public class Control implements Subsystem
 
             forward = -forward;
         }
-
+        /*
         if (driverController.getButton(ButtonMap.XboxRIGHTBumper))
         {
             turn += targeting.noteLockOn();
         }
-
+        
         if (driverController.getButton(ButtonMap.XboxLEFTBumper))
         {
             turn += targeting.aprilTagLockOn();
         }
+        */
 
         forward = Math.abs(forward) >= 0.07 ? forward : 0.0;
         turn = Math.abs(turn) >= 0.07 ? turn : 0.0;
         driveBase.drive(forward, turn);
 
-        climberControl();
-        manipulatorControl();
+        //climberControl();
+        //manipulatorControl();
     }
-
 
     private void climberControl()
     {
