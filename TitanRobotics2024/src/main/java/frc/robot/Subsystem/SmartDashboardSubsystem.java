@@ -2,11 +2,23 @@ package frc.robot.Subsystem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class SmartDashboardSubsystem implements Subsystem
 {
     private static SmartDashboardSubsystem instance = null;
+
+    enum LogChoice
+    {
+        dontLogAll,
+        doLogAll,
+        logOnlyDriverRelevant
+    }
+
+    private final SendableChooser<LogChoice> logChooser;
 
     private Gyro gyro;
     private DriveBase driveBase;
@@ -15,9 +27,12 @@ public class SmartDashboardSubsystem implements Subsystem
     private Intake intake;
     private IntakePivot intakePivot;
     private Ramp ramp;
+    private IntakeControl intakeControl;
+    private Control control;
 
     private PositionEstimation positionEstimation;
     private boolean initializedComponents = false;
+    private double matchTime;
 
     List<String> errorLog = new ArrayList<>();
     List<String> statusLog = new ArrayList<>();
@@ -33,7 +48,13 @@ public class SmartDashboardSubsystem implements Subsystem
 
     public SmartDashboardSubsystem()
     {
-        //intentionally left blank- dont worry about it
+        matchTime = DriverStation.getMatchTime();
+
+        logChooser = new SendableChooser<>();
+
+        logChooser.setDefaultOption("Log Only Driver Relevant", LogChoice.logOnlyDriverRelevant);
+        logChooser.addOption("Log Everything", LogChoice.doLogAll);
+        logChooser.addOption("Dont Log Anything", LogChoice.dontLogAll);
     }
 
     private void initializeComponents()
@@ -52,7 +73,10 @@ public class SmartDashboardSubsystem implements Subsystem
             targeting = Targeting.getInstance();
             climberControl = ClimberControl.getInstance();
             ramp = Ramp.getInstance();
+            intakeControl = IntakeControl.getInstance();
+            control = Control.getInstance();
             initializedComponents = true;
+
         }
     }
 
@@ -69,17 +93,30 @@ public class SmartDashboardSubsystem implements Subsystem
     public void update()
     {
         initializeComponents();
-        gyro.log();
-        intake.log();
-        intakePivot.log();
-        driveBase.log();
-        targeting.log();
-        positionEstimation.log();
-        climberControl.log();
-        ramp.log();
+        if (logChooser.getSelected() == LogChoice.doLogAll)
+        {
+            gyro.logAll();
+            intake.log();
+            intakePivot.log();
+            driveBase.log();
+            targeting.log();
+            positionEstimation.log();
+            climberControl.logAll();
+            ramp.log();
+            intakeControl.logAll();
+            control.logAll();
+            SmartDashboard.putNumber("Match Time:", matchTime);
+            SmartDashboard.putString("Errors", errorLog.toString());
+        }
+        else if (logChooser.getSelected() == LogChoice.logOnlyDriverRelevant)
+        {
+            gyro.logDriverRelevant();
+            climberControl.logDriverRelevant();
+            intakeControl.logDriverRelevant();
+            control.logDriverRelevant();
+            SmartDashboard.putNumber("Match Time:", matchTime);
+        }
+        else if (logChooser.getSelected() == LogChoice.dontLogAll){}
 
-        SmartDashboard.putString("Errors", errorLog.toString());
-
-        
     }
 }

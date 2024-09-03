@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.Optional;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.cameraserver.CameraServer;
 
 import frc.robot.Subsystem.SmartDashboardSubsystem;
 import frc.robot.Subsystem.Control;
@@ -15,17 +16,18 @@ import frc.robot.Subsystem.DriveBase;
 import frc.robot.Subsystem.DriverController;
 import frc.robot.Subsystem.OperatorController;
 import frc.robot.Subsystem.Intake;
-import frc.robot.Subsystem.Limelight;
+import frc.robot.Subsystem.IntakeControl;
+import frc.robot.Subsystem.LimelightFront;
+import frc.robot.Subsystem.LimelightBack;
 import frc.robot.Subsystem.Targeting;
 import frc.robot.Subsystem.PositionEstimation;
 import frc.robot.Subsystem.Ramp;
+import frc.robot.Subsystem.LEDLightStrip;
 import frc.robot.Subsystem.IntakePivot;
 
 import frc.robot.Auto.AutoMissionExecutor;
 import frc.robot.Auto.AutoMissionChooser;
 import frc.robot.Auto.Missions.MissionBase;
-
-//import frc.robot.Subsystem.AprilTagTargeting;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -49,12 +51,15 @@ public class Robot extends TimedRobot
   private static ClimberControl climberControl;
   private static ClimberSubsystem climberRight;
   private static ClimberSubsystem climberLeft;
-  private static Limelight limelight;
+  private static LimelightFront limelightFront;
+  private static LimelightBack limelightBack;
   private static PositionEstimation positionEstimation;
   private static SmartDashboardSubsystem smartDashboardSubsystem;
   private static Intake intake;
   private static IntakePivot intakePivot;
+  private static IntakeControl intakeControl;
   private static Ramp ramp;
+  private static LEDLightStrip ledLightStrip;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -66,6 +71,9 @@ public class Robot extends TimedRobot
   {
     autoMissionChooser.updateMissionCreator();
 
+   try{ CameraServer.startAutomaticCapture();}
+   catch(Exception e){}
+
     control = Control.getInstance();
     climberControl = ClimberControl.getInstance();
     climberLeft = ClimberSubsystem.getLeftInstance();
@@ -76,10 +84,13 @@ public class Robot extends TimedRobot
     targeting = Targeting.getInstance();
     positionEstimation = PositionEstimation.getInstance();
     smartDashboardSubsystem = SmartDashboardSubsystem.getInstance();
-    limelight = Limelight.getInstance();
+    limelightFront = LimelightFront.getInstance();
+    limelightBack = LimelightBack.getInstance();
     intake = Intake.getInstance();
     intakePivot = IntakePivot.getInstance();
+    intakeControl = IntakeControl.getInstance();
     ramp = Ramp.getInstance();
+    ledLightStrip = LEDLightStrip.getInstance();
 
     smartDashboardSubsystem.update();
   }
@@ -102,12 +113,15 @@ public class Robot extends TimedRobot
     climberLeft.update();
     climberRight.update();
     control.update();
-    driveBase.update();
     positionEstimation.update();
-    limelight.update();
+    driveBase.update();
+    limelightFront.update();
+    limelightBack.update();
     intake.update();
     intakePivot.update();
+    intakeControl.update();
     ramp.update();
+    ledLightStrip.update();
 
     smartDashboardSubsystem.update();
 
@@ -121,6 +135,8 @@ public class Robot extends TimedRobot
       autoMissionChooser.getAutoMission().get().setStartPose();
     }
     autoMissionExecutor.start();
+    positionEstimation.resetPose();
+    positionEstimation.getInitialPosition();
   }
 
   /** This function is called periodically during autonomous. */

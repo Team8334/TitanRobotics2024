@@ -21,8 +21,8 @@ public class IntakePivot implements Subsystem
     private double kAVolts = 0.0;
     private double currentPosition;
 
-    private double upGoal = 385.0;
-    private double downGoal = 212.0;
+    private double upGoal = 386.0;
+    private double downGoal = 205.0;
 
     private double maxVelocity;
     private double maxAcceleration;
@@ -49,7 +49,10 @@ public class IntakePivot implements Subsystem
     {
         pivotMotor = new ModifiedMotors(PortMap.INTAKEMOTORPIVOT.portNumber, "CANSparkMax");
         pivotEncoder = new ModifiedEncoders(PortMap.INTAKEPIVOTENCODER.portNumber, encoderPositionOffset, "DutyCycleEncoder");
-   
+        if (pivotMotor == null)
+        {
+            System.out.println("Pivot null");
+        }
         pivotProfiledPIDController = new ProfiledPIDController(kP, kI, kD, new TrapezoidProfile.Constraints(maxVelocity, maxAcceleration));
 
         pivotEncoder.setDistancePerRotation(encoderDistancePerRotation);

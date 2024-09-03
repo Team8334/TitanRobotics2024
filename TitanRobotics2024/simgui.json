@@ -59,6 +59,11 @@
         }
       }
     },
+    "PWM Outputs": {
+      "window": {
+        "visible": true
+      }
+    },
     "RoboRIO": {
       "6V Rail": {
         "open": false
@@ -75,12 +80,6 @@
     }
   },
   "NetworkTables": {
-    "Persistent Values": {
-      "open": false
-    },
-    "Retained Values": {
-      "open": false
-    },
     "transitory": {
       "FMSInfo": {
         "open": true
@@ -97,6 +96,21 @@
     }
   },
   "NetworkTables Info": {
+    "Clients": {
+      "open": true
+    },
+    "Server": {
+      "open": true
+    },
+    "shuffleboard@1": {
+      "Publishers": {
+        "open": true
+      },
+      "Subscribers": {
+        "open": true
+      },
+      "open": true
+    },
     "visible": true
   }
 }
