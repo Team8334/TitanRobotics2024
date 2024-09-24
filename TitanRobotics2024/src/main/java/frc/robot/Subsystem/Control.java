@@ -19,6 +19,7 @@ public class Control implements Subsystem
     private Intake intake;
     private Ramp ramp;
     private IntakeControl intakeControl;
+    private Troubleshoot troubleshoot;
 
     private double forward;
     private double turn;
@@ -44,6 +45,7 @@ public class Control implements Subsystem
         climberControl = ClimberControl.getInstance();
         ramp = Ramp.getInstance();
         inversion = false;
+        troubleshoot = Troubleshoot.getInstance();
     }
 
     public void teleopControl()
@@ -78,6 +80,11 @@ public class Control implements Subsystem
         if (driverController.getButton(ButtonMap.XboxLEFTBumper))
         {
             turn += targeting.aprilTagLockOn();
+        }
+
+        if (driverController.getButton(ButtonMap.XboxX))
+        {
+            troubleshoot.motor(null);
         }
 
         forward = Math.abs(forward) >= 0.07 ? forward : 0.0;

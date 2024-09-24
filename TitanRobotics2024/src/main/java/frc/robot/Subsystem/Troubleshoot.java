@@ -31,12 +31,11 @@ public class Troubleshoot implements Subsystem {
 
     }
 
-    private Troubleshoot(ModifiedMotors Tmotor)
+    public void motor(ModifiedMotors Tmotor)
     {
       this.testMotor = Tmotor;
+      Tmotor.set(0.2);
     }
-
-
 
     @Override
     public void update()
