@@ -16,7 +16,12 @@ public class AutoMissionChooser
         exampleMission,
         TwoNoteMission,
         ScoringThenMovingMission,
-        ScoringMission
+        ScoringMission,
+        RedScoringMission,
+        RedScoreMoveOutMission,
+        BlueScoreMoveOutMission,
+        BlueScoringMission
+
     }
 
     private DesiredMission cachedDesiredMission = DesiredMission.doNothing;
@@ -38,6 +43,10 @@ public class AutoMissionChooser
         missionChooser.addOption("Scoring 1 note", DesiredMission.ScoringMission);
         missionChooser.addOption("Score and Move After", DesiredMission.ScoringThenMovingMission);
         missionChooser.addOption("Scoring 2 notes", DesiredMission.TwoNoteMission);
+        missionChooser.addOption("RedScore1", DesiredMission.RedScoringMission);
+        missionChooser.addOption("RedScoreAndMoveOut", DesiredMission.RedScoreMoveOutMission);
+        missionChooser.addOption("BlueScoreAndMoveOut", DesiredMission.BlueScoreMoveOutMission);
+        missionChooser.addOption("BlueScore1", DesiredMission.BlueScoringMission);
         //missionChooser.addOption("Example Mission", DesiredMission.exampleMission);
 
         SmartDashboard.putNumber("Auto Delay (seconds)", 0);
