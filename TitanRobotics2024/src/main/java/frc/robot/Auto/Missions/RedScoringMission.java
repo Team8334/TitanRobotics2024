@@ -24,9 +24,9 @@ public class RedScoringMission extends MissionBase
         runAction(new DriveForDistanceAction(-0.45, 3));  
         runAction(new TurnDegreesAction(-75, 2));
         //runAction(new BackLockOnAction("Amp", true, 2));
-        runAction(new DriveForTimeAction(0.5, -0.5));
-        runAction(new ParallelAction(new DriveForTimeAction(2.5, -0.22), new ScoringSystemStateAction(2.5, "score piece")));
-        runAction(new ParallelAction(new DriveForDistanceAction(0.20, 1.5)  , new ScoringSystemStateAction(1.0, "score piece")));
+        //runAction(new DriveForTimeAction(0.5, -0.5));
+        runAction(new ScoringSystemStateAction(2.5, "score piece"));
+        runAction(new ScoringSystemStateAction(1.0, "score piece"));
         
 
     }
